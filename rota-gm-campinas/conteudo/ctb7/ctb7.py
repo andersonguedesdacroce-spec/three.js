@@ -36,7 +36,7 @@ Estacionar a menos de cinco metros das esquinas é média; afastado do meio-fio 
 
 As placas fora das especificações do Contran são infração média, com retenção do veículo e apreensão das placas. Conduzir veículo com identificação violada ou falsificada, sem placa, com placa ilegível, não registrado e licenciado, com dispositivo antirradar ou transportando passageiros em compartimento de carga é gravíssima, com multa e apreensão do veículo.
 """
-S[5]="""## 5. Na rotina do guarda
+S[5]="""## 6. Na rotina do guarda
 
 - **Sem CNH ou suspensa:** o veículo é retido até aparecer outro condutor habilitado. Se a CNH está suspensa ou cassada, o documento é recolhido.
 - **Embriaguez:** a recusa ao teste tem a mesma penalidade da embriaguez, e o agente deve registrar a recusa e os sinais de embriaguez.
@@ -44,7 +44,7 @@ S[5]="""## 5. Na rotina do guarda
 - **Velocidade:** a natureza depende do percentual acima do limite, não do valor em km/h.
 - **Estacionamento:** a distância do meio-fio e o local mudam a natureza da infração.
 """
-S[6]="""## 6. Onde a Vunesp pega
+S[6]="""## 7. Onde a Vunesp pega
 
 | Armadilha | Como escapar |
 | --- | --- |
@@ -57,7 +57,7 @@ S[6]="""## 6. Onde a Vunesp pega
 | Bloqueio viário | Comum: grave; policial: gravíssima |
 | Cinto | Grave, com retenção do veículo até colocar o cinto |
 """
-S[7]="""## 7. Quadro-resumo
+S[7]="""## 8. Quadro-resumo
 
 | Ponto | O essencial |
 | --- | --- |
@@ -155,7 +155,7 @@ code,svg=mapa("Infrações de trânsito (Cap. XV)",[
  ("cir","Circulação",["contramão","sinal vermelho","calçadas: 3x"],"seção 3"),
  ("vel","Velocidade e estacionamento",["20%: média; 50%: grave","acima: gravíssima","meio-fio: leve ou grave"],"seção 3 e 4")],
  "Na prova: natureza da infração e penalidade; confira a suspensão")
-aula_html=aula(LEAD,S,[1,2,3,4,5,6,7],QR,4,svg,"A primeira linha traz a habilitação e o álcool; as demais, condução, sinistro, circulação, velocidade e estacionamento.","Fontes: Edital 02/2026, Anexo I; Lei 9.503/1997 (Código de Trânsito Brasileiro), arts. 161 a 230 (seleção), texto consolidado da Câmara dos Deputados. Exemplos criados para a aula.")
+aula_html=aula(LEAD,S,[1,2,3,4,'QR',5,6,7],QR,5,svg,"A primeira linha traz a habilitação e o álcool; as demais, condução, sinistro, circulação, velocidade e estacionamento.","Fontes: Edital 02/2026, Anexo I; Lei 9.503/1997 (Código de Trânsito Brasileiro), arts. 161 a 230 (seleção), texto consolidado da Câmara dos Deputados. Exemplos criados para a aula.")
 revisao("ctb-7","Infrações (CTB, Cap. XV)",Q,list(tx),
  cobertura=["Cap. XV tem mais de 90 artigos; foram cobertos os de maior incidência: 161 a 178 (habilitação, álcool, condução, sinistro), 181 a 183 (estacionar e parar), 184 a 196, 203, 208 a 210, 218 a 221 e 230 (I a VI). Não cobertos: arts. 179, 180, 188 a 190, 194, 197 a 202, 204, 205, 207, 211 a 217, 222 a 229 e 231 a 255."],
  pendencias=["Texto-fonte: consolidação da Câmara dos Deputados (Legin), baixada em 14/11/2026; reconferir no Planalto.","O valor das multas e a pontuação estão no ctb-8 (arts. 256 a 279).","Conferir se o edital inclui outras infrações (equipamentos, documentos, transporte de carga e de passageiros).","Trechos de lei copiados de fontes/ctb.txt por programa.","Casos ctb7a, ctb7b e ctb7c fictícios."],

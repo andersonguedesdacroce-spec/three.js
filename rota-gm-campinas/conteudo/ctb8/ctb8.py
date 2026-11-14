@@ -32,7 +32,7 @@ Qualquer concentração de álcool por litro de sangue ou de ar alveolar sujeita
 
 Quem foge à pesagem obrigatória sofre a penalidade do art. 209 e deve retornar ao ponto de evasão; quem foge da ação policial tem o veículo apreendido assim que localizado, com as penalidades do art. 210. O condutor condenado por usar veículo em receptação, descaminho ou contrabando tem a habilitação cassada ou fica proibido de obtê-la por 5 anos. O disco ou a unidade do registrador instantâneo de velocidade e tempo, em sinistro com vítima, só pode ser retirado pelo perito oficial.
 """
-S[5]="""## 5. Na rotina do guarda
+S[5]="""## 6. Na rotina do guarda
 
 - **Documentos:** o guarda recolhe a CNH quando suspensa ou cassada, ou se houver suspeita de adulteração, sempre mediante recibo.
 - **Retenção:** se o problema pode ser resolvido ali, o veículo é liberado; se não, entrega-se a condutor habilitado, recolhendo-se o Licenciamento Anual.
@@ -40,7 +40,7 @@ S[5]="""## 5. Na rotina do guarda
 - **Teste do bafômetro:** a recusa tem a mesma penalidade da embriaguez; sinais de alteração e vídeo também provam a infração.
 - **Pontos:** o agente registra a infração; a suspensão decorre de processo administrativo, não da abordagem.
 """
-S[6]="""## 6. Onde a Vunesp pega
+S[6]="""## 7. Onde a Vunesp pega
 
 | Armadilha | Como escapar |
 | --- | --- |
@@ -54,7 +54,7 @@ S[6]="""## 6. Onde a Vunesp pega
 | Prazo na retenção | Até 30 dias para regularizar, com o Licenciamento recolhido |
 | Penalidade x medida | Medida complementa, não substitui, a penalidade |
 """
-S[7]="""## 7. Quadro-resumo
+S[7]="""## 8. Quadro-resumo
 
 | Ponto | O essencial |
 | --- | --- |
@@ -150,7 +150,7 @@ code,svg=mapa("Penalidades e medidas administrativas",[
  ("ret","Retenção e remoção",["sanar no local","30 dias com CRLV","depósito e pagamento"],"seção 3"),
  ("alc","Álcool",["qualquer concentração","recusa = art. 165-A","sinais e vídeo"],"seção 4")],
  "Na prova: penalidade pune; medida complementa; confira os pontos e os prazos")
-aula_html=aula(LEAD,S,[1,2,3,4,5,6,7],QR,4,svg,"A primeira linha traz as penalidades e os pontos; as demais, suspensão, medidas administrativas e álcool.","Fontes: Edital 02/2026, Anexo I; Lei 9.503/1997 (Código de Trânsito Brasileiro), arts. 256 a 279-A, texto consolidado da Câmara dos Deputados. Exemplos criados para a aula.")
+aula_html=aula(LEAD,S,[1,2,3,4,'QR',5,6,7],QR,5,svg,"A primeira linha traz as penalidades e os pontos; as demais, suspensão, medidas administrativas e álcool.","Fontes: Edital 02/2026, Anexo I; Lei 9.503/1997 (Código de Trânsito Brasileiro), arts. 256 a 279-A, texto consolidado da Câmara dos Deputados. Exemplos criados para a aula.")
 revisao("ctb-8","Penalidades e medidas administrativas (CTB, arts. 256 a 279-A)",Q,list(tx),
  cobertura=["Cobertos: arts. 256 a 263, 265 a 271, 272 a 279. Não detalhados: art. 257, §§ 4º a 6º (embarcador e transportador), art. 260, §§ 1º a 3º, art. 268-A (RNPC), art. 271, §§ 3º a 9º-D."],
  pendencias=["Texto-fonte: consolidação da Câmara dos Deputados (Legin), baixada em 14/11/2026; reconferir no Planalto.","Os valores das multas (art. 258) não são cobrados nas questões; o texto da aula adverte que podem ser atualizados.","Trechos de lei copiados de fontes/ctb.txt por programa.","Casos ctb8a, ctb8b e ctb8c fictícios."],

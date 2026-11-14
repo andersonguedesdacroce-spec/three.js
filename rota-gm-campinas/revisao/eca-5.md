@@ -4,7 +4,7 @@
 
 - Banco: 60 questões (20 fáceis, 20 médias, 20 difíceis); 12 com texto de apoio (eca5a, eca5b, eca5c).
 - Questões resolvidas na aula: 4.
-- Seções: 1, 2, 3, 4, 5, 6, 7 (questões resolvidas na seção 4).
+- Seções: 1, 2, 3, 4, 5, 6, 7 (questões resolvidas na seção 5).
 
 ## Fontes
 
@@ -80,7 +80,57 @@ As entidades que executam internação devem, entre outras obrigações, observa
 
 As entidades são fiscalizadas pelo Judiciário, pelo Ministério Público e pelos Conselhos Tutelares. Os planos de aplicação e as prestações de contas são apresentados ao Estado ou ao Município, conforme a origem das dotações. Para as entidades governamentais, as medidas por descumprimento são advertência, afastamento provisório ou definitivo dos dirigentes e fechamento de unidade ou interdição de programa; para as não governamentais, advertência, suspensão do repasse de verbas públicas, interdição de unidades ou suspensão de programa e cassação do registro.
 
-## 5. Na rotina do guarda
+## 5. Questões resolvidas
+
+### Questão 1
+
+As entidades não governamentais somente poderão funcionar depois de registradas no
+
+- (A) Conselho Municipal dos Direitos da Criança e do Adolescente.
+- (B) Conselho Tutelar.
+- (C) Ministério Público.
+- (D) Juizado de Paz.
+- (E) Cartório de Registro Civil.
+
+**Resposta: A.** Art. 91.
+
+### Questão 2
+
+O registro das entidades não governamentais terá validade máxima de
+
+- (A) um ano.
+- (B) quatro anos.
+- (C) dois anos.
+- (D) seis anos.
+- (E) dez anos.
+
+**Resposta: B.** Art. 91, § 2º.
+
+### Questão 3
+
+As entidades de acolhimento institucional podem acolher crianças sem prévia determinação da autoridade competente, comunicando o fato ao Juiz da Infância e da Juventude em até
+
+- (A) quarenta e oito horas.
+- (B) sete dias.
+- (C) vinte e quatro horas.
+- (D) dez dias.
+- (E) trinta dias.
+
+**Resposta: C.** Art. 93.
+
+### Questão 4
+
+As entidades governamentais e não governamentais serão fiscalizadas pelo Judiciário, pelo Ministério Público e pelos
+
+- (A) prefeitos.
+- (B) vereadores.
+- (C) sindicatos.
+- (D) Conselhos Tutelares.
+- (E) clubes.
+
+**Resposta: D.** Art. 95.
+
+## 6. Na rotina do guarda
 
 - **Fiscalização:** quem fiscaliza as entidades é o Judiciário, o Ministério Público e o Conselho Tutelar; o guarda comunica irregularidades que presencie.
 - **Acolhimento de urgência:** a entidade pode receber a criança sem ordem prévia e comunica o juiz em até 24 horas.
@@ -88,7 +138,7 @@ As entidades são fiscalizadas pelo Judiciário, pelo Ministério Público e pel
 - **Entidade sem registro:** a entidade não governamental só funciona após registro no Conselho Municipal; funcionamento sem registro é irregularidade a ser comunicada.
 - **Adolescente internado:** os direitos não restringidos pela decisão são preservados.
 
-## 6. Onde a Vunesp pega
+## 7. Onde a Vunesp pega
 
 | Armadilha | Como escapar |
 | --- | --- |
@@ -102,7 +152,7 @@ As entidades são fiscalizadas pelo Judiciário, pelo Ministério Público e pel
 | Quem fiscaliza | Judiciário, Ministério Público e Conselhos Tutelares |
 | Medidas | Entidade governamental: afastamento de dirigentes; não governamental: cassação do registro |
 
-## 7. Quadro-resumo
+## 8. Quadro-resumo
 
 | Ponto | O essencial |
 | --- | --- |

@@ -4,7 +4,7 @@
 
 - Banco: 60 questões (20 fáceis, 20 médias, 20 difíceis); 10 com texto de apoio (ctb10a, ctb10b, ctb10c).
 - Questões resolvidas na aula: 4.
-- Seções: 1, 2, 3, 4, 5, 6, 7 (questões resolvidas na seção 4).
+- Seções: 1, 2, 3, 4, 5, 6, 7 (questões resolvidas na seção 5).
 
 ## Fontes
 
@@ -87,7 +87,57 @@ Violar a suspensão ou proibição de obter a habilitação é crime punido com 
 
 Dirigir sem habilitação, ou com direito cassado, gerando perigo de dano, tem detenção de seis meses a um ano, ou multa. A mesma pena vale para entregar a direção a pessoa não habilitada, cassada, suspensa ou sem condições de saúde ou embriagada, para trafegar em velocidade incompatível com a segurança perto de escolas, hospitais e locais de grande concentração de pessoas, gerando perigo de dano, e para inovar artificiosamente o local, a coisa ou a pessoa em sinistro com vítima, para induzir a erro o policial, o perito ou o juiz. A substituição de pena privativa por restritiva de direitos nos crimes dos arts. 302 a 312 deve ser prestação de serviço à comunidade em atividades ligadas a resgate e atendimento de vítimas de trânsito. O art. 312-B veda a substituição por pena restritiva para o homicídio do art. 302, § 3º, e a lesão do art. 303, § 2º.
 
-## 5. Na rotina do guarda
+## 5. Questões resolvidas
+
+### Questão 1
+
+Praticar homicídio culposo na direção de veículo automotor tem como pena detenção de
+
+- (A) dois a quatro anos e suspensão ou proibição de se obter a habilitação.
+- (B) seis meses a um ano.
+- (C) um a três anos.
+- (D) cinco a oito anos.
+- (E) quatro a dez anos.
+
+**Resposta: A.** Art. 302.
+
+### Questão 2
+
+A concentração de álcool que configura o crime do art. 306 é de, no mínimo, seis decigramas por litro de sangue ou
+
+- (A) 0,1 miligrama por litro de ar alveolar.
+- (B) 0,3 miligrama de álcool por litro de ar alveolar.
+- (C) 0,6 miligrama por litro de ar alveolar.
+- (D) 1 miligrama por litro de ar alveolar.
+- (E) qualquer concentração.
+
+**Resposta: B.** Art. 306, § 1º, I.
+
+### Questão 3
+
+Ao condutor de veículo, nos casos de sinistros de trânsito com vítima, não se imporá a prisão em flagrante nem se exigirá fiança se prestar
+
+- (A) o nome.
+- (B) o documento.
+- (C) pronto e integral socorro à vítima.
+- (D) o veículo.
+- (E) a carteira.
+
+**Resposta: C.** Art. 301.
+
+### Questão 4
+
+A penalidade de suspensão ou de proibição de se obter a habilitação tem duração de
+
+- (A) um a dois anos.
+- (B) um mês a um ano.
+- (C) cinco a dez anos.
+- (D) dois meses a cinco anos.
+- (E) seis meses a um ano.
+
+**Resposta: D.** Art. 293.
+
+## 6. Na rotina do guarda
 
 - **Sinistro com vítima:** o guarda preserva o local e chama o socorro; o condutor que presta pronto e integral socorro não é preso em flagrante.
 - **Fuga do local:** o condutor que se afasta para fugir à responsabilidade comete o crime do art. 305.
@@ -95,7 +145,7 @@ Dirigir sem habilitação, ou com direito cassado, gerando perigo de dano, tem d
 - **Racha:** corrida em via pública sem autorização e com risco é crime, com suspensão da habilitação.
 - **Inquérito:** nos casos de álcool, corrida ou velocidade 50 km/h acima, o crime de lesão culposa segue por inquérito policial.
 
-## 6. Onde a Vunesp pega
+## 7. Onde a Vunesp pega
 
 | Armadilha | Como escapar |
 | --- | --- |
@@ -109,7 +159,7 @@ Dirigir sem habilitação, ou com direito cassado, gerando perigo de dano, tem d
 | Entrega do documento | 48 horas após o trânsito em julgado |
 | Prisão em flagrante | Não, se prestar pronto e integral socorro |
 
-## 7. Quadro-resumo
+## 8. Quadro-resumo
 
 | Ponto | O essencial |
 | --- | --- |

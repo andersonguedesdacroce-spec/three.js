@@ -30,7 +30,7 @@ S[4]="## 4. Segunda instância e encerramento\n\n"+L("art. 289, caput e incisos"
 
 O recurso à segunda instância é julgado em 24 meses. Se isso não ocorre, em qualquer das duas instâncias, ocorre a prescrição da pretensão punitiva. Encerram a instância administrativa o julgamento do recurso, a não interposição no prazo legal e o pagamento da multa com reconhecimento da infração e requerimento de encerramento do processo, sem defesa ou recurso. Esgotados os recursos, as penalidades são cadastradas no Renach. Os prazos processuais não se suspendem, salvo força maior comprovada.
 """
-S[5]="""## 5. Na rotina do guarda
+S[5]="""## 6. Na rotina do guarda
 
 - **Preencher o auto:** tipificação, local, data e hora, placa, marca e espécie, identificação do agente, e assinatura do infrator quando possível; sem ela, o auto segue por notificação.
 - **Autuar em flagrante:** quando não for possível, o agente relata o fato no auto e informa os dados do veículo.
@@ -38,7 +38,7 @@ S[5]="""## 5. Na rotina do guarda
 - **Prova:** declaração do agente, aparelho eletrônico, imagem; o auto deve ser consistente para não ser arquivado.
 - **Prazos:** o auto é arquivado se a notificação da autuação não sair em 30 dias.
 """
-S[6]="""## 6. Onde a Vunesp pega
+S[6]="""## 7. Onde a Vunesp pega
 
 | Armadilha | Como escapar |
 | --- | --- |
@@ -53,7 +53,7 @@ S[6]="""## 6. Onde a Vunesp pega
 | Recurso das decisões da JARI | 30 dias, ao Cetran ou Contrandife |
 | Quem lava o auto | Servidor civil (estatutário ou celetista) ou policial militar designado |
 """
-S[7]="""## 7. Quadro-resumo
+S[7]="""## 8. Quadro-resumo
 
 | Ponto | O essencial |
 | --- | --- |
@@ -150,7 +150,7 @@ code,svg=mapa("Processo administrativo de trânsito",[
  ("jar","JARI",["remessa em 10 dias","24 meses","efeito suspensivo"],"seção 3"),
  ("cet","Cetran",["recurso em 30 dias","24 meses","prescrição"],"seção 4")],
  "Na prova: prazo e quem decide; lembre dos 30, 180, 360 e 24")
-aula_html=aula(LEAD,S,[1,2,3,4,5,6,7],QR,4,svg,"A primeira linha traz a autuação e a notificação; as demais, penalidade, pagamento, recursos e encerramento.","Fontes: Edital 02/2026, Anexo I; Lei 9.503/1997 (Código de Trânsito Brasileiro), arts. 280 a 290, texto consolidado da Câmara dos Deputados. Exemplos criados para a aula.")
+aula_html=aula(LEAD,S,[1,2,3,4,'QR',5,6,7],QR,5,svg,"A primeira linha traz a autuação e a notificação; as demais, penalidade, pagamento, recursos e encerramento.","Fontes: Edital 02/2026, Anexo I; Lei 9.503/1997 (Código de Trânsito Brasileiro), arts. 280 a 290, texto consolidado da Câmara dos Deputados. Exemplos criados para a aula.")
 revisao("ctb-9","Processo administrativo (CTB, arts. 280 a 290-A)",Q,list(tx),
  cobertura=["Cobertos: arts. 280 a 290 (com 281-A, 282-A e 289-A). Não detalhados: art. 282, §§ 5º e 6º-A, art. 284, §§ 5º e 6º, art. 289, parágrafo único, art. 290-A."],
  pendencias=["Texto-fonte: consolidação da Câmara dos Deputados (Legin), baixada em 14/11/2026; reconferir no Planalto.","No texto da aula, a explicação do desconto de 60% (art. 284, § 1º) deve ser relida com a redação mais recente da Lei 14.599/2023.","Trechos de lei copiados de fontes/ctb.txt por programa.","Casos ctb9a, ctb9b e ctb9c fictícios."],

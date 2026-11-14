@@ -28,7 +28,7 @@ As entidades que executam internação devem, entre outras obrigações, observa
 
 As entidades são fiscalizadas pelo Judiciário, pelo Ministério Público e pelos Conselhos Tutelares. Os planos de aplicação e as prestações de contas são apresentados ao Estado ou ao Município, conforme a origem das dotações. Para as entidades governamentais, as medidas por descumprimento são advertência, afastamento provisório ou definitivo dos dirigentes e fechamento de unidade ou interdição de programa; para as não governamentais, advertência, suspensão do repasse de verbas públicas, interdição de unidades ou suspensão de programa e cassação do registro.
 """
-S[5]="""## 5. Na rotina do guarda
+S[5]="""## 6. Na rotina do guarda
 
 - **Fiscalização:** quem fiscaliza as entidades é o Judiciário, o Ministério Público e o Conselho Tutelar; o guarda comunica irregularidades que presencie.
 - **Acolhimento de urgência:** a entidade pode receber a criança sem ordem prévia e comunica o juiz em até 24 horas.
@@ -36,7 +36,7 @@ S[5]="""## 5. Na rotina do guarda
 - **Entidade sem registro:** a entidade não governamental só funciona após registro no Conselho Municipal; funcionamento sem registro é irregularidade a ser comunicada.
 - **Adolescente internado:** os direitos não restringidos pela decisão são preservados.
 """
-S[6]="""## 6. Onde a Vunesp pega
+S[6]="""## 7. Onde a Vunesp pega
 
 | Armadilha | Como escapar |
 | --- | --- |
@@ -50,7 +50,7 @@ S[6]="""## 6. Onde a Vunesp pega
 | Quem fiscaliza | Judiciário, Ministério Público e Conselhos Tutelares |
 | Medidas | Entidade governamental: afastamento de dirigentes; não governamental: cassação do registro |
 """
-S[7]="""## 7. Quadro-resumo
+S[7]="""## 8. Quadro-resumo
 
 | Ponto | O essencial |
 | --- | --- |
@@ -146,7 +146,7 @@ code,svg=mapa("ECA: entidades de atendimento (arts. 90 a 97)",[
  ("int","Internação",["obrigações","reavaliação em 6 meses","capacitar para maus-tratos"],"seção 4"),
  ("fis","Fiscalização e medidas",["Judiciário, MP, Conselho Tutelar","governamentais: afastamento","não governamentais: cassação"],"seção 4")],
  "Na prova: prazos (24 horas, 6 meses, 2 e 4 anos) e quem fiscaliza")
-aula_html=aula(LEAD,S,[1,2,3,4,5,6,7],QR,4,svg,"A primeira linha traz os programas e o registro; as demais, o acolhimento, a internação e as medidas.","Fontes: Edital 02/2026, Anexo I; Lei 8.069/1990 (ECA), arts. 90 a 97, texto consolidado da Câmara dos Deputados. Exemplos criados para a aula.")
+aula_html=aula(LEAD,S,[1,2,3,4,'QR',5,6,7],QR,5,svg,"A primeira linha traz os programas e o registro; as demais, o acolhimento, a internação e as medidas.","Fontes: Edital 02/2026, Anexo I; Lei 8.069/1990 (ECA), arts. 90 a 97, texto consolidado da Câmara dos Deputados. Exemplos criados para a aula.")
 revisao("eca-5","ECA: entidades de atendimento (arts. 90 a 97)",Q,list(tx),
  cobertura=["Cobertos os arts. 90 a 97. Do art. 90, § 2º e do art. 94, incisos XIII a XX não foram citados literalmente."],
  pendencias=["Texto-fonte: consolidação da Câmara dos Deputados (Legin), baixada em 14/11/2026; reconferir no Planalto.","Trechos de lei copiados de fontes/eca.txt por programa.","Casos eca5a, eca5b e eca5c fictícios."],

@@ -4,7 +4,7 @@
 
 - Banco: 60 questões (20 fáceis, 20 médias, 20 difíceis); 11 com texto de apoio (ctb9a, ctb9b, ctb9c).
 - Questões resolvidas na aula: 4.
-- Seções: 1, 2, 3, 4, 5, 6, 7 (questões resolvidas na seção 4).
+- Seções: 1, 2, 3, 4, 5, 6, 7 (questões resolvidas na seção 5).
 
 ## Fontes
 
@@ -85,7 +85,57 @@ O recurso contra a penalidade é interposto perante a autoridade que a impôs e 
 
 O recurso à segunda instância é julgado em 24 meses. Se isso não ocorre, em qualquer das duas instâncias, ocorre a prescrição da pretensão punitiva. Encerram a instância administrativa o julgamento do recurso, a não interposição no prazo legal e o pagamento da multa com reconhecimento da infração e requerimento de encerramento do processo, sem defesa ou recurso. Esgotados os recursos, as penalidades são cadastradas no Renach. Os prazos processuais não se suspendem, salvo força maior comprovada.
 
-## 5. Na rotina do guarda
+## 5. Questões resolvidas
+
+### Questão 1
+
+O auto de infração será arquivado, e seu registro julgado insubsistente, se não for expedida a notificação da autuação no prazo máximo de
+
+- (A) trinta dias.
+- (B) dez dias.
+- (C) sessenta dias.
+- (D) noventa dias.
+- (E) cento e oitenta dias.
+
+**Resposta: A.** Art. 281, § 1º, II.
+
+### Questão 2
+
+O prazo para apresentação de defesa prévia, na notificação de autuação, não será inferior a
+
+- (A) cinco dias.
+- (B) trinta dias, contado da data de expedição da notificação.
+- (C) dez dias.
+- (D) quinze dias.
+- (E) sessenta dias.
+
+**Resposta: B.** Art. 281-A.
+
+### Questão 3
+
+O recurso contra a penalidade será interposto perante a autoridade que imputou a penalidade e terá efeito
+
+- (A) devolutivo apenas.
+- (B) nenhum.
+- (C) suspensivo.
+- (D) meramente declaratório.
+- (E) retroativo.
+
+**Resposta: C.** Art. 285.
+
+### Questão 4
+
+O pagamento da multa pode ser efetuado até a data do vencimento expressa na notificação, por
+
+- (A) metade do valor.
+- (B) cem por cento, sem desconto.
+- (C) setenta por cento.
+- (D) oitenta por cento do seu valor.
+- (E) noventa por cento.
+
+**Resposta: D.** Art. 284.
+
+## 6. Na rotina do guarda
 
 - **Preencher o auto:** tipificação, local, data e hora, placa, marca e espécie, identificação do agente, e assinatura do infrator quando possível; sem ela, o auto segue por notificação.
 - **Autuar em flagrante:** quando não for possível, o agente relata o fato no auto e informa os dados do veículo.
@@ -93,7 +143,7 @@ O recurso à segunda instância é julgado em 24 meses. Se isso não ocorre, em 
 - **Prova:** declaração do agente, aparelho eletrônico, imagem; o auto deve ser consistente para não ser arquivado.
 - **Prazos:** o auto é arquivado se a notificação da autuação não sair em 30 dias.
 
-## 6. Onde a Vunesp pega
+## 7. Onde a Vunesp pega
 
 | Armadilha | Como escapar |
 | --- | --- |
@@ -108,7 +158,7 @@ O recurso à segunda instância é julgado em 24 meses. Se isso não ocorre, em 
 | Recurso das decisões da JARI | 30 dias, ao Cetran ou Contrandife |
 | Quem lava o auto | Servidor civil (estatutário ou celetista) ou policial militar designado |
 
-## 7. Quadro-resumo
+## 8. Quadro-resumo
 
 | Ponto | O essencial |
 | --- | --- |

@@ -34,7 +34,7 @@ Violar a suspensão ou proibição de obter a habilitação é crime punido com 
 
 Dirigir sem habilitação, ou com direito cassado, gerando perigo de dano, tem detenção de seis meses a um ano, ou multa. A mesma pena vale para entregar a direção a pessoa não habilitada, cassada, suspensa ou sem condições de saúde ou embriagada, para trafegar em velocidade incompatível com a segurança perto de escolas, hospitais e locais de grande concentração de pessoas, gerando perigo de dano, e para inovar artificiosamente o local, a coisa ou a pessoa em sinistro com vítima, para induzir a erro o policial, o perito ou o juiz. A substituição de pena privativa por restritiva de direitos nos crimes dos arts. 302 a 312 deve ser prestação de serviço à comunidade em atividades ligadas a resgate e atendimento de vítimas de trânsito. O art. 312-B veda a substituição por pena restritiva para o homicídio do art. 302, § 3º, e a lesão do art. 303, § 2º.
 """
-S[5]="""## 5. Na rotina do guarda
+S[5]="""## 6. Na rotina do guarda
 
 - **Sinistro com vítima:** o guarda preserva o local e chama o socorro; o condutor que presta pronto e integral socorro não é preso em flagrante.
 - **Fuga do local:** o condutor que se afasta para fugir à responsabilidade comete o crime do art. 305.
@@ -42,7 +42,7 @@ S[5]="""## 5. Na rotina do guarda
 - **Racha:** corrida em via pública sem autorização e com risco é crime, com suspensão da habilitação.
 - **Inquérito:** nos casos de álcool, corrida ou velocidade 50 km/h acima, o crime de lesão culposa segue por inquérito policial.
 """
-S[6]="""## 6. Onde a Vunesp pega
+S[6]="""## 7. Onde a Vunesp pega
 
 | Armadilha | Como escapar |
 | --- | --- |
@@ -56,7 +56,7 @@ S[6]="""## 6. Onde a Vunesp pega
 | Entrega do documento | 48 horas após o trânsito em julgado |
 | Prisão em flagrante | Não, se prestar pronto e integral socorro |
 """
-S[7]="""## 7. Quadro-resumo
+S[7]="""## 8. Quadro-resumo
 
 | Ponto | O essencial |
 | --- | --- |
@@ -153,7 +153,7 @@ code,svg=mapa("Crimes de trânsito",[
  ("rac","Racha",["detenção, 6 meses a 3 anos","lesão grave: 3 a 6","morte: 5 a 10"],"seção 4"),
  ("hab","Habilitação e outros",["art. 307, 309, 310","velocidade perto de escolas","inovação artificiosa"],"seção 4")],
  "Na prova: pena de cada artigo; limites de álcool; quem socorre não é preso")
-aula_html=aula(LEAD,S,[1,2,3,4,5,6,7],QR,4,svg,"A primeira linha traz as disposições gerais e os crimes contra a vida e a integridade; as demais, socorro, embriaguez, racha e habilitação.","Fontes: Edital 02/2026, Anexo I; Lei 9.503/1997 (Código de Trânsito Brasileiro), arts. 291 a 312-B, texto consolidado da Câmara dos Deputados. Exemplos criados para a aula.")
+aula_html=aula(LEAD,S,[1,2,3,4,'QR',5,6,7],QR,5,svg,"A primeira linha traz as disposições gerais e os crimes contra a vida e a integridade; as demais, socorro, embriaguez, racha e habilitação.","Fontes: Edital 02/2026, Anexo I; Lei 9.503/1997 (Código de Trânsito Brasileiro), arts. 291 a 312-B, texto consolidado da Câmara dos Deputados. Exemplos criados para a aula.")
 revisao("ctb-10","Crimes de trânsito (CTB, arts. 291 a 312-B)",Q,list(tx),
  cobertura=["Cobertos: arts. 291 a 298, 301 a 312-B. Não detalhados: arts. 299 e 300 (vetados), art. 297, §§ 2º e 3º (parcialmente)."],
  pendencias=["Texto-fonte: consolidação da Câmara dos Deputados (Legin), baixada em 14/11/2026; reconferir no Planalto, pois há projetos de aumento de penas dos arts. 302 e 303.","No texto ctb10a, a vítima 'socorrida por terceiros' deve ser relida: a omissão ainda incide (art. 304, parágrafo único).","Trechos de lei copiados de fontes/ctb.txt por programa.","Casos ctb10a, ctb10b e ctb10c fictícios."],

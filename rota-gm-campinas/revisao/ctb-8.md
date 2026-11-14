@@ -4,7 +4,7 @@
 
 - Banco: 60 questões (20 fáceis, 20 médias, 20 difíceis); 10 com texto de apoio (ctb8a, ctb8b, ctb8c).
 - Questões resolvidas na aula: 4.
-- Seções: 1, 2, 3, 4, 5, 6, 7 (questões resolvidas na seção 4).
+- Seções: 1, 2, 3, 4, 5, 6, 7 (questões resolvidas na seção 5).
 
 ## Fontes
 
@@ -87,7 +87,57 @@ Qualquer concentração de álcool por litro de sangue ou de ar alveolar sujeita
 
 Quem foge à pesagem obrigatória sofre a penalidade do art. 209 e deve retornar ao ponto de evasão; quem foge da ação policial tem o veículo apreendido assim que localizado, com as penalidades do art. 210. O condutor condenado por usar veículo em receptação, descaminho ou contrabando tem a habilitação cassada ou fica proibido de obtê-la por 5 anos. O disco ou a unidade do registrador instantâneo de velocidade e tempo, em sinistro com vítima, só pode ser retirado pelo perito oficial.
 
-## 5. Na rotina do guarda
+## 5. Questões resolvidas
+
+### Questão 1
+
+De acordo com o Código, a cada infração gravíssima são computados
+
+- (A) sete pontos.
+- (B) três pontos.
+- (C) quatro pontos.
+- (D) cinco pontos.
+- (E) dez pontos.
+
+**Resposta: A.** Art. 259, I.
+
+### Questão 2
+
+A penalidade de suspensão do direito de dirigir é imposta, por pontuação, em 12 meses, quando o infrator atingir 20 pontos, caso constem
+
+- (A) nenhuma infração gravíssima.
+- (B) duas ou mais infrações gravíssimas.
+- (C) uma infração gravíssima.
+- (D) apenas infrações leves.
+- (E) apenas infrações médias.
+
+**Resposta: B.** Art. 261, I, a.
+
+### Questão 3
+
+A cassação do documento de habilitação ocorre, entre outros casos, quando o infrator, suspenso o direito de dirigir,
+
+- (A) pagar a multa.
+- (B) fizer o curso.
+- (C) conduzir qualquer veículo.
+- (D) vender o veículo.
+- (E) mudar de endereço.
+
+**Resposta: C.** Art. 263, I.
+
+### Questão 4
+
+A medida administrativa de retenção do veículo, quando não for possível sanar a irregularidade no local, permite a liberação a condutor habilitado mediante recolhimento do
+
+- (A) Certificado de Registro.
+- (B) CNH do proprietário.
+- (C) título de eleitor.
+- (D) Certificado de Licenciamento Anual, com prazo de até 30 dias para regularizar.
+- (E) recibo do IPVA.
+
+**Resposta: D.** Art. 270, § 2º.
+
+## 6. Na rotina do guarda
 
 - **Documentos:** o guarda recolhe a CNH quando suspensa ou cassada, ou se houver suspeita de adulteração, sempre mediante recibo.
 - **Retenção:** se o problema pode ser resolvido ali, o veículo é liberado; se não, entrega-se a condutor habilitado, recolhendo-se o Licenciamento Anual.
@@ -95,7 +145,7 @@ Quem foge à pesagem obrigatória sofre a penalidade do art. 209 e deve retornar
 - **Teste do bafômetro:** a recusa tem a mesma penalidade da embriaguez; sinais de alteração e vídeo também provam a infração.
 - **Pontos:** o agente registra a infração; a suspensão decorre de processo administrativo, não da abordagem.
 
-## 6. Onde a Vunesp pega
+## 7. Onde a Vunesp pega
 
 | Armadilha | Como escapar |
 | --- | --- |
@@ -109,7 +159,7 @@ Quem foge à pesagem obrigatória sofre a penalidade do art. 209 e deve retornar
 | Prazo na retenção | Até 30 dias para regularizar, com o Licenciamento recolhido |
 | Penalidade x medida | Medida complementa, não substitui, a penalidade |
 
-## 7. Quadro-resumo
+## 8. Quadro-resumo
 
 | Ponto | O essencial |
 | --- | --- |

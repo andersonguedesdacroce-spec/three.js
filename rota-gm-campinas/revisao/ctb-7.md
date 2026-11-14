@@ -4,7 +4,7 @@
 
 - Banco: 60 questões (20 fáceis, 20 médias, 20 difíceis); 9 com texto de apoio (ctb7a, ctb7b, ctb7c).
 - Questões resolvidas na aula: 4.
-- Seções: 1, 2, 3, 4, 5, 6, 7 (questões resolvidas na seção 4).
+- Seções: 1, 2, 3, 4, 5, 6, 7 (questões resolvidas na seção 5).
 
 ## Fontes
 
@@ -90,7 +90,57 @@ Estacionar a menos de cinco metros das esquinas é média; afastado do meio-fio 
 
 As placas fora das especificações do Contran são infração média, com retenção do veículo e apreensão das placas. Conduzir veículo com identificação violada ou falsificada, sem placa, com placa ilegível, não registrado e licenciado, com dispositivo antirradar ou transportando passageiros em compartimento de carga é gravíssima, com multa e apreensão do veículo.
 
-## 5. Na rotina do guarda
+## 5. Questões resolvidas
+
+### Questão 1
+
+Dirigir veículo sem possuir Carteira Nacional de Habilitação é infração
+
+- (A) gravíssima, com multa e retenção do veículo até a apresentação de condutor habilitado.
+- (B) leve, com advertência.
+- (C) média, com multa.
+- (D) grave, sem medida administrativa.
+- (E) gravíssima, sem multa.
+
+**Resposta: A.** Art. 162, I.
+
+### Questão 2
+
+Dirigir sob a influência de álcool tem como penalidade multa de dez vezes e suspensão do direito de dirigir por
+
+- (A) 3 meses.
+- (B) 12 meses.
+- (C) 6 meses.
+- (D) 24 meses.
+- (E) 36 meses.
+
+**Resposta: B.** Art. 165.
+
+### Questão 3
+
+Transitar em velocidade superior à máxima permitida em mais de 20% e até 50% é infração
+
+- (A) leve.
+- (B) média.
+- (C) grave.
+- (D) gravíssima.
+- (E) sem natureza definida.
+
+**Resposta: C.** Art. 218, II.
+
+### Questão 4
+
+Deixar o condutor ou passageiro de usar o cinto de segurança é infração
+
+- (A) gravíssima.
+- (B) leve.
+- (C) média.
+- (D) grave, com retenção do veículo até a colocação do cinto.
+- (E) sem penalidade.
+
+**Resposta: D.** Art. 167.
+
+## 6. Na rotina do guarda
 
 - **Sem CNH ou suspensa:** o veículo é retido até aparecer outro condutor habilitado. Se a CNH está suspensa ou cassada, o documento é recolhido.
 - **Embriaguez:** a recusa ao teste tem a mesma penalidade da embriaguez, e o agente deve registrar a recusa e os sinais de embriaguez.
@@ -98,7 +148,7 @@ As placas fora das especificações do Contran são infração média, com reten
 - **Velocidade:** a natureza depende do percentual acima do limite, não do valor em km/h.
 - **Estacionamento:** a distância do meio-fio e o local mudam a natureza da infração.
 
-## 6. Onde a Vunesp pega
+## 7. Onde a Vunesp pega
 
 | Armadilha | Como escapar |
 | --- | --- |
@@ -111,7 +161,7 @@ As placas fora das especificações do Contran são infração média, com reten
 | Bloqueio viário | Comum: grave; policial: gravíssima |
 | Cinto | Grave, com retenção do veículo até colocar o cinto |
 
-## 7. Quadro-resumo
+## 8. Quadro-resumo
 
 | Ponto | O essencial |
 | --- | --- |
