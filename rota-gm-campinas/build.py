@@ -50,7 +50,19 @@ if '--sem-validar' not in sys.argv:
     if e: print('\n'.join(e)); sys.exit(1)
 
 partes = [ler('src/base.html'), edital.rstrip('\n') + '\n\n/* ---------- Conteúdo pronto ---------- */\nconst AULAS = {\n']
-partes.append(',\n'.join(f'"{p}": `\n' + ler(f'aulas/{p}.html') + '`' for p in aulas) + '\n};\n\n')
+DESTAQUES = json.load(open(os.path.join(AQUI, 'destaques', 'destaques.json'), encoding='utf-8')) if os.path.exists(os.path.join(AQUI, 'destaques', 'destaques.json')) else {}
+def com_destaques(pid, h):
+    """Insere as caixas Cai muito / Cuidado / Macete no fim da seção indicada (antes do próximo <h3>)."""
+    for sec, tipo, txt in DESTAQUES.get(pid, []):
+        m = re.search(r'<h3>' + str(sec) + r'\. ', h)
+        assert m, f'{pid}: seção {sec} não encontrada para destaque'
+        prox = h.find('<h3>', m.end())
+        assert prox > 0, f'{pid}: seção {sec} sem seção seguinte'
+        corpo = re.sub(r'\*\*(.+?)\*\*', r'<strong>\1</strong>', txt)
+        bloco = f'<blockquote class="dq"><p><strong>{tipo}</strong> {corpo}</p></blockquote>\n\n'
+        h = h[:prox] + bloco + h[prox:]
+    return h
+partes.append(',\n'.join(f'"{p}": `\n' + com_destaques(p, ler(f'aulas/{p}.html')) + '`' for p in aulas) + '\n};\n\n')
 partes.append('const BANCO = {};\n\n')
 for p in bancos: partes.append(ler(f'bancos/{p}.js').rstrip('\n') + '\n\n')
 partes.append('/* ---------- Textos de apoio das questões ---------- */\nconst TEXTOS = {\n' + ',\n'.join(f'{k}: {json.dumps(v, ensure_ascii=False)}' for k, v in textos.items()) + '\n};\n\n')
