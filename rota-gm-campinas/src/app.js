@@ -17,7 +17,7 @@ const KEY = "rota-gm-campinas-v2";
 function novoEstado(){ return {acesso:false, aprovados:{}, tentativas:{}, vistas:{}, erros:{}, marcadas:{}, revisoes:{}, correcoes:[], ultimo:null, atualizado:0}; }
 function completar(e){ const n = novoEstado(); Object.keys(n).forEach(k=>{ if(!(k in e)) e[k] = n[k]; }); return e; }
 let S = (()=>{ try{ return completar(JSON.parse(localStorage.getItem(KEY)) || novoEstado()); }catch(e){ return novoEstado(); } })();
-let docRef = null;
+let docRef = null, DB = null, UID = null;
 let IS_OWNER = false;
 async function salvar(){
   S.atualizado = Date.now();
@@ -31,6 +31,7 @@ async function salvar(){
     if(user){ try{ IS_OWNER = !!(await user.isOwner()); if(IS_OWNER && V.tela==="posto") render(); }catch(e){} }
     if(!db || !user) return;
     const uid = await user.id(); if(!uid) return;
+    DB = db; UID = uid;
     docRef = db.doc("data/users/" + uid + "/progresso");
     const snap = await docRef.get();
     if(snap.exists){
@@ -585,7 +586,9 @@ function caixaReportar(pid){
     d.querySelector("#enviar-corr").onclick = async ()=>{
       const txt = d.querySelector("textarea").value.trim();
       if(txt.length < 5){ d.querySelector("textarea").focus(); return; }
-      S.correcoes.push({pid, texto: txt.slice(0,2000), data: Date.now()}); await salvar();
+      const item = {pid, texto: txt.slice(0,2000), data: Date.now()};
+      S.correcoes.push(item); await salvar();
+      if(DB && UID){ try{ await DB.doc("correcoes/" + UID + "/itens/" + item.data).set(item); }catch(e){} }
       d.innerHTML = `<p><strong>Recebido.</strong> O aviso foi registrado e será conferido na fonte oficial antes da próxima atualização do material.</p>`;
     };
   };
