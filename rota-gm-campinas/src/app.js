@@ -16,7 +16,7 @@ const BLOCOS = [
 const KEY_BASE = "rota-gm-campinas-v2";
 let KEY = KEY_BASE;
 function novoEstado(){ return {acesso:false, aprovados:{}, tentativas:{}, vistas:{}, erros:{}, marcadas:{}, revisoes:{}, correcoes:[], ultimo:null,
-  certas:{}, corrigidas:{}, dias:{}, semana:{id:"", xp:0}, total:0, apelido:"", noRanking:false, atualizado:0}; }
+  certas:{}, corrigidas:{}, dias:{}, simulados:[], stat:{}, statOk:false, pref:{modo:"final", meta:20}, semana:{id:"", xp:0}, total:0, apelido:"", noRanking:false, atualizado:0}; }
 function completar(e){ const n = novoEstado(); Object.keys(n).forEach(k=>{ if(!(k in e)) e[k] = n[k]; }); return e; }
 function lerLocal(){ try{ return completar(JSON.parse(localStorage.getItem(KEY)) || novoEstado()); }catch(e){ return novoEstado(); } }
 let S = lerLocal();
@@ -101,16 +101,20 @@ function sequencia(e){
   while(e.dias[hojeStr(d)]){ n++; d.setDate(d.getDate()-1); }
   return n;
 }
-function registrarPontos(){
+function registrarPontos(n=1){
   const novo = calcPontos(S), sem = semanaId();
   if(S.semana.id !== sem) S.semana = {id:sem, xp:0};
   const delta = novo - (S.total||0);
   if(delta > 0) S.semana.xp += delta;
-  S.total = novo; S.dias[hojeStr()] = 1;
+  S.total = novo; S.dias[hojeStr()] = (S.dias[hojeStr()]||0) + n;
   const ds = Object.keys(S.dias).sort(); if(ds.length > 400) ds.slice(0, ds.length-400).forEach(k=>delete S.dias[k]);
   return delta;
 }
-function migrar(){ if(!S.semana.id){ S.total = calcPontos(S); S.semana = {id:semanaId(), xp:0}; } }
+function migrar(){
+  if(!S.semana.id){ S.total = calcPontos(S); S.semana = {id:semanaId(), xp:0}; }
+  if(!S.statOk){ Object.entries(S.tentativas).forEach(([pid,ts])=>{ if(!POSTO[pid]) return; const tid = POSTO[pid].tr.id, e = S.stat[tid] = S.stat[tid] || {r:0,c:0}; ts.forEach(t=>{ e.r += (t.ids||[]).length; e.c += t.nota; }); }); S.statOk = true; }
+  if(!S.pref || typeof S.pref!=="object") S.pref = {modo:"final", meta:20};
+}
 let timerRanking = null;
 function agendarRanking(){ clearTimeout(timerRanking); timerRanking = setTimeout(publicarRanking, 1500); }
 async function publicarRanking(){
@@ -141,7 +145,8 @@ function revisoesHoje(){ const agora = Date.now(); return Object.entries(S.revis
 function proximaRevisao(){ const fut = Object.entries(S.revisoes).filter(([pid,r])=>POSTO[pid] && r.etapa < INTERVALOS.length && r.prox > Date.now()).sort((a,b)=>a[1].prox-b[1].prox); return fut.length ? fut[0] : null; }
 function nErros(){ return Object.keys(S.erros).filter(k=>QIDX[k]).length; }
 function nMarcadas(){ return Object.keys(S.marcadas).filter(k=>QIDX[k]).length; }
-function respondidas(){ let r=0, c=0; Object.values(S.tentativas).forEach(ts=>ts.forEach(t=>{ r += (t.ids||[]).length; c += t.nota; })); return {r, c}; }
+function respondidas(){ let r=0, c=0; Object.values(S.stat).forEach(e=>{ r += e.r; c += e.c; }); return {r, c}; }
+const acertou = it => it.escolha!==null && it.ordem[it.escolha].certa;
 function sugestao(){
   if(S.ultimo && POSTO[S.ultimo] && !S.aprovados[S.ultimo]) return POSTO[S.ultimo];
   // alterna as matérias: escolhe a trilha com menor proporção concluída
@@ -179,11 +184,60 @@ function aplicarTema(t){
 /* ---------- Navegação ---------- */
 let V = {tela:"home"};
 let Q = null;
-function ir(v){ if(v.posto && !("modo" in v)) v = Object.assign({modo:undefined}, v); V = Object.assign({}, V, v); render(); window.scrollTo(0,0); }
-const LARGAS = new Set(["home","painel"]);
+const TELAS_HASH = new Set(["painel","edital","simulado","desempenho","erros","ranking","taf"]);
+function hashDe(v){
+  if(v.tela==="home") return "";
+  if(v.tela==="posto") return "posto-" + v.posto + (v.aba && v.aba!=="aula" ? "-" + v.aba : "");
+  if(v.tela==="trilha") return "materia-" + v.trilha;
+  return TELAS_HASH.has(v.tela) ? v.tela : null;
+}
+function deHash(h){
+  h = (h||"").replace(/^#/,""); let m;
+  if((m = h.match(/^posto-([a-z]+-\d+)(?:-(video|resumo|questoes))?$/)) && POSTO[m[1]]) return {tela:"posto", posto:m[1], aba:m[2]||"aula"};
+  if((m = h.match(/^materia-([a-z]+)$/)) && TRILHA[m[1]]) return {tela:"trilha", trilha:m[1]};
+  return TELAS_HASH.has(h) ? {tela:h} : null;
+}
+let hashProprio = null;
+function ir(v){
+  pararRelogio();
+  V = Object.assign({}, V, v);
+  const h = hashDe(V);
+  if(h!==null && h!==location.hash.replace(/^#/,"")){ hashProprio = h; try{ location.hash = h; }catch(e){ hashProprio = null; } }
+  render(); window.scrollTo(0,0);
+}
+window.addEventListener("hashchange", ()=>{
+  const h = location.hash.replace(/^#/,"");
+  if(hashProprio===h){ hashProprio = null; return; }
+  hashProprio = null; pararRelogio();
+  const v = deHash(h);
+  if(v) V = Object.assign({}, V, v); else if(!h) V = Object.assign({}, V, {tela: (logado() && S.acesso) ? "painel" : "home"}); else return;
+  Q = null; render(); window.scrollTo(0,0);
+});
+(()=>{ const v0 = deHash(location.hash); if(v0) V = Object.assign(V, v0); })();
+const $nav = document.getElementById("nav");
+const NAV = [
+  ["painel","Painel",'<path d="M3 11l9-8 9 8v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/>'],
+  ["edital","Edital",'<path d="M6 3h9l4 4v14H6z"/><path d="M9 11h7M9 15h7M9 7h4"/>'],
+  ["simulado","Simulado",'<circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 2M9 2h6"/>'],
+  ["desempenho","Desempenho",'<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>'],
+  ["erros","Erros",'<path d="M5 3h12a2 2 0 0 1 2 2v16l-7-4-7 4V5a2 2 0 0 1 2-2z"/>'],
+  ["ranking","Ranking",'<path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0zM7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4"/>']
+];
+function atualizarNav(){
+  const mostra = logado() && S.acesso && (BK.modo!=="firebase" || BK.pronto) && !["home","checkout","entrar","criar","recuperar","prova"].includes(V.tela);
+  $nav.hidden = !mostra; document.body.classList.toggle("com-nav", mostra);
+  if(!mostra) return;
+  const ativo = ["trilha","posto","banco","taf"].includes(V.tela) ? "painel" : (V.tela==="resultado" ? (Q && Q.modo==="simulado" ? "simulado" : Q && Q.modo==="erros" ? "erros" : "painel") : V.tela);
+  const ne = nErros() + revisoesHoje().length;
+  $nav.innerHTML = NAV.map(([id,nome,ic])=>`<button data-nav="${id}" aria-current="${ativo===id ? "page" : "false"}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ic}</svg><span>${nome}</span>${id==="erros" && nErros() ? `<i class="bdg">${nErros()>99?"99+":nErros()}</i>` : ""}</button>`).join("");
+  $nav.querySelectorAll("button").forEach(b=>b.onclick=()=>ir({tela:b.dataset.nav}));
+}
+const LARGAS = new Set(["home","painel","desempenho"]);
 function render(){
-  const t = V.tela;
+  let t = V.tela;
+  if((t==="prova" || t==="resultado") && !Q){ V.tela = "painel"; return render(); }
   $app.classList.toggle("largo", LARGAS.has(t));
+  atualizarNav();
   if(BK.modo==="firebase" && !BK.pronto) return telaCarregando();
   if(t==="home") return telaHome();
   if(["entrar","criar","recuperar"].includes(t)){ if(!logado()) return telaConta(t); V.tela = S.acesso ? "painel" : "checkout"; return render(); }
@@ -201,6 +255,8 @@ function render(){
   if(t==="erros") return telaErros();
   if(t==="edital") return telaEdital();
   if(t==="ranking") return telaRanking();
+  if(t==="simulado") return telaSimulado();
+  if(t==="desempenho") return telaDesempenho();
 }
 function bindGo(){ $app.querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>ir({tela:b.dataset.go})); }
 function bindPostos(){ $app.querySelectorAll("[data-abrir]").forEach(b=>b.onclick=()=>ir({tela:"posto", posto:b.dataset.abrir, aba:b.dataset.aba||"aula"})); }
@@ -275,6 +331,15 @@ function telaHome(){
     </article></div>
   </section>
 
+  <section class="lp-sec duas">
+    <div>
+      <h2>Aulas em vídeo curtas, direto na pegadinha</h2>
+      <p style="color:var(--muted)">Cada vídeo resolve em cerca de um minuto e meio uma dúvida que a banca explora, com narração, legendas e os artigos na tela. Assista a uma aula completa.</p>
+      <p class="demo">Os vídeos estão sendo publicados posto a posto; todos os postos já têm aula escrita, resumo e questões.</p>
+    </div>
+    <div class="video-box"><video controls playsinline preload="metadata" poster="videos/${VIDEOS["cp-14"].capa}" src="videos/${VIDEOS["cp-14"].arquivo}"></video></div>
+  </section>
+
   <section class="lp-sec">
     <h2>Como o estudo funciona</h2>
     <ol class="passos">
@@ -292,6 +357,8 @@ function telaHome(){
       <div class="recurso"><h3>Caderno de erros</h3><p>As questões que você errou e as que marcou ficam guardadas para treinar de novo até acertar.</p></div>
       <div class="recurso"><h3>Revisão espaçada</h3><p>O painel avisa quais postos revisar hoje, para o conteúdo não se perder até março.</p></div>
       <div class="recurso"><h3>Resumo de uma página</h3><p>Mapa, armadilhas da banca e quadro-resumo de cada posto, para a revisão da véspera.</p></div>
+      <div class="recurso"><h3>Simulado de 50 questões</h3><p>No formato da prova: 12 de Português, 6 de Matemática, 2 de Legislação Municipal e 30 específicas, em 3 horas.</p></div>
+      <div class="recurso"><h3>Desempenho por matéria</h3><p>Percentual de acerto em cada matéria e a indicação de onde focar primeiro.</p></div>
       <div class="recurso"><h3>Guia do TAF</h3><p>As cinco provas físicas, os índices mínimo e máximo e o cálculo da nota, conforme o Anexo II.</p></div>
       <div class="recurso"><h3>Ranking entre alunos</h3><p>Pontos por questão nova acertada, posto concluído e revisão feita. Ranking da semana, geral e de dias seguidos, só por apelido.</p></div>
       <div class="recurso"><h3>Fontes à vista</h3><p>Cada aula cita a lei e o artigo usados. Achou um erro? Há um botão para avisar em todas as aulas.</p></div>
@@ -393,6 +460,7 @@ function telaPainel(){
   const {r, c} = respondidas();
   const rev = revisoesHoje(), prox = proximaRevisao(), sug = sugestao();
   const ne = nErros(), nm = nMarcadas();
+  const seq = sequencia(S), hoje = +S.dias[hojeStr()] || 0, meta2 = S.pref.meta || 20;
   const card = tr => {
     const f = feitos(tr.id), n = tr.postos.length, px = proximo(tr.id);
     return `<button class="tcard ${f===n?"feita":""}" data-tr="${tr.id}">
@@ -412,16 +480,19 @@ function telaPainel(){
   </section>
   <div class="kpis">
     <div class="kpi"><b>${ok}<small style="font-size:18px;color:var(--muted)">/${total}</small></b><span>postos concluídos</span></div>
-    <div class="kpi"><b>${fmt(r)}</b><span>questões respondidas</span></div>
-    <div class="kpi"><b>${r ? Math.round(c/r*100)+"%" : "—"}</b><span>de acerto geral</span></div>
-    <div class="kpi"><b>${diasAte(PROVA)}</b><span>dias até a prova</span></div>
+    <div class="kpi"><b>${r ? Math.round(c/r*100)+"%" : "—"}</b><span>de acerto em ${fmt(r)} questões</span></div>
+    <div class="kpi"><b>${seq}</b><span>${seq===1?"dia seguido":"dias seguidos"} de estudo</span></div>
+    <div class="kpi ${hoje>=meta2?"feita":""}"><b>${hoje}<small style="font-size:18px;color:var(--muted)">/${meta2}</small></b><span>questões hoje</span><span class="bar fina" aria-hidden="true"><i style="width:${Math.min(100,hoje/meta2*100)}%"></i></span></div>
   </div>
   <div class="bar" role="progressbar" aria-label="Progresso no edital" aria-valuemin="0" aria-valuemax="${total}" aria-valuenow="${ok}"><i style="width:${(ok/total*100).toFixed(1)}%"></i></div>
 
-  ${sug ? `<div class="continuar">
+  ${rev.length ? `<div class="continuar">
+        <div><p class="eyebrow">Revisão de hoje · ${rev.length} ${rev.length===1?"posto":"postos"}</p><h2>${rev[0].t}</h2><p>${rev[0].tr.nome} · revisão ${S.revisoes[rev[0].id].etapa+1} de ${INTERVALOS.length}</p></div>
+        <button class="btn" data-abrir="${rev[0].id}" data-aba="questoes">Revisar</button>
+      </div>` : (sug ? `<div class="continuar">
         <div><p class="eyebrow">${S.ultimo===sug.id ? "Continue de onde parou" : "Sugestão para agora"}</p><h2>${sug.t}</h2><p>${sug.tr.nome} · posto ${sug.n+1} de ${sug.tr.postos.length}</p></div>
         <button class="btn" data-abrir="${sug.id}">Estudar</button>
-      </div>` : ""}
+      </div>` : "")}
   <div class="grade">
     <div>
 
@@ -430,7 +501,7 @@ function telaPainel(){
       <div class="bloco-cab"><h2>Teste físico e reta final</h2></div>
       <div class="trilhas">
         <button class="tcard taf" data-go="taf"><span class="nome">Guia do Teste de Aptidão Física</span><span class="info">Vale até 100 pontos na classificação final</span></button>
-        <button class="tcard ${tudo?"":"trava"}" ${tudo?"":'aria-disabled="true"'}><span class="nome">Simulado final no formato Vunesp</span><span class="info">${tudo ? "50 questões em 3 horas · em produção" : "Libera ao concluir todos os postos"}</span></button>
+        <button class="tcard" data-go="simulado"><span class="nome">Simulado no formato Vunesp</span><span class="info">50 questões em 3 horas${S.simulados.length ? ` · último: ${S.simulados[S.simulados.length-1].nota}/50` : ""}</span></button>
       </div>
     </div>
     <aside class="lado" aria-label="Revisão e ferramentas">
@@ -455,9 +526,9 @@ function telaPainel(){
         <button class="btn peq ${ne||nm?"":"sec"}" data-go="erros">${ne||nm ? "Abrir o caderno" : "Ver como funciona"}</button>
       </div>
       <div class="caixa">
-        <h3>Mapa do edital</h3>
-        <p>Cada item do Anexo I e o posto que o cobre, com o seu progresso.</p>
-        <button class="btn sec peq" data-go="edital">Abrir o mapa</button>
+        <h3>Meta diária</h3>
+        <p>${hoje>=meta2 ? "Meta de hoje cumprida." : `Faltam ${meta2-hoje} questões para a meta de hoje.`}</p>
+        <div class="seg" role="radiogroup" aria-label="Questões por dia">${[10,20,30,50].map(n=>`<button role="radio" aria-checked="${meta2===n}" data-meta="${n}">${n}</button>`).join("")}</div>
       </div>
       <div class="caixa"><p class="eyebrow" style="margin:0 0 8px">Peso na prova objetiva</p>${pesoProva()}</div>
     </aside>
@@ -465,6 +536,7 @@ function telaPainel(){
   <div class="rodape" id="rodape"><button id="reset">Reiniciar demonstração</button></div>`;
   bindGo(); bindPostos();
   $app.querySelectorAll("[data-tr]").forEach(b=>b.onclick=()=>ir({tela:"trilha", trilha:b.dataset.tr}));
+  $app.querySelectorAll("[data-meta]").forEach(b=>b.onclick=()=>{ S.pref.meta = +b.dataset.meta; salvar(); telaPainel(); });
   const busca = document.getElementById("busca"), rb = document.getElementById("res-busca");
   busca.oninput = ()=>{
     const termos = norm(busca.value).split(/\s+/).filter(Boolean);
@@ -643,6 +715,50 @@ async function carregarListaRank(aba){
 }
 const esc = t => String(t||"").replace(/[&<>"']/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 
+/* ---------- Desempenho por matéria ---------- */
+function telaDesempenho(){
+  const linhas = TRILHAS.map(t=>{
+    const st = S.stat[t.id] || {r:0,c:0}, ps = postosDe(t.id);
+    const total = ps.reduce((a,p)=>a+(BANCO[p.id]||[]).length,0), vistas = ps.reduce((a,p)=>a+(BANCO[p.id]||[]).filter(q=>S.certas[q.id]).length,0);
+    return {t, r:st.r, c:st.c, pct: st.r ? st.c/st.r : null, total, vistas, erros: Object.values(S.erros).filter(e=>POSTO[e.pid] && POSTO[e.pid].tr.id===t.id).length, feitos: feitos(t.id)};
+  });
+  const {r, c} = respondidas();
+  const fracas = linhas.filter(l=>l.r>=10).sort((a,b)=>a.pct-b.pct).slice(0,3).filter(l=>l.pct<0.8);
+  const naoIniciadas = linhas.filter(l=>l.r===0).length;
+  const cor = p => p===null ? "var(--line)" : p>=0.8 ? "var(--ok)" : p>=0.6 ? "var(--amber)" : "var(--bad)";
+  const ult = S.simulados.slice(-8);
+  $app.innerHTML = `
+  <section class="hero"><div><p class="eyebrow">Seus números</p><h1>Desempenho</h1><p>Percentual de acerto por matéria, contando todas as questões que você respondeu nos postos, nas revisões e nos simulados.</p></div></section>
+  <div class="kpis">
+    <div class="kpi"><b>${r ? Math.round(c/r*100)+"%" : "—"}</b><span>de acerto geral</span></div>
+    <div class="kpi"><b>${fmt(r)}</b><span>questões respondidas</span></div>
+    <div class="kpi"><b>${fmt(Object.keys(S.certas).filter(k=>QIDX[k]).length)}<small style="font-size:18px;color:var(--muted)">/${fmt(TOTAL_Q)}</small></b><span>questões diferentes acertadas</span></div>
+    <div class="kpi"><b>${S.simulados.length ? S.simulados[S.simulados.length-1].nota+"/50" : "—"}</b><span>último simulado</span></div>
+  </div>
+  <div class="grade">
+    <div>
+      <div class="bloco-cab"><h2>Por matéria</h2><span>verde: 80% ou mais · amarelo: 60 a 79% · vermelho: abaixo de 60%</span></div>
+      <div class="desemp">${linhas.map(l=>`<button class="dl" data-tr="${l.t.id}">
+        <span class="dn">${l.t.nome}<small>${l.feitos}/${l.t.postos.length} postos · ${l.r} respondidas${l.erros ? ` · ${l.erros} no caderno de erros` : ""}</small></span>
+        <span class="db"><i style="width:${l.pct===null?0:Math.max(3,l.pct*100)}%;background:${cor(l.pct)}"></i></span>
+        <span class="dp num">${l.pct===null ? "—" : Math.round(l.pct*100)+"%"}</span></button>`).join("")}</div>
+    </div>
+    <aside class="lado">
+      <div class="caixa"><h3>Onde focar</h3>
+        ${fracas.length ? `<p>Matérias com menor acerto (mínimo de 10 questões respondidas):</p><ul>${fracas.map(l=>`<li><button data-tr="${l.t.id}">${l.t.nome}</button><small>${Math.round(l.pct*100)}% de acerto em ${l.r} questões</small></li>`).join("")}</ul>` : `<p>${r>=10 ? "Nenhuma matéria abaixo de 80% entre as que você já estudou." : "Responda pelo menos 10 questões de uma matéria para ela entrar nesta análise."}</p>`}
+        ${naoIniciadas ? `<p>${naoIniciadas} ${naoIniciadas===1?"matéria ainda não foi iniciada":"matérias ainda não foram iniciadas"}.</p>` : ""}
+      </div>
+      <div class="caixa"><h3>Simulados</h3>
+        ${ult.length ? `<div class="spark" role="img" aria-label="Notas dos últimos simulados: ${ult.map(x=>x.nota).join(", ")}">${ult.map(x=>`<span><i style="height:${Math.max(4,x.nota/50*100)}%"></i><b>${x.nota}</b></span>`).join("")}</div>` : `<p>Faça um simulado para ver sua evolução aqui.</p>`}
+        <button class="btn peq ${ult.length?"sec":""}" data-go="simulado">${ult.length ? "Ver simulados" : "Fazer um simulado"}</button>
+      </div>
+      <div class="caixa"><p class="eyebrow" style="margin:0 0 8px">Peso na prova objetiva</p>${pesoProva()}</div>
+    </aside>
+  </div><div style="height:40px"></div>`;
+  bindGo();
+  $app.querySelectorAll("[data-tr]").forEach(b=>b.onclick=()=>ir({tela:"trilha", trilha:b.dataset.tr}));
+}
+
 /* ---------- Mapa do edital ---------- */
 function telaEdital(){
   const ok = Object.keys(S.aprovados).filter(k=>POSTO[k]).length;
@@ -675,7 +791,7 @@ function telaTrilha(){
     const cls = ok ? "ok" : (cur ? "atual" : (lib ? "" : "bloq"));
     const sub = ok ? `Concluído com nota ${S.aprovados[p.id].nota}` : (lib ? p.r : "Libera com nota 7 no posto anterior");
     return `<li class="posto ${cls}"><span class="pin" aria-hidden="true">${ok?"✓":p.n+1}</span>
-      <button class="card" data-p="${p.id}" ${lib?"":'aria-disabled="true"'}><span class="tit">${p.t}</span><span class="sub">${sub}</span></button></li>`;
+      <button class="card" data-p="${p.id}" ${lib?"":'aria-disabled="true"'}><span class="tit">${p.t}${VIDEOS[p.id] ? ' <span class="pill">vídeo</span>' : ""}</span><span class="sub">${sub}</span></button></li>`;
   }).join("");
   $app.innerHTML = `
   <section class="topico">
@@ -695,15 +811,21 @@ function telaPosto(){
   const p = POSTO[V.posto], temAula = !!AULAS[p.id], temQ = !!BANCO[p.id];
   const tent = S.tentativas[p.id] || [], aprov = S.aprovados[p.id];
   if(S.ultimo !== p.id){ S.ultimo = p.id; salvar(); }
-  const rv = S.revisoes[p.id];
+  const rv = S.revisoes[p.id], vid = VIDEOS[p.id];
+  if(V.aba==="video" && !vid) V.aba = "aula";
   let corpo;
   if(V.aba==="aula"){
-    corpo = temAula ? `<article class="aula">${AULAS[p.id]}</article>` : `<div class="vazio"><strong>Aula em produção</strong><br>Este posto será liberado aqui assim que o conteúdo estiver revisado.</div>`;
+    corpo = temAula ? `<div class="ferr"><span>Tamanho do texto</span><button id="f-menos" aria-label="Diminuir o texto">A−</button><button id="f-mais" aria-label="Aumentar o texto">A+</button></div><article class="aula">${AULAS[p.id]}</article>` : `<div class="vazio"><strong>Aula em produção</strong><br>Este posto será liberado aqui assim que o conteúdo estiver revisado.</div>`;
+  } else if(V.aba==="video" && vid){
+    corpo = `<div class="video-box"><video id="vid" controls playsinline preload="metadata" poster="videos/${vid.capa}" src="videos/${vid.arquivo}"></video></div>
+      <p class="meta">${vid.titulo} · ${vid.duracao} · com legendas</p>
+      <div class="acoes" style="justify-content:flex-start"><button class="btn peq" data-aba2="questoes">Fazer as questões</button><button class="btn sec peq" data-aba2="resumo">Ver o resumo</button></div>`;
   } else if(V.aba==="resumo"){
     corpo = temAula ? `<div class="resumo-topo">Resumo de uma página: mapa do assunto, destaques da aula, armadilhas da banca e quadro-resumo. Use na revisão e na véspera da prova.</div><article class="aula" id="resumo"></article>` : `<div class="vazio">Resumo em produção.</div>`;
   } else {
     const revHoje = rv && rv.etapa < INTERVALOS.length && rv.prox <= Date.now();
     corpo = `<div class="regra"><strong>Como funciona:</strong> ${N_QUESTOES} questões sorteadas entre as ${temQ?BANCO[p.id].length:0} do posto (fáceis, médias e difíceis). Com ${NOTA_MIN} acertos ou mais, o posto conta como concluído e entra na revisão espaçada. Cada nova tentativa prioriza questões que você ainda não viu.</div>
+      <div class="seg" role="radiogroup" aria-label="Quando corrigir"><button role="radio" aria-checked="${S.pref.modo!=="imediato"}" data-modo="final">Corrigir no final</button><button role="radio" aria-checked="${S.pref.modo==="imediato"}" data-modo="imediato">Corrigir a cada questão</button></div>
       ${revHoje ? `<p class="historico" style="margin:0 0 10px"><span class="pill amb">Revisão ${rv.etapa+1} de ${INTERVALOS.length} pendente</span> Faça as questões para registrar a revisão.</p>` : ""}
       ${temQ ? `<button class="btn full" id="iniciar">${aprov ? (revHoje ? "Fazer a revisão" : "Treinar de novo") : (tent.length ? "Tentar de novo com questões novas" : "Começar as questões")}</button>` : `<div class="vazio"><strong>Banco de questões em produção</strong></div>`}
       ${tent.length ? `<p class="historico">Tentativas: ${tent.map(x=>x.nota).join(" · ")}${aprov ? " — posto concluído" : ""}</p>` : ""}
@@ -718,6 +840,7 @@ function telaPosto(){
     <p class="meta">${p.r}</p>
     <div class="abas" role="tablist">
       <button role="tab" aria-selected="${V.aba==="aula"}" data-aba="aula">Aula</button>
+      ${vid ? `<button role="tab" aria-selected="${V.aba==="video"}" data-aba="video">Vídeo</button>` : ""}
       <button role="tab" aria-selected="${V.aba==="resumo"}" data-aba="resumo">Resumo</button>
       <button role="tab" aria-selected="${V.aba==="questoes"}" data-aba="questoes">Questões</button>
     </div>
@@ -732,11 +855,16 @@ function telaPosto(){
   document.getElementById("voltar").onclick = ()=>ir({tela:"trilha", trilha:p.tr.id});
   $app.querySelectorAll("[data-aba]").forEach(b=>{ if(b.getAttribute("role")==="tab") b.onclick=()=>ir({aba:b.dataset.aba}); });
   bindPostos();
+  $app.querySelectorAll("[data-aba2]").forEach(b=>b.onclick=()=>ir({aba:b.dataset.aba2}));
+  $app.querySelectorAll("[data-modo]").forEach(b=>b.onclick=()=>{ S.pref.modo = b.dataset.modo; salvar(); telaPosto(); });
+  const fm = document.getElementById("f-mais"); if(fm){ const aj = d=>{ let n = 0; try{ n = +localStorage.getItem("rota-gm-fonte") || 0; }catch(e){} n = Math.max(-1, Math.min(3, n+d)); try{ localStorage.setItem("rota-gm-fonte", n); }catch(e){} aplicarFonte(); }; fm.onclick = ()=>aj(1); document.getElementById("f-menos").onclick = ()=>aj(-1); aplicarFonte(); }
   const ini = document.getElementById("iniciar"); if(ini) ini.onclick = ()=>iniciarProva(p.id);
   const bb = document.getElementById("banco"); if(bb) bb.onclick = ()=>ir({tela:"banco"});
 }
 
 /* ---------- Aula: formato apostila ---------- */
+function aplicarFonte(){ let n = 0; try{ n = +localStorage.getItem("rota-gm-fonte") || 0; }catch(e){} document.documentElement.style.setProperty("--aula-fs", (18.5 + 2*n) + "px"); }
+aplicarFonte();
 function txtDe(el){ return (el.textContent||"").replace(/\s+/g," ").trim(); }
 const TIPOS = [
   [/^cuidado/i, "cuidado"], [/^cai muito/i, "caimuito"], [/^macete/i, "macete"],
@@ -870,55 +998,138 @@ function montarItens(qs){ return qs.map(q=>({q, ordem: embaralhar(q.a.map((txt,i
 function iniciarProva(pid){
   const rv = S.revisoes[pid];
   const modo = (S.aprovados[pid] && rv && rv.etapa < INTERVALOS.length && rv.prox <= Date.now()) ? "revisao" : "posto";
-  Q = {pid, modo, i:0, itens: montarItens(sortear(pid))};
+  Q = {pid, modo, i:0, imediato: S.pref.modo==="imediato", itens: montarItens(sortear(pid))};
   ir({tela:"prova"});
 }
 function iniciarErros(){
   const ids = [...new Set([...Object.keys(S.erros), ...Object.keys(S.marcadas)])].filter(k=>QIDX[k]);
   const ord = ids.sort((a,b)=>((S.erros[b]||{}).vezes||0)-((S.erros[a]||{}).vezes||0) || Math.random()-.5).slice(0, N_QUESTOES);
-  Q = {pid:null, modo:"erros", i:0, itens: montarItens(embaralhar(ord.map(k=>QIDX[k].q)))};
+  Q = {pid:null, modo:"erros", i:0, imediato: S.pref.modo==="imediato", itens: montarItens(embaralhar(ord.map(k=>QIDX[k].q)))};
   ir({tela:"prova"});
+}
+
+/* ---------- Simulado no formato da prova: 50 questões, 3 horas ---------- */
+const SIM_GRUPOS = [["pt","Língua Portuguesa",12],["mt","Matemática e Raciocínio Lógico",6],["lm","Legislação Municipal",2],["ce","Conhecimentos Específicos",30]];
+const SIM_TEMPO = 3*3600*1000;
+const grupoDe = pid => { const t = POSTO[pid].tr; return t.bloco==="Conhecimentos Específicos" ? "ce" : t.id; };
+function iniciarSimulado(){
+  const menosVistas = qs => embaralhar(qs).sort((a,b)=>(S.vistas[a.id]||0)-(S.vistas[b.id]||0));
+  let sel = [];
+  SIM_GRUPOS.forEach(([g,nome,n])=>{
+    if(g!=="ce"){ sel = sel.concat(menosVistas(postosDe(g).flatMap(p=>BANCO[p.id]||[])).slice(0,n)); return; }
+    // específicos: percorre as matérias em rodízio para que todas apareçam
+    const filas = embaralhar(TRILHAS.filter(t=>t.bloco==="Conhecimentos Específicos")).map(t=>menosVistas(postosDe(t.id).flatMap(p=>BANCO[p.id]||[])));
+    let k = 0, pegos = 0; while(pegos < n){ const f = filas[k % filas.length]; if(f.length){ sel.push(f.shift()); pegos++; } k++; if(k > 2000) break; }
+  });
+  Q = {pid:null, modo:"simulado", i:0, imediato:false, inicio:Date.now(), itens: montarItens(sel)};
+  ir({tela:"prova"});
+}
+let relogio = null;
+const fmtTempo = ms => { const s = Math.max(0, Math.round(ms/1000)); return String(Math.floor(s/3600)).padStart(2,"0") + ":" + String(Math.floor(s%3600/60)).padStart(2,"0") + ":" + String(s%60).padStart(2,"0"); };
+function pararRelogio(){ if(relogio){ clearInterval(relogio); relogio = null; } }
+function iniciarRelogio(){
+  if(relogio) return;
+  relogio = setInterval(()=>{
+    if(!Q || Q.modo!=="simulado" || V.tela!=="prova"){ pararRelogio(); return; }
+    const resta = SIM_TEMPO - (Date.now() - Q.inicio), el = document.getElementById("relogio");
+    if(el) el.textContent = fmtTempo(resta);
+    if(resta <= 0){ pararRelogio(); corrigir(); }
+  }, 1000);
+}
+function telaSimulado(){
+  const hist = S.simulados.slice().reverse();
+  $app.innerHTML = `
+  <section class="topico">
+    <p class="eyebrow">Formato da prova objetiva · Vunesp</p>
+    <h2>Simulado</h2>
+    <p class="meta">50 questões em até 3 horas, na mesma proporção do edital. As questões saem do banco dos postos, priorizando as que você ainda não viu.</p>
+    <div class="caixa" style="margin-top:16px">${pesoProva()}</div>
+    <ul class="regras">
+      <li>Você pode pular questões e voltar a elas pelo mapa de respostas.</li>
+      <li>A correção aparece só no final, com o resultado por matéria.</li>
+      <li>Se sair no meio, o simulado é descartado.</li>
+    </ul>
+    <button class="btn full" id="sim-ini">Começar o simulado</button>
+    <h3 style="font-size:24px;margin:30px 0 8px">Seus simulados</h3>
+    ${hist.length ? `<div class="tabela"><table><tr><th>Data</th><th>Nota</th><th>Port.</th><th>Mat.</th><th>Leg. Mun.</th><th>Específicos</th><th>Tempo</th></tr>${hist.map(h=>`<tr><td>${new Date(h.data).toLocaleDateString("pt-BR")}</td><td><strong>${h.nota}/50</strong></td><td>${h.g.pt}/12</td><td>${h.g.mt}/6</td><td>${h.g.lm}/2</td><td>${h.g.ce}/30</td><td class="num">${fmtTempo(h.tempo)}</td></tr>`).join("")}</table></div>` : `<div class="vazio">Você ainda não fez nenhum simulado. O resultado de cada um fica guardado aqui para você acompanhar a evolução.</div>`}
+    <div style="height:40px"></div>
+  </section>`;
+  document.getElementById("sim-ini").onclick = iniciarSimulado;
 }
 
 /* ---------- Prova ---------- */
 function telaProva(){
   const it = Q.itens[Q.i], ultima = Q.i===Q.itens.length-1, marc = !!S.marcadas[it.q.id];
-  const origem = Q.modo==="erros" ? `Caderno de erros · ${POSTO[QIDX[it.q.id].pid].t}` : (Q.modo==="revisao" ? `Revisão · ${POSTO[Q.pid].t}` : POSTO[Q.pid].t);
+  const sim = Q.modo==="simulado", imed = Q.imediato && !sim, resp = !!it.resp;
+  const origem = sim ? `Simulado · ${POSTO[QIDX[it.q.id].pid].tr.nome}` : Q.modo==="erros" ? `Caderno de erros · ${POSTO[QIDX[it.q.id].pid].t}` : (Q.modo==="revisao" ? `Revisão · ${POSTO[Q.pid].t}` : POSTO[Q.pid].t);
+  const certa = it.ordem.findIndex(o=>o.certa);
+  const rotulo = imed && !resp ? "Responder" : (ultima ? (sim ? "Entregar" : (imed ? "Ver o resultado" : "Corrigir")) : "Próxima");
   $app.innerHTML = `
   <section class="topico">
-    <button class="voltar" id="sair">‹ Sair das questões</button>
+    <button class="voltar" id="sair">‹ Sair ${sim ? "do simulado" : "das questões"}</button>
     <div id="conf-sair"></div>
     <p class="meta">${origem}</p>
-    <div class="qtopo"><span class="num">Questão ${Q.i+1} de ${Q.itens.length}</span><button class="marcar" id="marcar" aria-pressed="${marc}">${marc ? "Marcada para revisar" : "Marcar para revisar"}</button></div>
-    <div class="bar" aria-hidden="true"><i style="width:${(Q.i/Q.itens.length*100)}%"></i></div>
+    <div class="qtopo"><span class="num">Questão ${Q.i+1} de ${Q.itens.length}${sim ? ` · <strong id="relogio">${fmtTempo(SIM_TEMPO-(Date.now()-Q.inicio))}</strong>` : ""}</span><button class="marcar" id="marcar" aria-pressed="${marc}">${marc ? "Marcada para revisar" : "Marcar para revisar"}</button></div>
+    <div class="bar" aria-hidden="true"><i style="width:${(sim ? Q.itens.filter(x=>x.escolha!==null).length : Q.i)/Q.itens.length*100}%"></i></div>
     <div class="qcard">
       ${it.q.tx ? `<blockquote class="txt">${TEXTOS[it.q.tx]}</blockquote>` : ""}<p class="enun">${it.q.e}</p>
-      ${it.ordem.map((o,k)=>`<button class="alt" data-k="${k}" aria-pressed="${it.escolha===k}"><span class="l">${LETRAS[k]}</span><span>${o.txt}</span></button>`).join("")}
+      ${it.ordem.map((o,k)=>`<button class="alt ${resp ? (o.certa ? "certa" : (k===it.escolha ? "errada" : "")) : ""}" data-k="${k}" aria-pressed="${it.escolha===k}" ${resp?"disabled":""}><span class="l">${LETRAS[k]}</span><span>${o.txt}</span></button>`).join("")}
+      ${resp ? `<div class="fb ${acertou(it)?"ok":"bad"}"><strong>${acertou(it) ? "Você acertou." : `Resposta correta: ${LETRAS[certa]}.`}</strong><p>${it.q.c}</p></div>` : ""}
     </div>
     <div class="acoes">
       <button class="btn sec" id="ant" ${Q.i===0?"disabled":""}>Anterior</button>
-      <button class="btn" id="prox" ${it.escolha===null?"disabled":""}>${ultima ? "Corrigir" : "Próxima"}</button>
+      <button class="btn" id="prox" ${!sim && it.escolha===null?"disabled":""}>${rotulo}</button>
     </div>
+    <div id="conf-fim"></div>
+    ${sim ? `<p class="eyebrow" style="margin:22px 0 8px">Mapa de respostas</p><div class="qmapa">${Q.itens.map((x,k)=>`<button data-q="${k}" class="${x.escolha!==null?"feita":""} ${S.marcadas[x.q.id]?"marc":""}" aria-current="${k===Q.i}">${k+1}</button>`).join("")}</div>` : `<p class="dica-tecla">No computador: teclas A a E escolhem a alternativa e Enter avança.</p>`}
+    <div style="height:30px"></div>
   </section>`;
-  $app.querySelectorAll(".alt").forEach(b=>b.onclick=()=>{ it.escolha = +b.dataset.k; telaProva(); });
+  if(sim) iniciarRelogio();
+  $app.querySelectorAll(".alt").forEach(b=>b.onclick=()=>{ if(resp) return; const k = +b.dataset.k; it.escolha = (sim && it.escolha===k) ? null : k; telaProva(); });
+  $app.querySelectorAll("[data-q]").forEach(b=>b.onclick=()=>{ Q.i = +b.dataset.q; telaProva(); window.scrollTo(0,0); });
   document.getElementById("marcar").onclick = ()=>{ if(S.marcadas[it.q.id]) delete S.marcadas[it.q.id]; else S.marcadas[it.q.id] = {pid: QIDX[it.q.id].pid, data: Date.now()}; salvar(); telaProva(); };
   document.getElementById("ant").onclick = ()=>{ Q.i--; telaProva(); };
-  document.getElementById("prox").onclick = ()=>{ if(ultima) corrigir(); else { Q.i++; telaProva(); } };
+  document.getElementById("prox").onclick = ()=>{
+    if(imed && !resp){ it.resp = true; telaProva(); return; }
+    if(!ultima){ Q.i++; telaProva(); window.scrollTo(0,0); return; }
+    if(!sim) return corrigir();
+    const faltam = Q.itens.filter(x=>x.escolha===null).length, c = document.getElementById("conf-fim");
+    c.innerHTML = `<div class="confirma"><p>${faltam ? `Faltam ${faltam} ${faltam===1?"questão":"questões"} sem resposta. ` : ""}Entregar o simulado agora?</p><button class="btn peq" id="fim-sim">Entregar</button><button class="btn sec peq" id="fim-nao">Continuar</button></div>`;
+    document.getElementById("fim-nao").onclick = ()=>{ c.innerHTML = ""; };
+    document.getElementById("fim-sim").onclick = ()=>corrigir();
+  };
   document.getElementById("sair").onclick = ()=>{
     const c = document.getElementById("conf-sair");
-    c.innerHTML = `<div class="confirma"><p>Sair agora descarta esta tentativa.</p><button class="btn peq" id="sair-sim">Sair</button><button class="btn sec peq" id="sair-nao">Continuar respondendo</button></div>`;
+    c.innerHTML = `<div class="confirma"><p>Sair agora descarta ${sim ? "este simulado" : "esta tentativa"}.</p><button class="btn peq" id="sair-sim">Sair</button><button class="btn sec peq" id="sair-nao">Continuar respondendo</button></div>`;
     document.getElementById("sair-nao").onclick = ()=>{ c.innerHTML = ""; };
-    document.getElementById("sair-sim").onclick = ()=>{ const pid=Q.pid, m=Q.modo; Q=null; if(m==="erros") ir({tela:"erros"}); else ir({tela:"posto", posto:pid, aba:"questoes"}); };
+    document.getElementById("sair-sim").onclick = ()=>{ const pid=Q.pid, m=Q.modo; Q=null; if(m==="erros") ir({tela:"erros"}); else if(m==="simulado") ir({tela:"simulado"}); else ir({tela:"posto", posto:pid, aba:"questoes"}); };
   };
 }
+document.addEventListener("keydown", ev=>{
+  if(V.tela!=="prova" || !Q || ev.ctrlKey || ev.metaKey || ev.altKey || /INPUT|TEXTAREA/.test((ev.target||{}).tagName||"")) return;
+  const k = ev.key.toLowerCase(), i = "abcde".indexOf(k)>=0 ? "abcde".indexOf(k) : "12345".indexOf(k);
+  if(k.length===1 && i>=0){ const b = $app.querySelectorAll(".alt")[i]; if(b && !b.disabled){ ev.preventDefault(); b.click(); } }
+  else if(k==="enter" || k==="arrowright"){ const b = document.getElementById("prox"); if(b && !b.disabled && !document.getElementById("fim-sim")){ ev.preventDefault(); b.click(); } }
+  else if(k==="arrowleft"){ const b = document.getElementById("ant"); if(b && !b.disabled){ ev.preventDefault(); b.click(); } }
+});
 async function corrigir(){
-  const nota = Q.itens.filter(it=>it.ordem[it.escolha].certa).length;
+  pararRelogio();
+  const nota = Q.itens.filter(acertou).length;
+  let respondidasAgora = 0;
   Q.itens.forEach(it=>{
-    const id = it.q.id; S.vistas[id] = (S.vistas[id]||0)+1;
-    if(it.ordem[it.escolha].certa){ if(S.erros[id]) S.corrigidas[id] = 1; S.certas[id] = 1; delete S.erros[id]; if(Q.modo==="erros") delete S.marcadas[id]; }
+    if(it.escolha===null) return;
+    respondidasAgora++;
+    const id = it.q.id, tid = POSTO[QIDX[id].pid].tr.id, st = S.stat[tid] = S.stat[tid] || {r:0,c:0};
+    S.vistas[id] = (S.vistas[id]||0)+1; st.r++;
+    if(acertou(it)){ st.c++; if(S.erros[id]) S.corrigidas[id] = 1; S.certas[id] = 1; delete S.erros[id]; if(Q.modo==="erros") delete S.marcadas[id]; }
     else { const e = S.erros[id] || {pid: QIDX[id].pid, vezes:0}; e.vezes++; e.data = Date.now(); S.erros[id] = e; }
   });
-  if(Q.modo!=="erros"){
+  if(Q.modo==="simulado"){
+    const g = {pt:0, mt:0, lm:0, ce:0};
+    Q.itens.forEach(it=>{ if(acertou(it)) g[grupoDe(QIDX[it.q.id].pid)]++; });
+    Q.tempo = Math.min(SIM_TEMPO, Date.now() - Q.inicio); Q.g = g;
+    S.simulados.push({data: Date.now(), nota, g, tempo: Q.tempo}); if(S.simulados.length > 60) S.simulados.shift();
+  } else if(Q.modo!=="erros"){
     (S.tentativas[Q.pid] = S.tentativas[Q.pid] || []).push({nota, data:Date.now(), ids:Q.itens.map(it=>it.q.id)});
     if(nota>=NOTA_MIN && !S.aprovados[Q.pid]){ S.aprovados[Q.pid] = {nota, data:Date.now()}; S.revisoes[Q.pid] = {etapa:0, prox: Date.now() + INTERVALOS[0]*DIA}; }
     else if(Q.modo==="revisao"){
@@ -929,22 +1140,29 @@ async function corrigir(){
     }
   }
   Q.nota = nota;
-  Q.ganho = registrarPontos();
+  Q.ganho = registrarPontos(respondidasAgora);
   await salvar();
   ir({tela:"resultado"});
 }
 
 /* ---------- Resultado ---------- */
 function telaResultado(){
-  const ok = Q.modo==="erros" ? Q.nota >= Math.ceil(Q.itens.length*NOTA_MIN/N_QUESTOES) : Q.nota>=NOTA_MIN;
+  const sim = Q.modo==="simulado";
+  const ok = sim ? true : Q.modo==="erros" ? Q.nota >= Math.ceil(Q.itens.length*NOTA_MIN/N_QUESTOES) : Q.nota>=NOTA_MIN;
   const revisao = Q.itens.map((it,n)=>{
-    const acertou = it.ordem[it.escolha].certa, certa = it.ordem.findIndex(o=>o.certa);
-    return `<div class="rev ${acertou?"ok":"bad"}"><div class="st"><span>Questão ${n+1}: ${acertou?"acertou":"errou"}</span>${acertou ? "" : `<span class="pill bad">Foi para o caderno de erros</span>`}</div>
-      ${it.q.tx ? `<blockquote class="txt">${TEXTOS[it.q.tx]}</blockquote>` : ""}<p>${it.q.e}</p>${acertou ? "" : `<p>Sua resposta: ${LETRAS[it.escolha]}) ${it.ordem[it.escolha].txt}</p>`}
+    const ac = acertou(it), certa = it.ordem.findIndex(o=>o.certa), branco = it.escolha===null;
+    if(sim && ac) return "";
+    return `<div class="rev ${ac?"ok":"bad"}"><div class="st"><span>Questão ${n+1}: ${ac?"acertou":(branco?"sem resposta":"errou")}</span>${ac || branco ? "" : `<span class="pill bad">Foi para o caderno de erros</span>`}</div>
+      ${it.q.tx ? `<blockquote class="txt">${TEXTOS[it.q.tx]}</blockquote>` : ""}<p>${it.q.e}</p>${ac || branco ? "" : `<p>Sua resposta: ${LETRAS[it.escolha]}) ${it.ordem[it.escolha].txt}</p>`}
       <p><strong>Correta: ${LETRAS[certa]}) ${it.ordem[certa].txt}</strong></p><p class="ref">${it.q.c}</p></div>`;
   }).join("");
-  let titulo, texto, botoes = "";
-  if(Q.modo==="erros"){
+  let titulo, texto, botoes = "", extra = "";
+  if(sim){
+    titulo = "Simulado entregue.";
+    texto = `Você acertou ${Q.nota} de 50 em ${fmtTempo(Q.tempo)}. Na prova, cada questão vale um ponto.`;
+    extra = `<div class="tabela"><table><tr><th>Matéria</th><th>Acertos</th><th></th></tr>${SIM_GRUPOS.map(([g,nome,n])=>`<tr><td>${nome}</td><td class="num"><strong>${Q.g[g]}/${n}</strong></td><td style="width:40%"><span class="bar fina" style="margin:8px 0"><i style="width:${Q.g[g]/n*100}%"></i></span></td></tr>`).join("")}</table></div>`;
+    botoes = `<button class="btn" data-go="desempenho">Ver meu desempenho</button><button class="btn sec" data-go="simulado">Voltar aos simulados</button>`;
+  } else if(Q.modo==="erros"){
     const restam = nErros();
     titulo = ok ? "Bom treino." : "Continue treinando.";
     texto = `As questões que você acertou saíram do caderno. Restam ${restam} ${restam===1?"questão":"questões"} erradas.`;
@@ -963,14 +1181,15 @@ function telaResultado(){
   }
   $app.innerHTML = `
   <section class="topico">
-    <div class="res ${ok?"ok":"bad"}">
+    <div class="res ${sim ? "neutro" : (ok?"ok":"bad")}">
       <div class="nota num">${Q.nota}/${Q.itens.length}</div>
       <h2>${titulo}</h2>
       <p>${texto}</p>
+      ${extra}
       ${Q.ganho>0 ? `<p class="ganho"><strong>+${fmt(Q.ganho)} pontos</strong> · ${nivelDe(calcPontos(S)).nome} · <button class="link" data-go="ranking">ver o ranking</button></p>` : `<p class="ganho meta">Sem pontos novos: só contam questões que você ainda não tinha acertado.</p>`}
       <div class="acoes">${botoes}</div>
     </div>
-    <h2 style="font-size:24px;margin:8px 0">Correção comentada</h2>
+    <h2 style="font-size:24px;margin:8px 0">${sim ? "Questões para rever" : "Correção comentada"}</h2>
     ${revisao}
   </section>`;
   bindGo();

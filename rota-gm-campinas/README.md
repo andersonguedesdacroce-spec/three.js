@@ -49,3 +49,9 @@ Se o repositório contiver outras pastas, em *Project Settings → General → R
 - **Revisão espaçada** (1, 7 e 30 dias) e **caderno de erros** (erradas e marcadas; sai ao acertar).
 - **Avise a equipe**: aviso de correção ao fim de cada aula, gravado no banco do painel (coleção `correcoes`).
 - Progresso salvo no navegador e, no Claude, sincronizado pela conta (`data/users/<id>/progresso`).
+- **Navegação**: menu no topo (computador) ou barra inferior (celular) com Painel, Edital, Simulado, Desempenho, Erros e Ranking; cada tela tem endereço próprio (`#posto-cp-14-video`), então o botão voltar do navegador funciona.
+- **Vídeo**: postos listados em `videos/videos.json` ganham a aba Vídeo (ver `videos/LEIA-ME.md`). O build copia os arquivos para `public/videos/`.
+- **Questões**: correção no final ou a cada questão (com comentário na hora); atalhos de teclado A a E e Enter.
+- **Simulado**: 50 questões em 3 horas na proporção do edital (12, 6, 2 e 30), com mapa de respostas, relógio e resultado por matéria.
+- **Desempenho**: percentual de acerto por matéria, indicação de onde focar e histórico dos simulados.
+- **Meta diária** de questões e sequência de dias de estudo no painel; ajuste do tamanho do texto da aula.

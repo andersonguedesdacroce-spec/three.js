@@ -66,6 +66,13 @@ partes.append(',\n'.join(f'"{p}": `\n' + com_destaques(p, ler(f'aulas/{p}.html')
 partes.append('const BANCO = {};\n\n')
 for p in bancos: partes.append(ler(f'bancos/{p}.js').rstrip('\n') + '\n\n')
 partes.append('/* ---------- Textos de apoio das questões ---------- */\nconst TEXTOS = {\n' + ',\n'.join(f'{k}: {json.dumps(v, ensure_ascii=False)}' for k, v in textos.items()) + '\n};\n\n')
+import shutil
+VIDEOS = json.load(open(os.path.join(AQUI, 'videos', 'videos.json'), encoding='utf-8'))
+os.makedirs(f'{AQUI}/public/videos', exist_ok=True)
+for pid, v in VIDEOS.items():
+    assert pid in aulas, f'vídeo de posto inexistente: {pid}'
+    for k in ('arquivo', 'capa'): shutil.copyfile(f'{AQUI}/videos/{v[k]}', f'{AQUI}/public/videos/{v[k]}')
+partes.append('const VIDEOS = ' + json.dumps(VIDEOS, ensure_ascii=False) + ';\n\n')
 partes.append(ler('src/config.js') + '\n')
 partes.append(ler('src/app.js'))
 html = ''.join(partes)
