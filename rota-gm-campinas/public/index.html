@@ -3,15 +3,19 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Rota GM Campinas — preparação para a Guarda Municipal de Campinas</title>
+<title>Rota GM Campinas</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Preparação completa para o concurso da Guarda Municipal de Campinas (Vunesp, Edital 02/2026): aulas, questões comentadas, revisão e caderno de erros.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Condensed:wght@500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
 <style>
 :root{
+  /* Layout: faixa azul-marinho fixa no topo; painel em grade de duas colunas no computador, uma no celular; aula em coluna de leitura de 66ch. */
   --bg:#EEF2F6; --surface:#FFFFFF; --ink:#0F1E33; --muted:#56667C; --line:#CDD6E1;
   --navy:#16325C; --on-navy:#FFFFFF; --amber:#E39B0B; --ok:#1F7A4D; --bad:#B3261E;
   --soft-ok:#E3F2EA; --soft-bad:#FBE7E5; --soft-amber:#FDF1D8;
+  --blue:#1D5FB8; --soft-blue:#E4EEFB; --violet:#6B4BB8; --soft-violet:#EEE9FA; --navy-2:#20406F;
   color-scheme: light; box-sizing:border-box;
   padding-top:env(safe-area-inset-top,0px); padding-bottom:env(safe-area-inset-bottom,0px);
 }
@@ -19,79 +23,115 @@
   :root:not([data-theme="light"]){
     --bg:#0C1626; --surface:#13223A; --ink:#E7EDF5; --muted:#9AAABF; --line:#28405F;
     --navy:#8FB3E8; --on-navy:#0C1626; --amber:#F2B53A; --ok:#4CC38A; --bad:#F2766B;
-    --soft-ok:#123A2A; --soft-bad:#3E1A1A; --soft-amber:#3A2C10; color-scheme: dark;
+    --soft-ok:#123A2A; --soft-bad:#3E1A1A; --soft-amber:#3A2C10;
+    --blue:#7FB0F0; --soft-blue:#142C4D; --violet:#B9A2F0; --soft-violet:#2A2148; --navy-2:#1A2F4E; color-scheme: dark;
   }
 }
 :root[data-theme="dark"]{
   --bg:#0C1626; --surface:#13223A; --ink:#E7EDF5; --muted:#9AAABF; --line:#28405F;
   --navy:#8FB3E8; --on-navy:#0C1626; --amber:#F2B53A; --ok:#4CC38A; --bad:#F2766B;
-  --soft-ok:#123A2A; --soft-bad:#3E1A1A; --soft-amber:#3A2C10; color-scheme: dark;
+  --soft-ok:#123A2A; --soft-bad:#3E1A1A; --soft-amber:#3A2C10;
+  --blue:#7FB0F0; --soft-blue:#142C4D; --violet:#B9A2F0; --soft-violet:#2A2148; --navy-2:#1A2F4E; color-scheme: dark;
 }
 *,*::before,*::after{box-sizing:inherit}
-html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 64px)}
+html{scroll-padding-top:calc(env(safe-area-inset-top,0px) + 72px)}
 body{margin:0;background:var(--bg);color:var(--ink);font:400 17px/1.55 "Barlow",system-ui,-apple-system,"Segoe UI",sans-serif}
-body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--navy)}
-h1,h2,h3{font-family:"Barlow Condensed","Arial Narrow",sans-serif;line-height:1.08;margin:0}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:#16325C}
+h1,h2,h3{font-family:"Barlow Condensed","Arial Narrow",sans-serif;line-height:1.08;margin:0;text-wrap:balance}
 button{font:inherit;cursor:pointer}
 a{color:var(--navy)}
 :focus-visible{outline:3px solid var(--amber);outline-offset:2px}
-.wrap{max-width:760px;margin:0 auto;padding:0 18px}
+.wrap{max-width:760px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+main.largo{max-width:1080px}
+.num{font-variant-numeric:tabular-nums}
+.eyebrow{font:600 13px "Barlow",system-ui,sans-serif;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 
 /* Topo */
-.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--navy);color:var(--on-navy)}
-.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:11px;padding-bottom:11px}
-.brand{background:none;border:0;color:inherit;text-align:left;padding:0;font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:22px}
+.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:#16325C;color:#fff;border-bottom:3px solid #E39B0B}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-top:10px;padding-bottom:10px;max-width:1080px}
+.brand{display:flex;align-items:center;gap:10px;background:none;border:0;color:inherit;text-align:left;padding:0;font-family:"Barlow Condensed",sans-serif;font-weight:700;font-size:22px;line-height:1.05}
+.brand svg{width:34px;height:38px;flex:0 0 auto}
 .brand small{display:block;font-family:"Barlow",sans-serif;font-weight:500;font-size:13px;opacity:.85}
 .count{text-align:right;line-height:1.1}
-.count b{font-family:"Barlow Condensed",sans-serif;font-size:28px;display:block}
+.count b{font-family:"Barlow Condensed",sans-serif;font-size:28px;display:block;font-variant-numeric:tabular-nums}
 .count span{font-size:12px;opacity:.85}
 .topo-dir{display:flex;align-items:center;gap:12px}
 .tema{background:transparent;border:1.5px solid currentColor;color:inherit;border-radius:999px;width:38px;height:38px;display:grid;place-items:center;padding:0;opacity:.9}
 .tema svg{width:18px;height:18px}
 
 /* Botões */
-.btn{display:inline-block;border:0;border-radius:10px;padding:13px 20px;font-weight:600;background:var(--navy);color:var(--on-navy);text-decoration:none;text-align:center}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:10px;padding:13px 20px;font-weight:600;background:var(--navy);color:var(--on-navy);text-decoration:none;text-align:center}
 .btn.amber{background:var(--amber);color:#1b1300}
 .btn.sec{background:transparent;color:var(--navy);border:2px solid var(--navy)}
+.btn.peq{padding:8px 14px;font-size:15px;border-radius:8px}
 .btn[disabled]{opacity:.45;cursor:not-allowed}
 .btn.full{width:100%}
 .voltar{background:none;border:0;color:var(--navy);font-weight:600;padding:16px 0 4px}
+.link{background:none;border:0;padding:0;color:var(--navy);font-weight:600;text-decoration:underline;text-underline-offset:3px}
 
 /* Página de vendas */
-.lp-hero{padding:30px 0 10px}
-.lp-hero h1{font-size:44px;letter-spacing:-.2px}
-.lp-hero p{font-size:19px;color:var(--muted);max-width:36em;margin:14px 0 20px}
-.cta-row{display:flex;flex-wrap:wrap;gap:10px}
-.credencial{margin:28px 0 8px;border-radius:16px;overflow:hidden;background:var(--surface);border:1px solid var(--line)}
-.credencial .faixa{background:var(--navy);color:var(--on-navy);padding:12px 16px;display:flex;justify-content:space-between;align-items:center}
-.credencial .faixa strong{font-family:"Barlow Condensed",sans-serif;font-size:22px}
+.lp{max-width:1080px}
+.lp-hero{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:36px;align-items:center;padding:40px 0 18px}
+.lp-hero h1{font-size:52px;letter-spacing:-.3px;margin-top:10px}
+.lp-hero p.sub{font-size:19.5px;color:var(--muted);max-width:34em;margin:16px 0 22px}
+.cta-row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.cta-row .nota-cta{font-size:14px;color:var(--muted)}
+.credencial{border-radius:16px;overflow:hidden;background:var(--surface);border:1px solid var(--line);box-shadow:0 18px 40px -24px rgba(15,30,51,.45)}
+.credencial .faixa{background:#16325C;color:#fff;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;gap:10px;border-bottom:3px solid #E39B0B}
+.credencial .faixa strong{font-family:"Barlow Condensed",sans-serif;font-size:21px}
 .credencial dl{display:grid;grid-template-columns:1fr 1fr;margin:0}
 .credencial dl div{padding:12px 16px;border-top:1px solid var(--line)}
 .credencial dl div:nth-child(odd){border-right:1px solid var(--line)}
 .credencial dt{font-size:13.5px;color:var(--muted)}
-.credencial dd{margin:2px 0 0;font-weight:600}
-.lp-sec{padding:34px 0 6px}
-.lp-sec h2{font-size:32px}
-.lp-sec > p{color:var(--muted);margin:8px 0 14px}
-.bloco-tit{font-family:"Barlow Condensed",sans-serif;font-size:22px;font-weight:600;margin:20px 0 6px}
+.credencial dd{margin:2px 0 0;font-weight:600;font-variant-numeric:tabular-nums}
+.numeros{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin:18px 0 0}
+.numeros div{padding:18px 14px;border-left:1px solid var(--line)}
+.numeros div:first-child{border-left:0;padding-left:0}
+.numeros b{display:block;font:700 40px/1 "Barlow Condensed",sans-serif;font-variant-numeric:tabular-nums}
+.numeros span{font-size:14.5px;color:var(--muted)}
+.lp-sec{padding:46px 0 6px}
+.lp-sec h2{font-size:36px;max-width:22em}
+.lp-sec > p{color:var(--muted);margin:10px 0 18px;max-width:40em}
+.duas{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px;align-items:start}
+.bloco-tit{font-family:"Barlow Condensed",sans-serif;font-size:22px;font-weight:600;margin:22px 0 8px}
 .lista-materias{list-style:none;margin:0;padding:0;background:var(--surface);border:1px solid var(--line);border-radius:12px}
-.lista-materias li{display:flex;justify-content:space-between;gap:10px;padding:11px 14px;border-top:1px solid var(--line)}
+.lista-materias li{display:flex;justify-content:space-between;gap:10px;padding:10px 14px;border-top:1px solid var(--line)}
 .lista-materias li:first-child{border-top:0}
-.lista-materias span:last-child{color:var(--muted);font-size:14.5px;white-space:nowrap}
-.passos{margin:12px 0 0;padding-left:22px}
-.passos li{margin:10px 0}
-.destaque{background:var(--soft-amber);border-left:5px solid var(--amber);border-radius:0 14px 14px 0;padding:18px}
-.destaque h2{font-size:28px}
+.lista-materias span:last-child{color:var(--muted);font-size:14.5px;white-space:nowrap;font-variant-numeric:tabular-nums}
+.passos{list-style:none;counter-reset:p;margin:16px 0 0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.passos li{counter-increment:p;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px}
+.passos li::before{content:counter(p);display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--navy);color:var(--on-navy);font-weight:700;margin-bottom:10px}
+.passos strong{display:block;margin-bottom:4px}
+.recursos{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:16px}
+.recurso{padding:16px 0 0;border-top:3px solid var(--navy)}
+.recurso h3{font-size:22px;margin-bottom:6px}
+.recurso p{margin:0;color:var(--muted);font-size:16px}
+.destaque{background:var(--soft-amber);border-left:5px solid var(--amber);border-radius:0 14px 14px 0;padding:20px}
+.destaque h2{font-size:30px}
 .destaque p{margin:8px 0 0}
-.oferta-box{background:var(--surface);border:2px solid var(--navy);border-radius:16px;padding:20px}
-.oferta-box ul{padding-left:20px;margin:10px 0 16px}
-.oferta-box li{margin:6px 0}
-.preco{display:flex;align-items:baseline;gap:8px;margin:4px 0 10px}
-.preco b{font-family:"Barlow Condensed",sans-serif;font-size:52px}
-.faq details{border-bottom:1px solid var(--line);padding:12px 0}
+.oferta-box{background:var(--surface);border:2px solid var(--navy);border-radius:16px;padding:24px;display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:24px;align-items:center}
+.oferta-box ul{padding-left:0;list-style:none;margin:12px 0 0}
+.oferta-box li{margin:8px 0;padding-left:26px;position:relative}
+.oferta-box li::before{content:"";position:absolute;left:2px;top:7px;width:12px;height:7px;border-left:3px solid var(--ok);border-bottom:3px solid var(--ok);transform:rotate(-45deg)}
+.preco{display:flex;align-items:baseline;gap:8px;flex-wrap:wrap;margin:4px 0 12px}
+.preco b{font-family:"Barlow Condensed",sans-serif;font-size:60px;line-height:1}
+.preco span{color:var(--muted)}
+.faq details{border-bottom:1px solid var(--line);padding:14px 0}
 .faq summary{font-weight:600;cursor:pointer}
 .faq p{margin:8px 0 0;color:var(--muted)}
-.aviso{font-size:13.5px;color:var(--muted);text-align:center;padding:26px 0 36px}
+.aviso{font-size:13.5px;color:var(--muted);text-align:center;padding:30px 0 40px}
+/* amostra de aula na página de vendas */
+.amostra{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:18px 20px}
+.amostra .aula{font-size:17px}
+
+/* Peso da prova */
+.peso{margin:10px 0 4px}
+.peso .barra{display:flex;height:34px;border-radius:8px;overflow:hidden;border:1px solid var(--line)}
+.peso .barra span{display:flex;align-items:center;justify-content:center;font:600 14px "Barlow",sans-serif;color:#fff;min-width:0;white-space:nowrap;overflow:hidden}
+.peso .pt{background:#16325C}.peso .mt{background:#2F5E9E}.peso .lm{background:#6C8FBF}.peso .ce{background:#C47F06}
+.peso ul{list-style:none;display:flex;flex-wrap:wrap;gap:6px 18px;padding:0;margin:10px 0 0;font-size:14.5px;color:var(--muted)}
+.peso li{display:flex;align-items:center;gap:6px;border:0!important;padding:0!important}
+.peso li i{width:12px;height:12px;border-radius:3px;display:inline-block}
 
 /* Checkout */
 .pag{display:grid;gap:10px;margin-top:14px}
@@ -100,20 +140,58 @@ a{color:var(--navy)}
 .demo{font-size:13.5px;color:var(--muted);margin-top:12px}
 
 /* Painel */
-.hero{padding:22px 0 8px}
-.hero h1{font-size:34px}
+.hero{padding:24px 0 6px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:18px;align-items:end}
+.hero h1{font-size:36px}
 .hero p{margin:6px 0 0;color:var(--muted)}
-.bar{height:10px;border-radius:6px;background:var(--line);overflow:hidden;margin:12px 0 6px}
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:16px 0 4px}
+.kpi{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
+.kpi b{display:block;font:700 30px/1.05 "Barlow Condensed",sans-serif;font-variant-numeric:tabular-nums}
+.kpi span{font-size:13.5px;color:var(--muted)}
+.bar{display:block;height:10px;border-radius:6px;background:var(--line);overflow:hidden;margin:12px 0 6px}
 .bar i{display:block;height:100%;background:var(--ok);border-radius:6px;transition:width .4s}
-.bar.fina{height:6px;margin:8px 0 2px}
+.bar.fina{height:6px;margin:10px 0 6px}
 .stats{display:flex;justify-content:space-between;font-size:14px;color:var(--muted)}
-.trilhas{display:grid;gap:10px;margin:8px 0}
-.tcard{display:block;width:100%;text-align:left;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:13px 14px}
-.tcard .nome{font-weight:600;font-size:17.5px}
-.tcard .info{font-size:14px;color:var(--muted)}
+.grade{display:grid;grid-template-columns:minmax(0,1fr) 330px;gap:24px;align-items:start;margin-top:14px}
+.lado{display:grid;gap:12px;position:sticky;top:calc(env(safe-area-inset-top,0px) + 76px)}
+.caixa{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.caixa h3{font-size:21px;display:flex;justify-content:space-between;align-items:baseline;gap:8px}
+.caixa h3 .pill{font:600 13px "Barlow",sans-serif}
+.caixa p{margin:6px 0 10px;font-size:15px;color:var(--muted)}
+.caixa ul{list-style:none;margin:6px 0 10px;padding:0}
+.caixa li{padding:7px 0;border-top:1px solid var(--line);font-size:15px}
+.caixa li:first-child{border-top:0}
+.caixa li button{background:none;border:0;padding:0;color:var(--ink);text-align:left;font-weight:600}
+.caixa li small{display:block;color:var(--muted);font-size:13px}
+.pill{display:inline-block;border-radius:999px;padding:2px 10px;font:600 13px "Barlow",sans-serif;background:var(--soft-blue);color:var(--blue)}
+.pill.ok{background:var(--soft-ok);color:var(--ok)}
+.pill.bad{background:var(--soft-bad);color:var(--bad)}
+.pill.amb{background:var(--soft-amber);color:var(--ink)}
+.continuar{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:14px;align-items:center;background:#16325C;color:#fff;border-radius:14px;padding:18px 20px;margin:14px 0 6px}
+.continuar .eyebrow{color:#C9D6EA}
+.continuar h2{font-size:26px;margin-top:4px}
+.continuar p{margin:4px 0 0;color:#C9D6EA;font-size:15px}
+.continuar .btn{background:#E39B0B;color:#1b1300}
+.busca{position:relative}
+.busca input{width:100%;font:inherit;font-size:16px;padding:11px 14px;border-radius:10px;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+.res-busca{list-style:none;margin:8px 0 0;padding:0;background:var(--surface);border:1px solid var(--line);border-radius:10px}
+.res-busca:empty{display:none}
+.res-busca li{border-top:1px solid var(--line)}
+.res-busca li:first-child{border-top:0}
+.res-busca button{display:block;width:100%;text-align:left;background:none;border:0;padding:9px 12px;color:var(--ink)}
+.res-busca small{display:block;color:var(--muted);font-size:13px}
+.trilhas{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:8px 0}
+.tcard{display:flex;flex-direction:column;gap:2px;width:100%;text-align:left;background:var(--surface);color:var(--ink);border:1px solid var(--line);border-radius:12px;padding:13px 14px}
+.tcard .nome{display:block;font-weight:600;font-size:17px;line-height:1.3}
+.tcard .info{display:block;font-size:14px;color:var(--muted);line-height:1.4}
+.tcard .linha{display:flex;justify-content:space-between;gap:8px;align-items:baseline}
+.tcard .linha .q{font-size:13px;color:var(--muted);white-space:nowrap}
 .tcard.feita{border-color:var(--ok)}
 .tcard.taf{border:2px solid var(--amber)}
 .tcard.trava{opacity:.6;cursor:not-allowed}
+.tcard:hover:not(.trava){border-color:var(--navy)}
+.bloco-cab{display:flex;justify-content:space-between;align-items:baseline;gap:10px;margin:24px 0 6px}
+.bloco-cab h2{font-size:24px}
+.bloco-cab span{font-size:14px;color:var(--muted)}
 
 /* Rota */
 .rota{list-style:none;margin:18px 0 40px;padding:0;position:relative}
@@ -132,11 +210,20 @@ a{color:var(--navy)}
   @keyframes pulso{0%,100%{box-shadow:0 0 0 0 rgba(227,155,11,.55)}50%{box-shadow:0 0 0 9px rgba(227,155,11,0)}}
 }
 
+/* Mapa do edital */
+.mapa-ed{margin:14px 0 40px}
+.mapa-ed details{background:var(--surface);border:1px solid var(--line);border-radius:12px;margin:8px 0;padding:0 14px}
+.mapa-ed summary{cursor:pointer;padding:12px 0;display:flex;justify-content:space-between;gap:10px;align-items:baseline;font-weight:600}
+.mapa-ed summary span{font-weight:500;font-size:14px;color:var(--muted);white-space:nowrap}
+.mapa-ed table{margin:0 0 12px}
+.mapa-ed td button{background:none;border:0;padding:0;color:var(--navy);font-weight:600;text-align:left}
+.legenda{display:flex;flex-wrap:wrap;gap:8px;margin:10px 0}
+
 /* Tópico */
 .topico h2{font-size:30px;margin-top:4px}
 .meta{color:var(--muted);font-size:14px;margin-top:4px}
-.abas{display:flex;gap:6px;margin:16px 0 0;border-bottom:2px solid var(--line)}
-.abas button{background:none;border:0;padding:10px 12px;font-weight:600;color:var(--muted);border-bottom:3px solid transparent;margin-bottom:-2px}
+.abas{display:flex;gap:6px;margin:16px 0 0;border-bottom:2px solid var(--line);overflow-x:auto}
+.abas button{background:none;border:0;padding:10px 12px;font-weight:600;color:var(--muted);border-bottom:3px solid transparent;margin-bottom:-2px;white-space:nowrap}
 .abas button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--amber)}
 .painel{padding:16px 0 40px}
 .aula h3{font-size:22px;margin:22px 0 6px}
@@ -168,9 +255,13 @@ th{font-weight:600}
 .vazio{border:2px dashed var(--line);border-radius:12px;padding:26px 18px;text-align:center;color:var(--muted)}
 .regra{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:14px}
 .historico{font-size:14px;color:var(--muted);margin-top:10px}
+.confirma{display:flex;flex-wrap:wrap;gap:10px;align-items:center;background:var(--soft-bad);border-radius:10px;padding:10px 12px;margin:8px 0}
+.confirma p{margin:0;flex:1 1 220px;font-size:15px}
 
 /* Questões */
-.qtopo{display:flex;justify-content:space-between;align-items:center;font-size:14px;color:var(--muted);margin:14px 0 8px}
+.qtopo{display:flex;justify-content:space-between;align-items:center;gap:10px;font-size:14px;color:var(--muted);margin:14px 0 8px}
+.marcar{background:none;border:1.5px solid var(--line);border-radius:999px;padding:4px 12px;font-size:14px;color:var(--muted)}
+.marcar[aria-pressed="true"]{border-color:var(--amber);background:var(--soft-amber);color:var(--ink)}
 .qcard{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:16px}
 .qcard .enun{font-weight:500;margin:0 0 12px}
 .txt{margin:0 0 12px;padding:10px 14px;border-left:4px solid var(--line);background:var(--bg);border-radius:0 10px 10px 0;font-size:15.5px}
@@ -188,12 +279,57 @@ ol.alts{margin:6px 0 8px;padding-left:28px}
 .res.bad{background:var(--soft-bad)}
 .res h2{font-size:28px;margin-top:6px}
 .rev{border:1px solid var(--line);background:var(--surface);border-radius:12px;padding:12px 14px;margin:10px 0}
-.rev .st{font-weight:600;font-size:14px}
+.rev .st{font-weight:600;font-size:14px;display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap}
 .rev.ok .st{color:var(--ok)}
 .rev.bad .st{color:var(--bad)}
 .rev p{margin:6px 0}
 .rodape{text-align:center;padding:10px 0 34px}
 .rodape button{background:none;border:0;color:var(--muted);text-decoration:underline;font-size:14px}
+.reportar{font-family:"Barlow",system-ui,sans-serif;margin-top:18px;padding:14px 16px;border:1px dashed var(--line);border-radius:12px}
+.reportar textarea{width:100%;min-height:90px;font:inherit;font-size:16px;padding:10px;border-radius:8px;border:1px solid var(--line);background:var(--bg);color:var(--ink);margin:8px 0}
+.reportar p{margin:0!important;font-size:15px}
+
+/* Caixas com função (legal design) */
+.callout{position:relative;margin:18px 0!important;padding:12px 16px 12px 16px!important;border-radius:10px!important;border-left:5px solid!important;font-family:"Barlow",system-ui,sans-serif;font-size:16.5px;line-height:1.5}
+.callout p{margin:0!important}
+.callout .rot{display:inline-flex;align-items:center;gap:6px;font:700 13px "Barlow",sans-serif;letter-spacing:.07em;text-transform:uppercase;margin-bottom:4px}
+.callout .rot svg{width:16px;height:16px}
+.callout.cuidado{background:var(--soft-bad)!important;border-color:var(--bad)!important}
+.callout.cuidado .rot{color:var(--bad)}
+.callout.caimuito{background:var(--soft-amber)!important;border-color:var(--amber)!important}
+.callout.caimuito .rot{color:var(--ink)}
+.callout.macete{background:var(--soft-violet)!important;border-color:var(--violet)!important}
+.callout.macete .rot{color:var(--violet)}
+.callout.conceito{background:var(--soft-blue)!important;border-color:var(--blue)!important}
+.callout.conceito .rot{color:var(--blue)}
+.callout.regra-p{background:var(--soft-ok)!important;border-color:var(--ok)!important}
+.callout.regra-p .rot{color:var(--ok)}
+.legenda-cores{display:flex;flex-wrap:wrap;gap:6px 14px;font:500 13.5px "Barlow",sans-serif;color:var(--muted);margin:10px 0 0}
+.legenda-cores span{display:inline-flex;align-items:center;gap:6px}
+.legenda-cores i{width:12px;height:12px;border-radius:3px;display:inline-block}
+.resumo-topo{font-family:"Barlow",system-ui,sans-serif;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 16px;margin-bottom:6px;font-size:15.5px}
+
+@media (max-width:900px){
+  .grade{grid-template-columns:minmax(0,1fr)}
+  .lado{position:static;order:-1}
+  .lado .caixa:last-child{display:none}
+  .lp-hero{grid-template-columns:minmax(0,1fr)}
+  .passos{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .recursos{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .oferta-box{grid-template-columns:minmax(0,1fr)}
+}
+@media (max-width:600px){
+  .lp-hero h1{font-size:38px}
+  .lp-sec h2{font-size:30px}
+  .numeros{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .numeros div:nth-child(3){border-left:0;padding-left:0}
+  .numeros div:nth-child(n+3){border-top:1px solid var(--line)}
+  .duas,.trilhas,.passos,.recursos{grid-template-columns:minmax(0,1fr)}
+  .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .hero{grid-template-columns:minmax(0,1fr)}
+  .continuar{grid-template-columns:minmax(0,1fr)}
+  .brand small{display:none}
+}
 
 /* ---------- Aula: formato apostila ---------- */
 .aula.apostila{font-family:"Source Serif 4",Georgia,"Times New Roman",serif;font-size:18.5px;line-height:1.66;max-width:66ch;padding-bottom:12px}
@@ -277,7 +413,7 @@ ol.alts{margin:6px 0 8px;padding-left:28px}
 <body>
 <header class="top">
   <div class="wrap">
-    <button class="brand" id="brand">Rota GM Campinas<small>Guarda Municipal 3ª Classe · Vunesp</small></button>
+    <button class="brand" id="brand"><svg viewBox="0 0 34 38" aria-hidden="true"><path d="M17 1 L32 6 V18 C32 28 25 34 17 37 C9 34 2 28 2 18 V6 Z" fill="#E39B0B"/><path d="M17 5 L28 8.6 V18 C28 25.6 23 30.4 17 33 C11 30.4 6 25.6 6 18 V8.6 Z" fill="#16325C"/><text x="17" y="23.5" text-anchor="middle" font-family="Barlow Condensed,Arial Narrow,sans-serif" font-weight="700" font-size="13" fill="#fff">GM</text></svg><span>Rota GM Campinas<small>Guarda Municipal 3ª Classe · Vunesp</small></span></button>
     <div class="topo-dir"><button class="tema" id="tema" type="button" aria-label="Alternar modo claro e escuro"></button><div class="count"><b id="dias">—</b><span>dias até a prova</span></div></div>
   </div>
 </header>
@@ -25723,11 +25859,19 @@ TRILHAS.forEach(tr=>tr.postos.forEach((p,i)=>POSTOS.push({id:tr.id+"-"+(i+1), t:
 const POSTO = Object.fromEntries(POSTOS.map(p=>[p.id,p]));
 const TRILHA = Object.fromEntries(TRILHAS.map(t=>[t.id,t]));
 const postosDe = tid => POSTOS.filter(p=>p.tr.id===tid);
+const QIDX = {};
+Object.keys(BANCO).forEach(pid=>BANCO[pid].forEach(q=>{ QIDX[q.id] = {q, pid}; }));
+const TOTAL_Q = Object.keys(QIDX).length;
+const BLOCOS = [
+  {nome:"Conhecimentos Gerais", q:20, id:"cg"},
+  {nome:"Conhecimentos Específicos", q:30, id:"ce"}
+];
 
 /* ---------- Estado ---------- */
 const KEY = "rota-gm-campinas-v2";
-function novoEstado(){ return {acesso:false, aprovados:{}, tentativas:{}, vistas:{}, atualizado:0}; }
-let S = (()=>{ try{ return JSON.parse(localStorage.getItem(KEY)) || novoEstado(); }catch(e){ return novoEstado(); } })();
+function novoEstado(){ return {acesso:false, aprovados:{}, tentativas:{}, vistas:{}, erros:{}, marcadas:{}, revisoes:{}, correcoes:[], ultimo:null, atualizado:0}; }
+function completar(e){ const n = novoEstado(); Object.keys(n).forEach(k=>{ if(!(k in e)) e[k] = n[k]; }); return e; }
+let S = (()=>{ try{ return completar(JSON.parse(localStorage.getItem(KEY)) || novoEstado()); }catch(e){ return novoEstado(); } })();
 let docRef = null;
 let IS_OWNER = false;
 async function salvar(){
@@ -25745,7 +25889,7 @@ async function salvar(){
     docRef = db.doc("data/users/" + uid + "/progresso");
     const snap = await docRef.get();
     if(snap.exists){
-      const remoto = JSON.parse(snap.data().estado);
+      const remoto = completar(JSON.parse(snap.data().estado));
       if((remoto.atualizado||0) > (S.atualizado||0)){ S = remoto; try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){} render(); }
     } else if(S.atualizado){ salvar(); }
   }catch(e){}
@@ -25754,12 +25898,35 @@ async function salvar(){
 /* ---------- Utilidades ---------- */
 const $app = document.getElementById("app");
 const LETRAS = ["A","B","C","D","E"];
+const DIA = 86400000;
+const INTERVALOS = [1, 7, 30]; // revisão espaçada: 1 dia, 7 dias e 30 dias após concluir o posto
 const embaralhar = arr => { const a = arr.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; };
-const diasAte = d => Math.max(0, Math.ceil((d - new Date())/86400000));
+const diasAte = d => Math.max(0, Math.ceil((d - new Date())/DIA));
 const feitos = tid => postosDe(tid).filter(p=>S.aprovados[p.id]).length;
+const fmt = n => n.toLocaleString("pt-BR");
+const norm = s => (s||"").normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase();
 const MODO_REVISAO = true; // true = todos os postos liberados, sem nota mínima. Voltar para false para reativar a trava.
 function liberado(pid){ const p = POSTO[pid]; if(!S.acesso) return false; if(MODO_REVISAO || p.n===0) return true; return !!S.aprovados[p.tr.id+"-"+p.n]; }
 function proximo(tid){ return postosDe(tid).find(p=>!S.aprovados[p.id]) || null; }
+function revisoesHoje(){ const agora = Date.now(); return Object.entries(S.revisoes).filter(([pid,r])=>POSTO[pid] && r.etapa < INTERVALOS.length && r.prox <= agora).map(([pid])=>POSTO[pid]); }
+function proximaRevisao(){ const fut = Object.entries(S.revisoes).filter(([pid,r])=>POSTO[pid] && r.etapa < INTERVALOS.length && r.prox > Date.now()).sort((a,b)=>a[1].prox-b[1].prox); return fut.length ? fut[0] : null; }
+function nErros(){ return Object.keys(S.erros).filter(k=>QIDX[k]).length; }
+function nMarcadas(){ return Object.keys(S.marcadas).filter(k=>QIDX[k]).length; }
+function respondidas(){ let r=0, c=0; Object.values(S.tentativas).forEach(ts=>ts.forEach(t=>{ r += (t.ids||[]).length; c += t.nota; })); return {r, c}; }
+function sugestao(){
+  if(S.ultimo && POSTO[S.ultimo] && !S.aprovados[S.ultimo]) return POSTO[S.ultimo];
+  // alterna as matérias: escolhe a trilha com menor proporção concluída
+  const abertas = TRILHAS.filter(t=>proximo(t.id)).sort((a,b)=>feitos(a.id)/a.postos.length - feitos(b.id)/b.postos.length);
+  return abertas.length ? proximo(abertas[0].id) : null;
+}
+const ICONE = {
+  cuidado:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 2 20h20L12 3z"/><path d="M12 10v4M12 17.5v.01"/></svg>',
+  caimuito:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l3 6.5 7 .8-5.2 4.8 1.4 7L12 17.6 5.8 21l1.4-7L2 9.3l7-.8z"/></svg>',
+  macete:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"/></svg>',
+  conceito:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.01"/></svg>',
+  "regra-p":'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg>'
+};
+const ROTULO = {cuidado:"Cuidado", caimuito:"Cai muito", macete:"Macete", conceito:"Conceito", "regra-p":"Regra"};
 document.getElementById("dias").textContent = diasAte(PROVA);
 
 /* ---------- Modo claro e escuro ---------- */
@@ -25785,8 +25952,10 @@ let V = {tela:"home"};
 let Q = null;
 function ir(v){ if(v.posto && !("modo" in v)) v = Object.assign({modo:undefined}, v); V = Object.assign({}, V, v); render(); window.scrollTo(0,0); }
 document.getElementById("brand").onclick = ()=>ir({tela: S.acesso ? "painel" : "home"});
+const LARGAS = new Set(["home","painel","checkout"]);
 function render(){
   const t = V.tela;
+  $app.classList.toggle("largo", LARGAS.has(t) || (t==="checkout"));
   if(t==="home") return telaHome();
   if(t==="checkout") return S.acesso ? telaPainel() : telaCheckout();
   if(!S.acesso) return telaHome();
@@ -25797,25 +25966,39 @@ function render(){
   if(t==="resultado") return telaResultado();
   if(t==="taf") return telaTAF();
   if(t==="banco") return telaBanco();
+  if(t==="erros") return telaErros();
+  if(t==="edital") return telaEdital();
+}
+function bindGo(){ $app.querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>ir({tela:b.dataset.go})); }
+function bindPostos(){ $app.querySelectorAll("[data-abrir]").forEach(b=>b.onclick=()=>ir({tela:"posto", posto:b.dataset.abrir, aba:b.dataset.aba||"aula"})); }
+
+/* ---------- Peso da prova ---------- */
+function pesoProva(){
+  const partes = [["pt","Língua Portuguesa",12],["mt","Matemática e Raciocínio Lógico",6],["lm","Legislação Municipal",2],["ce","Conhecimentos Específicos",30]];
+  return `<div class="peso" role="img" aria-label="Distribuição das 50 questões: Português 12, Matemática 6, Legislação Municipal 2, Conhecimentos Específicos 30">
+    <div class="barra">${partes.map(([c,n,q])=>`<span class="${c}" style="flex:${q}">${q}</span>`).join("")}</div>
+    <ul>${partes.map(([c,n,q])=>`<li><i class="${c}"></i>${n}: ${q} questões</li>`).join("")}</ul>
+  </div>`;
 }
 
 /* ---------- Página de vendas ---------- */
 function telaHome(){
-  const blocos = ["Conhecimentos Gerais","Conhecimentos Específicos"].map(b=>{
-    const trs = TRILHAS.filter(t=>t.bloco===b);
-    const cab = b==="Conhecimentos Gerais" ? "Conhecimentos Gerais — 20 questões" : "Conhecimentos Específicos — 30 questões";
-    return `<p class="bloco-tit">${cab}</p><ul class="lista-materias">${trs.map(t=>`<li><span>${t.nome}</span><span>${t.postos.length} ${t.postos.length===1?"posto":"postos"}</span></li>`).join("")}</ul>`;
+  const blocos = BLOCOS.map(b=>{
+    const trs = TRILHAS.filter(t=>t.bloco===b.nome);
+    return `<p class="bloco-tit">${b.nome} · ${b.q} questões</p><ul class="lista-materias">${trs.map(t=>`<li><span>${t.nome}</span><span>${t.postos.length} ${t.postos.length===1?"posto":"postos"}${t.q ? " · " + t.q : ""}</span></li>`).join("")}</ul>`;
   }).join("");
+  const cta = S.acesso ? `<button class="btn" data-go="painel">Ir para o meu painel</button>` : `<button class="btn amber" data-go="checkout">Quero meu acesso</button>`;
   $app.innerHTML = `
+  <div class="lp">
   <section class="lp-hero">
-    <h1>Guarda Municipal de Campinas: todo o edital em trilhas que você conclui uma a uma</h1>
-    <p>Cada matéria do edital vira uma trilha com aula escrita, vídeo e questões no estilo Vunesp. Você só avança no assunto quando acerta pelo menos 7 de 10.</p>
-    <div class="cta-row">
-      ${S.acesso ? `<button class="btn" data-go="painel">Ir para o meu painel</button>` : `<button class="btn amber" data-go="checkout">Quero meu acesso</button>`}
-      <a class="btn sec" href="#materias">Ver as trilhas</a>
+    <div>
+      <p class="eyebrow">Edital 02/2026 · Vunesp · prova em 21/03/2027</p>
+      <h1>Guarda Municipal de Campinas: o edital inteiro, estudado item por item</h1>
+      <p class="sub">Cada item do conteúdo programático virou um posto de estudo, com aula baseada no texto da lei, resumo de uma página e 60 questões comentadas no estilo Vunesp. O painel mostra o que estudar hoje, o que revisar e onde você mais erra.</p>
+      <div class="cta-row">${cta}<a class="btn sec" href="#materias">Ver o conteúdo</a></div>
     </div>
     <div class="credencial" aria-label="Dados do concurso">
-      <div class="faixa"><strong>Edital 02/2026 · Prefeitura de Campinas</strong><span>Vunesp</span></div>
+      <div class="faixa"><strong>Prefeitura de Campinas</strong><span>Edital 02/2026</span></div>
       <dl>
         <div><dt>Cargo</dt><dd>Guarda Municipal 3ª Classe</dd></div>
         <div><dt>Vagas</dt><dd>100</dd></div>
@@ -25826,43 +26009,91 @@ function telaHome(){
       </dl>
     </div>
   </section>
+  <div class="numeros">
+    <div><b>${TRILHAS.length}</b><span>matérias do Anexo I</span></div>
+    <div><b>${POSTOS.length}</b><span>postos de estudo</span></div>
+    <div><b>${fmt(TOTAL_Q)}</b><span>questões comentadas</span></div>
+    <div><b>${diasAte(PROVA)}</b><span>dias até a prova</span></div>
+  </div>
 
-  <section class="lp-sec" id="materias">
-    <h2>Todas as matérias do edital, sem exceção</h2>
-    <p>${TRILHAS.length} trilhas e ${POSTOS.length} postos de estudo, montados a partir do Anexo I. Cada trilha corresponde a uma matéria cobrada na prova objetiva.</p>
-    ${blocos}
+  <section class="lp-sec">
+    <h2>Quanto vale cada parte da prova objetiva</h2>
+    <p>São 50 questões. Os Conhecimentos Específicos respondem por 30 delas, e é nessa parte que estão as leis que o guarda usa no serviço.</p>
+    ${pesoProva()}
+  </section>
+
+  <section class="lp-sec duas">
+    <div>
+      <h2>Aulas que mostram, pela cor, o que é regra e o que é pegadinha</h2>
+      <p style="color:var(--muted)">Toda aula segue a mesma ordem: mapa do assunto, texto da lei, explicação em linguagem simples, caso da rotina do guarda, armadilhas da banca e quadro-resumo. As caixas coloridas têm sempre a mesma função.</p>
+      <div class="legenda-cores">
+        <span><i style="background:var(--blue)"></i>Conceito</span>
+        <span><i style="background:var(--ok)"></i>Regra</span>
+        <span><i style="background:var(--bad)"></i>Cuidado, exceção</span>
+        <span><i style="background:var(--amber)"></i>Cai muito</span>
+        <span><i style="background:var(--violet)"></i>Macete</span>
+      </div>
+    </div>
+    <div class="amostra"><p class="eyebrow">Trecho da aula de CTB · demais infrações</p><article class="aula apostila" id="amostra">
+      <p><strong>O que é, em uma frase:</strong> o art. 252 pune quem dirige sem atenção total ao volante.</p>
+      <blockquote><p><strong>Cai muito:</strong> dirigir com fone ou usando o celular é infração <strong>média</strong>; <strong>segurando ou manuseando</strong> o aparelho, é <strong>gravíssima</strong>.</p></blockquote>
+      <blockquote><p><strong>Macete:</strong> "segurou, gravíssima".</p></blockquote>
+      <blockquote><p><strong>Cuidado!</strong> Esquecer a CNH em casa é infração leve (art. 232). Recusar-se a entregá-la ao agente é gravíssima (art. 238).</p></blockquote>
+    </article></div>
   </section>
 
   <section class="lp-sec">
-    <h2>Como funciona</h2>
+    <h2>Como o estudo funciona</h2>
     <ol class="passos">
-      <li><strong>Escolha a trilha.</strong> Todas as matérias ficam abertas desde o primeiro dia; você alterna entre elas como preferir.</li>
-      <li><strong>Estude o posto.</strong> Aula escrita com os artigos da lei, vídeo explicativo e quadro-resumo.</li>
-      <li><strong>Faça as 10 questões.</strong> Acertou 7 ou mais, o próximo posto da trilha é liberado.</li>
-      <li><strong>Errou? Tente de novo.</strong> A nova tentativa traz questões diferentes e a correção comentada mostra onde ajustar.</li>
+      <li><strong>Escolha a matéria</strong>Todas ficam abertas desde o primeiro dia, e o painel sugere a próxima para você alternar.</li>
+      <li><strong>Leia a aula</strong>Texto da lei citado com o artigo, explicação, caso prático e quadro-resumo.</li>
+      <li><strong>Faça 10 questões</strong>Sorteadas entre 60 do posto: fáceis, médias e difíceis. Com 7 acertos, o posto conta como concluído.</li>
+      <li><strong>Revise no tempo certo</strong>O posto volta para revisão após 1, 7 e 30 dias, e cada erro vai para o seu caderno.</li>
     </ol>
+  </section>
+
+  <section class="lp-sec">
+    <h2>O que você encontra no painel</h2>
+    <div class="recursos">
+      <div class="recurso"><h3>Mapa do edital</h3><p>Cada item do Anexo I ligado ao posto que o cobre, com o seu progresso em cada um.</p></div>
+      <div class="recurso"><h3>Caderno de erros</h3><p>As questões que você errou e as que marcou ficam guardadas para treinar de novo até acertar.</p></div>
+      <div class="recurso"><h3>Revisão espaçada</h3><p>O painel avisa quais postos revisar hoje, para o conteúdo não se perder até março.</p></div>
+      <div class="recurso"><h3>Resumo de uma página</h3><p>Mapa, armadilhas da banca e quadro-resumo de cada posto, para a revisão da véspera.</p></div>
+      <div class="recurso"><h3>Guia do TAF</h3><p>As cinco provas físicas, os índices mínimo e máximo e o cálculo da nota, conforme o Anexo II.</p></div>
+      <div class="recurso"><h3>Fontes à vista</h3><p>Cada aula cita a lei e o artigo usados. Achou um erro? Há um botão para avisar em todas as aulas.</p></div>
+    </div>
+  </section>
+
+  <section class="lp-sec" id="materias">
+    <h2>Todas as matérias do edital, sem exceção</h2>
+    <p>${TRILHAS.length} matérias e ${POSTOS.length} postos de estudo, montados a partir do Anexo I do edital.</p>
+    <div class="duas">${blocos.replace(/(<p class="bloco-tit">Conhecimentos Específicos)/, '</div><div>$1').replace(/^/, '<div>')}</div></div>
   </section>
 
   <section class="lp-sec">
     <div class="destaque">
       <h2>O teste físico vale o dobro da prova escrita</h2>
-      <p>Pelo edital, a nota final é a soma da prova objetiva, que vale até 50 pontos, com o TAF, que vale até 100. O TAF também é o primeiro critério de desempate.</p>
-      <p>O painel traz o guia do TAF com as cinco provas, os índices mínimos e o cálculo da nota, tudo conforme o Anexo II.</p>
+      <p>A nota final é a soma da prova objetiva, que vale até 50 pontos, com o TAF, que vale até 100. A nota do TAF também é o primeiro critério de desempate.</p>
     </div>
   </section>
 
   <section class="lp-sec">
     <div class="oferta-box">
-      <h2>Acesso completo até a prova</h2>
-      <ul>
-        <li>${TRILHAS.length} trilhas cobrindo todo o conteúdo programático</li>
-        <li>Questões que se renovam a cada tentativa</li>
-        <li>Guia do Teste de Aptidão Física</li>
-        <li>Simulado final no formato da prova: 50 questões em 3 horas</li>
-        <li>Progresso salvo, no celular ou no computador</li>
-      </ul>
-      <div class="preco"><b>R$ 97</b><span>pagamento único, no Pix ou no cartão</span></div>
-      ${S.acesso ? `<button class="btn full" data-go="painel">Ir para o meu painel</button>` : `<button class="btn amber full" data-go="checkout">Quero meu acesso</button>`}
+      <div>
+        <h2>Acesso completo até a prova</h2>
+        <ul>
+          <li>${POSTOS.length} postos cobrindo todo o conteúdo programático</li>
+          <li>${fmt(TOTAL_Q)} questões comentadas, com sorteio que evita repetir</li>
+          <li>Caderno de erros, revisão espaçada e resumo de cada posto</li>
+          <li>Guia do Teste de Aptidão Física</li>
+          <li>Progresso salvo no celular e no computador</li>
+        </ul>
+      </div>
+      <div>
+        <div class="preco"><b>R$ 97</b><span>pagamento único, no Pix ou no cartão</span></div>
+        ${S.acesso ? `<button class="btn full" data-go="painel">Ir para o meu painel</button>` : `<button class="btn amber full" data-go="checkout">Quero meu acesso</button>`}
+        <p class="demo">Garantia de 7 dias pelo Código de Defesa do Consumidor.</p>
+      </div>
     </div>
   </section>
 
@@ -25870,19 +26101,21 @@ function telaHome(){
     <h2>Perguntas frequentes</h2>
     <details><summary>Quando o acesso é liberado?</summary><p>No Pix, logo após a confirmação do pagamento. No cartão, assim que a operadora aprovar.</p></details>
     <details><summary>Posso estudar pelo celular?</summary><p>Sim. O painel funciona no navegador do celular e do computador, e o progresso fica salvo.</p></details>
-    <details><summary>E se uma lei mudar até a prova?</summary><p>O edital diz que alterações legais posteriores à sua publicação não serão cobradas. O material segue o texto vigente em 11/11/2026.</p></details>
+    <details><summary>De onde vem o conteúdo?</summary><p>Do texto das leis e decretos cobrados no edital, citados com o número do artigo. Os temas de Campinas usam fontes oficiais do Município, da Câmara e da Região Metropolitana; cada aula traz a lista das fontes usadas.</p></details>
+    <details><summary>E se uma lei mudar até a prova?</summary><p>O edital manda considerar a legislação vigente até a data da sua publicação. O material segue esse texto e aponta, em cada aula, os pontos que estão sendo conferidos.</p></details>
     <details><summary>Posso desistir da compra?</summary><p>Sim. Você tem 7 dias para exercer o direito de arrependimento, conforme o Código de Defesa do Consumidor.</p></details>
   </section>
-  <p class="aviso">Material preparatório independente, sem vínculo com a Prefeitura de Campinas ou com a Fundação Vunesp.</p>`;
+  <p class="aviso">Material preparatório independente, sem vínculo com a Prefeitura de Campinas ou com a Fundação Vunesp.</p>
+  </div>`;
+  montarCaixas(document.getElementById("amostra"));
   bindGo();
 }
-function bindGo(){ $app.querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>ir({tela:b.dataset.go})); }
 
 /* ---------- Checkout (demonstração) ---------- */
 let modoPag = null;
 function telaCheckout(){
   $app.innerHTML = `
-  <section class="topico">
+  <section class="topico" style="max-width:560px">
     <button class="voltar" data-go="home">‹ Voltar</button>
     <h2>Finalize seu acesso</h2>
     <p class="meta">Rota GM Campinas · acesso completo até a prova · R$ 97</p>
@@ -25921,38 +26154,116 @@ function qrFake(){
 function telaPainel(){
   const total = POSTOS.length, ok = Object.keys(S.aprovados).filter(k=>POSTO[k]).length;
   const restantes = total - ok;
-  const meta = Math.ceil(restantes / Math.max(1, Math.ceil(diasAte(FIM_CONTEUDO)/7)));
+  const semanas = Math.max(1, Math.ceil(diasAte(FIM_CONTEUDO)/7));
+  const meta = Math.ceil(restantes / semanas);
+  const {r, c} = respondidas();
+  const rev = revisoesHoje(), prox = proximaRevisao(), sug = sugestao();
+  const ne = nErros(), nm = nMarcadas();
   const card = tr => {
     const f = feitos(tr.id), n = tr.postos.length, px = proximo(tr.id);
     return `<button class="tcard ${f===n?"feita":""}" data-tr="${tr.id}">
-      <span class="nome">${tr.nome}</span>
+      <span class="linha"><span class="nome">${tr.nome}</span>${tr.q ? `<span class="q">${tr.q}</span>` : ""}</span>
       <span class="bar fina" aria-hidden="true"><i style="width:${(f/n*100).toFixed(0)}%"></i></span>
-      <span class="info">${f} de ${n} postos${px ? ` · próximo: ${px.t}` : " · trilha concluída"}</span>
+      <span class="info">${f} de ${n} ${n===1?"posto":"postos"}${px ? ` · próximo: ${px.t}` : " · matéria concluída"}</span>
     </button>`;
   };
   const tudo = restantes===0;
   $app.innerHTML = `
   <section class="hero">
-    <h1>Seu painel</h1>
-    <p>${restantes ? `Para fechar o edital até 14/03, conclua cerca de ${meta} ${meta===1?"posto":"postos"} por semana, alternando as trilhas.` : "Você concluiu todas as trilhas. Faça o simulado final."}</p>
-    <div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="${total}" aria-valuenow="${ok}"><i style="width:${(ok/total*100).toFixed(1)}%"></i></div>
-    <div class="stats"><span>${ok} de ${total} postos</span><span>Prova em 21/03/2027</span></div>
+    <div>
+      <p class="eyebrow">Seu plano até 21/03/2027</p>
+      <h1>${tudo ? "Edital concluído" : "Seu painel de estudo"}</h1>
+      <p>${tudo ? "Você concluiu todos os postos. Mantenha as revisões e treine o caderno de erros." : `Para fechar o edital até 14/03, conclua cerca de ${meta} ${meta===1?"posto":"postos"} por semana, alternando as matérias.`}</p>
+    </div>
   </section>
-  <div class="trilhas" style="margin-top:14px">
-    <button class="tcard taf" data-go="taf"><span class="nome">Guia do Teste de Aptidão Física</span><span class="info">Vale até 100 pontos na classificação final</span></button>
+  <div class="kpis">
+    <div class="kpi"><b>${ok}<small style="font-size:18px;color:var(--muted)">/${total}</small></b><span>postos concluídos</span></div>
+    <div class="kpi"><b>${fmt(r)}</b><span>questões respondidas</span></div>
+    <div class="kpi"><b>${r ? Math.round(c/r*100)+"%" : "—"}</b><span>de acerto geral</span></div>
+    <div class="kpi"><b>${diasAte(PROVA)}</b><span>dias até a prova</span></div>
   </div>
-  <p class="bloco-tit">Conhecimentos Gerais — 20 questões</p>
-  <div class="trilhas">${TRILHAS.filter(t=>t.bloco==="Conhecimentos Gerais").map(card).join("")}</div>
-  <p class="bloco-tit">Conhecimentos Específicos — 30 questões</p>
-  <div class="trilhas">${TRILHAS.filter(t=>t.bloco==="Conhecimentos Específicos").map(card).join("")}</div>
-  <p class="bloco-tit">Reta final</p>
-  <div class="trilhas">
-    <button class="tcard ${tudo?"":"trava"}" ${tudo?"":'aria-disabled="true"'}><span class="nome">Simulado final no formato Vunesp</span><span class="info">${tudo ? "50 questões em 3 horas · em produção" : "Libera ao concluir todas as trilhas"}</span></button>
+  <div class="bar" role="progressbar" aria-label="Progresso no edital" aria-valuemin="0" aria-valuemax="${total}" aria-valuenow="${ok}"><i style="width:${(ok/total*100).toFixed(1)}%"></i></div>
+
+  ${sug ? `<div class="continuar">
+        <div><p class="eyebrow">${S.ultimo===sug.id ? "Continue de onde parou" : "Sugestão para agora"}</p><h2>${sug.t}</h2><p>${sug.tr.nome} · posto ${sug.n+1} de ${sug.tr.postos.length}</p></div>
+        <button class="btn" data-abrir="${sug.id}">Estudar</button>
+      </div>` : ""}
+  <div class="grade">
+    <div>
+
+      ${BLOCOS.map(b=>`<div class="bloco-cab"><h2>${b.nome}</h2><span>${b.q} questões na prova</span></div>
+        <div class="trilhas">${TRILHAS.filter(t=>t.bloco===b.nome).map(card).join("")}</div>`).join("")}
+      <div class="bloco-cab"><h2>Teste físico e reta final</h2></div>
+      <div class="trilhas">
+        <button class="tcard taf" data-go="taf"><span class="nome">Guia do Teste de Aptidão Física</span><span class="info">Vale até 100 pontos na classificação final</span></button>
+        <button class="tcard ${tudo?"":"trava"}" ${tudo?"":'aria-disabled="true"'}><span class="nome">Simulado final no formato Vunesp</span><span class="info">${tudo ? "50 questões em 3 horas · em produção" : "Libera ao concluir todos os postos"}</span></button>
+      </div>
+    </div>
+    <aside class="lado" aria-label="Revisão e ferramentas">
+      <div class="caixa busca">
+        <label for="busca" class="eyebrow">Buscar no edital</label>
+        <input id="busca" type="search" placeholder="Ex.: crase, flagrante, celular" autocomplete="off" style="margin-top:6px">
+        <ul class="res-busca" id="res-busca"></ul>
+      </div>
+      <div class="caixa">
+        <h3>Revisões de hoje <span class="pill ${rev.length?"amb":"ok"}">${rev.length}</span></h3>
+        ${rev.length ? `<ul>${rev.slice(0,6).map(p=>`<li><button data-abrir="${p.id}" data-aba="resumo">${p.t}</button><small>${p.tr.nome} · revisão ${S.revisoes[p.id].etapa+1} de ${INTERVALOS.length}</small></li>`).join("")}</ul>${rev.length>6?`<p>E mais ${rev.length-6}.</p>`:""}`
+          : `<p>${prox ? `Nada para hoje. A próxima revisão é de <strong>${POSTO[prox[0]].t}</strong>, em ${Math.max(1,Math.ceil((prox[1].prox-Date.now())/DIA))} ${Math.ceil((prox[1].prox-Date.now())/DIA)>1?"dias":"dia"}.` : "Quando você concluir um posto, ele volta aqui para revisão após 1, 7 e 30 dias."}</p>`}
+      </div>
+      <div class="caixa">
+        <h3>Caderno de erros <span class="pill ${ne?"bad":"ok"}">${ne}</span></h3>
+        <p>${ne||nm ? `${ne} ${ne===1?"questão errada":"questões erradas"} e ${nm} ${nm===1?"marcada":"marcadas"} para revisar. Quando você acerta, a questão sai do caderno.` : "As questões que você errar ou marcar ficam aqui para treinar de novo."}</p>
+        <button class="btn peq ${ne||nm?"":"sec"}" data-go="erros">${ne||nm ? "Abrir o caderno" : "Ver como funciona"}</button>
+      </div>
+      <div class="caixa">
+        <h3>Mapa do edital</h3>
+        <p>Cada item do Anexo I e o posto que o cobre, com o seu progresso.</p>
+        <button class="btn sec peq" data-go="edital">Abrir o mapa</button>
+      </div>
+      <div class="caixa"><p class="eyebrow" style="margin:0 0 8px">Peso na prova objetiva</p>${pesoProva()}</div>
+    </aside>
   </div>
-  <div class="rodape"><button id="reset">Reiniciar demonstração</button></div>`;
-  bindGo();
+  <div class="rodape" id="rodape"><button id="reset">Reiniciar demonstração</button></div>`;
+  bindGo(); bindPostos();
   $app.querySelectorAll("[data-tr]").forEach(b=>b.onclick=()=>ir({tela:"trilha", trilha:b.dataset.tr}));
-  document.getElementById("reset").onclick = async ()=>{ if(confirm("Apagar o progresso e voltar à página de vendas?")){ S = novoEstado(); modoPag=null; await salvar(); ir({tela:"home"}); } };
+  const busca = document.getElementById("busca"), rb = document.getElementById("res-busca");
+  busca.oninput = ()=>{
+    const termos = norm(busca.value).split(/\s+/).filter(Boolean);
+    if(!termos.length){ rb.innerHTML = ""; return; }
+    const achados = POSTOS.filter(p=>{ const h = norm(p.t+" "+p.r+" "+p.tr.nome); return termos.every(t=>h.includes(t)); }).slice(0,8);
+    rb.innerHTML = achados.length ? achados.map(p=>`<li><button data-abrir="${p.id}">${p.t}<small>${p.tr.nome} · ${p.r}</small></button></li>`).join("") : `<li><button disabled>Nenhum posto encontrado<small>Tente outro termo, como o nome da lei ou do assunto.</small></button></li>`;
+    bindPostos();
+  };
+  document.getElementById("reset").onclick = ()=>{
+    const r = document.getElementById("rodape");
+    r.innerHTML = `<div class="confirma"><p>Apagar todo o progresso e voltar à página de vendas?</p><button class="btn peq" id="sim">Apagar</button><button class="btn sec peq" id="nao">Cancelar</button></div>`;
+    document.getElementById("nao").onclick = ()=>render();
+    document.getElementById("sim").onclick = async ()=>{ S = novoEstado(); modoPag=null; await salvar(); ir({tela:"home"}); };
+  };
+}
+
+/* ---------- Mapa do edital ---------- */
+function telaEdital(){
+  const ok = Object.keys(S.aprovados).filter(k=>POSTO[k]).length;
+  const linha = p => {
+    const a = S.aprovados[p.id], tent = (S.tentativas[p.id]||[]).length;
+    const st = a ? `<span class="pill ok">Concluído · ${a.nota}/10</span>` : (tent ? `<span class="pill amb">Em andamento</span>` : `<span class="pill">A estudar</span>`);
+    return `<tr><td><button data-abrir="${p.id}">${p.t}</button></td><td>${p.r}</td><td>${st}</td></tr>`;
+  };
+  $app.innerHTML = `
+  <section class="topico">
+    <button class="voltar" data-go="painel">‹ Voltar ao painel</button>
+    <p class="eyebrow">Anexo I do Edital 02/2026</p>
+    <h2>Mapa do edital</h2>
+    <p class="meta">Cada matéria do conteúdo programático, com os postos que cobrem seus itens. ${ok} de ${POSTOS.length} postos concluídos.</p>
+    <div class="legenda"><span class="pill ok">Concluído</span><span class="pill amb">Em andamento</span><span class="pill">A estudar</span></div>
+    <div class="mapa-ed">
+    ${BLOCOS.map(b=>`<h3 style="font-size:24px;margin:22px 0 6px">${b.nome} · ${b.q} questões</h3>` + TRILHAS.filter(t=>t.bloco===b.nome).map(t=>`
+      <details ${V.trilha===t.id?"open":""}><summary>${t.nome}<span>${feitos(t.id)}/${t.postos.length}${t.q ? " · " + t.q : ""}</span></summary>
+      <div class="tabela"><table><tr><th>Posto</th><th>Item do edital</th><th>Situação</th></tr>${postosDe(t.id).map(linha).join("")}</table></div></details>`).join("")).join("")}
+    </div>
+  </section>`;
+  bindGo(); bindPostos();
 }
 
 /* ---------- Trilha ---------- */
@@ -25982,39 +26293,83 @@ function telaTrilha(){
 function telaPosto(){
   const p = POSTO[V.posto], temAula = !!AULAS[p.id], temQ = !!BANCO[p.id];
   const tent = S.tentativas[p.id] || [], aprov = S.aprovados[p.id];
+  if(S.ultimo !== p.id){ S.ultimo = p.id; salvar(); }
+  const rv = S.revisoes[p.id];
   let corpo;
   if(V.aba==="aula"){
     corpo = temAula ? `<article class="aula">${AULAS[p.id]}</article>` : `<div class="vazio"><strong>Aula em produção</strong><br>Este posto será liberado aqui assim que o conteúdo estiver revisado.</div>`;
-  } else if(V.aba==="video"){
-    corpo = `<div class="vazio"><strong>Vídeo em produção</strong><br>Aqui entra a aula animada deste posto, com os artigos da lei na tela.</div>`;
+  } else if(V.aba==="resumo"){
+    corpo = temAula ? `<div class="resumo-topo">Resumo de uma página: mapa do assunto, destaques da aula, armadilhas da banca e quadro-resumo. Use na revisão e na véspera da prova.</div><article class="aula" id="resumo"></article>` : `<div class="vazio">Resumo em produção.</div>`;
   } else {
-    corpo = `<div class="regra"><strong>Como funciona:</strong> ${N_QUESTOES} questões sorteadas do banco deste posto. Com nota ${NOTA_MIN} ou mais, o próximo posto da trilha é liberado. Se não passar, a nova tentativa traz questões diferentes.</div>
-      ${temQ ? `<button class="btn full" id="iniciar">${aprov ? "Treinar de novo" : (tent.length ? "Tentar de novo com questões novas" : "Começar as questões")}</button>` : `<div class="vazio"><strong>Banco de questões em produção</strong></div>`}
+    const revHoje = rv && rv.etapa < INTERVALOS.length && rv.prox <= Date.now();
+    corpo = `<div class="regra"><strong>Como funciona:</strong> ${N_QUESTOES} questões sorteadas entre as ${temQ?BANCO[p.id].length:0} do posto (fáceis, médias e difíceis). Com ${NOTA_MIN} acertos ou mais, o posto conta como concluído e entra na revisão espaçada. Cada nova tentativa prioriza questões que você ainda não viu.</div>
+      ${revHoje ? `<p class="historico" style="margin:0 0 10px"><span class="pill amb">Revisão ${rv.etapa+1} de ${INTERVALOS.length} pendente</span> Faça as questões para registrar a revisão.</p>` : ""}
+      ${temQ ? `<button class="btn full" id="iniciar">${aprov ? (revHoje ? "Fazer a revisão" : "Treinar de novo") : (tent.length ? "Tentar de novo com questões novas" : "Começar as questões")}</button>` : `<div class="vazio"><strong>Banco de questões em produção</strong></div>`}
       ${tent.length ? `<p class="historico">Tentativas: ${tent.map(x=>x.nota).join(" · ")}${aprov ? " — posto concluído" : ""}</p>` : ""}
       ${IS_OWNER && temQ ? `<p style="margin-top:14px"><button class="btn sec full" id="banco">Revisar banco de questões (${BANCO[p.id].length})</button></p>` : ""}`;
   }
+  const idx = POSTOS.indexOf(p), ant = POSTOS[idx-1], seg = POSTOS[idx+1];
   $app.innerHTML = `
   <section class="topico">
     <button class="voltar" id="voltar">‹ ${p.tr.nome}</button>
-    <p class="meta">Posto ${p.n+1} de ${p.tr.postos.length}</p>
+    <p class="meta">Posto ${p.n+1} de ${p.tr.postos.length}${aprov ? ` · <span class="pill ok">Concluído · ${aprov.nota}/10</span>` : ""}</p>
     <h2>${p.t}</h2>
     <p class="meta">${p.r}</p>
     <div class="abas" role="tablist">
       <button role="tab" aria-selected="${V.aba==="aula"}" data-aba="aula">Aula</button>
-      <button role="tab" aria-selected="${V.aba==="video"}" data-aba="video">Vídeo</button>
+      <button role="tab" aria-selected="${V.aba==="resumo"}" data-aba="resumo">Resumo</button>
       <button role="tab" aria-selected="${V.aba==="questoes"}" data-aba="questoes">Questões</button>
     </div>
     <div class="painel">${corpo}</div>
+    <div class="acoes" style="margin:0 0 40px">
+      ${ant && ant.tr===p.tr ? `<button class="btn sec peq" data-abrir="${ant.id}">‹ Posto anterior</button>` : "<span></span>"}
+      ${seg && seg.tr===p.tr ? `<button class="btn sec peq" data-abrir="${seg.id}">Próximo posto ›</button>` : ""}
+    </div>
   </section>`;
   if(V.aba==="aula" && temAula) montarAula($app.querySelector("article.aula"), p.id);
+  if(V.aba==="resumo" && temAula) montarResumo(document.getElementById("resumo"), p.id);
   document.getElementById("voltar").onclick = ()=>ir({tela:"trilha", trilha:p.tr.id});
-  $app.querySelectorAll("[data-aba]").forEach(b=>b.onclick=()=>ir({aba:b.dataset.aba}));
+  $app.querySelectorAll("[data-aba]").forEach(b=>{ if(b.getAttribute("role")==="tab") b.onclick=()=>ir({aba:b.dataset.aba}); });
+  bindPostos();
   const ini = document.getElementById("iniciar"); if(ini) ini.onclick = ()=>iniciarProva(p.id);
   const bb = document.getElementById("banco"); if(bb) bb.onclick = ()=>ir({tela:"banco"});
 }
 
 /* ---------- Aula: formato apostila ---------- */
 function txtDe(el){ return (el.textContent||"").replace(/\s+/g," ").trim(); }
+const TIPOS = [
+  [/^cuidado/i, "cuidado"], [/^cai muito/i, "caimuito"], [/^macete/i, "macete"],
+  [/^o que é, em uma frase/i, "conceito"], [/^regra principal/i, "regra-p"]
+];
+function tipoDe(el){ const s = el.querySelector(":scope > p:first-child > strong:first-child, :scope > strong:first-child"); if(!s) return null; const t = txtDe(s); for(const [re,k] of TIPOS) if(re.test(t)) return [k, s]; return null; }
+function rotulo(k){ const sp = document.createElement("span"); sp.className = "rot"; sp.innerHTML = ICONE[k] + ROTULO[k]; return sp; }
+function montarCaixas(art){
+  if(!art) return;
+  // caixas seguidas no Markdown viram um só blockquote: separa em um bloco por rótulo
+  art.querySelectorAll("blockquote:not(.lei)").forEach(bq=>{
+    const ps = [...bq.children]; let alvo = bq;
+    ps.forEach((el,i)=>{
+      if(i===0) return;
+      const s = el.tagName==="P" && el.querySelector(":scope > strong:first-child");
+      if(s && el.firstChild===s && TIPOS.slice(0,3).some(([re])=>re.test(txtDe(s)))){ const nb = document.createElement("blockquote"); alvo.after(nb); alvo = nb; }
+      if(alvo!==bq) alvo.appendChild(el);
+    });
+  });
+  art.querySelectorAll("blockquote:not(.lei)").forEach(bq=>{
+    const r = tipoDe(bq); if(!r) return; const [k, s] = r;
+    s.remove();
+    const p = bq.querySelector("p"); if(p) p.innerHTML = p.innerHTML.replace(/^\s*[:!]?\s*/,"");
+    bq.classList.add("callout", k); bq.prepend(rotulo(k));
+  });
+  art.querySelectorAll(":scope > p").forEach(p=>{
+    const s = p.querySelector(":scope > strong:first-child"); if(!s || p.firstChild!==s) return;
+    const t = txtDe(s);
+    for(const [re,k] of TIPOS.slice(3)) if(re.test(t)){
+      s.remove(); p.innerHTML = p.innerHTML.replace(/^\s*/,"");
+      const d = document.createElement("div"); d.className = "callout " + k; p.before(d); d.append(rotulo(k), p); break;
+    }
+  });
+}
 function montarAula(art, pid){
   if(!art) return;
   art.classList.add("apostila");
@@ -26025,6 +26380,19 @@ function montarAula(art, pid){
     nav.querySelectorAll("a").forEach(a=>a.onclick = e=>{ e.preventDefault(); hs[+a.dataset.i].scrollIntoView({block:"start"}); });
     hs[0].before(nav);
   }
+  formatarTabelas(art);
+  montarCaixas(art);
+  art.querySelectorAll(".box").forEach(b=>{ const a = document.createElement("aside"); a.className = "nota"; a.innerHTML = b.innerHTML; b.replaceWith(a); });
+  art.querySelectorAll("ol.alts").forEach(ol=>{
+    let n = ol.nextElementSibling;
+    if(n && n.tagName==="P" && /^Resposta:/.test(txtDe(n))){ const d = document.createElement("details"); d.className = "gab"; d.innerHTML = "<summary>Ver resposta comentada</summary>"; n.before(d); d.appendChild(n); }
+  });
+  if(window.innerWidth <= 520) art.querySelectorAll(".fig").forEach(f=>{ const d = document.createElement("p"); d.className = "ref"; d.textContent = "Arraste o esquema para o lado para ver tudo."; f.insertBefore(d, f.firstChild); });
+  const nq = (BANCO[pid]||[]).length;
+  if(nq){ const fim = document.createElement("p"); fim.className = "fim-aula"; fim.innerHTML = `Terminou a leitura? <a href="#">Faça as questões deste posto</a>: são ${nq}, e cada tentativa sorteia ${N_QUESTOES}. Para revisar depois, use a aba <a href="#" data-r="1">Resumo</a>.`; fim.querySelector("a").onclick = e=>{ e.preventDefault(); ir({aba:"questoes"}); }; fim.querySelector("[data-r]").onclick = e=>{ e.preventDefault(); ir({aba:"resumo"}); }; art.appendChild(fim); }
+  art.appendChild(caixaReportar(pid));
+}
+function formatarTabelas(art){
   art.querySelectorAll(".tabela > table").forEach(tb=>{
     const rows = [...tb.rows].map(r=>[...r.cells]); if(rows.length < 2) return;
     const head = rows[0].map(txtDe), box = tb.parentElement, corpo = rows.slice(1);
@@ -26039,14 +26407,44 @@ function montarAula(art, pid){
     }
     box.replaceWith(...w.childNodes);
   });
-  art.querySelectorAll(".box").forEach(b=>{ const a = document.createElement("aside"); a.className = "nota"; a.innerHTML = b.innerHTML; b.replaceWith(a); });
-  art.querySelectorAll("ol.alts").forEach(ol=>{
-    let n = ol.nextElementSibling;
-    if(n && n.tagName==="P" && /^Resposta:/.test(txtDe(n))){ const d = document.createElement("details"); d.className = "gab"; d.innerHTML = "<summary>Ver resposta comentada</summary>"; n.before(d); d.appendChild(n); }
+}
+function montarResumo(art, pid){
+  if(!art) return;
+  const tmp = document.createElement("div"); tmp.innerHTML = AULAS[pid];
+  const secoes = {}; let atual = null;
+  [...tmp.children].forEach(el=>{
+    if(el.tagName==="H3"){ atual = txtDe(el); secoes[atual] = [el]; } else if(atual) secoes[atual].push(el);
   });
-  if(window.innerWidth <= 520) art.querySelectorAll(".fig").forEach(f=>{ const d = document.createElement("p"); d.className = "ref"; d.textContent = "Arraste o esquema para o lado para ver tudo."; f.insertBefore(d, f.firstChild); });
-  const nq = (BANCO[pid]||[]).length;
-  if(nq){ const fim = document.createElement("p"); fim.className = "fim-aula"; fim.innerHTML = `Terminou a leitura? <a href="#">Faça as questões deste posto</a>: são ${nq}, e cada tentativa sorteia ${N_QUESTOES}.`; fim.querySelector("a").onclick = e=>{ e.preventDefault(); ir({aba:"questoes"}); }; art.appendChild(fim); }
+  const pega = re => Object.keys(secoes).find(k=>re.test(k));
+  const partes = [];
+  const kMapa = pega(/mapa do assunto/i); if(kMapa) partes.push(...secoes[kMapa].filter(e=>e.tagName!=="P" || !/^Versão/.test(txtDe(e))));
+  const destaques = [...tmp.querySelectorAll("blockquote:not(.lei)")].filter(b=>tipoDe(b));
+  if(destaques.length){ const h = document.createElement("h3"); h.textContent = "Destaques da aula"; partes.push(h, ...destaques); }
+  const kArm = pega(/onde a vunesp|pegadinhas/i); if(kArm) partes.push(...secoes[kArm]);
+  const kRes = pega(/quadro-resumo/i); if(kRes) partes.push(...secoes[kRes]);
+  partes.forEach(e=>art.appendChild(e));
+  art.classList.add("apostila");
+  formatarTabelas(art); montarCaixas(art);
+  const fim = document.createElement("p"); fim.className = "fim-aula"; fim.innerHTML = `Revisou? <a href="#">Teste-se com as questões</a> ou volte para a <a href="#" data-a="1">aula completa</a>.`;
+  fim.querySelector("a").onclick = e=>{ e.preventDefault(); ir({aba:"questoes"}); };
+  fim.querySelector("[data-a]").onclick = e=>{ e.preventDefault(); ir({aba:"aula"}); };
+  art.appendChild(fim);
+}
+function caixaReportar(pid){
+  const d = document.createElement("div"); d.className = "reportar";
+  d.innerHTML = `<p><strong>Encontrou um erro ou uma lei desatualizada?</strong> <button class="link" type="button">Avise a equipe</button></p>`;
+  d.querySelector("button").onclick = ()=>{
+    d.innerHTML = `<label for="corr-${pid}"><strong>O que precisa ser corrigido nesta aula?</strong></label>
+      <textarea id="corr-${pid}" placeholder="Ex.: na seção 2, o prazo citado mudou com a Lei nº ..."></textarea>
+      <button class="btn peq" type="button" id="enviar-corr">Enviar</button>`;
+    d.querySelector("#enviar-corr").onclick = async ()=>{
+      const txt = d.querySelector("textarea").value.trim();
+      if(txt.length < 5){ d.querySelector("textarea").focus(); return; }
+      S.correcoes.push({pid, texto: txt.slice(0,2000), data: Date.now()}); await salvar();
+      d.innerHTML = `<p><strong>Recebido.</strong> O aviso foi registrado e será conferido na fonte oficial antes da próxima atualização do material.</p>`;
+    };
+  };
+  return d;
 }
 
 /* ---------- Sorteio: evita repetir a última tentativa e prioriza as menos vistas ---------- */
@@ -26062,18 +26460,30 @@ function sortear(pid){
   if(sel.length < N_QUESTOES) sel = sel.concat(banco.filter(q=>!sel.includes(q)).slice(0, N_QUESTOES-sel.length));
   return sel.sort((a,b)=>(a.n||0)-(b.n||0));
 }
+function montarItens(qs){ return qs.map(q=>({q, ordem: embaralhar(q.a.map((txt,i)=>({txt, certa:i===0}))), escolha:null})); }
 function iniciarProva(pid){
-  Q = {pid, i:0, itens: sortear(pid).map(q=>({q, ordem: embaralhar(q.a.map((txt,i)=>({txt, certa:i===0}))), escolha:null}))};
+  const rv = S.revisoes[pid];
+  const modo = (S.aprovados[pid] && rv && rv.etapa < INTERVALOS.length && rv.prox <= Date.now()) ? "revisao" : "posto";
+  Q = {pid, modo, i:0, itens: montarItens(sortear(pid))};
+  ir({tela:"prova"});
+}
+function iniciarErros(){
+  const ids = [...new Set([...Object.keys(S.erros), ...Object.keys(S.marcadas)])].filter(k=>QIDX[k]);
+  const ord = ids.sort((a,b)=>((S.erros[b]||{}).vezes||0)-((S.erros[a]||{}).vezes||0) || Math.random()-.5).slice(0, N_QUESTOES);
+  Q = {pid:null, modo:"erros", i:0, itens: montarItens(embaralhar(ord.map(k=>QIDX[k].q)))};
   ir({tela:"prova"});
 }
 
 /* ---------- Prova ---------- */
 function telaProva(){
-  const it = Q.itens[Q.i], ultima = Q.i===Q.itens.length-1;
+  const it = Q.itens[Q.i], ultima = Q.i===Q.itens.length-1, marc = !!S.marcadas[it.q.id];
+  const origem = Q.modo==="erros" ? `Caderno de erros · ${POSTO[QIDX[it.q.id].pid].t}` : (Q.modo==="revisao" ? `Revisão · ${POSTO[Q.pid].t}` : POSTO[Q.pid].t);
   $app.innerHTML = `
   <section class="topico">
     <button class="voltar" id="sair">‹ Sair das questões</button>
-    <div class="qtopo"><span>Questão ${Q.i+1} de ${Q.itens.length}</span><span>Nota mínima: ${NOTA_MIN}</span></div>
+    <div id="conf-sair"></div>
+    <p class="meta">${origem}</p>
+    <div class="qtopo"><span class="num">Questão ${Q.i+1} de ${Q.itens.length}</span><button class="marcar" id="marcar" aria-pressed="${marc}">${marc ? "Marcada para revisar" : "Marcar para revisar"}</button></div>
     <div class="bar" aria-hidden="true"><i style="width:${(Q.i/Q.itens.length*100)}%"></i></div>
     <div class="qcard">
       ${it.q.tx ? `<blockquote class="txt">${TEXTOS[it.q.tx]}</blockquote>` : ""}<p class="enun">${it.q.e}</p>
@@ -26085,15 +26495,33 @@ function telaProva(){
     </div>
   </section>`;
   $app.querySelectorAll(".alt").forEach(b=>b.onclick=()=>{ it.escolha = +b.dataset.k; telaProva(); });
+  document.getElementById("marcar").onclick = ()=>{ if(S.marcadas[it.q.id]) delete S.marcadas[it.q.id]; else S.marcadas[it.q.id] = {pid: QIDX[it.q.id].pid, data: Date.now()}; salvar(); telaProva(); };
   document.getElementById("ant").onclick = ()=>{ Q.i--; telaProva(); };
   document.getElementById("prox").onclick = ()=>{ if(ultima) corrigir(); else { Q.i++; telaProva(); } };
-  document.getElementById("sair").onclick = ()=>{ if(confirm("Sair agora descarta esta tentativa. Continuar?")){ const pid=Q.pid; Q=null; ir({tela:"posto", posto:pid, aba:"questoes"}); } };
+  document.getElementById("sair").onclick = ()=>{
+    const c = document.getElementById("conf-sair");
+    c.innerHTML = `<div class="confirma"><p>Sair agora descarta esta tentativa.</p><button class="btn peq" id="sair-sim">Sair</button><button class="btn sec peq" id="sair-nao">Continuar respondendo</button></div>`;
+    document.getElementById("sair-nao").onclick = ()=>{ c.innerHTML = ""; };
+    document.getElementById("sair-sim").onclick = ()=>{ const pid=Q.pid, m=Q.modo; Q=null; if(m==="erros") ir({tela:"erros"}); else ir({tela:"posto", posto:pid, aba:"questoes"}); };
+  };
 }
 async function corrigir(){
   const nota = Q.itens.filter(it=>it.ordem[it.escolha].certa).length;
-  (S.tentativas[Q.pid] = S.tentativas[Q.pid] || []).push({nota, data:Date.now(), ids:Q.itens.map(it=>it.q.id)});
-  Q.itens.forEach(it=>{ S.vistas[it.q.id] = (S.vistas[it.q.id]||0)+1; });
-  if(nota>=NOTA_MIN && !S.aprovados[Q.pid]) S.aprovados[Q.pid] = {nota, data:Date.now()};
+  Q.itens.forEach(it=>{
+    const id = it.q.id; S.vistas[id] = (S.vistas[id]||0)+1;
+    if(it.ordem[it.escolha].certa){ delete S.erros[id]; if(Q.modo==="erros") delete S.marcadas[id]; }
+    else { const e = S.erros[id] || {pid: QIDX[id].pid, vezes:0}; e.vezes++; e.data = Date.now(); S.erros[id] = e; }
+  });
+  if(Q.modo!=="erros"){
+    (S.tentativas[Q.pid] = S.tentativas[Q.pid] || []).push({nota, data:Date.now(), ids:Q.itens.map(it=>it.q.id)});
+    if(nota>=NOTA_MIN && !S.aprovados[Q.pid]){ S.aprovados[Q.pid] = {nota, data:Date.now()}; S.revisoes[Q.pid] = {etapa:0, prox: Date.now() + INTERVALOS[0]*DIA}; }
+    else if(Q.modo==="revisao"){
+      const rv = S.revisoes[Q.pid];
+      if(nota>=NOTA_MIN){ rv.etapa++; rv.prox = rv.etapa < INTERVALOS.length ? Date.now() + INTERVALOS[rv.etapa]*DIA : Infinity; }
+      else rv.prox = Date.now() + DIA;
+      Q.revEtapa = rv.etapa;
+    }
+  }
   Q.nota = nota;
   await salvar();
   ir({tela:"resultado"});
@@ -26101,30 +26529,71 @@ async function corrigir(){
 
 /* ---------- Resultado ---------- */
 function telaResultado(){
-  const ok = Q.nota>=NOTA_MIN, p = POSTO[Q.pid], prox = POSTO[p.tr.id+"-"+(p.n+2)];
+  const ok = Q.modo==="erros" ? Q.nota >= Math.ceil(Q.itens.length*NOTA_MIN/N_QUESTOES) : Q.nota>=NOTA_MIN;
   const revisao = Q.itens.map((it,n)=>{
     const acertou = it.ordem[it.escolha].certa, certa = it.ordem.findIndex(o=>o.certa);
-    return `<div class="rev ${acertou?"ok":"bad"}"><div class="st">Questão ${n+1}: ${acertou?"acertou":"errou"}</div>
-      <p>${it.q.e}</p>${acertou ? "" : `<p>Sua resposta: ${LETRAS[it.escolha]}) ${it.ordem[it.escolha].txt}</p>`}
+    return `<div class="rev ${acertou?"ok":"bad"}"><div class="st"><span>Questão ${n+1}: ${acertou?"acertou":"errou"}</span>${acertou ? "" : `<span class="pill bad">Foi para o caderno de erros</span>`}</div>
+      ${it.q.tx ? `<blockquote class="txt">${TEXTOS[it.q.tx]}</blockquote>` : ""}<p>${it.q.e}</p>${acertou ? "" : `<p>Sua resposta: ${LETRAS[it.escolha]}) ${it.ordem[it.escolha].txt}</p>`}
       <p><strong>Correta: ${LETRAS[certa]}) ${it.ordem[certa].txt}</strong></p><p class="ref">${it.q.c}</p></div>`;
   }).join("");
+  let titulo, texto, botoes = "";
+  if(Q.modo==="erros"){
+    const restam = nErros();
+    titulo = ok ? "Bom treino." : "Continue treinando.";
+    texto = `As questões que você acertou saíram do caderno. Restam ${restam} ${restam===1?"questão":"questões"} erradas.`;
+    botoes = `${nErros()||nMarcadas() ? `<button class="btn" id="mais-erros">Treinar mais 10</button>` : ""}<button class="btn sec" data-go="painel">Voltar ao painel</button>`;
+  } else {
+    const p = POSTO[Q.pid], prox = POSTO[p.tr.id+"-"+(p.n+2)];
+    if(Q.modo==="revisao"){
+      titulo = ok ? "Revisão registrada." : "Revise o resumo e tente amanhã.";
+      texto = ok ? (Q.revEtapa < INTERVALOS.length ? `A próxima revisão deste posto será em ${INTERVALOS[Q.revEtapa]} dias.` : "Você concluiu as três revisões deste posto.") : "O posto volta para a lista de revisões amanhã.";
+      botoes = `${ok ? "" : `<button class="btn" id="resumo">Ler o resumo</button>`}<button class="btn sec" data-go="painel">Voltar ao painel</button>`;
+    } else {
+      titulo = ok ? (prox ? "Posto concluído." : "Matéria concluída.") : "Ainda não foi desta vez.";
+      texto = ok ? `${prox ? `Próximo: ${prox.t}. ` : `Você terminou ${p.tr.nome}. `}Este posto volta para revisão amanhã.` : `Você precisa de ${NOTA_MIN} acertos. Revise a correção abaixo e tente de novo: as questões serão outras.`;
+      botoes = `${ok && prox ? `<button class="btn" id="seguir">Ir para o próximo posto</button>` : (ok ? "" : `<button class="btn" id="denovo">Tentar de novo</button>`)}<button class="btn sec" id="trilha">Ver a matéria</button>`;
+    }
+  }
   $app.innerHTML = `
   <section class="topico">
     <div class="res ${ok?"ok":"bad"}">
-      <div class="nota">${Q.nota}/10</div>
-      <h2>${ok ? (prox ? "Posto concluído. O próximo foi liberado." : "Trilha concluída.") : "Ainda não foi desta vez."}</h2>
-      <p>${ok ? (prox ? `Próximo: ${prox.t}.` : `Você terminou a trilha de ${p.tr.nome}.`) : `Você precisa de ${NOTA_MIN} acertos. Revise a correção abaixo e tente de novo: as questões serão outras.`}</p>
-      <div class="acoes">
-        ${ok && prox ? `<button class="btn" id="seguir">Ir para o próximo posto</button>` : (ok ? "" : `<button class="btn" id="denovo">Tentar de novo</button>`)}
-        <button class="btn sec" id="trilha">Ver a trilha</button>
-      </div>
+      <div class="nota num">${Q.nota}/${Q.itens.length}</div>
+      <h2>${titulo}</h2>
+      <p>${texto}</p>
+      <div class="acoes">${botoes}</div>
     </div>
     <h2 style="font-size:24px;margin:8px 0">Correção comentada</h2>
     ${revisao}
   </section>`;
-  const s = document.getElementById("seguir"); if(s) s.onclick = ()=>ir({tela:"posto", posto:prox.id, aba:"aula"});
-  const d = document.getElementById("denovo"); if(d) d.onclick = ()=>iniciarProva(p.id);
-  document.getElementById("trilha").onclick = ()=>ir({tela:"trilha", trilha:p.tr.id});
+  bindGo();
+  const s = document.getElementById("seguir"); if(s){ const p = POSTO[Q.pid]; s.onclick = ()=>ir({tela:"posto", posto:POSTO[p.tr.id+"-"+(p.n+2)].id, aba:"aula"}); }
+  const d = document.getElementById("denovo"); if(d) d.onclick = ()=>iniciarProva(Q.pid);
+  const t = document.getElementById("trilha"); if(t) t.onclick = ()=>ir({tela:"trilha", trilha:POSTO[Q.pid].tr.id});
+  const r = document.getElementById("resumo"); if(r) r.onclick = ()=>ir({tela:"posto", posto:Q.pid, aba:"resumo"});
+  const m = document.getElementById("mais-erros"); if(m) m.onclick = iniciarErros;
+}
+
+/* ---------- Caderno de erros ---------- */
+function telaErros(){
+  const ids = [...new Set([...Object.keys(S.erros), ...Object.keys(S.marcadas)])].filter(k=>QIDX[k]);
+  const porPosto = {};
+  ids.forEach(k=>{ const pid = QIDX[k].pid; (porPosto[pid] = porPosto[pid] || []).push(k); });
+  const grupos = Object.keys(porPosto).sort((a,b)=>POSTOS.indexOf(POSTO[a])-POSTOS.indexOf(POSTO[b]));
+  $app.innerHTML = `
+  <section class="topico">
+    <button class="voltar" data-go="painel">‹ Voltar ao painel</button>
+    <h2>Caderno de erros</h2>
+    <p class="meta">${nErros()} ${nErros()===1?"questão errada":"questões erradas"} · ${nMarcadas()} ${nMarcadas()===1?"marcada":"marcadas"} para revisar</p>
+    ${ids.length ? `<p style="margin:14px 0"><button class="btn full" id="treinar">Treinar ${Math.min(N_QUESTOES, ids.length)} questões do caderno</button></p>
+      <p class="historico">Ao acertar uma questão no treino, ela sai do caderno. As que você errou mais vezes aparecem primeiro.</p>
+      ${grupos.map(pid=>`<h3 style="font-size:22px;margin:22px 0 4px">${POSTO[pid].t}</h3><p class="meta">${POSTO[pid].tr.nome} · <button class="link" data-abrir="${pid}" data-aba="resumo">ler o resumo</button></p>
+        ${porPosto[pid].map(k=>{ const q = QIDX[k].q, e = S.erros[k];
+          return `<details class="rev ${e?"bad":"ok"}"><summary class="st" style="cursor:pointer"><span>${e ? `Errou ${e.vezes} ${e.vezes===1?"vez":"vezes"}` : "Marcada"}</span><span style="color:var(--ink);font-weight:500;flex:1 1 100%">${q.e}</span></summary>
+            ${q.tx ? `<blockquote class="txt">${TEXTOS[q.tx]}</blockquote>` : ""}<p><strong>Correta: ${q.a[0]}</strong></p><p class="ref">${q.c}</p></details>`; }).join("")}`).join("")}`
+    : `<div class="vazio" style="margin-top:16px"><strong>Seu caderno está vazio.</strong><br>Toda questão que você errar entra aqui automaticamente. Durante as questões, use “Marcar para revisar” para guardar também as que acertou no chute.</div>`}
+  </section>`;
+  bindGo(); bindPostos();
+  const t = document.getElementById("treinar"); if(t) t.onclick = iniciarErros;
 }
 
 /* ---------- Revisão do banco (visível só para o dono) ---------- */
@@ -26157,10 +26626,11 @@ function telaTAF(){
         <tr><td>Corrida de 50 m</td><td>9”50 a 7”50</td><td>8”25 a 6”25</td></tr>
         <tr><td>Corrida de 12 minutos</td><td>1.800 m a 2.600 m</td><td>2.200 m a 3.000 m</td></tr>
       </table></div>
-      <div class="box"><strong>Atenção às regras de execução:</strong> sem luvas na barra; na flexão masculina na barra não valem impulso, balanço ou kipping; repetições fora do padrão do Anexo II não contam.</div>
+      <blockquote><p><strong>Cuidado!</strong> Sem luvas na barra; na flexão masculina na barra não valem impulso, balanço ou kipping; repetições fora do padrão do Anexo II não contam.</p></blockquote>
       <p class="ref">Fonte: Edital 02/2026 da Guarda Municipal de Campinas, Anexo II. Confira sempre o texto oficial.</p>
     </article>
   </section>`;
+  montarCaixas($app.querySelector("article.aula"));
   bindGo();
 }
 
