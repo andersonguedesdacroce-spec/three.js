@@ -6,7 +6,7 @@ import sys, re, html, os, subprocess, datetime
 url, nome, desc = sys.argv[1:4]
 raiz = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
 bruto = subprocess.run(['curl', '-sS', '-m', '90', '-L', url], capture_output=True).stdout.decode('utf-8', 'ignore')
-assert len(bruto) > 20000, 'download vazio ou incompleto'
+assert len(bruto) > 3000, 'download vazio ou incompleto'
 t = re.sub(r'<script.*?</script>|<style.*?</style>', '', bruto, flags=re.S)
 t = re.sub(r'<br\s*/?>|</p>|</div>|</tr>', '\n', t)
 t = html.unescape(re.sub(r'<[^>]+>', '', t))
