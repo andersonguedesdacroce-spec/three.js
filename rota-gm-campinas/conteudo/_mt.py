@@ -38,7 +38,17 @@ def fechar():
 
 def num(x):
     x = Fr(str(x)) if not isinstance(x, Fr) else x
-    return str(x.numerator) if x.denominator == 1 else dc(x)
+    if x.denominator == 1:
+        i = abs(x.numerator); t = f"{i:,}".replace(',', '.') if i >= 10000 else str(i)
+        return ('-' if x < 0 else '') + t
+    t = dc(x); ip, fp = t.lstrip('-').split(',')
+    if len(ip) >= 5: ip = f"{int(ip):,}".replace(',', '.')
+    return ('-' if x < 0 else '') + ip + ',' + fp
 def qv(n, e, fmt, correct, wrongs, c, tx=None):
     """Questão numérica: alternativas formatadas por fmt (ex.: '{} horas'). 'correct' e 'wrongs' são números."""
     q(n, e, [fmt.format(num(v)) for v in [correct] + list(wrongs)], c, tx)
+
+def sis(a1, b1, c1, a2, b2, c2):
+    """Resolve a1x+b1y=c1; a2x+b2y=c2 (Cramer). Devolve (x, y) como Fraction."""
+    d = a1*b2 - a2*b1; assert d != 0
+    return Fr(c1*b2 - c2*b1, d), Fr(a1*c2 - a2*c1, d)

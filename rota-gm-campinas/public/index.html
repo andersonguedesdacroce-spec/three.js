@@ -4584,6 +4584,484 @@ const AULAS = {
 </table></div>
 <p class="ref">Fontes: Edital 02/2026, Anexo I. Referências de base: Iezzi, Dolce e Murakami, <em>Fundamentos de Matemática Elementar</em>, v. 1; Dante, <em>Matemática: contexto e aplicações</em>. Exemplos criados para a aula.</p>
 `,
+"mt-7": `
+<span class="status">Versão 1 · em revisão</span>
+<p>Sistema de equações do 1º grau é o recurso para problemas com duas incógnitas e duas pistas: preços de dois produtos, moedas de dois valores, idades de duas pessoas. A Vunesp cobra a montagem do sistema a partir do texto e sua resolução por substituição ou por adição, além de reconhecer quando o sistema não tem solução ou tem infinitas. Como em toda equação, a parte difícil é traduzir; a conta é curta.</p>
+
+<h3>Mapa do assunto</h3>
+<figure class="fig">
+<svg viewBox="0 0 760 368" role="img" aria-label="Sistemas: duas pistas, duas incógnitas" font-size="13">
+<text x="24" y="28" font-size="16" font-weight="600">Sistemas: duas pistas, duas incógnitas</text>
+<rect class="ac" x="24" y="48" width="224" height="112" rx="8" style="stroke-width:1.5"/><text x="136" y="74" text-anchor="middle" font-weight="600">Por que duas equações</text>
+<text x="136" y="96" text-anchor="middle" font-size="12">uma equação tem infinitas soluções</text>
+<text x="136" y="112" text-anchor="middle" font-size="12">duas fixam um par</text>
+<text x="136" y="128" text-anchor="middle" font-size="12">as retas se cruzam</text>
+<text class="q" x="136" y="148" text-anchor="middle" font-size="12">seção 1</text>
+<rect class="ac" x="268" y="48" width="224" height="112" rx="8" style="stroke-width:1.5"/><text x="380" y="74" text-anchor="middle" font-weight="600">Substituição</text>
+<text x="380" y="96" text-anchor="middle" font-size="12">isola uma incógnita</text>
+<text x="380" y="112" text-anchor="middle" font-size="12">troca na outra equação</text>
+<text x="380" y="128" text-anchor="middle" font-size="12">bom se o coeficiente é 1</text>
+<text class="q" x="380" y="148" text-anchor="middle" font-size="12">seção 2</text>
+<rect class="ac" x="512" y="48" width="224" height="112" rx="8" style="stroke-width:1.5"/><text x="624" y="74" text-anchor="middle" font-weight="600">Adição</text>
+<text x="624" y="96" text-anchor="middle" font-size="12">soma ou subtrai</text>
+<text x="624" y="112" text-anchor="middle" font-size="12">elimina uma incógnita</text>
+<text x="624" y="128" text-anchor="middle" font-size="12">ajusta coeficientes</text>
+<text class="q" x="624" y="148" text-anchor="middle" font-size="12">seção 3</text>
+<rect class="ac" x="24" y="176" width="224" height="112" rx="8" style="stroke-width:1.5"/><text x="136" y="202" text-anchor="middle" font-weight="600">Problemas</text>
+<text x="136" y="224" text-anchor="middle" font-size="12">moedas e ingressos</text>
+<text x="136" y="240" text-anchor="middle" font-size="12">rodas e correnteza</text>
+<text x="136" y="256" text-anchor="middle" font-size="12">idades</text>
+<text class="q" x="136" y="276" text-anchor="middle" font-size="12">seção 4</text>
+<rect class="ac" x="268" y="176" width="224" height="112" rx="8" style="stroke-width:1.5"/><text x="380" y="202" text-anchor="middle" font-weight="600">Impossível</text>
+<text x="380" y="224" text-anchor="middle" font-size="12">retas paralelas</text>
+<text x="380" y="240" text-anchor="middle" font-size="12">sem solução</text>
+<text x="380" y="256" text-anchor="middle" font-size="12">x + y = 3 e 2x + 2y = 8</text>
+<text class="q" x="380" y="276" text-anchor="middle" font-size="12">seção 4</text>
+<rect class="ac" x="512" y="176" width="224" height="112" rx="8" style="stroke-width:1.5"/><text x="624" y="202" text-anchor="middle" font-weight="600">Indeterminado</text>
+<text x="624" y="224" text-anchor="middle" font-size="12">retas coincidentes</text>
+<text x="624" y="240" text-anchor="middle" font-size="12">infinitas soluções</text>
+<text x="624" y="256" text-anchor="middle" font-size="12">uma é múltipla da outra</text>
+<text class="q" x="624" y="276" text-anchor="middle" font-size="12">seção 4</text>
+<rect class="tint" x="24" y="304" width="712" height="44" rx="8"/><text x="380" y="331" text-anchor="middle" font-size="13">Na prova: monte uma equação para cada informação e teste o par nas duas</text>
+</svg>
+<figcaption>Os dois métodos resolvem o mesmo sistema; os dois últimos quadros dizem quando ele não tem uma solução única.</figcaption>
+</figure>
+<h3>1. Por que duas equações</h3>
+<p>Uma equação com duas incógnitas, como x + y = 10, tem infinitas soluções: (1, 9), (2, 8), (5, 5) e tantas outras. Para fixar um par só, é preciso uma segunda informação, e a ela corresponde uma segunda equação. O conjunto das duas é um sistema, e a solução é o par (x, y) que satisfaz as duas ao mesmo tempo. Com x + y = 10 e x − y = 2, só o par (6, 4) serve: 6 + 4 = 10 e 6 − 4 = 2.</p>
+<p>A imagem geométrica ajuda: cada equação é uma reta, e a solução é o ponto em que as retas se cruzam. Isso explica os dois casos especiais, tratados na seção 4.</p>
+<h3>2. Método da substituição</h3>
+<p>A ideia é isolar uma incógnita em uma equação e colocar o resultado na outra, que passa a ter só uma incógnita. Considere x + y = 11 e x = y + 3. A segunda já traz x isolado. Trocando na primeira, (y + 3) + y = 11, então 2y + 3 = 11, 2y = 8 e y = 4. De volta a x = y + 3, x = 7. Confira nas duas: 7 + 4 = 11 e 7 = 4 + 3.</p>
+<p>Escolha para isolar a incógnita que tem coeficiente 1, porque evita frações. Em 2x + y = 9 e x − y = 0, isole y = 2x − ... ou melhor, perceba que x = y na segunda e troque: 2y + y = 9, y = 3, x = 3.</p>
+<h3>3. Método da adição</h3>
+<p>A ideia é somar (ou subtrair) as duas equações de modo que uma incógnita desapareça. Em x + y = 10 e x − y = 2, somando termo a termo, 2x = 12 e x = 6; depois, y = 4. Quando os coeficientes não se anulam, multiplica-se uma ou as duas equações por números que os igualem.</p>
+<p>Exemplo resolvido. Duas canetas e um lápis custam R$ 7,00, e uma caneta e um lápis custam R$ 5,00. Quanto custa a caneta? Com c a caneta e l o lápis, 2c + l = 7 e c + l = 5. Subtraindo a segunda da primeira, o lápis some: c = 2. Então l = 3.</p>
+<p>Outro exemplo. Resolva 3x + 2y = 16 e x + y = 6. Multiplicando a segunda por 2, 2x + 2y = 12. Subtraindo da primeira, x = 4, e então y = 2. Conferindo: 3 × 4 + 2 × 2 = 16.</p>
+<h3>4. Problemas e casos especiais</h3>
+<p>Para montar o sistema, dê um nome a cada incógnita e escreva uma equação para cada informação do texto. Em problemas de moedas e ingressos, uma equação conta quantos objetos há, e a outra soma os valores.</p>
+<p>Exemplo resolvido 1. Em 25 notas de R$ 5,00 e de R$ 10,00, que somam R$ 190,00, quantas notas são de R$ 10,00? Sendo a o número de notas de 5 e b o de 10, a + b = 25 e 5a + 10b = 190. Multiplicando a primeira por 5, 5a + 5b = 125. Subtraindo, 5b = 65 e b = 13. Então a = 12.</p>
+<p>Exemplo resolvido 2, com rodas. Em um pátio há 20 veículos, entre carros e motos, e 64 rodas. Quantos carros? Com c carros e m motos, c + m = 20 e 4c + 2m = 64. Multiplicando a primeira por 2, 2c + 2m = 40. Subtraindo, 2c = 24 e c = 12. Então m = 8.</p>
+<p>Exemplo resolvido 3, com correnteza. Um barco faz um trecho a favor da correnteza com velocidade 18 km/h e, contra, com 12 km/h. A soma da velocidade do barco b com a da correnteza c é 18, e a diferença é 12. Somando, 2b = 30 e b = 15. Então c = 3.</p>
+<p>Os casos especiais aparecem quando as retas não se cruzam num único ponto. Se as retas são paralelas, o sistema é impossível, sem solução: x + y = 3 e 2x + 2y = 8, porque a segunda dá x + y = 4, que contradiz a primeira. Se as retas coincidem, o sistema é possível e indeterminado, com infinitas soluções: x + y = 3 e 2x + 2y = 6, porque a segunda é só a primeira multiplicada por 2. O sistema com um único par é possível e determinado.</p>
+<h3>5. Questões resolvidas</h3>
+<h4>Questão 1</h4>
+<p>Duas canetas e um lápis custam R$ 7,00, e uma caneta e um lápis custam R$ 5,00. O preço de uma caneta é</p>
+<ol class="alts" type="A"><li>R$ 3,00</li><li>R$ 1,50</li><li>R$ 2,00</li><li>R$ 2,50</li><li>R$ 4,00</li></ol>
+<p><strong>Resposta: C.</strong> 2c + l = 7 e c + l = 5. Subtraindo, c = 2 (e l = 3).</p>
+<h4>Questão 2</h4>
+<p>Em um pátio há 20 veículos, entre carros e motos, e 64 rodas. O número de motos é</p>
+<ol class="alts" type="A"><li>12</li><li>6</li><li>10</li><li>14</li><li>8</li></ol>
+<p><strong>Resposta: E.</strong> c + m = 20 e 4c + 2m = 64. Multiplicando a primeira por 2 e subtraindo, 2c = 24: c = 12 e m = 8.</p>
+<h4>Questão 3</h4>
+<p>A soma de dois números é 40 e a diferença entre eles é 12. O maior deles é</p>
+<ol class="alts" type="A"><li>26</li><li>28</li><li>14</li><li>24</li><li>32</li></ol>
+<p><strong>Resposta: A.</strong> x + y = 40 e x − y = 12. Somando, 2x = 52 e x = 26.</p>
+<h4>Questão 4</h4>
+<p>O sistema x + y = 3 e 2x + 2y = 8 é</p>
+<ol class="alts" type="A"><li>possível e determinado.</li><li>possível e indeterminado.</li><li>satisfeito por (1, 2).</li><li>impossível.</li><li>satisfeito por (2, 1).</li></ol>
+<p><strong>Resposta: D.</strong> A segunda equação, dividida por 2, dá x + y = 4, que contradiz x + y = 3. Não há solução.</p>
+<h3>6. Na rotina do guarda</h3>
+<ul>
+<li><strong>Compras:</strong> dois produtos e dois pedidos com quantidades diferentes formam um sistema, como as canetas e os lápis.</li>
+<li><strong>Pátio e frota:</strong> número de veículos e número de rodas dão o sistema de carros e motos.</li>
+<li><strong>Rateios desiguais:</strong> duas condições sobre dois valores, como “soma de R$ 1.000,00 e diferença de R$ 300,00”.</li>
+<li><strong>Idades:</strong> quando a prova dá a relação entre as idades hoje e daqui a alguns anos, monta-se um sistema.</li>
+</ul>
+<h3>7. Onde a Vunesp pega</h3>
+<div class="tabela"><table>
+<thead>
+<tr>
+<th>Armadilha</th>
+<th>Como escapar</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Montar duas equações iguais com palavras diferentes</td>
+<td>Cada equação deve trazer uma informação nova</td>
+</tr>
+<tr>
+<td>Esquecer de multiplicar todos os termos ao ajustar coeficientes</td>
+<td>Multiplique os dois lados e todos os termos</td>
+</tr>
+<tr>
+<td>Responder só x quando pedem x + y ou o maior valor</td>
+<td>Releia a pergunta antes de responder</td>
+</tr>
+<tr>
+<td>Trocar o sinal ao subtrair equações</td>
+<td>Subtraia termo a termo, com atenção aos negativos</td>
+</tr>
+<tr>
+<td>Dar por solução um par que só satisfaz uma equação</td>
+<td>Teste nas duas equações</td>
+</tr>
+<tr>
+<td>Achar que todo sistema tem solução única</td>
+<td>Se os coeficientes são proporcionais, é impossível ou indeterminado</td>
+</tr>
+</tbody>
+</table></div>
+<h3>8. Quadro-resumo</h3>
+<div class="tabela"><table>
+<thead>
+<tr>
+<th>Ponto</th>
+<th>O essencial</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Sistema</td>
+<td>Duas equações; o par que satisfaz as duas</td>
+</tr>
+<tr>
+<td>Substituição</td>
+<td>Isola uma incógnita e troca na outra equação</td>
+</tr>
+<tr>
+<td>Adição</td>
+<td>Soma ou subtrai as equações para eliminar uma incógnita</td>
+</tr>
+<tr>
+<td>Moedas e ingressos</td>
+<td>Uma equação conta objetos; outra soma valores</td>
+</tr>
+<tr>
+<td>Impossível</td>
+<td>Retas paralelas: sem solução</td>
+</tr>
+<tr>
+<td>Indeterminado</td>
+<td>Retas coincidentes: infinitas soluções</td>
+</tr>
+<tr>
+<td>Conferência</td>
+<td>Teste o par nas duas equações</td>
+</tr>
+</tbody>
+</table></div>
+<p class="ref">Fontes: Edital 02/2026, Anexo I. Referências de base: Iezzi, Dolce e Murakami, <em>Fundamentos de Matemática Elementar</em>, v. 1; Dante, <em>Matemática: contexto e aplicações</em>. Exemplos criados para a aula.</p>
+`,
+"mt-8": `
+<span class="status">Versão 1 · em revisão</span>
+<p>Grandezas e medidas é o assunto das conversões: metros e quilômetros, minutos e horas, litros e metros cúbicos, gramas e toneladas. A Vunesp cobra três habilidades: converter unidades de comprimento, superfície, volume, capacidade, massa e tempo; operar com horas e minutos, que não seguem o sistema decimal; e usar as conversões dentro de problemas de área, volume e velocidade. A conta é sempre simples, e o erro típico é o de mover a vírgula o número errado de casas.</p>
+
+<h3>Mapa do assunto</h3>
+<figure class="fig">
+<svg viewBox="0 0 760 368" role="img" aria-label="Grandezas e medidas: o degrau de cada escada" font-size="13">
+<text x="24" y="28" font-size="16" font-weight="600">Grandezas e medidas: o degrau de cada escada</text>
+<rect class="ac" x="24" y="48" width="224" height="112" rx="8" style="stroke-width:1.5"/><text x="136" y="74" text-anchor="middle" font-weight="600">Comprimento</text>
+<text x="136" y="96" text-anchor="middle" font-size="12">degrau de 10</text>
+<text x="136" y="112" text-anchor="middle" font-size="12">km, hm, dam, m, dm, cm, mm</text>
+<text x="136" y="128" text-anchor="middle" font-size="12">3,5 km = 3.500 m</text>
+<text class="q" x="136" y="148" text-anchor="middle" font-size="12">seção 1</text>
+<rect class="ac" x="268" y="48" width="224" height="112" rx="8" style="stroke-width:1.5"/><text x="380" y="74" text-anchor="middle" font-weight="600">Superfície</text>
+<text x="380" y="96" text-anchor="middle" font-size="12">degrau de 100</text>
+<text x="380" y="112" text-anchor="middle" font-size="12">1 m² = 10.000 cm²</text>
+<text x="380" y="128" text-anchor="middle" font-size="12">1 ha = 10.000 m²</text>
+<text class="q" x="380" y="148" text-anchor="middle" font-size="12">seção 2</text>
+<rect class="ac" x="512" y="48" width="224" height="112" rx="8" style="stroke-width:1.5"/><text x="624" y="74" text-anchor="middle" font-weight="600">Volume e capacidade</text>
+<text x="624" y="96" text-anchor="middle" font-size="12">degrau de 1.000</text>
+<text x="624" y="112" text-anchor="middle" font-size="12">1 dm³ = 1 L</text>
+<text x="624" y="128" text-anchor="middle" font-size="12">1 m³ = 1.000 L</text>
+<text class="q" x="624" y="148" text-anchor="middle" font-size="12">seção 3</text>
+<rect class="ac" x="24" y="176" width="224" height="112" rx="8" style="stroke-width:1.5"/><text x="136" y="202" text-anchor="middle" font-weight="600">Massa</text>
+<text x="136" y="224" text-anchor="middle" font-size="12">1 kg = 1.000 g</text>
+<text x="136" y="240" text-anchor="middle" font-size="12">1 t = 1.000 kg</text>
+<text x="136" y="256" text-anchor="middle" font-size="12">1 L de água ≈ 1 kg</text>
+<text class="q" x="136" y="276" text-anchor="middle" font-size="12">seção 4</text>
+<rect class="ac" x="268" y="176" width="224" height="112" rx="8" style="stroke-width:1.5"/><text x="380" y="202" text-anchor="middle" font-weight="600">Tempo</text>
+<text x="380" y="224" text-anchor="middle" font-size="12">60 min = 1 h</text>
+<text x="380" y="240" text-anchor="middle" font-size="12">2 h 30 min = 2,5 h</text>
+<text x="380" y="256" text-anchor="middle" font-size="12">empresta 1 h</text>
+<text class="q" x="380" y="276" text-anchor="middle" font-size="12">seção 5</text>
+<rect class="ac" x="512" y="176" width="224" height="112" rx="8" style="stroke-width:1.5"/><text x="624" y="202" text-anchor="middle" font-weight="600">Velocidade</text>
+<text x="624" y="224" text-anchor="middle" font-size="12">km/h ÷ 3,6 = m/s</text>
+<text x="624" y="240" text-anchor="middle" font-size="12">distância ÷ tempo</text>
+<text x="624" y="256" text-anchor="middle" font-size="12">72 km/h = 20 m/s</text>
+<text class="q" x="624" y="276" text-anchor="middle" font-size="12">seção 5</text>
+<rect class="tint" x="24" y="304" width="712" height="44" rx="8"/><text x="380" y="331" text-anchor="middle" font-size="13">Na prova: confira se o número deve crescer ou diminuir ao trocar de unidade</text>
+</svg>
+<figcaption>Cada caixa tem a sua escada: de 10 em 10 no comprimento, de 100 na área, de 1.000 no volume e de 60 no tempo.</figcaption>
+</figure>
+<h3>1. O sistema métrico e o comprimento</h3>
+<p>As unidades do sistema métrico seguem a escada dos prefixos: quilo (mil), hecto (cem), deca (dez), a unidade, deci (um décimo), centi (um centésimo) e mili (um milésimo). No comprimento, a unidade é o metro. Cada degrau da escada vale 10: para ir de uma unidade maior para uma menor, multiplica-se por 10 a cada degrau, ou seja, a vírgula anda para a direita; para ir de uma menor para uma maior, divide-se, e a vírgula anda para a esquerda.</p>
+<p>Assim, 3,5 km são 3,5 × 1.000 = 3.500 m, porque se descem três degraus (km, hm, dam, m). E 250 cm são 250 ÷ 100 = 2,5 m, porque se sobem dois degraus. Um jeito de não errar é perguntar se o número deve crescer ou diminuir: o mesmo comprimento, medido numa unidade menor, dá um número maior.</p>
+<h3>2. Superfície: o degrau vale 100</h3>
+<p>Na área, a escada anda de 100 em 100, porque a área é comprimento vezes comprimento: 1 m = 100 cm, então 1 m² = 100 × 100 = 10.000 cm². Por isso, 4 m² são 40.000 cm². Também, 1 km² = 1.000 × 1.000 = 1.000.000 m².</p>
+<p>Para terrenos há unidades agrárias. O are vale 100 m² (um quadrado de 10 m por 10 m) e o hectare (ha) vale 10.000 m² (um quadrado de 100 m por 100 m). Um km² tem 100 ha. Um terreno de 60.000 m² tem 6 ha.</p>
+<p>Exemplo resolvido. Uma sala retangular de 5 m por 4 m tem área de 20 m². Em centímetros quadrados, a área é 20 × 10.000 = 200.000 cm². Se o piso for coberto por ladrilhos de 20 cm por 20 cm, cada um cobre 400 cm², e são necessários 200.000 ÷ 400 = 500 ladrilhos.</p>
+<h3>3. Volume e capacidade: o degrau vale 1.000</h3>
+<p>No volume, a escada anda de 1.000 em 1.000, porque é comprimento vezes comprimento vezes comprimento: 1 m³ = 100 × 100 × 100 = 1.000.000 cm³. A capacidade, medida em litros, se liga ao volume por uma relação que vale decorar: 1 litro é o volume de um cubo de 10 cm de aresta, ou seja, 1 dm³. Daí vêm 1 m³ = 1.000 dm³ = 1.000 litros, e 1 cm³ = 1 mL.</p>
+<p>Uma caixa de 40 cm por 30 cm por 20 cm tem volume de 24.000 cm³, ou 24 litros. Uma piscina de 8 m por 4 m e 1,5 m de profundidade tem 48 m³, ou 48.000 litros. Um reservatório de 12 m³ guarda 12.000 litros e, se o consumo é de 400 litros por dia, dura 30 dias.</p>
+<p>Para a capacidade, os prefixos seguem a escada de 10 em 10: 1 litro tem 1.000 mL, e 1 hectolitro (hL) tem 100 litros.</p>
+<h3>4. Massa</h3>
+<p>A unidade de massa é o grama, e o quilograma vale 1.000 g. A tonelada vale 1.000 kg. Então 1,5 kg são 1.500 g, 800 g são 0,8 kg e 1,2 t são 1.200 kg. Um litro de água pesa, aproximadamente, 1 kg; por isso, um tanque de 3 m³ cheio de água tem massa de 3.000 kg, ou 3 t.</p>
+<h3>5. Tempo: o sistema que não é decimal</h3>
+<p>O tempo não segue a escada de 10: 1 hora tem 60 minutos, 1 minuto tem 60 segundos e 1 dia tem 24 horas. Por isso, 2 h 30 min valem 150 minutos, e não 2,3 hora. Para passar de minutos a horas decimais, divide-se por 60: 90 min = 1,5 h, e 45 min = 0,75 h. Para passar de horas decimais a horas e minutos, multiplica-se a parte decimal por 60: 5,25 h = 5 h + 0,25 × 60 min = 5 h 15 min.</p>
+<p>Na soma, quando os minutos passam de 59, “vai um” para as horas. Em 2 h 40 min + 1 h 35 min, os minutos são 40 + 35 = 75, que dão 1 h 15 min; as horas são 2 + 1 + 1 = 4. O total é 4 h 15 min. Na subtração, quando faltam minutos, empresta-se 1 hora. Em 5 h 10 min − 2 h 45 min, não dá para tirar 45 de 10; empresta-se 1 hora, e a conta vira 4 h 70 min − 2 h 45 min = 2 h 25 min.</p>
+<p>Para a duração entre dois horários que cruzam a meia-noite, calcule até 24h e some o resto. De 22h45 a 6h15 do dia seguinte: até 24h são 1 h 15 min, e mais 6 h 15 min dão 7 h 30 min.</p>
+<p>A velocidade liga distância e tempo e exige cuidado com a unidade. Para passar de km/h para m/s, divide-se por 3,6: 72 km/h = 20 m/s e 36 km/h = 10 m/s. Uma viatura a 18 km/h faz 3,6 km em 3,6 ÷ 18 = 0,2 h, ou 12 minutos.</p>
+<h3>6. Questões resolvidas</h3>
+<h4>Questão 1</h4>
+<p>Uma sala retangular mede 5 m por 4 m. O piso será coberto com ladrilhos quadrados de 20 cm de lado. O número de ladrilhos necessário é</p>
+<ol class="alts" type="A"><li>50</li><li>5.000</li><li>500</li><li>250</li><li>400</li></ol>
+<p><strong>Resposta: C.</strong> Área: 20 m² = 200.000 cm². Cada ladrilho: 20 × 20 = 400 cm². 200.000 ÷ 400 = 500.</p>
+<h4>Questão 2</h4>
+<p>Um reservatório com 12 m³ de água abastece uma base que consome 400 litros por dia. A água dura</p>
+<ol class="alts" type="A"><li>30 dias.</li><li>3 dias.</li><li>48 dias.</li><li>300 dias.</li><li>12 dias.</li></ol>
+<p><strong>Resposta: A.</strong> 12 m³ = 12.000 litros. 12.000 ÷ 400 = 30 dias.</p>
+<h4>Questão 3</h4>
+<p>Um plantão começa às 22h45 e termina às 6h15 do dia seguinte. Sua duração é de</p>
+<ol class="alts" type="A"><li>7 h 70 min.</li><li>8 h 30 min.</li><li>7 h 15 min.</li><li>8 h.</li><li>7 h 30 min.</li></ol>
+<p><strong>Resposta: E.</strong> Até 24h: 1 h 15 min. Mais 6 h 15 min: 7 h 30 min.</p>
+<h4>Questão 4</h4>
+<p>A velocidade de 72 km/h equivale, em metros por segundo, a</p>
+<ol class="alts" type="A"><li>72</li><li>20</li><li>259,2</li><li>7,2</li><li>200</li></ol>
+<p><strong>Resposta: B.</strong> Divide-se por 3,6: 72 ÷ 3,6 = 20 m/s.</p>
+<h3>7. Na rotina do guarda</h3>
+<ul>
+<li><strong>Relatório de distância:</strong> o hodômetro e o mapa usam quilômetros e metros; converter antes de comparar.</li>
+<li><strong>Cobertura de terreno:</strong> a área de um parque em hectares vira m² para dividir o patrulhamento por guarda.</li>
+<li><strong>Escala de plantão:</strong> de 22h45 a 6h15 são 7 h 30 min, não 8 horas nem 7,3 horas.</li>
+<li><strong>Reservatórios e viaturas-pipa:</strong> a capacidade vem em m³ ou em litros e precisa ser uniformizada.</li>
+</ul>
+<h3>8. Onde a Vunesp pega</h3>
+<div class="tabela"><table>
+<thead>
+<tr>
+<th>Armadilha</th>
+<th>Como escapar</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Usar o degrau de 10 na área ou no volume</td>
+<td>Área anda de 100 em 100; volume, de 1.000 em 1.000</td>
+</tr>
+<tr>
+<td>Tratar 2 h 30 min como 2,3 h</td>
+<td>Converta: 30 min = 0,5 h, logo 2,5 h</td>
+</tr>
+<tr>
+<td>Confundir hectare e are</td>
+<td>1 ha = 10.000 m²; 1 are = 100 m²</td>
+</tr>
+<tr>
+<td>Esquecer 1 m³ = 1.000 L</td>
+<td>1 dm³ = 1 L</td>
+</tr>
+<tr>
+<td>Converter km/h em m/s multiplicando por 3,6</td>
+<td>Divide por 3,6</td>
+</tr>
+<tr>
+<td>Esquecer de emprestar 1 hora na subtração</td>
+<td>60 min vêm da hora emprestada</td>
+</tr>
+</tbody>
+</table></div>
+<h3>9. Quadro-resumo</h3>
+<div class="tabela"><table>
+<thead>
+<tr>
+<th>Ponto</th>
+<th>O essencial</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Comprimento</td>
+<td>Degrau de 10: km, hm, dam, m, dm, cm, mm</td>
+</tr>
+<tr>
+<td>Área</td>
+<td>Degrau de 100: 1 m² = 10.000 cm²</td>
+</tr>
+<tr>
+<td>Hectare e are</td>
+<td>1 ha = 10.000 m²; 1 are = 100 m²</td>
+</tr>
+<tr>
+<td>Volume</td>
+<td>Degrau de 1.000: 1 m³ = 1.000.000 cm³</td>
+</tr>
+<tr>
+<td>Capacidade</td>
+<td>1 L = 1 dm³; 1 m³ = 1.000 L; 1 cm³ = 1 mL</td>
+</tr>
+<tr>
+<td>Massa</td>
+<td>1 kg = 1.000 g; 1 t = 1.000 kg</td>
+</tr>
+<tr>
+<td>Tempo</td>
+<td>60 min = 1 h; 60 s = 1 min</td>
+</tr>
+<tr>
+<td>Velocidade</td>
+<td>km/h ÷ 3,6 = m/s</td>
+</tr>
+</tbody>
+</table></div>
+<p class="ref">Fontes: Edital 02/2026, Anexo I. Referências de base: Sistema Internacional de Unidades (INMETRO); Iezzi, Dolce e Murakami, <em>Fundamentos de Matemática Elementar</em>, v. 10 e 11. Exemplos criados para a aula.</p>
+`,
+"mt-9": `
+<span class="status">Versão 1 · em revisão</span>
+<p>Tabelas, gráficos e média aritmética formam o assunto mais próximo do dia a dia de quem trabalha com relatórios. A Vunesp cobra a leitura de dados em tabelas e gráficos (barras, linhas e setores), o cálculo da média aritmética simples e problemas em que a média muda quando um valor entra ou sai. A ideia por trás da média cabe numa imagem: é o valor que cada um receberia se a soma de tudo fosse repartida igualmente.</p>
+
+<h3>Mapa do assunto</h3>
+<figure class="fig">
+<svg viewBox="0 0 760 368" role="img" aria-label="Média e gráficos: do dado à conclusão" font-size="13">
+<text x="24" y="28" font-size="16" font-weight="600">Média e gráficos: do dado à conclusão</text>
+<rect class="ac" x="24" y="48" width="224" height="112" rx="8" style="stroke-width:1.5"/><text x="136" y="74" text-anchor="middle" font-weight="600">Ler tabelas e gráficos</text>
+<text x="136" y="96" text-anchor="middle" font-size="12">título, unidades, eixos</text>
+<text x="136" y="112" text-anchor="middle" font-size="12">setor: 100% = 360°</text>
+<text x="136" y="128" text-anchor="middle" font-size="12">barras e linhas</text>
+<text class="q" x="136" y="148" text-anchor="middle" font-size="12">seção 1</text>
+<rect class="ac" x="268" y="48" width="224" height="112" rx="8" style="stroke-width:1.5"/><text x="380" y="74" text-anchor="middle" font-weight="600">Média aritmética</text>
+<text x="380" y="96" text-anchor="middle" font-size="12">soma ÷ quantidade</text>
+<text x="380" y="112" text-anchor="middle" font-size="12">soma = média × quantidade</text>
+<text x="380" y="128" text-anchor="middle" font-size="12">repartir igualmente</text>
+<text class="q" x="380" y="148" text-anchor="middle" font-size="12">seção 2</text>
+<rect class="ac" x="512" y="48" width="224" height="112" rx="8" style="stroke-width:1.5"/><text x="624" y="74" text-anchor="middle" font-weight="600">Quando a média muda</text>
+<text x="624" y="96" text-anchor="middle" font-size="12">valor que sai</text>
+<text x="624" y="112" text-anchor="middle" font-size="12">valor que entra</text>
+<text x="624" y="128" text-anchor="middle" font-size="12">nova soma ÷ nova quantidade</text>
+<text class="q" x="624" y="148" text-anchor="middle" font-size="12">seção 2</text>
+<rect class="ac" x="24" y="176" width="224" height="112" rx="8" style="stroke-width:1.5"/><text x="136" y="202" text-anchor="middle" font-weight="600">Mediana e moda</text>
+<text x="136" y="224" text-anchor="middle" font-size="12">mediana: valor do meio</text>
+<text x="136" y="240" text-anchor="middle" font-size="12">moda: o que mais se repete</text>
+<text x="136" y="256" text-anchor="middle" font-size="12">média é sensível a extremos</text>
+<text class="q" x="136" y="276" text-anchor="middle" font-size="12">seção 2</text>
+<rect class="ac" x="268" y="176" width="224" height="112" rx="8" style="stroke-width:1.5"/><text x="380" y="202" text-anchor="middle" font-weight="600">Propriedades</text>
+<text x="380" y="224" text-anchor="middle" font-size="12">somar k soma k à média</text>
+<text x="380" y="240" text-anchor="middle" font-size="12">multiplicar multiplica</text>
+<text x="380" y="256" text-anchor="middle" font-size="12">média das médias só se iguais</text>
+<text class="q" x="380" y="276" text-anchor="middle" font-size="12">seção 3</text>
+<rect class="ac" x="512" y="176" width="224" height="112" rx="8" style="stroke-width:1.5"/><text x="624" y="202" text-anchor="middle" font-weight="600">Variação</text>
+<text x="624" y="224" text-anchor="middle" font-size="12">(final − inicial) ÷ inicial</text>
+<text x="624" y="240" text-anchor="middle" font-size="12">base = valor inicial</text>
+<text x="624" y="256" text-anchor="middle" font-size="12">queda e alta não se anulam</text>
+<text class="q" x="624" y="276" text-anchor="middle" font-size="12">seção 1</text>
+<rect class="tint" x="24" y="304" width="712" height="44" rx="8"/><text x="380" y="331" text-anchor="middle" font-size="13">Na prova: passe pela soma (soma = média × quantidade) e confira a quantidade</text>
+</svg>
+<figcaption>A soma é a ponte entre a média e todos os problemas de entrada e saída de valores.</figcaption>
+</figure>
+<h3>1. Ler tabelas e gráficos</h3>
+<p>Antes de qualquer conta, leia o título, as unidades e os eixos. Em uma tabela, cada linha é um caso e cada coluna é uma grandeza. Em um gráfico de barras, a altura da barra mostra o valor, e é fácil comparar categorias. Em um gráfico de linhas, a inclinação mostra como o valor varia no tempo: subida, descida ou estabilidade. Em um gráfico de setores (a pizza), cada fatia mostra a parte do todo, e o círculo inteiro vale 100% e 360°.</p>
+<p>A leitura correta evita erros que a prova explora. Confira se o gráfico trata de quantidades ou de porcentagens, e se a escala começa no zero. Para converter um setor em ângulo, multiplique a porcentagem por 360°: 40% correspondem a 0,40 × 360° = 144°. Para achar a quantidade de um setor, multiplique a porcentagem pelo total: 25% de 200 pessoas são 50 pessoas.</p>
+<p>Para comparar duas leituras de um gráfico de linhas, calcule a variação relativa: (valor final − valor inicial) ÷ valor inicial. Se as ocorrências foram de 50 para 40, a variação é −10/50 = −20%; se depois foram de 40 para 60, a variação é +20/40 = +50%.</p>
+<h3>2. Média aritmética simples</h3>
+<p>A média aritmética de um conjunto de valores é a soma deles dividida pela quantidade. Em 4, 6 e 8, a soma é 18, e dividindo por 3 vem 6. A imagem é a de repartir: se três guardas têm 4, 6 e 8 ocorrências para atender e elas forem redistribuídas igualmente, cada um fica com 6.</p>
+<p>Dessa imagem sai a relação mais útil: soma = média × quantidade. Se a média de 5 números é 8, a soma é 40. Quase todos os problemas de média se resolvem passando pela soma. Quando um valor sai, subtrai-se da soma; quando entra, soma-se; e só no fim divide-se pela nova quantidade.</p>
+<p>Exemplo resolvido 1. A média de 5 números é 12. Se um deles, que vale 20, for retirado, qual a média dos 4 restantes? A soma era 5 × 12 = 60. Sem o 20, a soma é 40. A nova média é 40 ÷ 4 = 10.</p>
+<p>Exemplo resolvido 2. Em 3 provas, um candidato tirou 5 e 7. Qual deve ser a terceira nota para a média ser 7? A soma precisa ser 3 × 7 = 21. As duas primeiras somam 12. A terceira é 21 − 12 = 9.</p>
+<p>Exemplo resolvido 3. A idade média de 10 pessoas é 30 anos. Entra uma pessoa de 41 anos. A soma era 300; passa a 341; e há 11 pessoas. A nova média é 341 ÷ 11 = 31.</p>
+<p>A média é sensível aos valores extremos. Duas medidas ajudam a descrever um conjunto sem se deixar levar por eles: a mediana é o valor do meio, depois de ordenar os dados (se a quantidade for par, é a média dos dois centrais), e a moda é o valor que mais se repete. Em 2, 3, 3, 4, 5, a moda é 3 e a mediana é 3; em 2, 4, 6, 8, a mediana é (4 + 6)/2 = 5.</p>
+<h3>3. Propriedades úteis da média</h3>
+<p>Algumas propriedades poupam contas. Somar um mesmo valor a todos os dados soma esse valor à média: se cada nota recebe 5 pontos de bônus, a média sobe 5. Multiplicar todos os dados por um número multiplica a média por ele: se todas as notas dobram, a média dobra. A média está sempre entre o menor e o maior valor do conjunto. E a soma dos desvios em relação à média é zero: o que sobra em uns compensa o que falta em outros.</p>
+<p>Quando se juntam dois grupos, a média do conjunto não é a média das médias, a não ser que os grupos tenham o mesmo tamanho. Um grupo de 3 números com média 5 e outro de 2 números com média 10 formam um conjunto de 5 números cuja média é (15 + 20) ÷ 5 = 7, e não (5 + 10) ÷ 2 = 7,5.</p>
+<h3>4. Questões resolvidas</h3>
+<h4>Questão 1</h4>
+<p>A média de cinco números é 12. Retirando-se um deles, que vale 20, a média dos quatro restantes é</p>
+<ol class="alts" type="A"><li>12</li><li>8</li><li>15</li><li>10</li><li>16</li></ol>
+<p><strong>Resposta: D.</strong> Soma: 5 × 12 = 60. Sem o 20, 40. Média: 40 ÷ 4 = 10.</p>
+<h4>Questão 2</h4>
+<p>Um candidato fez duas provas e tirou 5 e 7. Para obter média 7 em três provas, a terceira nota deve ser</p>
+<ol class="alts" type="A"><li>7</li><li>8</li><li>9</li><li>10</li><li>6</li></ol>
+<p><strong>Resposta: C.</strong> A soma precisa ser 21; já tem 12; faltam 9.</p>
+<h4>Questão 3</h4>
+<p>Em um gráfico de setores, o setor dos furtos representa 40% do total de 400 ocorrências. Esse setor corresponde a</p>
+<ol class="alts" type="A"><li>160 ocorrências e 144°.</li><li>160 ocorrências e 40°.</li><li>40 ocorrências e 144°.</li><li>100 ocorrências e 90°.</li><li>160 ocorrências e 100°.</li></ol>
+<p><strong>Resposta: A.</strong> 0,40 × 400 = 160 ocorrências; 0,40 × 360° = 144°.</p>
+<h4>Questão 4</h4>
+<p>Um grupo de 3 números tem média 5 e outro de 2 números tem média 10. A média dos 5 números juntos é</p>
+<ol class="alts" type="A"><li>7,5</li><li>8</li><li>6</li><li>5,5</li><li>7</li></ol>
+<p><strong>Resposta: E.</strong> Somas: 15 e 20. Total 35. 35 ÷ 5 = 7. A média das médias, 7,5, seria um erro, porque os grupos têm tamanhos diferentes.</p>
+<h3>5. Na rotina do guarda</h3>
+<ul>
+<li><strong>Relatório mensal:</strong> a média de ocorrências por mês dá a referência para dizer se um mês ficou acima ou abaixo do normal.</li>
+<li><strong>Gráficos de setores nos balanços:</strong> a fatia dos furtos em 40% de 400 ocorrências são 160 casos e, no círculo, 144°.</li>
+<li><strong>Planejamento de efetivo:</strong> a média de atendimentos por guarda orienta a escala.</li>
+<li><strong>Variação de um mês para outro:</strong> calcula-se sobre o mês anterior, como em qualquer porcentagem.</li>
+</ul>
+<h3>6. Onde a Vunesp pega</h3>
+<div class="tabela"><table>
+<thead>
+<tr>
+<th>Armadilha</th>
+<th>Como escapar</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Dividir a soma pela quantidade errada</td>
+<td>Conte os valores antes de dividir</td>
+</tr>
+<tr>
+<td>Tirar a média das médias de grupos de tamanhos diferentes</td>
+<td>Some tudo e divida pelo total de elementos</td>
+</tr>
+<tr>
+<td>Esquecer que um valor que entra muda a quantidade</td>
+<td>Nova média = nova soma ÷ nova quantidade</td>
+</tr>
+<tr>
+<td>Confundir mediana com média</td>
+<td>Mediana é o valor do meio dos dados ordenados</td>
+</tr>
+<tr>
+<td>Calcular a variação percentual sobre o valor final</td>
+<td>A base é o valor inicial</td>
+</tr>
+<tr>
+<td>Ler o gráfico de setores como quantidades</td>
+<td>Setor é parte do todo: multiplique pelo total</td>
+</tr>
+</tbody>
+</table></div>
+<h3>7. Quadro-resumo</h3>
+<div class="tabela"><table>
+<thead>
+<tr>
+<th>Ponto</th>
+<th>O essencial</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Média aritmética</td>
+<td>Soma ÷ quantidade</td>
+</tr>
+<tr>
+<td>Relação básica</td>
+<td>Soma = média × quantidade</td>
+</tr>
+<tr>
+<td>Mediana</td>
+<td>Valor central dos dados ordenados</td>
+</tr>
+<tr>
+<td>Moda</td>
+<td>Valor que mais se repete</td>
+</tr>
+<tr>
+<td>Setor</td>
+<td>100% = 360°; 40% = 144°</td>
+</tr>
+<tr>
+<td>Variação</td>
+<td>(final − inicial) ÷ inicial</td>
+</tr>
+<tr>
+<td>Grupos distintos</td>
+<td>Some tudo e divida pelo total</td>
+</tr>
+</tbody>
+</table></div>
+<p class="ref">Fontes: Edital 02/2026, Anexo I. Referências de base: IBGE, <em>Tabulações e gráficos: noções de estatística</em> (apoio didático); Iezzi, Dolce e Murakami, <em>Fundamentos de Matemática Elementar</em>, v. 11. Exemplos criados para a aula.</p>
+`,
 "gm-1": `
 <span class="status">Versão 1 · em revisão</span>
 <p>A Lei 13.022/2014, o Estatuto Geral das Guardas Municipais, é a norma que define o que a guarda é e o que ela pode fazer em qualquer cidade do país. Esta primeira parte cobre os arts. 1º a 5º: natureza, princípios e competências. A Vunesp cobra quase sempre a letra da lei, trocando uma palavra para ver se o candidato percebe.</p>
@@ -6236,6 +6714,195 @@ BANCO["mt-6"] = [
 {id:"m6-60",n:3,tx:"mt6b",e:"Pelo texto, se a largura e o comprimento aumentassem 1 metro cada, a área passaria a ser, em m²,",a:["54", "50", "48", "56", "45"],c:"6 × 9 = 54."}
 ];
 
+BANCO["mt-7"] = [
+{id:"m7-01",n:1,e:"Se x + y = 10 e x − y = 2, o valor de x é",a:["6", "4", "8", "12", "2"],c:"Somando: 2x = 12, x = 6."},
+{id:"m7-02",n:1,e:"Se x + y = 12 e x = y + 4, o valor de y é",a:["4", "8", "6", "16", "2"],c:"y + 4 + y = 12, y = 4."},
+{id:"m7-03",n:1,e:"Duas canetas e um lápis custam R$ 7,00, e uma caneta e um lápis custam R$ 5,00. A caneta custa",a:["R$ 2,00", "R$ 3,00", "R$ 1,00", "R$ 4,00", "R$ 5,00"],c:"Subtraindo as equações: c = 2."},
+{id:"m7-04",n:1,e:"A soma de dois números é 20 e a diferença é 6. O maior é",a:["13", "7", "14", "10", "26"],c:"2x = 26, x = 13."},
+{id:"m7-05",n:1,e:"Se x + y = 15 e 2x + y = 22, o valor de x é",a:["7", "8", "15", "22", "37"],c:"Subtraindo a primeira da segunda: x = 7."},
+{id:"m7-06",n:1,e:"Duas camisas e uma calça custam R$ 100,00, e uma camisa e uma calça custam R$ 70,00. A camisa custa",a:["R$ 30,00", "R$ 40,00", "R$ 70,00", "R$ 50,00", "R$ 35,00"],c:"Subtraindo: camisa = 30."},
+{id:"m7-07",n:1,e:"Se x + y = 11 e x = y + 3, o valor de x é",a:["7", "4", "8", "3", "11"],c:"2y + 3 = 11, y = 4, x = 7."},
+{id:"m7-08",n:1,e:"O par ordenado que é solução do sistema x + y = 5 e x − y = 1 é",a:["(3, 2)", "(2, 3)", "(4, 1)", "(1, 4)", "(5, 0)"],c:"2x = 6, x = 3, y = 2."},
+{id:"m7-09",n:1,e:"A soma das idades de um pai e de seu filho é 45 anos, e a diferença é 25 anos. O filho tem",a:["10 anos", "35 anos", "15 anos", "20 anos", "25 anos"],c:"Soma menos diferença: 2f = 20, f = 10."},
+{id:"m7-10",n:1,e:"Em 10 moedas, de R$ 1,00 e de R$ 0,50, que somam R$ 7,00, o número de moedas de R$ 0,50 é",a:["6", "4", "5", "7", "3"],c:"a + b = 10 e a + 0,5b = 7. Subtraindo, 0,5b = 3, b = 6."},
+{id:"m7-11",n:1,e:"Três ingressos de adulto e dois de criança custam R$ 80,00; um de adulto e dois de criança, R$ 40,00. O ingresso de adulto custa",a:["R$ 20,00", "R$ 10,00", "R$ 25,00", "R$ 30,00", "R$ 15,00"],c:"Subtraindo: 2a = 40, a = 20."},
+{id:"m7-12",n:1,e:"Se x + 2y = 11 e x = 3, o valor de y é",a:["4", "3", "8", "5", "2"],c:"3 + 2y = 11, y = 4."},
+{id:"m7-13",n:1,e:"Se 2x + y = 9 e x − y = 0, o valor de x é",a:["3", "9", "4,5", "2", "6"],c:"x = y: 3x = 9, x = 3."},
+{id:"m7-14",n:1,e:"A soma de dois números é 30 e um é o dobro do outro. O maior é",a:["20", "10", "15", "25", "30"],c:"x + 2x = 30, x = 10; o maior é 20."},
+{id:"m7-15",n:1,e:"Um retângulo tem perímetro 20 cm e comprimento 2 cm maior que a largura. O comprimento é",a:["6 cm", "4 cm", "8 cm", "5 cm", "10 cm"],c:"2(l + l + 2) = 20 → l = 4, comprimento 6."},
+{id:"m7-16",n:1,e:"Se 3x + y = 10 e x + y = 6, o valor de y é",a:["4", "2", "6", "10", "3"],c:"Subtraindo: 2x = 4, x = 2, y = 4."},
+{id:"m7-17",n:1,e:"Dois cadernos e três canetas custam R$ 21,00; um caderno e três canetas, R$ 15,00. O caderno custa",a:["R$ 6,00", "R$ 3,00", "R$ 9,00", "R$ 5,00", "R$ 7,00"],c:"Subtraindo: caderno = 6."},
+{id:"m7-18",n:1,e:"Em um grupo de 40 pessoas, o número de homens é o triplo do de mulheres. As mulheres são",a:["10", "30", "13", "20", "8"],c:"m + 3m = 40, m = 10."},
+{id:"m7-19",n:1,tx:"mt7a",e:"Pelo texto, o preço de cada caixa do tipo A é",a:["R$ 50,00", "R$ 40,00", "R$ 60,00", "R$ 30,00", "R$ 45,00"],c:"2a + 3b = 190 e a + 2b = 110. Multiplicando a segunda por 2 e subtraindo: b = 30, a = 50."},
+{id:"m7-20",n:1,tx:"mt7a",e:"Pelo texto, o preço de cada caixa do tipo B é",a:["R$ 30,00", "R$ 20,00", "R$ 35,00", "R$ 25,00", "R$ 40,00"],c:"b = 30 (ver sistema)."},
+{id:"m7-21",n:2,e:"Se 2x + 3y = 12 e x − y = 1, o valor de y é",a:["2", "3", "1", "4", "6"],c:"x = y + 1: 2y + 2 + 3y = 12, y = 2."},
+{id:"m7-22",n:2,e:"Se 3x + 2y = 16 e x + y = 6, o valor de x é",a:["4", "2", "6", "3", "8"],c:"Multiplicando a segunda por 2 e subtraindo: x = 4."},
+{id:"m7-23",n:2,e:"A é 4 anos mais velho que B, e a soma das idades é 36. A idade de A é",a:["20 anos", "16 anos", "18 anos", "22 anos", "24 anos"],c:"a = b + 4: 2b + 4 = 36, b = 16, a = 20."},
+{id:"m7-24",n:2,e:"Uma loja vende camisas a R$ 40,00 e calças a R$ 60,00. Foram vendidas 5 peças por R$ 260,00. O número de calças foi",a:["3", "2", "4", "1", "5"],c:"c + p = 5 e 40c + 60p = 260. 200 + 20p = 260, p = 3."},
+{id:"m7-25",n:2,e:"Se x/2 + y/3 = 4 e x − y = 3, o valor de x é",a:["6", "3", "4", "9", "5"],c:"3x + 2y = 24; x = y + 3: 5y + 9 = 24, y = 3, x = 6."},
+{id:"m7-26",n:2,e:"Em 25 notas de R$ 5,00 e de R$ 10,00, que somam R$ 190,00, o número de notas de R$ 10,00 é",a:["13", "12", "15", "10", "8"],c:"a + b = 25 e 5a + 10b = 190: 5b = 65, b = 13."},
+{id:"m7-27",n:2,e:"Um barco, a favor da correnteza, anda 18 km/h e, contra, 12 km/h. A velocidade da correnteza é",a:["3 km/h", "6 km/h", "15 km/h", "2 km/h", "1,5 km/h"],c:"b + c = 18 e b − c = 12. Subtraindo: 2c = 6, c = 3."},
+{id:"m7-28",n:2,e:"Um terreno retangular tem perímetro 36 m e comprimento igual ao dobro da largura. A área é",a:["72 m²", "48 m²", "36 m²", "64 m²", "81 m²"],c:"2(l + 2l) = 36, l = 6, comprimento 12; área 72."},
+{id:"m7-29",n:2,e:"Se 4x − y = 7 e 2x + y = 5, o valor de x + y é",a:["3", "2", "5", "4", "6"],c:"Somando: 6x = 12, x = 2, y = 1."},
+{id:"m7-30",n:2,e:"A soma de dois números é 48 e a razão entre eles é 3/5. O maior é",a:["30", "18", "24", "20", "35"],c:"3k + 5k = 48, k = 6; maior 30."},
+{id:"m7-31",n:2,e:"A soma de dois números é 40 e a diferença é 12. O menor é",a:["14", "26", "12", "20", "16"],c:"x = 26, y = 14."},
+{id:"m7-32",n:2,e:"Em um pátio de bicicletas e triciclos há 10 veículos e 24 rodas. O número de triciclos é",a:["4", "6", "3", "5", "2"],c:"b + t = 10 e 2b + 3t = 24: t = 4."},
+{id:"m7-33",n:2,e:"Duas entradas inteiras e três meias custam R$ 70,00; uma inteira e uma meia, R$ 30,00. A meia custa",a:["R$ 10,00", "R$ 20,00", "R$ 15,00", "R$ 5,00", "R$ 25,00"],c:"Multiplicando a segunda por 2: 2i + 2m = 60. Subtraindo: m = 10."},
+{id:"m7-34",n:2,e:"O pai tem o triplo da idade do filho; daqui a 10 anos terá o dobro. O filho tem hoje",a:["10 anos", "12 anos", "15 anos", "8 anos", "5 anos"],c:"3f + 10 = 2(f + 10), f = 10."},
+{id:"m7-35",n:2,e:"O sistema x + y = 3 e 2x + 2y = 8 é",a:["impossível.", "possível e determinado.", "possível e indeterminado.", "satisfeito por (1, 2).", "satisfeito por (0, 4)."],c:"A segunda equação equivale a x + y = 4, que contradiz x + y = 3."},
+{id:"m7-36",n:2,e:"O sistema x + y = 3 e 2x + 2y = 6 é",a:["possível e indeterminado.", "impossível.", "possível e determinado, com solução (1, 2).", "possível e determinado, com solução (3, 0).", "possível, com solução única (2, 1)."],c:"A segunda equação é a primeira multiplicada por 2: infinitas soluções."},
+{id:"m7-37",n:2,e:"O par (2, 3) é solução do sistema",a:["2x + y = 7 e x + y = 5", "x + y = 6 e x − y = 1", "2x + y = 8 e x + y = 5", "x + 2y = 7 e x − y = 1", "2x − y = 7 e x + y = 5"],c:"2 × 2 + 3 = 7 e 2 + 3 = 5. Os demais falham em ao menos uma equação."},
+{id:"m7-38",n:2,tx:"mt7a",e:"Pelo texto, o custo de 5 caixas do tipo A e 4 do tipo B é",a:["R$ 370,00", "R$ 340,00", "R$ 380,00", "R$ 350,00", "R$ 400,00"],c:"5 × 50 + 4 × 30 = 370."},
+{id:"m7-39",n:2,tx:"mt7b",e:"Pelo texto, o número de carros no pátio é",a:["12", "8", "10", "14", "16"],c:"c + m = 20 e 4c + 2m = 64: c = 12."},
+{id:"m7-40",n:2,tx:"mt7b",e:"Pelo texto, o número de motocicletas no pátio é",a:["8", "12", "6", "10", "4"],c:"20 − 12 = 8."},
+{id:"m7-41",n:3,e:"Há 6 anos a soma das idades de Maria e de Ana era 24, e hoje Maria tem o dobro da idade de Ana. Ana tem hoje",a:["12 anos", "10 anos", "14 anos", "16 anos", "8 anos"],c:"Hoje a soma é 36. m = 2a: 3a = 36, a = 12."},
+{id:"m7-42",n:3,e:"Um barco faz 24 km a favor da correnteza em 2 horas e 24 km contra em 3 horas. A velocidade do barco em água parada é",a:["10 km/h", "12 km/h", "8 km/h", "2 km/h", "9 km/h"],c:"b + c = 12 e b − c = 8: b = 10, c = 2."},
+{id:"m7-43",n:3,e:"Misturam-se 20 litros de dois combustíveis, a R$ 5,00 e a R$ 3,00 o litro. O total pago foi R$ 84,00. O volume do combustível de R$ 5,00 é",a:["12 litros", "8 litros", "10 litros", "14 litros", "15 litros"],c:"a + b = 20 e 5a + 3b = 84. 5a + 60 − 3a = 84, a = 12."},
+{id:"m7-44",n:3,e:"Um número de dois algarismos tem soma dos algarismos 9. Trocando a ordem, o número aumenta 27. O número é",a:["36", "63", "27", "45", "18"],c:"x + y = 9 e (10y + x) − (10x + y) = 27, ou y − x = 3: y = 6, x = 3."},
+{id:"m7-45",n:3,e:"R$ 100,00 serão repartidos entre A, B e C. A recebe R$ 20,00 a mais que B, e C recebe R$ 10,00 a menos que B. C recebe",a:["R$ 20,00", "R$ 30,00", "R$ 50,00", "R$ 10,00", "R$ 40,00"],c:"b + 20 + b + b − 10 = 100, 3b = 90, b = 30; C = 20."},
+{id:"m7-46",n:3,e:"Em um sítio há galinhas e coelhos, num total de 35 cabeças e 94 pés. O número de coelhos é",a:["12", "23", "10", "15", "17"],c:"g + c = 35 e 2g + 4c = 94. 70 + 2c = 94, c = 12."},
+{id:"m7-47",n:3,e:"Dois prêmios somam R$ 1.000,00 e a diferença entre eles é R$ 300,00. O maior é",a:["R$ 650,00", "R$ 700,00", "R$ 350,00", "R$ 600,00", "R$ 500,00"],c:"x = (1.000 + 300)/2 = 650."},
+{id:"m7-48",n:3,e:"O pai tem o triplo da idade do filho; daqui a 12 anos terá o dobro. A idade do pai hoje é",a:["36 anos", "12 anos", "48 anos", "30 anos", "42 anos"],c:"3f + 12 = 2(f + 12), f = 12, p = 36."},
+{id:"m7-49",n:3,e:"Dois sócios têm lucro total de R$ 5.000,00, e A recebe 1,5 vez o que B recebe. A recebe",a:["R$ 3000,00", "R$ 2000,00", "R$ 2500,00", "R$ 3500,00", "R$ 3750,00"],c:"a = 1,5b: 2,5b = 5.000, b = 2.000, a = 3.000."},
+{id:"m7-50",n:3,e:"Se x/2 + y/3 = 4 e x/4 − y/6 = 0, o valor de x + y é",a:["10", "8", "12", "14", "6"],c:"Multiplicando: 3x + 2y = 24 e 3x − 2y = 0. Somando: x = 4; y = 6."},
+{id:"m7-51",n:3,e:"Se 2x − 3y = −4 e 3x + 2y = 7, o valor de 5x + y é",a:["7", "5", "9", "11", "3"],c:"Resolvendo, x = 1 e y = 2. Então 5 + 2 = 7."},
+{id:"m7-52",n:3,e:"O valor de k para o qual o sistema x + 2y = 5 e 3x + ky = 7 é impossível é",a:["6", "2", "3", "7", "5"],c:"As retas são paralelas quando 3/1 = k/2 e 7 ≠ 15: k = 6."},
+{id:"m7-53",n:3,e:"Três canetas e dois cadernos custam R$ 23,00; duas canetas e três cadernos, R$ 27,00. Uma caneta e um caderno custam juntos",a:["R$ 10,00", "R$ 8,00", "R$ 12,00", "R$ 9,00", "R$ 14,00"],c:"Somando as equações: 5c + 5k = 50, logo c + k = 10."},
+{id:"m7-54",n:3,e:"As retas y = 2x + 1 e y = −x + 7 se cruzam em um ponto cuja soma das coordenadas é",a:["7", "5", "3", "9", "6"],c:"2x + 1 = −x + 7, x = 2, y = 5. Soma 7."},
+{id:"m7-55",n:3,e:"Dois números somam 44 e 2/5 de um deles é igual a 1/3 do outro. O maior é",a:["24", "20", "22", "26", "30"],c:"y = 6x/5 e x + y = 44: x = 20, y = 24."},
+{id:"m7-56",n:3,e:"Se 3x − y = 5 e x + y = 11, o valor de y é",a:["7", "4", "5", "3", "8"],c:"Somando: 4x = 16, x = 4, y = 7."},
+{id:"m7-57",n:3,e:"O triplo de um número mais outro é 19, e o primeiro mais o dobro do segundo é 13. O produto dos dois números é",a:["20", "15", "24", "35", "12"],c:"3x + y = 19 e x + 2y = 13. Multiplicando a primeira por 2 e subtraindo a segunda: 5x = 25, x = 5, y = 4. Produto 20."},
+{id:"m7-58",n:3,e:"Para que o par (2, 1) seja solução da equação x + ky = 5, o valor de k deve ser",a:["3", "2", "1", "4", "5"],c:"2 + k × 1 = 5, k = 3."},
+{id:"m7-59",n:3,tx:"mt7a",e:"Se, para o texto, a Guarda comprasse 4 caixas do tipo A e 6 do tipo B, gastaria",a:["R$ 380,00", "R$ 340,00", "R$ 360,00", "R$ 400,00", "R$ 420,00"],c:"4 × 50 + 6 × 30 = 380."},
+{id:"m7-60",n:3,tx:"mt7b",e:"Pelo texto, retiradas as motocicletas do pátio, as rodas restantes seriam",a:["48", "44", "64", "56", "40"],c:"12 carros × 4 rodas = 48."}
+];
+
+BANCO["mt-8"] = [
+{id:"m8-01",n:1,e:"Em metros, 3,5 km correspondem a",a:["3500 m", "350 m", "35 m", "35.000 m", "0,35 m"],c:"3,5 × 1.000."},
+{id:"m8-02",n:1,e:"Em metros, 250 cm correspondem a",a:["2,5 m", "25 m", "250.000 m", "0,25 m", "2500 m"],c:"250 ÷ 100."},
+{id:"m8-03",n:1,e:"Em minutos, 2 horas correspondem a",a:["120 min", "200 min", "100 min", "60 min", "180 min"],c:"2 × 60."},
+{id:"m8-04",n:1,e:"Em gramas, 1,5 kg correspondem a",a:["1500 g", "150 g", "15 g", "15.000 g", "1,5 g"],c:"1,5 × 1.000."},
+{id:"m8-05",n:1,e:"Em mililitros, 3 litros correspondem a",a:["3000 mL", "300 mL", "30 mL", "30.000 mL", "0,3 mL"],c:"3 × 1.000."},
+{id:"m8-06",n:1,e:"Em litros, 1 m³ corresponde a",a:["1000 L", "100 L", "10 L", "10.000 L", "1 L"],c:"1 m³ = 1.000 dm³ = 1.000 L."},
+{id:"m8-07",n:1,e:"Em centímetros quadrados, 4 m² correspondem a",a:["40.000 cm²", "400 cm²", "4000 cm²", "4.000.000 cm²", "8000 cm²"],c:"4 × 10.000."},
+{id:"m8-08",n:1,e:"Em minutos, 2 h 30 min correspondem a",a:["150 min", "230 min", "250 min", "120 min", "200 min"],c:"120 + 30."},
+{id:"m8-09",n:1,e:"Em quilogramas, 800 g correspondem a",a:["0,8 kg", "8 kg", "80 kg", "0,08 kg", "800 kg"],c:"800 ÷ 1.000."},
+{id:"m8-10",n:1,e:"Em metros quadrados, 1 hectare corresponde a",a:["10.000 m²", "100 m²", "1000 m²", "100.000 m²", "1.000.000 m²"],c:"Um quadrado de 100 m por 100 m."},
+{id:"m8-11",n:1,e:"Em horas, 90 minutos correspondem a",a:["1,5 h", "0,9 h", "9 h", "1,3 h", "1,9 h"],c:"90 ÷ 60 = 1,5."},
+{id:"m8-12",n:1,e:"Em quilômetros, 5.000 m correspondem a",a:["5 km", "50 km", "0,5 km", "500 km", "0,05 km"],c:"5.000 ÷ 1.000."},
+{id:"m8-13",n:1,e:"Um cubo de 10 cm de aresta tem capacidade de",a:["1 litro(s)", "10 litro(s)", "100 litro(s)", "0,1 litro(s)", "1000 litro(s)"],c:"1.000 cm³ = 1 dm³ = 1 L."},
+{id:"m8-14",n:1,e:"Em litros, 2 dm³ correspondem a",a:["2 L", "20 L", "200 L", "0,2 L", "2000 L"],c:"1 dm³ = 1 L."},
+{id:"m8-15",n:1,e:"A soma de 45 min com 35 min é, em minutos,",a:["80 min", "70 min", "75 min", "85 min", "90 min"],c:"45 + 35 = 80, ou 1 h 20 min."},
+{id:"m8-16",n:1,e:"Em horas, 3 dias correspondem a",a:["72 h", "36 h", "48 h", "60 h", "24 h"],c:"3 × 24."},
+{id:"m8-17",n:1,e:"Em quilogramas, 1,2 t correspondem a",a:["1200 kg", "120 kg", "12 kg", "12.000 kg", "1,2 kg"],c:"1,2 × 1.000."},
+{id:"m8-18",n:1,e:"Em litros, 250 mL correspondem a",a:["0,25 L", "2,5 L", "25 L", "0,025 L", "250 L"],c:"250 ÷ 1.000."},
+{id:"m8-19",n:1,tx:"mt8a",e:"Pelo texto, a área do parque, em hectares, é",a:["6", "60", "0,6", "600", "3"],c:"400 × 150 = 60.000 m², ou 6 ha."},
+{id:"m8-20",n:1,tx:"mt8b",e:"Pelo texto, a duração de um plantão é de",a:["7 h 30 min", "7 h 70 min", "8 h 30 min", "7 h 15 min", "8 h"],c:"1 h 15 min até a meia-noite mais 6 h 15 min."},
+{id:"m8-21",n:2,e:"Em centímetros, 0,0045 km correspondem a",a:["450 cm", "45 cm", "4,5 cm", "4500 cm", "0,45 cm"],c:"0,0045 × 100.000."},
+{id:"m8-22",n:2,e:"A diferença entre 3 h 45 min e 1 h 50 min é, em minutos,",a:["115 min", "155 min", "125 min", "105 min", "95 min"],c:"3 h 45 min − 1 h 50 min = 1 h 55 min = 115 min."},
+{id:"m8-23",n:2,e:"Em litros, 2,5 m³ correspondem a",a:["2500 L", "250 L", "25 L", "25.000 L", "2,5 L"],c:"2,5 × 1.000."},
+{id:"m8-24",n:2,e:"Uma sala de 5 m por 4 m tem área, em cm², de",a:["200.000 cm²", "2000 cm²", "20.000 cm²", "2.000.000 cm²", "20 cm²"],c:"20 m² × 10.000."},
+{id:"m8-25",n:2,e:"Em hectares, 20 m² correspondem a",a:["0,002 ha", "0,02 ha", "0,2 ha", "2 ha", "0,0002 ha"],c:"20 ÷ 10.000."},
+{id:"m8-26",n:2,e:"A soma 2 h 40 min + 1 h 35 min é igual a",a:["4 h 15 min", "3 h 75 min", "3 h 15 min", "4 h 5 min", "3 h 5 min"],c:"40 + 35 = 75 min = 1 h 15 min; 2 + 1 + 1 = 4 h."},
+{id:"m8-27",n:2,e:"Uma cisterna de 2 m por 1,5 m por 1 m tem capacidade de",a:["3000 L", "300 L", "30.000 L", "3 L", "2000 L"],c:"3 m³ = 3.000 L."},
+{id:"m8-28",n:2,e:"Três sacos de 2,5 kg e quatro de 1,2 kg pesam, juntos,",a:["12,3 kg", "9,7 kg", "12 kg", "13,5 kg", "11,3 kg"],c:"7,5 + 4,8 = 12,3."},
+{id:"m8-29",n:2,e:"A velocidade de 72 km/h equivale a",a:["20 m/s", "72 m/s", "259,2 m/s", "7,2 m/s", "200 m/s"],c:"72 ÷ 3,6 = 20."},
+{id:"m8-30",n:2,e:"Em metros quadrados, 1,5 km² correspondem a",a:["1.500.000 m²", "150.000 m²", "15.000 m²", "1500 m²", "15.000.000 m²"],c:"1,5 × 1.000.000."},
+{id:"m8-31",n:2,e:"Com 8 litros de água, o número de garrafas de 250 mL que se enchem é",a:["32", "8", "16", "40", "20"],c:"8.000 ÷ 250 = 32."},
+{id:"m8-32",n:2,e:"Quem sai às 14h25 e viaja 2 h 50 min chega às",a:["17h15", "16h75", "17h25", "16h15", "17h05"],c:"14h25 + 2 h 50 min = 16h75 = 17h15."},
+{id:"m8-33",n:2,e:"Uma viatura percorre 1 km a cada 2 min 30 s. Em 10 minutos percorre",a:["4 km", "5 km", "3 km", "2,5 km", "6 km"],c:"10 ÷ 2,5 = 4."},
+{id:"m8-34",n:2,e:"Em minutos, 1,25 h correspondem a",a:["75 min", "125 min", "85 min", "65 min", "90 min"],c:"1,25 × 60."},
+{id:"m8-35",n:2,e:"A diferença 5 h 10 min − 2 h 45 min é igual a",a:["2 h 25 min", "3 h 35 min", "2 h 35 min", "3 h 25 min", "2 h 65 min"],c:"Empresta-se 1 h: 4 h 70 min − 2 h 45 min = 2 h 25 min."},
+{id:"m8-36",n:2,e:"A velocidade de 3,6 km/h equivale a",a:["1 m/s", "3,6 m/s", "12,96 m/s", "0,36 m/s", "10 m/s"],c:"3,6 ÷ 3,6 = 1."},
+{id:"m8-37",n:2,e:"Um terreno de 30 m por 50 m tem, em ares,",a:["15 ares", "1,5 ares", "150 ares", "0,15 ares", "30 ares"],c:"1.500 m² ÷ 100 = 15."},
+{id:"m8-38",n:2,tx:"mt8a",e:"Pelo texto, uma pessoa que dá 4 voltas na pista percorre",a:["7,2 km", "6 km", "7 km", "9 km", "0,72 km"],c:"4 × 1,8."},
+{id:"m8-39",n:2,tx:"mt8a",e:"Pelo texto, a capacidade do reservatório, em litros, é",a:["12.000 L", "1200 L", "120 L", "120.000 L", "12 L"],c:"12 × 1.000."},
+{id:"m8-40",n:2,tx:"mt8b",e:"Pelo texto, o total de horas de plantão de um guarda em uma semana é",a:["37,5 h", "35 h", "40 h", "36,5 h", "32,5 h"],c:"5 × 7,5 = 37,5."},
+{id:"m8-41",n:3,e:"Uma piscina de 8 m por 4 m e 1,5 m de profundidade, cheia, comporta",a:["48.000 L", "4800 L", "480 L", "32.000 L", "480.000 L"],c:"48 m³ = 48.000 L."},
+{id:"m8-42",n:3,e:"Uma torneira despeja 20 litros por minuto. Para encher um reservatório de 12 m³, são necessárias",a:["10 h", "6 h", "8 h", "12 h", "20 h"],c:"12.000 ÷ 20 = 600 min = 10 h."},
+{id:"m8-43",n:3,e:"Um tanque de 3 m³ cheio de água tem massa aproximada, em toneladas, de",a:["3 t", "0,3 t", "30 t", "300 t", "1,5 t"],c:"3.000 L pesam cerca de 3.000 kg = 3 t."},
+{id:"m8-44",n:3,e:"Quem sai às 23h50 e chega às 2h20 do dia seguinte viaja",a:["2 h 30 min", "3 h 30 min", "2 h 70 min", "3 h", "2 h"],c:"10 min até a meia-noite mais 2 h 20 min = 2 h 30 min."},
+{id:"m8-45",n:3,e:"A velocidade de 36 km/h equivale a",a:["10 m/s", "36 m/s", "129,6 m/s", "3,6 m/s", "100 m/s"],c:"36 ÷ 3,6 = 10."},
+{id:"m8-46",n:3,e:"Um terreno retangular de 45 m por 30 m será cercado com postes a cada 2,5 m. O número de postes é",a:["60", "30", "120", "62", "64"],c:"Perímetro: 150 m. 150 ÷ 2,5 = 60."},
+{id:"m8-47",n:3,e:"Uma viatura a 18 km/h percorre 3,6 km em",a:["12 min", "20 min", "10 min", "15 min", "18 min"],c:"3,6 ÷ 18 = 0,2 h = 12 min."},
+{id:"m8-48",n:3,e:"Uma caixa de 40 cm por 30 cm por 20 cm tem capacidade de",a:["24 L", "240 L", "2,4 L", "12 L", "6 L"],c:"24.000 cm³ = 24 L."},
+{id:"m8-49",n:3,e:"Em um volume de 1,44 m³, o número de caixas de 24 litros que cabem é",a:["60", "6", "600", "48", "72"],c:"1.440 L ÷ 24 = 60."},
+{id:"m8-50",n:3,e:"O tempo de 5,25 horas corresponde a",a:["5 h 15 min", "5 h 25 min", "5 h 45 min", "5 h 2 min", "5 h 30 min"],c:"0,25 × 60 = 15 min."},
+{id:"m8-51",n:3,e:"Um piso de 6 m por 4 m será coberto com ladrilhos de 20 cm por 20 cm. O número de ladrilhos é",a:["600", "60", "6000", "480", "300"],c:"240.000 cm² ÷ 400 = 600."},
+{id:"m8-52",n:3,e:"Uma área de 2,5 ha é patrulhada por 5 guardas, cada um cobrindo 500 m² por hora. O tempo necessário é",a:["10 h", "5 h", "12,5 h", "20 h", "50 h"],c:"25.000 m² ÷ 2.500 m²/h = 10 h."},
+{id:"m8-53",n:3,e:"A soma 3 dias 4 h + 2 dias 20 h é igual a",a:["6 dias", "5 dias 24 h", "5 dias 14 h", "6 dias 4 h", "5 dias 4 h"],c:"4 + 20 = 24 h = 1 dia; 3 + 2 + 1 = 6 dias."},
+{id:"m8-54",n:3,e:"Em segundos, 10 min 30 s correspondem a",a:["630 s", "1030 s", "330 s", "600 s", "1830 s"],c:"10 × 60 + 30."},
+{id:"m8-55",n:3,e:"A soma 0,75 h + 45 min é, em minutos,",a:["90 min", "120 min", "75 min", "100 min", "80 min"],c:"0,75 h = 45 min; 45 + 45 = 90."},
+{id:"m8-56",n:3,e:"Um vazamento perde 5 mL por minuto. Em um dia perde",a:["7,2 L", "72 L", "0,72 L", "3,6 L", "12 L"],c:"5 × 1.440 = 7.200 mL = 7,2 L."},
+{id:"m8-57",n:3,e:"Em hectares, 1 km² corresponde a",a:["100 ha", "10 ha", "1000 ha", "1 ha", "10.000 ha"],c:"1.000.000 ÷ 10.000."},
+{id:"m8-58",n:3,e:"Em hectolitros, 15 m³ correspondem a",a:["150 hL", "15 hL", "1500 hL", "1,5 hL", "15.000 hL"],c:"15.000 L ÷ 100."},
+{id:"m8-59",n:3,tx:"mt8a",e:"Pelo texto, o reservatório abastece o parque por",a:["30 dias", "3 dias", "48 dias", "300 dias", "12 dias"],c:"12.000 ÷ 400."},
+{id:"m8-60",n:3,tx:"mt8b",e:"Pelo texto, um guarda que ganha R$ 12,00 por hora de plantão recebe, por semana,",a:["R$ 450,00", "R$ 420,00", "R$ 480,00", "R$ 360,00", "R$ 500,00"],c:"37,5 × 12 = 450."}
+];
+
+BANCO["mt-9"] = [
+{id:"m9-01",n:1,e:"A média aritmética de 4, 6 e 8 é",a:["6", "18", "8", "5", "7"],c:"(4 + 6 + 8) ÷ 3 = 6."},
+{id:"m9-02",n:1,e:"A média aritmética de 10, 20, 30 e 40 é",a:["25", "100", "20", "30", "35"],c:"100 ÷ 4 = 25."},
+{id:"m9-03",n:1,e:"A média aritmética de 5, 5 e 5 é",a:["5", "15", "3", "10", "1"],c:"Todos iguais: a média é 5."},
+{id:"m9-04",n:1,e:"A média de cinco números é 8. A soma desses números é",a:["40", "13", "16", "8", "45"],c:"Soma = média × quantidade = 40."},
+{id:"m9-05",n:1,e:"A média aritmética de 7 e 9 é",a:["8", "16", "7", "9", "63"],c:"(7 + 9) ÷ 2 = 8."},
+{id:"m9-06",n:1,e:"A média das notas 6, 7, 8, 9 e 10 é",a:["8", "7", "9", "40", "6"],c:"40 ÷ 5 = 8."},
+{id:"m9-07",n:1,e:"A moda do conjunto 2, 3, 3, 4, 5 é",a:["3", "4", "2", "5", "3,4"],c:"3 aparece duas vezes."},
+{id:"m9-08",n:1,e:"A mediana do conjunto 3, 5, 9 é",a:["5", "3", "9", "7", "6"],c:"O valor do meio, com os dados em ordem, é 5."},
+{id:"m9-09",n:1,e:"A média aritmética de 12, 14, 16 e 18 é",a:["15", "60", "14", "16", "17"],c:"60 ÷ 4 = 15."},
+{id:"m9-10",n:1,e:"Um aluno fez 4 provas e a média foi 7. A soma das notas é",a:["28", "11", "21", "14", "7"],c:"4 × 7 = 28."},
+{id:"m9-11",n:1,e:"A média aritmética dos números de 1 a 9 é",a:["5", "4,5", "45", "9", "6"],c:"45 ÷ 9 = 5."},
+{id:"m9-12",n:1,e:"A mediana do conjunto 4, 8, 2, 6 é",a:["5", "4", "6", "5,5", "20"],c:"Ordenando: 2, 4, 6, 8. Média dos centrais: (4 + 6)/2 = 5."},
+{id:"m9-13",n:1,e:"Em um gráfico de setores, um setor de 25% em um total de 200 pessoas representa",a:["50 pessoas", "25 pessoas", "25,5 pessoas", "100 pessoas", "75 pessoas"],c:"0,25 × 200 = 50."},
+{id:"m9-14",n:1,e:"Em um gráfico de barras, as barras valem 30, 45 e 60. A diferença entre a maior e a menor é",a:["30", "15", "45", "60", "135"],c:"60 − 30 = 30."},
+{id:"m9-15",n:1,e:"Na tabela, A vale 12 e B vale 8. A razão entre A e B é",a:["3/2", "2/3", "12/20", "4", "1/3"],c:"12/8 = 3/2."},
+{id:"m9-16",n:1,e:"A média aritmética de 0,5 e 1,5 é",a:["1", "2", "0,5", "0,75", "1,5"],c:"2 ÷ 2 = 1."},
+{id:"m9-17",n:1,e:"Se a média de três números é 10, a soma deles é",a:["30", "13", "10", "7", "100"],c:"3 × 10 = 30."},
+{id:"m9-18",n:1,e:"A média de idades de duas pessoas, de 20 e 30 anos, é",a:["25 anos", "50 anos", "20 anos", "30 anos", "10 anos"],c:"50 ÷ 2 = 25."},
+{id:"m9-19",n:1,tx:"mt9a",e:"Segundo o texto, a média mensal de ocorrências de janeiro a maio é",a:["46", "230", "50", "42", "48"],c:"(42 + 38 + 50 + 46 + 54) ÷ 5 = 46."},
+{id:"m9-20",n:1,tx:"mt9b",e:"Segundo o texto, o número de ocorrências de furtos no semestre foi",a:["160", "100", "40", "120", "200"],c:"40% de 400 = 160."},
+{id:"m9-21",n:2,e:"A média das notas 6,5; 7; 8 e 9,5 é",a:["7,75", "8,5", "7,5", "31", "8"],c:"31 ÷ 4 = 7,75."},
+{id:"m9-22",n:2,e:"A média de cinco números é 12. Retirando-se um deles, igual a 20, a média dos quatro restantes é",a:["10", "12", "8", "15", "16"],c:"(60 − 20) ÷ 4 = 10."},
+{id:"m9-23",n:2,e:"A média de 4 números é 15. Acrescentando-se um quinto número, 25, a nova média é",a:["17", "20", "18", "16", "15"],c:"(60 + 25) ÷ 5 = 17."},
+{id:"m9-24",n:2,e:"Um candidato tirou 5 e 7 em duas provas. Para média 7 em três provas, a terceira nota deve ser",a:["9", "7", "8", "10", "6"],c:"21 − 12 = 9."},
+{id:"m9-25",n:2,e:"Os salários de quatro funcionários são R$ 2.000,00, R$ 2.500,00, R$ 3.000,00 e R$ 4.500,00. O salário médio é",a:["R$ 3000,00", "R$ 2750,00", "R$ 3250,00", "R$ 3500,00", "R$ 12.000,00"],c:"12.000 ÷ 4 = 3.000."},
+{id:"m9-26",n:2,e:"A média de 6 valores é 8. Dois deles são 10 e 14. A média dos outros quatro é",a:["6", "8", "7", "9", "12"],c:"Soma 48; 48 − 24 = 24; 24 ÷ 4 = 6."},
+{id:"m9-27",n:2,e:"A mediana do conjunto 8, 3, 9, 5, 1 é",a:["5", "8", "3", "9", "5,2"],c:"Ordenando: 1, 3, 5, 8, 9. O central é 5."},
+{id:"m9-28",n:2,e:"A idade média de 10 pessoas é 30 anos. Entra uma pessoa de 41 anos. A nova média é",a:["31 anos", "30 anos", "35,5 anos", "41 anos", "32 anos"],c:"(300 + 41) ÷ 11 = 31."},
+{id:"m9-29",n:2,e:"A média de 5 provas foi 7,2. Quatro notas foram 6, 8, 7 e 5. A quinta nota foi",a:["10", "9", "8", "7,5", "9,5"],c:"Soma 36; 36 − 26 = 10."},
+{id:"m9-30",n:2,e:"Em um gráfico de setores, um setor de 40% corresponde a um ângulo de",a:["144°", "40°", "100°", "90°", "160°"],c:"0,40 × 360 = 144."},
+{id:"m9-31",n:2,e:"A média mensal de vendas em três meses foi 120. Se o quarto mês teve 160, a média dos quatro meses é",a:["130", "140", "125", "135", "150"],c:"(360 + 160) ÷ 4 = 130."},
+{id:"m9-32",n:2,e:"A média aritmética entre 3/4 e 1/4 é",a:["1/2", "1", "2", "1/4", "3/8"],c:"(3/4 + 1/4) ÷ 2 = 1/2."},
+{id:"m9-33",n:2,e:"A média aritmética de 0,2; 0,5 e 0,8 é",a:["0,5", "1,5", "0,4", "0,6", "0,3"],c:"1,5 ÷ 3 = 0,5."},
+{id:"m9-34",n:2,e:"Um aluno tem notas 4, 6 e 8 e quer média 7 em quatro provas. A quarta nota deve ser",a:["10", "7", "9", "8", "6"],c:"28 − 18 = 10."},
+{id:"m9-35",n:2,e:"Em uma tabela, o valor 1 aparece 3 vezes, o 2 aparece 2 vezes e o 3 aparece 5 vezes. A média é",a:["2,2", "2", "2,5", "6", "1,8"],c:"(3 + 4 + 15) ÷ 10 = 2,2."},
+{id:"m9-36",n:2,e:"A mediana de 2, 4, 6, 8, 10, 12, 14, 16, 18 e 20 é",a:["11", "10", "12", "10,5", "110"],c:"Média de 10 e 12."},
+{id:"m9-37",n:2,e:"Um valor passou de 80 para 100. A variação percentual foi de",a:["25%", "20%", "125%", "80%", "10%"],c:"20 ÷ 80 = 0,25."},
+{id:"m9-38",n:2,tx:"mt9a",e:"Segundo o texto, a diferença entre o maior e o menor número mensal de ocorrências é",a:["16", "12", "8", "20", "54"],c:"54 − 38 = 16."},
+{id:"m9-39",n:2,tx:"mt9a",e:"Segundo o texto, se junho tivesse 58 ocorrências, a média dos seis meses seria",a:["48", "46", "50", "52", "58"],c:"(230 + 58) ÷ 6 = 48."},
+{id:"m9-40",n:2,tx:"mt9b",e:"Segundo o texto, o número de ocorrências de trânsito no semestre foi",a:["80", "100", "60", "40", "120"],c:"20% de 400 = 80."},
+{id:"m9-41",n:3,e:"A média de 10 números é 8. Cinco deles têm média 6. A média dos outros cinco é",a:["10", "8", "7", "12", "14"],c:"Soma 80; 5 × 6 = 30; restam 50; 50 ÷ 5 = 10."},
+{id:"m9-42",n:3,e:"A média de 4 números é 10. Retirando-se um, a média dos três restantes é 9. O número retirado é",a:["13", "9", "10", "12", "19"],c:"40 − 27 = 13."},
+{id:"m9-43",n:3,e:"As médias de A e B, de B e C e de A e C são 12, 14 e 16. O valor de C é",a:["18", "12", "16", "14", "20"],c:"Somas dos pares: 24, 28, 32; total 84 = 2(A + B + C), logo A + B + C = 42. C = 42 − 24 = 18."},
+{id:"m9-44",n:3,e:"A média dos salários de 20 funcionários é R$ 3.000,00. Entram 5 funcionários com média de R$ 4.000,00. A nova média é",a:["R$ 3200,00", "R$ 3500,00", "R$ 3400,00", "R$ 3300,00", "R$ 3100,00"],c:"(60.000 + 20.000) ÷ 25 = 3.200."},
+{id:"m9-45",n:3,e:"Em uma turma, 29 alunos têm idade média 19 e, com o professor, a média passa a ser 20 (30 pessoas). A idade do professor é",a:["49 anos", "39 anos", "50 anos", "45 anos", "59 anos"],c:"30 × 20 = 600; 29 × 19 = 551; 600 − 551 = 49."},
+{id:"m9-46",n:3,e:"A média de cinco números inteiros consecutivos é 12. O maior deles é",a:["14", "12", "13", "15", "16"],c:"Os números são 10, 11, 12, 13, 14."},
+{id:"m9-47",n:3,e:"A média dos números x, x + 2 e x + 4 é 10. O valor de x é",a:["8", "6", "10", "4", "12"],c:"A média é x + 2 = 10."},
+{id:"m9-48",n:3,e:"A média de dois números é 15 e a diferença entre eles é 6. O maior é",a:["18", "21", "12", "16", "20"],c:"Soma 30; (30 + 6) ÷ 2 = 18."},
+{id:"m9-49",n:3,e:"Em um gráfico de barras, os valores são 20, 35 e 45. O maior valor representa, do total, o percentual de",a:["45%", "35%", "40%", "50%", "20%"],c:"Total 100; 45 ÷ 100."},
+{id:"m9-50",n:3,e:"A temperatura média de 7 dias foi 24 °C. Nos seis primeiros, a média foi 23,5 °C. No sétimo dia, a temperatura foi",a:["27 °C", "24 °C", "25 °C", "26 °C", "28 °C"],c:"Soma 168; 6 × 23,5 = 141; 168 − 141 = 27."},
+{id:"m9-51",n:3,e:"A média de n números é 20. Acrescentando o número 26, a média passa a 21. O valor de n é",a:["5", "4", "6", "7", "3"],c:"(20n + 26)/(n + 1) = 21 → n = 5."},
+{id:"m9-52",n:3,e:"A mediana de 1, 3, 3, 6, 7, 8 e 9 é",a:["6", "3", "5,3", "7", "5"],c:"O quarto valor, em ordem, é 6."},
+{id:"m9-53",n:3,e:"Um grupo de 3 números tem média 5 e outro de 2 números tem média 10. A média dos cinco juntos é",a:["7", "7,5", "8", "6", "5,5"],c:"(15 + 20) ÷ 5 = 7."},
+{id:"m9-54",n:3,e:"As ocorrências foram 50, 40 e 60 em três meses seguidos. A variação do segundo para o terceiro mês foi",a:["+50%", "+20%", "+10%", "+25%", "+100%"],c:"20 ÷ 40 = 0,5."},
+{id:"m9-55",n:3,e:"Em um gráfico de setores com 600 pessoas, um setor tem 120°. Ele representa",a:["200 pessoas", "120 pessoas", "300 pessoas", "100 pessoas", "240 pessoas"],c:"120/360 = 1/3 de 600."},
+{id:"m9-56",n:3,e:"A média de uma lista é 15. Se cada valor for multiplicado por 2 e acrescido de 3, a nova média é",a:["33", "30", "36", "18", "45"],c:"15 × 2 + 3 = 33."},
+{id:"m9-57",n:3,e:"Somando-se 5 a cada número de uma lista, a média da lista",a:["aumenta 5", "aumenta 2,5", "aumenta 10", "aumenta 0", "aumenta 15"],c:"A média acompanha a soma em cada elemento."},
+{id:"m9-58",n:3,tx:"mt9a",e:"Segundo o texto, para que a média dos seis primeiros meses seja 50, junho deve ter",a:["70 ocorrências", "54 ocorrências", "58 ocorrências", "60 ocorrências", "65 ocorrências"],c:"6 × 50 = 300; 300 − 230 = 70."},
+{id:"m9-59",n:3,tx:"mt9a",e:"Segundo o texto, a variação percentual das ocorrências de março para abril foi de",a:["-8%", "-4%", "8%", "-10%", "-12%"],c:"(46 − 50) ÷ 50 = −0,08."},
+{id:"m9-60",n:3,tx:"mt9b",e:"Segundo o texto, no gráfico de setores, o ângulo do setor dos furtos é de",a:["144°", "90°", "160°", "100°", "120°"],c:"0,40 × 360 = 144."}
+];
+
 BANCO["gm-1"] = [
 {id:"g1-01",n:1,e:"A Lei 13.022/2014 institui normas gerais para as guardas municipais, disciplinando o",a:["§ 8º do art. 144 da Constituição Federal.", "§ 4º do art. 144 da Constituição Federal.", "art. 30 da Constituição Federal.", "art. 5º da Constituição Federal.", "§ 7º do art. 144 da Constituição Federal."],c:"Art. 1º."},
 {id:"g1-02",n:1,e:"Segundo a Lei 13.022/2014, as guardas municipais são instituições de caráter",a:["civil.", "militar.", "paramilitar.", "policial militar.", "auxiliar do Exército."],c:"Art. 2º."},
@@ -6378,6 +7045,12 @@ mt5a: "<strong>Consumo de material na Guarda</strong><br><br>O almoxarifado da G
 mt5b: "<strong>Mutirão de vistorias</strong><br><br>Uma equipe de 5 fiscais vistoria 60 estabelecimentos em 4 dias, trabalhando 6 horas por dia. Para um mutirão, a Prefeitura reunirá 10 fiscais, que trabalharão 8 horas por dia, e precisa vistoriar 160 estabelecimentos.",
 mt6a: "<strong>Compra de coletes</strong><br><br>A Guarda Municipal de Vila Nova, cidade fictícia, comprou 5 coletes de mesmo preço. O fornecedor cobrou um frete fixo de R$ 30,00, e o valor total da compra foi de R$ 280,00.",
 mt6b: "<strong>Cerca de um terreno</strong><br><br>Um terreno retangular, ao lado do quartel, tem comprimento 3 metros maior que a largura e área de 40 metros quadrados. A Prefeitura pretende cercá-lo.",
+mt7a: "<strong>Compra de caixas de material</strong><br><br>A Guarda Municipal de Vila Nova, cidade fictícia, comprou caixas de dois tipos de material: A e B. Duas caixas do tipo A e três do tipo B custaram R$ 190,00. Uma caixa do tipo A e duas do tipo B custaram R$ 110,00.",
+mt7b: "<strong>Pátio da Guarda</strong><br><br>No pátio da Guarda Municipal de Vila Nova há 20 veículos, entre carros e motocicletas, que somam 64 rodas.",
+mt8a: "<strong>Parque da Guarda</strong><br><br>O parque que a Guarda Municipal de Vila Nova, cidade fictícia, patrulha é retangular, com 400 m por 150 m. Em volta há uma pista de caminhada de 1,8 km por volta. Um reservatório de 12 m³ abastece o parque e tem consumo de 400 litros por dia.",
+mt8b: "<strong>Escala de plantão</strong><br><br>O plantão noturno da Guarda Municipal começa às 22h45 e termina às 6h15 do dia seguinte. Cada guarda faz 5 plantões por semana.",
+mt9a: "<strong>Ocorrências atendidas, de janeiro a maio</strong><br><br>A tabela mostra o número de ocorrências atendidas pela Guarda Municipal de Vila Nova, cidade fictícia, em cada mês.<br><br><table><thead><tr><th>Mês</th><th>Ocorrências</th></tr></thead><tbody><tr><td>Janeiro</td><td>42</td></tr><tr><td>Fevereiro</td><td>38</td></tr><tr><td>Março</td><td>50</td></tr><tr><td>Abril</td><td>46</td></tr><tr><td>Maio</td><td>54</td></tr></tbody></table>",
+mt9b: "<strong>Ocorrências do semestre por tipo</strong><br><br>No semestre, a Guarda registrou 400 ocorrências. O gráfico de setores do relatório mostra: furtos, 40%; perturbação do sossego, 25%; trânsito, 20%; outras, 15%.",
 tp: "<strong>Guarda vistoria quiosques da orla do lago</strong><br><br>A Guarda Municipal procedeu, na manhã de ontem, à vistoria dos quiosques instalados às margens do lago do parque. A ação atende a um pedido dos frequentadores, que reclamavam do som alto nos fins de semana.<br><br>Os comerciantes foram informados das novas regras e terão 15 dias para se adequar. Segundo a coordenação, o descumprimento implica multa e, em caso de reincidência, a suspensão da licença.<br><br>A medida agradou aos moradores do entorno, com quem a Guarda se reuniu na semana passada. A corporação prefere orientar a multar, mas lembra que as regras a que todos devem obedecer estão afixadas em cada quiosque.",
 tq: "<strong>Guarda encontra idoso desaparecido</strong><br><br>Um idoso de 78 anos que estava desaparecido desde a manhã de domingo foi encontrado por agentes da Guarda Municipal na tarde de ontem. Os guardas avistaram-no sentado em um banco da praça central, confuso e com frio.<br><br>Segundo a corporação, a equipe aproximou-se com calma, ofereceu-lhe água e conversou com ele até que se lembrasse do nome da filha. Não se sabe ainda como ele chegou ao centro.<br><br>A família agradeceu aos agentes e disse que nunca se esquecerá do cuidado com que o idoso foi tratado. Encaminhá-lo-ão, nos próximos dias, a uma avaliação médica.",
 tr: "<strong>Guarda reforça rondas no terminal à noite</strong><br><br>A partir da próxima segunda-feira, a Guarda Municipal reforçará as rondas no terminal central, das 18h às 23h. A medida atende às reclamações de passageiros, que relataram furtos à saída das plataformas.<br><br>Os agentes circularão a pé e ficarão à disposição dos usuários para qualquer orientação. Segundo a coordenação, a operação deve durar de 10 a 30 de novembro e poderá ser estendida a outros terminais.<br><br>Há duas semanas, a corporação já havia instalado uma base móvel à frente da bilheteria. Quem precisar de ajuda deve dirigir-se a qualquer agente uniformizado.",
