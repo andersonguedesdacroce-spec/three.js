@@ -13,33 +13,116 @@ const BLOCOS = [
 ];
 
 /* ---------- Estado ---------- */
-const KEY = "rota-gm-campinas-v2";
-function novoEstado(){ return {acesso:false, aprovados:{}, tentativas:{}, vistas:{}, erros:{}, marcadas:{}, revisoes:{}, correcoes:[], ultimo:null, atualizado:0}; }
+const KEY_BASE = "rota-gm-campinas-v2";
+let KEY = KEY_BASE;
+function novoEstado(){ return {acesso:false, aprovados:{}, tentativas:{}, vistas:{}, erros:{}, marcadas:{}, revisoes:{}, correcoes:[], ultimo:null,
+  certas:{}, corrigidas:{}, dias:{}, semana:{id:"", xp:0}, total:0, apelido:"", noRanking:false, atualizado:0}; }
 function completar(e){ const n = novoEstado(); Object.keys(n).forEach(k=>{ if(!(k in e)) e[k] = n[k]; }); return e; }
-let S = (()=>{ try{ return completar(JSON.parse(localStorage.getItem(KEY)) || novoEstado()); }catch(e){ return novoEstado(); } })();
-let docRef = null, DB = null, UID = null;
+function lerLocal(){ try{ return completar(JSON.parse(localStorage.getItem(KEY)) || novoEstado()); }catch(e){ return novoEstado(); } }
+let S = lerLocal();
 let IS_OWNER = false;
+
+/* ---------- Conta e dados: Firebase (site), banco do Claude (Artifact) ou só o navegador ----------
+   BK.modo: "firebase" | "claude" | "local". Os dois bancos têm a mesma forma de uso:
+   doc(caminho).get/set/delete e collection(nome).orderBy().limit().get(). */
+const NO_CLAUDE = !!(window.claude && window.claude.use);
+const BK = {modo: (typeof FIREBASE_CONFIG!=="undefined" && FIREBASE_CONFIG && !NO_CLAUDE) ? "firebase" : (NO_CLAUDE ? "claude" : "local"),
+  pronto:false, uid:null, email:null, verificado:false, db:null, auth:null};
+function caminhoProgresso(){ return BK.modo==="firebase" ? "users/" + BK.uid : "data/users/" + BK.uid + "/progresso"; }
 async function salvar(){
   S.atualizado = Date.now();
   try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){}
-  if(docRef){ try{ await docRef.set({estado: JSON.stringify(S), atualizado: S.atualizado}); }catch(e){} }
+  if(BK.db && BK.uid){ try{ await BK.db.doc(caminhoProgresso()).set({estado: JSON.stringify(S), atualizado: S.atualizado}); }catch(e){} }
+  agendarRanking();
 }
-(async ()=>{
+async function carregarRemoto(){
+  if(!BK.db || !BK.uid) return;
   try{
-    if(!window.claude || !window.claude.use) return;
-    const db = await claude.use("db"); const user = await claude.use("user");
-    if(user){ try{ IS_OWNER = !!(await user.isOwner()); if(IS_OWNER && V.tela==="posto") render(); }catch(e){} }
-    if(!db || !user) return;
-    const uid = await user.id(); if(!uid) return;
-    DB = db; UID = uid;
-    docRef = db.doc("data/users/" + uid + "/progresso");
-    const snap = await docRef.get();
+    const snap = await BK.db.doc(caminhoProgresso()).get();
     if(snap.exists){
       const remoto = completar(JSON.parse(snap.data().estado));
-      if((remoto.atualizado||0) > (S.atualizado||0)){ S = remoto; try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){} render(); }
+      if((remoto.atualizado||0) > (S.atualizado||0)){ S = remoto; try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){} }
+      else if(S.atualizado > (remoto.atualizado||0)) salvar();
     } else if(S.atualizado){ salvar(); }
   }catch(e){}
-})();
+}
+function carregarScript(src){ return new Promise((ok,erro)=>{ const sc = document.createElement("script"); sc.src = src; sc.onload = ok; sc.onerror = erro; document.head.appendChild(sc); }); }
+const FB_VER = "10.12.2";
+async function iniciarFirebase(){
+  try{
+    await carregarScript(`https://www.gstatic.com/firebasejs/${FB_VER}/firebase-app-compat.js`);
+    await Promise.all([carregarScript(`https://www.gstatic.com/firebasejs/${FB_VER}/firebase-auth-compat.js`), carregarScript(`https://www.gstatic.com/firebasejs/${FB_VER}/firebase-firestore-compat.js`)]);
+  }catch(e){}
+  if(typeof firebase==="undefined"){ BK.modo = "local"; BK.pronto = true; atualizarConta(); render(); return; }
+  firebase.initializeApp(FIREBASE_CONFIG);
+  BK.auth = firebase.auth(); BK.auth.languageCode = "pt-BR";
+  const fs = firebase.firestore();
+  BK.db = { doc: p=>fs.doc(p), collection: p=>fs.collection(p) };
+  BK.auth.onAuthStateChanged(async u=>{
+    if(u){
+      BK.uid = u.uid; BK.email = u.email; BK.verificado = !!u.emailVerified;
+      KEY = KEY_BASE + "-" + u.uid; S = lerLocal();
+      if(BK.verificado && ehGmail(u.email)) await carregarRemoto();
+      migrar();
+    } else { BK.uid = null; BK.email = null; BK.verificado = false; KEY = KEY_BASE; S = lerLocal(); }
+    BK.pronto = true; atualizarConta();
+    if(!u && !["home","entrar","criar","recuperar","checkout"].includes(V.tela)) V = {tela:"home"};
+    render();
+  });
+}
+async function iniciarClaude(){
+  try{
+    const db = await claude.use("db"); const user = await claude.use("user");
+    if(user){ try{ IS_OWNER = !!(await user.isOwner()); }catch(e){} }
+    if(db && user){ const uid = await user.id(); if(uid){ BK.db = db; BK.uid = uid; BK.verificado = true; await carregarRemoto(); migrar(); } }
+  }catch(e){}
+  BK.pronto = true; render();
+}
+const ehGmail = e => /^[a-z0-9](?:[a-z0-9.+_-]*[a-z0-9])?@gmail\.com$/i.test((e||"").trim());
+const logado = () => BK.modo!=="firebase" || (BK.uid && BK.verificado && ehGmail(BK.email));
+
+/* ---------- Pontos, níveis e sequência (base do ranking) ----------
+   10 por questão diferente acertada (só a primeira vez conta), 100 por posto concluído,
+   40 por revisão espaçada concluída, 20 por questão do caderno de erros corrigida.
+   Refazer as mesmas questões não rende pontos novos: o ranking premia avançar no edital. */
+const PONTOS = {questao:10, posto:100, revisao:40, corrigida:20};
+const NIVEIS = [[0,"Recruta"],[300,"Aluno"],[800,"Aspirante"],[1500,"Patrulheiro"],[2500,"Vigilante"],[4000,"Sentinela"],[6000,"Agente"],[9000,"Veterano"],[13000,"Especialista"],[18000,"Instrutor"],[25000,"Mestre do edital"],[35000,"Lenda da Rota"]];
+function calcPontos(e){
+  const ok = k=>QIDX[k] || POSTO[k];
+  return PONTOS.questao*Object.keys(e.certas).filter(ok).length + PONTOS.posto*Object.keys(e.aprovados).filter(ok).length
+    + PONTOS.revisao*Object.values(e.revisoes).reduce((a,r)=>a+Math.min(r.etapa||0,3),0) + PONTOS.corrigida*Object.keys(e.corrigidas).filter(ok).length;
+}
+function nivelDe(p){ let i=0; NIVEIS.forEach((n,k)=>{ if(p>=n[0]) i=k; }); const prox = NIVEIS[i+1]; return {i, nome:NIVEIS[i][1], piso:NIVEIS[i][0], teto: prox ? prox[0] : null, proxNome: prox ? prox[1] : null}; }
+const hojeStr = (d=new Date()) => d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+function semanaId(d=new Date()){ const x = new Date(d.getFullYear(), d.getMonth(), d.getDate()); x.setDate(x.getDate() - ((x.getDay()+6)%7)); return "S" + hojeStr(x); } // semana começa na segunda
+function sequencia(e){
+  let d = new Date(), n = 0;
+  if(!e.dias[hojeStr(d)]) d.setDate(d.getDate()-1);
+  while(e.dias[hojeStr(d)]){ n++; d.setDate(d.getDate()-1); }
+  return n;
+}
+function registrarPontos(){
+  const novo = calcPontos(S), sem = semanaId();
+  if(S.semana.id !== sem) S.semana = {id:sem, xp:0};
+  const delta = novo - (S.total||0);
+  if(delta > 0) S.semana.xp += delta;
+  S.total = novo; S.dias[hojeStr()] = 1;
+  const ds = Object.keys(S.dias).sort(); if(ds.length > 400) ds.slice(0, ds.length-400).forEach(k=>delete S.dias[k]);
+  return delta;
+}
+function migrar(){ if(!S.semana.id){ S.total = calcPontos(S); S.semana = {id:semanaId(), xp:0}; } }
+let timerRanking = null;
+function agendarRanking(){ clearTimeout(timerRanking); timerRanking = setTimeout(publicarRanking, 1500); }
+async function publicarRanking(){
+  if(!BK.db || !BK.uid || !logado()) return;
+  const ref = BK.db.doc("ranking/" + BK.uid);
+  try{
+    if(!S.apelido || S.noRanking){ await ref.delete(); return; }
+    const sem = semanaId(), p = Math.min(calcPontos(S), 200000);
+    await ref.set({apelido:S.apelido, pontos:p, semana:sem, xpSemana: Math.min(S.semana.id===sem ? S.semana.xp : 0, p), sequencia: Math.min(sequencia(S), 400),
+      ultimoDia: Object.keys(S.dias).sort().pop() || "", postos: Object.keys(S.aprovados).filter(k=>POSTO[k]).length, nivel: nivelDe(p).nome, atualizado: Date.now()});
+  }catch(e){}
+}
 
 /* ---------- Utilidades ---------- */
 const $app = document.getElementById("app");
@@ -97,13 +180,16 @@ function aplicarTema(t){
 let V = {tela:"home"};
 let Q = null;
 function ir(v){ if(v.posto && !("modo" in v)) v = Object.assign({modo:undefined}, v); V = Object.assign({}, V, v); render(); window.scrollTo(0,0); }
-document.getElementById("brand").onclick = ()=>ir({tela: S.acesso ? "painel" : "home"});
-const LARGAS = new Set(["home","painel","checkout"]);
+const LARGAS = new Set(["home","painel"]);
 function render(){
   const t = V.tela;
-  $app.classList.toggle("largo", LARGAS.has(t) || (t==="checkout"));
+  $app.classList.toggle("largo", LARGAS.has(t));
+  if(BK.modo==="firebase" && !BK.pronto) return telaCarregando();
   if(t==="home") return telaHome();
-  if(t==="checkout") return S.acesso ? telaPainel() : telaCheckout();
+  if(["entrar","criar","recuperar"].includes(t)){ if(!logado()) return telaConta(t); V.tela = S.acesso ? "painel" : "checkout"; return render(); }
+  if(BK.modo==="firebase" && BK.uid && !logado()) return telaVerificar();
+  if(t==="checkout") return !logado() ? telaConta("criar") : (S.acesso ? telaPainel() : telaCheckout());
+  if(!logado()) return telaConta("entrar");
   if(!S.acesso) return telaHome();
   if(t==="painel") return telaPainel();
   if(t==="trilha") return telaTrilha();
@@ -114,6 +200,7 @@ function render(){
   if(t==="banco") return telaBanco();
   if(t==="erros") return telaErros();
   if(t==="edital") return telaEdital();
+  if(t==="ranking") return telaRanking();
 }
 function bindGo(){ $app.querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>ir({tela:b.dataset.go})); }
 function bindPostos(){ $app.querySelectorAll("[data-abrir]").forEach(b=>b.onclick=()=>ir({tela:"posto", posto:b.dataset.abrir, aba:b.dataset.aba||"aula"})); }
@@ -133,7 +220,7 @@ function telaHome(){
     const trs = TRILHAS.filter(t=>t.bloco===b.nome);
     return `<p class="bloco-tit">${b.nome} · ${b.q} questões</p><ul class="lista-materias">${trs.map(t=>`<li><span>${t.nome}</span><span>${t.postos.length} ${t.postos.length===1?"posto":"postos"}${t.q ? " · " + t.q : ""}</span></li>`).join("")}</ul>`;
   }).join("");
-  const cta = S.acesso ? `<button class="btn" data-go="painel">Ir para o meu painel</button>` : `<button class="btn amber" data-go="checkout">Quero meu acesso</button>`;
+  const cta = (logado() && S.acesso) ? `<button class="btn" data-go="painel">Ir para o meu painel</button>` : `<button class="btn amber" data-go="checkout">Quero meu acesso</button>`;
   $app.innerHTML = `
   <div class="lp">
   <section class="lp-hero">
@@ -141,7 +228,7 @@ function telaHome(){
       <p class="eyebrow">Edital 02/2026 · Vunesp · prova em 21/03/2027</p>
       <h1>Guarda Municipal de Campinas: o edital inteiro, estudado item por item</h1>
       <p class="sub">Cada item do conteúdo programático virou um posto de estudo, com aula baseada no texto da lei, resumo de uma página e 60 questões comentadas no estilo Vunesp. O painel mostra o que estudar hoje, o que revisar e onde você mais erra.</p>
-      <div class="cta-row">${cta}<a class="btn sec" href="#materias">Ver o conteúdo</a></div>
+      <div class="cta-row">${cta}<a class="btn sec" href="#materias">Ver o conteúdo</a>${BK.modo==="firebase" && !logado() ? `<span class="nota-cta">Já tem conta? <button class="link" data-go="entrar">Entrar</button></span>` : ""}</div>
     </div>
     <div class="credencial" aria-label="Dados do concurso">
       <div class="faixa"><strong>Prefeitura de Campinas</strong><span>Edital 02/2026</span></div>
@@ -206,6 +293,7 @@ function telaHome(){
       <div class="recurso"><h3>Revisão espaçada</h3><p>O painel avisa quais postos revisar hoje, para o conteúdo não se perder até março.</p></div>
       <div class="recurso"><h3>Resumo de uma página</h3><p>Mapa, armadilhas da banca e quadro-resumo de cada posto, para a revisão da véspera.</p></div>
       <div class="recurso"><h3>Guia do TAF</h3><p>As cinco provas físicas, os índices mínimo e máximo e o cálculo da nota, conforme o Anexo II.</p></div>
+      <div class="recurso"><h3>Ranking entre alunos</h3><p>Pontos por questão nova acertada, posto concluído e revisão feita. Ranking da semana, geral e de dias seguidos, só por apelido.</p></div>
       <div class="recurso"><h3>Fontes à vista</h3><p>Cada aula cita a lei e o artigo usados. Achou um erro? Há um botão para avisar em todas as aulas.</p></div>
     </div>
   </section>
@@ -352,6 +440,11 @@ function telaPainel(){
         <ul class="res-busca" id="res-busca"></ul>
       </div>
       <div class="caixa">
+        <h3>Seu nível <span class="pill amb">${fmt(S.semana.id===semanaId()?S.semana.xp:0)} esta semana</span></h3>
+        ${cartaoNivel()}
+        <button class="btn peq" data-go="ranking" style="margin-top:10px">Ver o ranking</button>
+      </div>
+      <div class="caixa">
         <h3>Revisões de hoje <span class="pill ${rev.length?"amb":"ok"}">${rev.length}</span></h3>
         ${rev.length ? `<ul>${rev.slice(0,6).map(p=>`<li><button data-abrir="${p.id}" data-aba="resumo">${p.t}</button><small>${p.tr.nome} · revisão ${S.revisoes[p.id].etapa+1} de ${INTERVALOS.length}</small></li>`).join("")}</ul>${rev.length>6?`<p>E mais ${rev.length-6}.</p>`:""}`
           : `<p>${prox ? `Nada para hoje. A próxima revisão é de <strong>${POSTO[prox[0]].t}</strong>, em ${Math.max(1,Math.ceil((prox[1].prox-Date.now())/DIA))} ${Math.ceil((prox[1].prox-Date.now())/DIA)>1?"dias":"dia"}.` : "Quando você concluir um posto, ele volta aqui para revisão após 1, 7 e 30 dias."}</p>`}
@@ -387,6 +480,168 @@ function telaPainel(){
     document.getElementById("sim").onclick = async ()=>{ S = novoEstado(); modoPag=null; await salvar(); ir({tela:"home"}); };
   };
 }
+
+
+/* ---------- Conta: entrar, criar, recuperar senha, confirmar e-mail ---------- */
+const ERROS_AUTH = {
+  "auth/invalid-credential":"E-mail ou senha incorretos.", "auth/wrong-password":"E-mail ou senha incorretos.", "auth/user-not-found":"E-mail ou senha incorretos.",
+  "auth/invalid-login-credentials":"E-mail ou senha incorretos.", "auth/email-already-in-use":"Já existe uma conta com este e-mail. Use Entrar ou Esqueci minha senha.",
+  "auth/weak-password":"A senha precisa ter pelo menos 8 caracteres.", "auth/invalid-email":"Digite um endereço @gmail.com válido.",
+  "auth/too-many-requests":"Muitas tentativas seguidas. Aguarde alguns minutos e tente de novo.", "auth/network-request-failed":"Sem conexão com a internet. Verifique a rede e tente de novo.",
+  "auth/missing-email":"Digite o seu e-mail."
+};
+const msgAuth = e => ERROS_AUTH[e && e.code] || "Não foi possível concluir agora. Tente de novo em instantes.";
+function atualizarConta(){
+  const b = document.getElementById("conta"); if(!b) return;
+  if(BK.modo==="firebase" && BK.uid){ b.hidden = false; b.textContent = "Sair"; b.title = "Sair da conta " + (BK.email||""); b.onclick = async ()=>{ try{ await BK.auth.signOut(); }catch(e){} }; }
+  else if(BK.modo==="firebase" && BK.pronto){ b.hidden = false; b.textContent = "Entrar"; b.title = "Entrar na sua conta"; b.onclick = ()=>ir({tela:"entrar"}); }
+  else b.hidden = true;
+}
+function telaCarregando(){ $app.innerHTML = `<div class="vazio" style="margin-top:40px">Carregando sua conta…</div>`; }
+function telaConta(modo){
+  if(BK.modo!=="firebase"){ V.tela = "painel"; return render(); }
+  const titulo = {entrar:"Entrar", criar:"Criar sua conta", recuperar:"Recuperar a senha"}[modo];
+  const sub = {entrar:"Use o e-mail do Gmail e a senha que você cadastrou.", criar:"O acesso é feito só com e-mail do Gmail (@gmail.com). Depois de criar a conta, confirme o e-mail pelo link que enviaremos.", recuperar:"Digite o e-mail da sua conta. Se ele estiver cadastrado, você receberá um link para criar uma nova senha."}[modo];
+  $app.innerHTML = `
+  <section class="topico conta-box">
+    <button class="voltar" data-go="home">‹ Voltar</button>
+    <h2>${titulo}</h2>
+    <p class="meta">${sub}</p>
+    <form id="form-conta" class="form" novalidate>
+      <label for="c-email">E-mail do Gmail</label>
+      <input id="c-email" type="email" autocomplete="email" inputmode="email" placeholder="seunome@gmail.com" required>
+      ${modo!=="recuperar" ? `<label for="c-senha">Senha</label>
+      <input id="c-senha" type="password" autocomplete="${modo==="criar"?"new-password":"current-password"}" minlength="8" required>` : ""}
+      ${modo==="criar" ? `<label for="c-senha2">Repita a senha</label><input id="c-senha2" type="password" autocomplete="new-password" minlength="8" required>
+      <p class="dica">Mínimo de 8 caracteres.</p>` : ""}
+      <p class="erro-form" id="c-erro" role="alert" hidden></p>
+      <p class="ok-form" id="c-ok" role="status" hidden></p>
+      <button class="btn full" type="submit" id="c-enviar">${{entrar:"Entrar", criar:"Criar conta", recuperar:"Enviar link de recuperação"}[modo]}</button>
+    </form>
+    <div class="links-conta">
+      ${modo==="entrar" ? `<button class="link" data-go="recuperar">Esqueci minha senha</button><span>Não tem conta? <button class="link" data-go="criar">Criar conta</button></span>` : ""}
+      ${modo==="criar" ? `<span>Já tem conta? <button class="link" data-go="entrar">Entrar</button></span>` : ""}
+      ${modo==="recuperar" ? `<button class="link" data-go="entrar">Voltar para Entrar</button>` : ""}
+    </div>
+  </section>`;
+  bindGo();
+  const f = document.getElementById("form-conta"), err = document.getElementById("c-erro"), ok = document.getElementById("c-ok"), btn = document.getElementById("c-enviar");
+  const falha = m => { err.textContent = m; err.hidden = false; ok.hidden = true; };
+  f.onsubmit = async ev => {
+    ev.preventDefault(); err.hidden = true;
+    const email = document.getElementById("c-email").value.trim().toLowerCase();
+    if(!ehGmail(email)) return falha("Use um endereço do Gmail, terminado em @gmail.com.");
+    const senha = modo!=="recuperar" ? document.getElementById("c-senha").value : "";
+    if(modo==="criar"){
+      if(senha.length < 8) return falha("A senha precisa ter pelo menos 8 caracteres.");
+      if(senha !== document.getElementById("c-senha2").value) return falha("As duas senhas não são iguais.");
+    }
+    btn.disabled = true;
+    try{
+      if(modo==="entrar") await BK.auth.signInWithEmailAndPassword(email, senha);
+      else if(modo==="criar"){ const c = await BK.auth.createUserWithEmailAndPassword(email, senha); await c.user.sendEmailVerification(); }
+      else { await BK.auth.sendPasswordResetEmail(email); ok.textContent = "Se houver uma conta com este e-mail, o link para criar uma nova senha chegará em alguns minutos. Confira também a pasta Spam."; ok.hidden = false; }
+    }catch(e){ if(modo==="recuperar" && e.code==="auth/user-not-found"){ ok.textContent = "Se houver uma conta com este e-mail, o link para criar uma nova senha chegará em alguns minutos. Confira também a pasta Spam."; ok.hidden = false; } else falha(msgAuth(e)); }
+    btn.disabled = false;
+  };
+}
+function telaVerificar(){
+  const gm = ehGmail(BK.email);
+  $app.innerHTML = `
+  <section class="topico conta-box">
+    <h2>${gm ? "Confirme o seu e-mail" : "Esta conta não é do Gmail"}</h2>
+    ${gm ? `<p>Enviamos um link de confirmação para <strong>${BK.email}</strong>. Abra o e-mail, toque no link e depois volte aqui.</p>
+      <p class="meta">Não encontrou? Confira a pasta Spam ou Promoções.</p>
+      <div class="acoes"><button class="btn" id="v-ja">Já confirmei</button><button class="btn sec" id="v-reenviar">Reenviar o e-mail</button></div>`
+    : `<p>O acesso é feito só com e-mail do Gmail. Saia e crie uma conta com um endereço @gmail.com.</p>`}
+    <p class="ok-form" id="v-msg" role="status" hidden></p>
+    <p style="margin-top:18px"><button class="link" id="v-sair">Sair e usar outra conta</button></p>
+  </section>`;
+  const msg = t => { const m = document.getElementById("v-msg"); m.textContent = t; m.hidden = false; };
+  const ja = document.getElementById("v-ja");
+  if(ja) ja.onclick = async ()=>{ await BK.auth.currentUser.reload(); const u = BK.auth.currentUser; BK.verificado = !!u.emailVerified;
+    if(BK.verificado){ await carregarRemoto(); migrar(); render(); } else msg("Ainda não recebemos a confirmação. Toque no link do e-mail e tente de novo."); };
+  const re = document.getElementById("v-reenviar");
+  if(re) re.onclick = async ()=>{ try{ await BK.auth.currentUser.sendEmailVerification(); msg("Enviamos um novo link de confirmação."); }catch(e){ msg(msgAuth(e)); } };
+  document.getElementById("v-sair").onclick = async ()=>{ try{ await BK.auth.signOut(); }catch(e){} };
+}
+
+/* ---------- Ranking ---------- */
+const ABAS_RANK = {semana:"Esta semana", geral:"Geral", sequencia:"Sequência"};
+const APELIDO_OK = a => /^[\p{L}\p{N}][\p{L}\p{N} ._-]{1,18}[\p{L}\p{N}]$/u.test(a) && !/@/.test(a);
+function cartaoNivel(){
+  const p = calcPontos(S), nv = nivelDe(p);
+  const pct = nv.teto ? Math.round((p-nv.piso)/(nv.teto-nv.piso)*100) : 100;
+  return `<div class="nivel"><div class="nivel-top"><span class="nivel-nome">${nv.nome}</span><span class="num">${fmt(p)} pontos</span></div>
+    <span class="bar fina" aria-hidden="true"><i style="width:${pct}%;background:var(--amber)"></i></span>
+    <span class="meta">${nv.teto ? `Faltam ${fmt(nv.teto-p)} pontos para ${nv.proxNome}` : "Nível máximo"}</span></div>`;
+}
+async function buscarRanking(aba){
+  if(!BK.db) return null;
+  const campo = {semana:"xpSemana", geral:"pontos", sequencia:"sequencia"}[aba];
+  const snap = await BK.db.collection("ranking").orderBy(campo, "desc").limit(100).get();
+  const ontem = new Date(); ontem.setDate(ontem.getDate()-1);
+  const recentes = new Set([hojeStr(), hojeStr(ontem)]), sem = semanaId();
+  return snap.docs.map(d=>Object.assign({id:d.id}, d.data()))
+    .filter(r=> aba==="semana" ? r.semana===sem && r.xpSemana>0 : aba==="sequencia" ? recentes.has(r.ultimoDia) && r.sequencia>0 : r.pontos>0)
+    .map(r=>Object.assign(r, {valor: r[campo]}));
+}
+function telaRanking(){
+  const aba = V.abaRank || "semana";
+  const p = calcPontos(S), seq = sequencia(S), xs = S.semana.id===semanaId() ? S.semana.xp : 0;
+  const conectado = !!BK.db;
+  $app.innerHTML = `
+  <section class="topico">
+    <button class="voltar" data-go="painel">‹ Voltar ao painel</button>
+    <p class="eyebrow">Sem prêmios: só para ver quem está estudando mais</p>
+    <h2>Ranking</h2>
+    ${cartaoNivel()}
+    <div class="kpis" style="grid-template-columns:repeat(3,minmax(0,1fr))">
+      <div class="kpi"><b>${fmt(xs)}</b><span>pontos nesta semana</span></div>
+      <div class="kpi"><b>${seq}</b><span>${seq===1?"dia seguido":"dias seguidos"}</span></div>
+      <div class="kpi"><b>${Object.keys(S.aprovados).filter(k=>POSTO[k]).length}</b><span>postos concluídos</span></div>
+    </div>
+    <div class="caixa" style="margin-top:12px" id="apelido-box">
+      ${S.apelido && !S.noRanking ? `<p style="margin:0">Você aparece no ranking como <strong>${esc(S.apelido)}</strong>. <button class="link" id="ap-editar">Mudar apelido</button> · <button class="link" id="ap-sair">Sair do ranking</button></p>`
+        : `<label for="ap-in"><strong>Escolha um apelido para aparecer no ranking</strong></label>
+           <p style="margin:4px 0 8px">Os outros alunos veem só o apelido, os pontos e o nível. Seu e-mail nunca aparece.</p>
+           <div class="linha-form"><input id="ap-in" maxlength="20" placeholder="Ex.: Guarda Silva" value="${esc(S.apelido||"")}"><button class="btn peq" id="ap-salvar">Participar</button></div>
+           <p class="erro-form" id="ap-erro" role="alert" hidden></p>`}
+    </div>
+    <div class="abas" role="tablist">${Object.entries(ABAS_RANK).map(([k,n])=>`<button role="tab" aria-selected="${aba===k}" data-rk="${k}">${n}</button>`).join("")}</div>
+    <div id="lista-rank" class="painel">${conectado ? `<div class="vazio">Carregando o ranking…</div>` : `<div class="vazio">O ranking entre alunos aparece quando o site estiver conectado às contas. Seus pontos já estão sendo contados.</div>`}</div>
+    <details class="faq" style="margin-bottom:40px"><summary>Como os pontos funcionam</summary>
+      <ul style="color:var(--muted);margin:8px 0 0">
+        <li><strong>${PONTOS.questao} pontos</strong> por questão diferente que você acerta. Repetir a mesma questão não soma de novo.</li>
+        <li><strong>${PONTOS.posto} pontos</strong> por posto concluído (7 acertos ou mais).</li>
+        <li><strong>${PONTOS.revisao} pontos</strong> por revisão espaçada concluída (até 3 por posto).</li>
+        <li><strong>${PONTOS.corrigida} pontos</strong> por questão do caderno de erros que você passa a acertar.</li>
+        <li><strong>Esta semana</strong> soma o que você ganhou desde segunda-feira e zera toda semana. <strong>Sequência</strong> conta os dias seguidos com pelo menos uma bateria de questões.</li>
+      </ul></details>
+  </section>`;
+  bindGo();
+  $app.querySelectorAll("[data-rk]").forEach(b=>b.onclick=()=>{ V.abaRank = b.dataset.rk; telaRanking(); });
+  const sv = document.getElementById("ap-salvar");
+  if(sv) sv.onclick = async ()=>{ const a = document.getElementById("ap-in").value.trim().replace(/\s+/g," ");
+    if(!APELIDO_OK(a)){ const e = document.getElementById("ap-erro"); e.textContent = "Use de 3 a 20 letras ou números (pode ter espaço, ponto ou hífen no meio)."; e.hidden = false; return; }
+    S.apelido = a; S.noRanking = false; await salvar(); await publicarRanking(); telaRanking(); };
+  const ed = document.getElementById("ap-editar"); if(ed) ed.onclick = ()=>{ S.noRanking = true; telaRanking(); S.noRanking = false; document.getElementById("ap-in").focus(); };
+  const sa = document.getElementById("ap-sair"); if(sa) sa.onclick = async ()=>{ S.noRanking = true; await salvar(); await publicarRanking(); telaRanking(); };
+  if(conectado) carregarListaRank(aba);
+}
+async function carregarListaRank(aba){
+  const box = document.getElementById("lista-rank"); if(!box) return;
+  let lista;
+  try{ lista = await buscarRanking(aba); }catch(e){ box.innerHTML = `<div class="vazio">Não foi possível carregar o ranking agora. Tente de novo em instantes.</div>`; return; }
+  if(V.tela!=="ranking" || (V.abaRank||"semana")!==aba) return;
+  const un = {semana:"pts", geral:"pts", sequencia:"dias"}[aba];
+  if(!lista.length){ box.innerHTML = `<div class="vazio">${aba==="semana" ? "Ninguém pontuou nesta semana ainda. Faça uma bateria de questões e abra a lista." : "Ainda não há alunos nesta lista."}</div>`; return; }
+  const minha = lista.findIndex(r=>r.id===BK.uid);
+  box.innerHTML = `<ol class="rank">${lista.slice(0,50).map((r,i)=>`<li class="${r.id===BK.uid?"eu":""} ${i<3?"podio p"+(i+1):""}">
+      <span class="pos num">${i+1}</span><span class="quem"><strong>${esc(r.apelido)}</strong>${r.id===BK.uid?' <span class="pill amb">você</span>':""}<small>${esc(r.nivel||"")} · ${r.postos||0} postos</small></span><span class="val num">${fmt(r.valor)} ${un}</span></li>`).join("")}</ol>
+    ${S.apelido && !S.noRanking ? (minha<0 ? `<p class="meta">Você ainda não está entre os 100 primeiros desta lista.</p>` : (minha>=50 ? `<p class="meta">Sua posição: ${minha+1}º.</p>` : "")) : ""}`;
+}
+const esc = t => String(t||"").replace(/[&<>"']/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 
 /* ---------- Mapa do edital ---------- */
 function telaEdital(){
@@ -588,7 +843,10 @@ function caixaReportar(pid){
       if(txt.length < 5){ d.querySelector("textarea").focus(); return; }
       const item = {pid, texto: txt.slice(0,2000), data: Date.now()};
       S.correcoes.push(item); await salvar();
-      if(DB && UID){ try{ await DB.doc("correcoes/" + UID + "/itens/" + item.data).set(item); }catch(e){} }
+      if(BK.db && BK.uid){ try{
+        if(BK.modo==="firebase") await BK.db.collection("correcoes").doc().set(Object.assign({uid: BK.uid}, item));
+        else await BK.db.doc("correcoes/" + BK.uid + "/itens/" + item.data).set(item);
+      }catch(e){} }
       d.innerHTML = `<p><strong>Recebido.</strong> O aviso foi registrado e será conferido na fonte oficial antes da próxima atualização do material.</p>`;
     };
   };
@@ -657,7 +915,7 @@ async function corrigir(){
   const nota = Q.itens.filter(it=>it.ordem[it.escolha].certa).length;
   Q.itens.forEach(it=>{
     const id = it.q.id; S.vistas[id] = (S.vistas[id]||0)+1;
-    if(it.ordem[it.escolha].certa){ delete S.erros[id]; if(Q.modo==="erros") delete S.marcadas[id]; }
+    if(it.ordem[it.escolha].certa){ if(S.erros[id]) S.corrigidas[id] = 1; S.certas[id] = 1; delete S.erros[id]; if(Q.modo==="erros") delete S.marcadas[id]; }
     else { const e = S.erros[id] || {pid: QIDX[id].pid, vezes:0}; e.vezes++; e.data = Date.now(); S.erros[id] = e; }
   });
   if(Q.modo!=="erros"){
@@ -671,6 +929,7 @@ async function corrigir(){
     }
   }
   Q.nota = nota;
+  Q.ganho = registrarPontos();
   await salvar();
   ir({tela:"resultado"});
 }
@@ -708,6 +967,7 @@ function telaResultado(){
       <div class="nota num">${Q.nota}/${Q.itens.length}</div>
       <h2>${titulo}</h2>
       <p>${texto}</p>
+      ${Q.ganho>0 ? `<p class="ganho"><strong>+${fmt(Q.ganho)} pontos</strong> · ${nivelDe(calcPontos(S)).nome} · <button class="link" data-go="ranking">ver o ranking</button></p>` : `<p class="ganho meta">Sem pontos novos: só contam questões que você ainda não tinha acertado.</p>`}
       <div class="acoes">${botoes}</div>
     </div>
     <h2 style="font-size:24px;margin:8px 0">Correção comentada</h2>
@@ -782,6 +1042,12 @@ function telaTAF(){
   bindGo();
 }
 
+document.getElementById("brand").onclick = ()=>ir({tela: (logado() && S.acesso) ? "painel" : "home"});
+migrar();
+atualizarConta();
+if(BK.modo==="firebase") iniciarFirebase();
+else if(BK.modo==="claude") iniciarClaude();
+else BK.pronto = true;
 render();
 </script>
 </body>

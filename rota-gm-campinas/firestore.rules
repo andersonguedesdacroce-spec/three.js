@@ -1,0 +1,48 @@
+rules_version = '2';
+// Regras do Firestore do Rota GM Campinas. Cole no console do Firebase: Firestore Database > Regras > Publicar.
+// Só contas com e-mail @gmail.com CONFIRMADO leem ou gravam qualquer coisa.
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function gmailConfirmado() {
+      return request.auth != null
+        && request.auth.token.email_verified == true
+        && request.auth.token.email.matches('^[^@]+@gmail[.]com$');
+    }
+    function dono(uid) { return gmailConfirmado() && request.auth.uid == uid; }
+
+    // Progresso de cada aluno: só o próprio aluno lê e grava.
+    match /users/{uid} {
+      allow read, delete: if dono(uid);
+      allow create, update: if dono(uid)
+        && request.resource.data.keys().hasOnly(['estado', 'atualizado'])
+        && request.resource.data.estado is string
+        && request.resource.data.estado.size() < 900000;
+    }
+
+    // Ranking: todo aluno confirmado lê; cada um grava só a própria linha, com limites de valores.
+    match /ranking/{uid} {
+      allow read: if gmailConfirmado();
+      allow delete: if dono(uid);
+      allow create, update: if dono(uid)
+        && request.resource.data.keys().hasOnly(['apelido', 'pontos', 'semana', 'xpSemana', 'sequencia', 'ultimoDia', 'postos', 'nivel', 'atualizado'])
+        && request.resource.data.apelido is string
+        && request.resource.data.apelido.size() >= 3 && request.resource.data.apelido.size() <= 20
+        && !request.resource.data.apelido.matches('.*@.*')
+        && request.resource.data.pontos is int && request.resource.data.pontos >= 0 && request.resource.data.pontos <= 200000
+        && request.resource.data.xpSemana is int && request.resource.data.xpSemana >= 0
+        && request.resource.data.xpSemana <= request.resource.data.pontos
+        && request.resource.data.sequencia is int && request.resource.data.sequencia >= 0 && request.resource.data.sequencia <= 400
+        && request.resource.data.postos is int && request.resource.data.postos >= 0 && request.resource.data.postos <= 200
+        // numa atualização, os pontos não podem saltar mais de 3.000 de uma vez (uma bateria rende no máximo ~400)
+        && (resource == null || request.resource.data.pontos - resource.data.pontos <= 3000);
+    }
+
+    // Avisos de correção: o aluno só cria; quem lê é o dono do projeto, pelo console.
+    match /correcoes/{id} {
+      allow create: if gmailConfirmado()
+        && request.resource.data.uid == request.auth.uid
+        && request.resource.data.texto is string && request.resource.data.texto.size() <= 2000;
+    }
+  }
+}
