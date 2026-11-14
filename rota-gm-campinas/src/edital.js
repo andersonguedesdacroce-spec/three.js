@@ -109,5 +109,7 @@ const TRILHAS = [
   ["Disposições gerais, efeitos da condenação e sanções","Lei 13.869/2019, arts. 1º a 8º"],
   ["Crimes em espécie e procedimento","Lei 13.869/2019, arts. 9º em diante"]]},
  {id:"armas", bloco:"Conhecimentos Específicos", nome:"Regulamento do Estatuto do Desarmamento", postos:[
-  ["Decreto 11.615/2023","Registro, posse, porte e classificação de armas"]]}
+  ["Sinarm e porte funcional das guardas municipais","Decreto 11.615/2023, arts. 1º, 3º, 7º e 53 a 60"],
+  ["Classificação e aquisição de armas","Decreto 11.615/2023, arts. 2º e 11 a 19"],
+  ["Registro, posse e porte para defesa pessoal","Decreto 11.615/2023, arts. 20 a 29, 46 a 52 e 62"]]}
 ];

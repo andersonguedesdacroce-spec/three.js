@@ -144,7 +144,7 @@ code,svg=mapa("Decreto 11.615/2023: porte funcional da guarda municipal",[
  "Na prova: PF, 10 anos, 100 horas, 65% e 80 horas")
 aula_html=aula(LEAD,S,[1,2,3,'QR',5,6,7],QR,4,svg,"A primeira linha traz o objeto e o Sinarm; as demais, o porte funcional e o regime específico das guardas municipais.","Fontes: Edital 02/2026, Anexo I; Decreto 11.615/2023, texto da publicação original, Câmara dos Deputados. Exemplos criados para a aula.")
 revisao("armas-1","Regulamento do Estatuto do Desarmamento (Decreto 11.615/2023)",Q,list(tx),
- cobertura=["Coberto o essencial: arts. 1º, 3º, 7º, 53 a 60. Não cobertos: o restante do decreto (registro, posse, CRAF, aquisição, caça, tiro desportivo, colecionamento etc.), cerca de 90% do texto."],
- pendencias=["Texto-fonte: publicação original da Câmara dos Deputados (Legin), baixada em 14/11/2026; reconferir no Planalto, pois o decreto foi alterado posteriormente (o texto original pode não refletir as alterações).","Conferir o recorte exato do edital: o edital diz 'Registro, posse, porte e classificação de armas', o que exige cobrir também os capítulos de registro e posse (arts. 8º a 52), ainda não cobertos.","Trechos de lei copiados de fontes/armas.txt por programa.","Casos armas1a, armas1b e armas1c fictícios."],
+ cobertura=["Coberto o essencial: arts. 1º, 3º, 7º, 53 a 60. Classificação e aquisição estão no posto armas-2; registro, posse e porte para defesa pessoal, no armas-3."],
+ pendencias=["Texto-fonte: publicação original da Câmara dos Deputados (Legin), baixada em 14/11/2026; reconferir no Planalto, pois o decreto foi alterado posteriormente (o texto original pode não refletir as alterações).","Trechos de lei copiados de fontes/armas.txt por programa.","Casos armas1a, armas1b e armas1c fictícios."],
  fontes_conferidas=["Decreto 11.615/2023, arts. 1º, 3º, 7º e 53 a 60: texto da Câmara, copiado por programa."])
 gravar("armas-1",aula_html,banco("armas-1",Q),tx)
