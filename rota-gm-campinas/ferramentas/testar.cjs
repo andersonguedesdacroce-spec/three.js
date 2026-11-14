@@ -32,6 +32,9 @@ if (saida) fs.mkdirSync(saida, { recursive: true });
         await page.click('#iniciar');
         await verifica(await page.locator('.alt, .alts button, button.alt, [data-alt]').count() >= 5 || await page.locator('#app button').count() >= 5, `${pid}: tela de questões sem alternativas`);
         await larg(`questões ${pid}`); await foto(`questoes-${pid}`);
+        for (let k = 0; k < 10; k++) { await page.locator('.alt').first().click(); await page.click('#prox'); }
+        await verifica(await page.locator('.alt').count() === 0, `${pid}: a prova não terminou após 10 respostas`);
+        await foto(`resultado-${pid}`);
         await page.evaluate(() => ir({ tela: 'painel' }));
       }
       await ctx.close();

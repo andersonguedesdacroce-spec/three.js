@@ -1,0 +1,180 @@
+<span class="status">Versão 1 · em revisão</span>
+<p>MMC e MDC são as duas ferramentas para problemas de repetição e de divisão em partes iguais. O MMC responde quando duas coisas que se repetem em ritmos diferentes voltam a coincidir; o MDC responde qual é o maior pedaço, ou o maior grupo, que reparte tudo sem sobra. A Vunesp quase nunca pede o cálculo seco: pede a situação (rondas que se cruzam, material a repartir em kits, número que deixa resto) e espera que você reconheça qual das duas ferramentas usar. Esta aula ensina o cálculo e, principalmente, o reconhecimento.</p>
+
+<h3>Mapa do assunto</h3>
+<figure class="fig">
+<svg viewBox="0 0 760 368" role="img" aria-label="MMC e MDC: duas perguntas diferentes" font-size="13">
+<text x="24" y="28" font-size="16" font-weight="600">MMC e MDC: duas perguntas diferentes</text>
+<rect class="ac" x="24" y="48" width="224" height="112" rx="8" style="stroke-width:1.5"/><text x="136" y="74" text-anchor="middle" font-weight="600">Primos e fatoração</text>
+<text x="136" y="96" text-anchor="middle" font-size="12">2, 3, 5, 7, 11, 13...</text>
+<text x="136" y="112" text-anchor="middle" font-size="12">divide pelo menor primo</text>
+<text x="136" y="128" text-anchor="middle" font-size="12">divisores: expoente + 1</text>
+<text class="q" x="136" y="148" text-anchor="middle" font-size="12">seção 1</text>
+<rect class="ac" x="268" y="48" width="224" height="112" rx="8" style="stroke-width:1.5"/><text x="380" y="74" text-anchor="middle" font-weight="600">MDC</text>
+<text x="380" y="96" text-anchor="middle" font-size="12">fatores comuns</text>
+<text x="380" y="112" text-anchor="middle" font-size="12">menor expoente</text>
+<text x="380" y="128" text-anchor="middle" font-size="12">partes iguais, maior possível</text>
+<text class="q" x="380" y="148" text-anchor="middle" font-size="12">seção 2</text>
+<rect class="ac" x="512" y="48" width="224" height="112" rx="8" style="stroke-width:1.5"/><text x="624" y="74" text-anchor="middle" font-weight="600">MMC</text>
+<text x="624" y="96" text-anchor="middle" font-size="12">todos os fatores</text>
+<text x="624" y="112" text-anchor="middle" font-size="12">maior expoente</text>
+<text x="624" y="128" text-anchor="middle" font-size="12">ritmos que coincidem</text>
+<text class="q" x="624" y="148" text-anchor="middle" font-size="12">seção 3</text>
+<rect class="ac" x="24" y="176" width="224" height="112" rx="8" style="stroke-width:1.5"/><text x="136" y="202" text-anchor="middle" font-weight="600">Relação</text>
+<text x="136" y="224" text-anchor="middle" font-size="12">MDC × MMC = a × b</text>
+<text x="136" y="240" text-anchor="middle" font-size="12">só para dois números</text>
+<text x="136" y="256" text-anchor="middle" font-size="12">dado um, acha o outro</text>
+<text class="q" x="136" y="276" text-anchor="middle" font-size="12">seção 4</text>
+<rect class="ac" x="268" y="176" width="224" height="112" rx="8" style="stroke-width:1.5"/><text x="380" y="202" text-anchor="middle" font-weight="600">Qual usar</text>
+<text x="380" y="224" text-anchor="middle" font-size="12">dividir, repartir, cortar: MDC</text>
+<text x="380" y="240" text-anchor="middle" font-size="12">novamente juntos: MMC</text>
+<text x="380" y="256" text-anchor="middle" font-size="12">resto r: MMC + r</text>
+<text class="q" x="380" y="276" text-anchor="middle" font-size="12">seção 5</text>
+<rect class="ac" x="512" y="176" width="224" height="112" rx="8" style="stroke-width:1.5"/><text x="624" y="202" text-anchor="middle" font-weight="600">Euclides</text>
+<text x="624" y="224" text-anchor="middle" font-size="12">divide maior pelo menor</text>
+<text x="624" y="240" text-anchor="middle" font-size="12">repete com o resto</text>
+<text x="624" y="256" text-anchor="middle" font-size="12">último divisor = MDC</text>
+<text class="q" x="624" y="276" text-anchor="middle" font-size="12">seção 2</text>
+<rect class="tint" x="24" y="304" width="712" height="44" rx="8"/><text x="380" y="331" text-anchor="middle" font-size="13">Na prova: ache a palavra-chave (“maior possível” é MDC; “novamente juntos” é MMC)</text>
+</svg>
+<figcaption>A caixa “Qual usar” é o centro da aula: as demais ensinam o cálculo que ela manda fazer.</figcaption>
+</figure>
+<h3>1. Múltiplos, divisores e números primos</h3>
+<p>Múltiplos de um número são os resultados da sua tabuada: os múltiplos de 6 são 0, 6, 12, 18, 24 e assim sem fim. Divisores de um número são os que o dividem sem deixar resto: os divisores de 12 são 1, 2, 3, 4, 6 e 12. Múltiplo e divisor são dois lados da mesma relação: se 12 é múltiplo de 4, então 4 é divisor de 12.</p>
+<p>Número primo é o que tem exatamente dois divisores, o 1 e ele mesmo: 2, 3, 5, 7, 11, 13, 17, 19, 23, 29. O 2 é o único primo par, e o 1 não é primo, porque tem um só divisor. Os demais números, de dois divisores para cima, são os compostos, e todo composto pode ser escrito, de uma única maneira, como produto de primos. Esse é o teorema da fatoração, e é a chave de tudo nesta aula.</p>
+<p>Para fatorar, divida o número pelo menor primo possível, de novo e de novo, até chegar a 1. Fatorando 60: 60 ÷ 2 = 30, 30 ÷ 2 = 15, 15 ÷ 3 = 5, 5 ÷ 5 = 1. Logo 60 = 2<sup>2</sup> × 3 × 5. Os critérios de divisibilidade aceleram o trabalho. Um número é divisível por 2 se termina em algarismo par; por 3 se a soma dos algarismos é múltipla de 3; por 4 se os dois últimos algarismos formam número divisível por 4; por 5 se termina em 0 ou 5; por 6 se é divisível por 2 e por 3; por 9 se a soma dos algarismos é múltipla de 9; por 10 se termina em 0. O número 4.527 tem soma 4 + 5 + 2 + 7 = 18, então é divisível por 9.</p>
+<p>A fatoração também conta divisores. Some 1 a cada expoente e multiplique os resultados. Em 60 = 2<sup>2</sup> × 3<sup>1</sup> × 5<sup>1</sup>, o número de divisores é (2 + 1)(1 + 1)(1 + 1) = 12. A razão é que cada divisor escolhe, para cada primo, um expoente de zero até o expoente máximo.</p>
+<h3>2. MDC: o maior pedaço que cabe exato</h3>
+<p>O máximo divisor comum de dois ou mais números é o maior número que divide todos eles. Imagine duas cordas, de 84 m e de 126 m, que devem ser cortadas em pedaços iguais, sem sobrar nada, e com pedaços os maiores possíveis. O tamanho do pedaço precisa dividir 84 e dividir 126; o maior que faz isso é o MDC, que aqui vale 42 m. Sai 2 pedaços da primeira corda e 3 da segunda.</p>
+<p>Há dois métodos. No primeiro, decompõem-se os números em fatores primos e multiplicam-se apenas os fatores comuns, cada um com o menor expoente. Com 84 = 2<sup>2</sup> × 3 × 7 e 126 = 2 × 3<sup>2</sup> × 7, os comuns são 2 (menor expoente 1), 3 (menor expoente 1) e 7 (expoente 1). O MDC é 2 × 3 × 7 = 42.</p>
+<p>O segundo método é o algoritmo de Euclides, útil com números grandes. Divide-se o maior pelo menor; depois, o divisor pelo resto, e assim por diante, até o resto zero. O último divisor é o MDC. Para 252 e 420: 420 = 1 × 252 + 168; 252 = 1 × 168 + 84; 168 = 2 × 84 + 0. O MDC é 84.</p>
+<p>Dois números cujo MDC é 1 são chamados primos entre si, mesmo que cada um não seja primo: 8 e 15 não têm fator comum. O MDC também simplifica frações até a forma irredutível: 252/420 tem MDC 84, e dividindo em cima e embaixo por 84, vem 3/5.</p>
+<div class="box">Para o MDC, pegue só os fatores comuns e o menor expoente. Para o MMC, pegue todos os fatores e o maior expoente. Se confundir, o MDC nunca ultrapassa o menor dos números, e o MMC nunca é menor que o maior deles.</div>
+<h3>3. MMC: quando os ritmos voltam a coincidir</h3>
+<p>O mínimo múltiplo comum de dois ou mais números é o menor número, diferente de zero, que é múltiplo de todos eles. A imagem útil é a de dois sinais que repetem em ritmos diferentes. Um apita a cada 4 minutos e o outro a cada 6. Apitaram juntos agora; quando apitarão juntos de novo? O primeiro apita nos minutos 4, 8, 12, 16...; o segundo, nos minutos 6, 12, 18... O primeiro minuto comum é o 12, que é o MMC de 4 e 6.</p>
+<p>Pela fatoração, o MMC é o produto de todos os fatores primos, comuns e não comuns, cada um com o maior expoente. Para 12, 18 e 30, tem-se 12 = 2<sup>2</sup> × 3, 18 = 2 × 3<sup>2</sup> e 30 = 2 × 3 × 5. O maior expoente do 2 é 2, o do 3 é 2 e o do 5 é 1. O MMC é 2<sup>2</sup> × 3<sup>2</sup> × 5 = 180.</p>
+<p>Há um jeito prático, a decomposição simultânea. Escrevem-se os números lado a lado e divide-se por primos, dividindo apenas os que forem divisíveis e repetindo os demais; o MMC é o produto dos divisores usados. Em 12, 18, 30: por 2, vira 6, 9, 15; por 2, vira 3, 9, 15; por 3, vira 1, 3, 5; por 3, vira 1, 1, 5; por 5, vira 1, 1, 1. O produto 2 × 2 × 3 × 3 × 5 é 180.</p>
+<p>Quando os números são primos entre si, o MMC é o produto deles: MMC(3, 5) = 15. Quando um é múltiplo do outro, o MMC é o maior: MMC(5, 10) = 10.</p>
+<h3>4. A relação entre MMC e MDC</h3>
+<p>Para dois números a e b, vale que MDC(a, b) × MMC(a, b) = a × b. A razão está na fatoração: de cada primo, o MDC leva o menor expoente e o MMC leva o maior, e juntos usam os dois expoentes, que é exatamente o que o produto a × b faz. Com 12 e 18: MDC = 6, MMC = 36, e 6 × 36 = 216 = 12 × 18.</p>
+<p>A relação resolve um tipo clássico de questão: dados o MDC, o MMC e um dos números, achar o outro. Se o MDC de dois números é 6, o MMC é 60 e um deles é 12, o outro é 6 × 60 ÷ 12 = 30. Também mostra que o MDC divide o MMC e que o MMC é múltiplo de ambos. A relação vale para dois números; com três ou mais, não vale.</p>
+<h3>5. Como reconhecer o problema</h3>
+<p>A dificuldade da prova está em saber qual ferramenta usar. O texto da questão costuma dar o sinal.</p>
+<p>Use o MDC quando o enunciado fala em dividir, repartir, cortar ou agrupar em partes iguais, sem sobra, e pede o maior tamanho ou o maior número de grupos. As palavras são “o maior possível”, “o maior número de equipes”, “pedaços iguais”, “sem sobrar”.</p>
+<p>Use o MMC quando o enunciado fala em eventos que se repetem e voltam a coincidir, ou em achar o menor número que seja múltiplo de vários. As palavras são “de quanto em quanto tempo”, “novamente juntos”, “o menor número”, “pela primeira vez”.</p>
+<p>Exemplo resolvido 1, com MDC. Uma equipe tem 72 coletes e 108 lanternas, que serão distribuídos em kits iguais, sem sobras. Qual o maior número de kits? Como a repartição é em partes iguais e se quer o maior número de kits, é MDC(72, 108). Fatorando, 72 = 2<sup>3</sup> × 3<sup>2</sup> e 108 = 2<sup>2</sup> × 3<sup>3</sup>. O MDC é 2<sup>2</sup> × 3<sup>2</sup> = 36 kits, cada um com 2 coletes e 3 lanternas.</p>
+<p>Exemplo resolvido 2, com MMC. Duas viaturas passam por um cruzamento, uma a cada 10 minutos e outra a cada 15. Passaram juntas às 8h. Quando passam juntas de novo? Como os ritmos voltam a coincidir, é MMC(10, 15) = 30. Passam juntas de novo às 8h30.</p>
+<p>Exemplo resolvido 3, com resto. Qual o menor número natural maior que 1 que, dividido por 4, por 6 e por 9, deixa sempre resto 1? Se sobra 1 em cada divisão, então o número menos 1 é múltiplo de 4, de 6 e de 9. O menor múltiplo comum é MMC(4, 6, 9) = 36. O número procurado é 36 + 1 = 37. Conferindo: 37 = 4 × 9 + 1 = 6 × 6 + 1 = 9 × 4 + 1.</p>
+<p>Exemplo resolvido 4, com MMC em contagem. Três ônibus saem às 6h de um terminal, com intervalos de 15, 20 e 24 minutos. Quantas vezes saem juntos entre 6h e 18h, contando a saída das 6h? O MMC(15, 20, 24) = 120 minutos, ou 2 horas. Em 12 horas cabem 6 intervalos de 2 horas, e as saídas coincidentes acontecem às 6h, 8h, 10h, 12h, 14h, 16h e 18h. São 7 vezes.</p>
+<h3>6. Questões resolvidas</h3>
+<h4>Questão 1</h4>
+<p>Duas luzes de sinalização piscam, uma a cada 8 segundos e outra a cada 12 segundos. Piscaram juntas num instante inicial. Piscarão juntas novamente depois de</p>
+<ol class="alts" type="A"><li>4 segundos.</li><li>20 segundos.</li><li>48 segundos.</li><li>24 segundos.</li><li>96 segundos.</li></ol>
+<p><strong>Resposta: D.</strong> Coincidência de ritmos pede MMC. 8 = 2<sup>3</sup> e 12 = 2<sup>2</sup> × 3, então MMC = 2<sup>3</sup> × 3 = 24 segundos.</p>
+<h4>Questão 2</h4>
+<p>Um posto tem 90 coletes e 150 lanternas, que serão distribuídos em kits idênticos, sem sobras, com o maior número possível de kits. Cada kit terá</p>
+<ol class="alts" type="A"><li>9 coletes e 15 lanternas.</li><li>3 coletes e 5 lanternas.</li><li>1 colete e 5 lanternas.</li><li>30 coletes e 50 lanternas.</li><li>6 coletes e 10 lanternas.</li></ol>
+<p><strong>Resposta: B.</strong> Partes iguais e o maior número de kits: MDC(90, 150) = 30 (90 = 2 × 3<sup>2</sup> × 5; 150 = 2 × 3 × 5<sup>2</sup>; comuns 2 × 3 × 5). Com 30 kits, cada um recebe 90 ÷ 30 = 3 coletes e 150 ÷ 30 = 5 lanternas.</p>
+<h4>Questão 3</h4>
+<p>O menor número natural que, dividido por 6, por 8 e por 10, deixa sempre resto 4 é</p>
+<ol class="alts" type="A"><li>120</li><li>244</li><li>64</li><li>84</li><li>124</li></ol>
+<p><strong>Resposta: E.</strong> O número menos 4 é múltiplo de 6, 8 e 10. MMC(6, 8, 10) = 120. O número é 120 + 4 = 124. Confira: 124 = 6 × 20 + 4 = 8 × 15 + 4 = 10 × 12 + 4.</p>
+<h4>Questão 4</h4>
+<p>O produto de dois números naturais é 1.296 e o MDC deles é 6. O MMC desses números é</p>
+<ol class="alts" type="A"><li>1.290</li><li>7.776</li><li>216</li><li>162</li><li>432</li></ol>
+<p><strong>Resposta: C.</strong> MDC × MMC = produto. MMC = 1.296 ÷ 6 = 216.</p>
+<h3>7. Na rotina do guarda</h3>
+<ul>
+<li><strong>Cruzamento de rondas:</strong> duas equipes com voltas de 20 e 30 minutos se reencontram a cada MMC(20, 30) = 60 minutos. Saber disso ajuda a marcar o momento da troca de informações.</li>
+<li><strong>Montagem de kits:</strong> 48 cones e 60 coletes viram, no máximo, MDC(48, 60) = 12 kits iguais.</li>
+<li><strong>Escala de folgas:</strong> quem folga a cada 4 dias e quem folga a cada 6 só têm folga juntos a cada MMC(4, 6) = 12 dias.</li>
+<li><strong>Fiscalizações periódicas:</strong> inspeções a cada 15 e a cada 21 dias coincidem a cada 105 dias, que é o MMC.</li>
+<li><strong>Fila de identificação:</strong> 36 homens e 48 mulheres podem formar, no máximo, MDC(36, 48) = 12 grupos com a mesma composição.</li>
+</ul>
+<h3>8. Onde a Vunesp pega</h3>
+<div class="tabela"><table>
+<thead>
+<tr>
+<th>Armadilha</th>
+<th>Como escapar</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Usar MMC em questão de dividir em partes iguais</td>
+<td>“O maior possível” e “sem sobra” pedem MDC</td>
+</tr>
+<tr>
+<td>Usar MDC em questão de coincidência</td>
+<td>“Novamente juntos” e “o menor” pedem MMC</td>
+</tr>
+<tr>
+<td>Esquecer de somar o resto no “menor número que deixa resto r”</td>
+<td>Número = MMC + r</td>
+</tr>
+<tr>
+<td>Dar como MMC um valor menor que algum dos números</td>
+<td>O MMC nunca é menor que o maior número</td>
+</tr>
+<tr>
+<td>Contar a saída inicial ou não, em “quantas vezes coincidem”</td>
+<td>Releia se o início “conta”; some 1 aos intervalos quando contar</td>
+</tr>
+<tr>
+<td>Pegar fatores comuns de maior expoente no MDC</td>
+<td>No MDC é o menor expoente; no MMC, o maior</td>
+</tr>
+<tr>
+<td>Aplicar MDC × MMC = produto com três números</td>
+<td>A relação só vale para dois números</td>
+</tr>
+<tr>
+<td>Tratar 1 como número primo</td>
+<td>Primo tem exatamente dois divisores</td>
+</tr>
+</tbody>
+</table></div>
+<h3>9. Quadro-resumo</h3>
+<div class="tabela"><table>
+<thead>
+<tr>
+<th>Ponto</th>
+<th>O essencial</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Primo</td>
+<td>Exatamente dois divisores; o 2 é o único par</td>
+</tr>
+<tr>
+<td>Fatoração</td>
+<td>Divide pelo menor primo até chegar a 1</td>
+</tr>
+<tr>
+<td>Quantidade de divisores</td>
+<td>Soma 1 a cada expoente e multiplica</td>
+</tr>
+<tr>
+<td>MDC</td>
+<td>Fatores comuns, menor expoente; partes iguais, o maior possível</td>
+</tr>
+<tr>
+<td>MMC</td>
+<td>Todos os fatores, maior expoente; ritmos que coincidem</td>
+</tr>
+<tr>
+<td>Relação</td>
+<td>MDC × MMC = a × b, só para dois números</td>
+</tr>
+<tr>
+<td>Resto igual r</td>
+<td>Número = MMC + r</td>
+</tr>
+<tr>
+<td>Euclides</td>
+<td>Divide o maior pelo menor, repete com o resto; o último divisor é o MDC</td>
+</tr>
+</tbody>
+</table></div>
+<p class="ref">Fontes: Edital 02/2026, Anexo I. Referências de base: Iezzi, Dolce e Murakami, <em>Fundamentos de Matemática Elementar</em>, v. 1; Dante, <em>Matemática: contexto e aplicações</em>. Exemplos criados para a aula; resultados recalculados em código.</p>

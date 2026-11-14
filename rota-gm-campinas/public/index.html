@@ -3759,6 +3759,368 @@ const AULAS = {
 </table></div>
 <p class="ref">Fontes: Edital 02/2026, Anexo I. Referências de base: Iezzi, Dolce e Murakami, <em>Fundamentos de Matemática Elementar</em>, v. 1 e 2; Dante, <em>Matemática: contexto e aplicações</em>. Exemplos criados para a aula; todos os resultados foram recalculados em código.</p>
 `,
+"mt-2": `
+<span class="status">Versão 1 · em revisão</span>
+<p>MMC e MDC são as duas ferramentas para problemas de repetição e de divisão em partes iguais. O MMC responde quando duas coisas que se repetem em ritmos diferentes voltam a coincidir; o MDC responde qual é o maior pedaço, ou o maior grupo, que reparte tudo sem sobra. A Vunesp quase nunca pede o cálculo seco: pede a situação (rondas que se cruzam, material a repartir em kits, número que deixa resto) e espera que você reconheça qual das duas ferramentas usar. Esta aula ensina o cálculo e, principalmente, o reconhecimento.</p>
+
+<h3>Mapa do assunto</h3>
+<figure class="fig">
+<svg viewBox="0 0 760 368" role="img" aria-label="MMC e MDC: duas perguntas diferentes" font-size="13">
+<text x="24" y="28" font-size="16" font-weight="600">MMC e MDC: duas perguntas diferentes</text>
+<rect class="ac" x="24" y="48" width="224" height="112" rx="8" style="stroke-width:1.5"/><text x="136" y="74" text-anchor="middle" font-weight="600">Primos e fatoração</text>
+<text x="136" y="96" text-anchor="middle" font-size="12">2, 3, 5, 7, 11, 13...</text>
+<text x="136" y="112" text-anchor="middle" font-size="12">divide pelo menor primo</text>
+<text x="136" y="128" text-anchor="middle" font-size="12">divisores: expoente + 1</text>
+<text class="q" x="136" y="148" text-anchor="middle" font-size="12">seção 1</text>
+<rect class="ac" x="268" y="48" width="224" height="112" rx="8" style="stroke-width:1.5"/><text x="380" y="74" text-anchor="middle" font-weight="600">MDC</text>
+<text x="380" y="96" text-anchor="middle" font-size="12">fatores comuns</text>
+<text x="380" y="112" text-anchor="middle" font-size="12">menor expoente</text>
+<text x="380" y="128" text-anchor="middle" font-size="12">partes iguais, maior possível</text>
+<text class="q" x="380" y="148" text-anchor="middle" font-size="12">seção 2</text>
+<rect class="ac" x="512" y="48" width="224" height="112" rx="8" style="stroke-width:1.5"/><text x="624" y="74" text-anchor="middle" font-weight="600">MMC</text>
+<text x="624" y="96" text-anchor="middle" font-size="12">todos os fatores</text>
+<text x="624" y="112" text-anchor="middle" font-size="12">maior expoente</text>
+<text x="624" y="128" text-anchor="middle" font-size="12">ritmos que coincidem</text>
+<text class="q" x="624" y="148" text-anchor="middle" font-size="12">seção 3</text>
+<rect class="ac" x="24" y="176" width="224" height="112" rx="8" style="stroke-width:1.5"/><text x="136" y="202" text-anchor="middle" font-weight="600">Relação</text>
+<text x="136" y="224" text-anchor="middle" font-size="12">MDC × MMC = a × b</text>
+<text x="136" y="240" text-anchor="middle" font-size="12">só para dois números</text>
+<text x="136" y="256" text-anchor="middle" font-size="12">dado um, acha o outro</text>
+<text class="q" x="136" y="276" text-anchor="middle" font-size="12">seção 4</text>
+<rect class="ac" x="268" y="176" width="224" height="112" rx="8" style="stroke-width:1.5"/><text x="380" y="202" text-anchor="middle" font-weight="600">Qual usar</text>
+<text x="380" y="224" text-anchor="middle" font-size="12">dividir, repartir, cortar: MDC</text>
+<text x="380" y="240" text-anchor="middle" font-size="12">novamente juntos: MMC</text>
+<text x="380" y="256" text-anchor="middle" font-size="12">resto r: MMC + r</text>
+<text class="q" x="380" y="276" text-anchor="middle" font-size="12">seção 5</text>
+<rect class="ac" x="512" y="176" width="224" height="112" rx="8" style="stroke-width:1.5"/><text x="624" y="202" text-anchor="middle" font-weight="600">Euclides</text>
+<text x="624" y="224" text-anchor="middle" font-size="12">divide maior pelo menor</text>
+<text x="624" y="240" text-anchor="middle" font-size="12">repete com o resto</text>
+<text x="624" y="256" text-anchor="middle" font-size="12">último divisor = MDC</text>
+<text class="q" x="624" y="276" text-anchor="middle" font-size="12">seção 2</text>
+<rect class="tint" x="24" y="304" width="712" height="44" rx="8"/><text x="380" y="331" text-anchor="middle" font-size="13">Na prova: ache a palavra-chave (“maior possível” é MDC; “novamente juntos” é MMC)</text>
+</svg>
+<figcaption>A caixa “Qual usar” é o centro da aula: as demais ensinam o cálculo que ela manda fazer.</figcaption>
+</figure>
+<h3>1. Múltiplos, divisores e números primos</h3>
+<p>Múltiplos de um número são os resultados da sua tabuada: os múltiplos de 6 são 0, 6, 12, 18, 24 e assim sem fim. Divisores de um número são os que o dividem sem deixar resto: os divisores de 12 são 1, 2, 3, 4, 6 e 12. Múltiplo e divisor são dois lados da mesma relação: se 12 é múltiplo de 4, então 4 é divisor de 12.</p>
+<p>Número primo é o que tem exatamente dois divisores, o 1 e ele mesmo: 2, 3, 5, 7, 11, 13, 17, 19, 23, 29. O 2 é o único primo par, e o 1 não é primo, porque tem um só divisor. Os demais números, de dois divisores para cima, são os compostos, e todo composto pode ser escrito, de uma única maneira, como produto de primos. Esse é o teorema da fatoração, e é a chave de tudo nesta aula.</p>
+<p>Para fatorar, divida o número pelo menor primo possível, de novo e de novo, até chegar a 1. Fatorando 60: 60 ÷ 2 = 30, 30 ÷ 2 = 15, 15 ÷ 3 = 5, 5 ÷ 5 = 1. Logo 60 = 2<sup>2</sup> × 3 × 5. Os critérios de divisibilidade aceleram o trabalho. Um número é divisível por 2 se termina em algarismo par; por 3 se a soma dos algarismos é múltipla de 3; por 4 se os dois últimos algarismos formam número divisível por 4; por 5 se termina em 0 ou 5; por 6 se é divisível por 2 e por 3; por 9 se a soma dos algarismos é múltipla de 9; por 10 se termina em 0. O número 4.527 tem soma 4 + 5 + 2 + 7 = 18, então é divisível por 9.</p>
+<p>A fatoração também conta divisores. Some 1 a cada expoente e multiplique os resultados. Em 60 = 2<sup>2</sup> × 3<sup>1</sup> × 5<sup>1</sup>, o número de divisores é (2 + 1)(1 + 1)(1 + 1) = 12. A razão é que cada divisor escolhe, para cada primo, um expoente de zero até o expoente máximo.</p>
+<h3>2. MDC: o maior pedaço que cabe exato</h3>
+<p>O máximo divisor comum de dois ou mais números é o maior número que divide todos eles. Imagine duas cordas, de 84 m e de 126 m, que devem ser cortadas em pedaços iguais, sem sobrar nada, e com pedaços os maiores possíveis. O tamanho do pedaço precisa dividir 84 e dividir 126; o maior que faz isso é o MDC, que aqui vale 42 m. Sai 2 pedaços da primeira corda e 3 da segunda.</p>
+<p>Há dois métodos. No primeiro, decompõem-se os números em fatores primos e multiplicam-se apenas os fatores comuns, cada um com o menor expoente. Com 84 = 2<sup>2</sup> × 3 × 7 e 126 = 2 × 3<sup>2</sup> × 7, os comuns são 2 (menor expoente 1), 3 (menor expoente 1) e 7 (expoente 1). O MDC é 2 × 3 × 7 = 42.</p>
+<p>O segundo método é o algoritmo de Euclides, útil com números grandes. Divide-se o maior pelo menor; depois, o divisor pelo resto, e assim por diante, até o resto zero. O último divisor é o MDC. Para 252 e 420: 420 = 1 × 252 + 168; 252 = 1 × 168 + 84; 168 = 2 × 84 + 0. O MDC é 84.</p>
+<p>Dois números cujo MDC é 1 são chamados primos entre si, mesmo que cada um não seja primo: 8 e 15 não têm fator comum. O MDC também simplifica frações até a forma irredutível: 252/420 tem MDC 84, e dividindo em cima e embaixo por 84, vem 3/5.</p>
+<div class="box">Para o MDC, pegue só os fatores comuns e o menor expoente. Para o MMC, pegue todos os fatores e o maior expoente. Se confundir, o MDC nunca ultrapassa o menor dos números, e o MMC nunca é menor que o maior deles.</div>
+<h3>3. MMC: quando os ritmos voltam a coincidir</h3>
+<p>O mínimo múltiplo comum de dois ou mais números é o menor número, diferente de zero, que é múltiplo de todos eles. A imagem útil é a de dois sinais que repetem em ritmos diferentes. Um apita a cada 4 minutos e o outro a cada 6. Apitaram juntos agora; quando apitarão juntos de novo? O primeiro apita nos minutos 4, 8, 12, 16...; o segundo, nos minutos 6, 12, 18... O primeiro minuto comum é o 12, que é o MMC de 4 e 6.</p>
+<p>Pela fatoração, o MMC é o produto de todos os fatores primos, comuns e não comuns, cada um com o maior expoente. Para 12, 18 e 30, tem-se 12 = 2<sup>2</sup> × 3, 18 = 2 × 3<sup>2</sup> e 30 = 2 × 3 × 5. O maior expoente do 2 é 2, o do 3 é 2 e o do 5 é 1. O MMC é 2<sup>2</sup> × 3<sup>2</sup> × 5 = 180.</p>
+<p>Há um jeito prático, a decomposição simultânea. Escrevem-se os números lado a lado e divide-se por primos, dividindo apenas os que forem divisíveis e repetindo os demais; o MMC é o produto dos divisores usados. Em 12, 18, 30: por 2, vira 6, 9, 15; por 2, vira 3, 9, 15; por 3, vira 1, 3, 5; por 3, vira 1, 1, 5; por 5, vira 1, 1, 1. O produto 2 × 2 × 3 × 3 × 5 é 180.</p>
+<p>Quando os números são primos entre si, o MMC é o produto deles: MMC(3, 5) = 15. Quando um é múltiplo do outro, o MMC é o maior: MMC(5, 10) = 10.</p>
+<h3>4. A relação entre MMC e MDC</h3>
+<p>Para dois números a e b, vale que MDC(a, b) × MMC(a, b) = a × b. A razão está na fatoração: de cada primo, o MDC leva o menor expoente e o MMC leva o maior, e juntos usam os dois expoentes, que é exatamente o que o produto a × b faz. Com 12 e 18: MDC = 6, MMC = 36, e 6 × 36 = 216 = 12 × 18.</p>
+<p>A relação resolve um tipo clássico de questão: dados o MDC, o MMC e um dos números, achar o outro. Se o MDC de dois números é 6, o MMC é 60 e um deles é 12, o outro é 6 × 60 ÷ 12 = 30. Também mostra que o MDC divide o MMC e que o MMC é múltiplo de ambos. A relação vale para dois números; com três ou mais, não vale.</p>
+<h3>5. Como reconhecer o problema</h3>
+<p>A dificuldade da prova está em saber qual ferramenta usar. O texto da questão costuma dar o sinal.</p>
+<p>Use o MDC quando o enunciado fala em dividir, repartir, cortar ou agrupar em partes iguais, sem sobra, e pede o maior tamanho ou o maior número de grupos. As palavras são “o maior possível”, “o maior número de equipes”, “pedaços iguais”, “sem sobrar”.</p>
+<p>Use o MMC quando o enunciado fala em eventos que se repetem e voltam a coincidir, ou em achar o menor número que seja múltiplo de vários. As palavras são “de quanto em quanto tempo”, “novamente juntos”, “o menor número”, “pela primeira vez”.</p>
+<p>Exemplo resolvido 1, com MDC. Uma equipe tem 72 coletes e 108 lanternas, que serão distribuídos em kits iguais, sem sobras. Qual o maior número de kits? Como a repartição é em partes iguais e se quer o maior número de kits, é MDC(72, 108). Fatorando, 72 = 2<sup>3</sup> × 3<sup>2</sup> e 108 = 2<sup>2</sup> × 3<sup>3</sup>. O MDC é 2<sup>2</sup> × 3<sup>2</sup> = 36 kits, cada um com 2 coletes e 3 lanternas.</p>
+<p>Exemplo resolvido 2, com MMC. Duas viaturas passam por um cruzamento, uma a cada 10 minutos e outra a cada 15. Passaram juntas às 8h. Quando passam juntas de novo? Como os ritmos voltam a coincidir, é MMC(10, 15) = 30. Passam juntas de novo às 8h30.</p>
+<p>Exemplo resolvido 3, com resto. Qual o menor número natural maior que 1 que, dividido por 4, por 6 e por 9, deixa sempre resto 1? Se sobra 1 em cada divisão, então o número menos 1 é múltiplo de 4, de 6 e de 9. O menor múltiplo comum é MMC(4, 6, 9) = 36. O número procurado é 36 + 1 = 37. Conferindo: 37 = 4 × 9 + 1 = 6 × 6 + 1 = 9 × 4 + 1.</p>
+<p>Exemplo resolvido 4, com MMC em contagem. Três ônibus saem às 6h de um terminal, com intervalos de 15, 20 e 24 minutos. Quantas vezes saem juntos entre 6h e 18h, contando a saída das 6h? O MMC(15, 20, 24) = 120 minutos, ou 2 horas. Em 12 horas cabem 6 intervalos de 2 horas, e as saídas coincidentes acontecem às 6h, 8h, 10h, 12h, 14h, 16h e 18h. São 7 vezes.</p>
+<h3>6. Questões resolvidas</h3>
+<h4>Questão 1</h4>
+<p>Duas luzes de sinalização piscam, uma a cada 8 segundos e outra a cada 12 segundos. Piscaram juntas num instante inicial. Piscarão juntas novamente depois de</p>
+<ol class="alts" type="A"><li>4 segundos.</li><li>20 segundos.</li><li>48 segundos.</li><li>24 segundos.</li><li>96 segundos.</li></ol>
+<p><strong>Resposta: D.</strong> Coincidência de ritmos pede MMC. 8 = 2<sup>3</sup> e 12 = 2<sup>2</sup> × 3, então MMC = 2<sup>3</sup> × 3 = 24 segundos.</p>
+<h4>Questão 2</h4>
+<p>Um posto tem 90 coletes e 150 lanternas, que serão distribuídos em kits idênticos, sem sobras, com o maior número possível de kits. Cada kit terá</p>
+<ol class="alts" type="A"><li>9 coletes e 15 lanternas.</li><li>3 coletes e 5 lanternas.</li><li>1 colete e 5 lanternas.</li><li>30 coletes e 50 lanternas.</li><li>6 coletes e 10 lanternas.</li></ol>
+<p><strong>Resposta: B.</strong> Partes iguais e o maior número de kits: MDC(90, 150) = 30 (90 = 2 × 3<sup>2</sup> × 5; 150 = 2 × 3 × 5<sup>2</sup>; comuns 2 × 3 × 5). Com 30 kits, cada um recebe 90 ÷ 30 = 3 coletes e 150 ÷ 30 = 5 lanternas.</p>
+<h4>Questão 3</h4>
+<p>O menor número natural que, dividido por 6, por 8 e por 10, deixa sempre resto 4 é</p>
+<ol class="alts" type="A"><li>120</li><li>244</li><li>64</li><li>84</li><li>124</li></ol>
+<p><strong>Resposta: E.</strong> O número menos 4 é múltiplo de 6, 8 e 10. MMC(6, 8, 10) = 120. O número é 120 + 4 = 124. Confira: 124 = 6 × 20 + 4 = 8 × 15 + 4 = 10 × 12 + 4.</p>
+<h4>Questão 4</h4>
+<p>O produto de dois números naturais é 1.296 e o MDC deles é 6. O MMC desses números é</p>
+<ol class="alts" type="A"><li>1.290</li><li>7.776</li><li>216</li><li>162</li><li>432</li></ol>
+<p><strong>Resposta: C.</strong> MDC × MMC = produto. MMC = 1.296 ÷ 6 = 216.</p>
+<h3>7. Na rotina do guarda</h3>
+<ul>
+<li><strong>Cruzamento de rondas:</strong> duas equipes com voltas de 20 e 30 minutos se reencontram a cada MMC(20, 30) = 60 minutos. Saber disso ajuda a marcar o momento da troca de informações.</li>
+<li><strong>Montagem de kits:</strong> 48 cones e 60 coletes viram, no máximo, MDC(48, 60) = 12 kits iguais.</li>
+<li><strong>Escala de folgas:</strong> quem folga a cada 4 dias e quem folga a cada 6 só têm folga juntos a cada MMC(4, 6) = 12 dias.</li>
+<li><strong>Fiscalizações periódicas:</strong> inspeções a cada 15 e a cada 21 dias coincidem a cada 105 dias, que é o MMC.</li>
+<li><strong>Fila de identificação:</strong> 36 homens e 48 mulheres podem formar, no máximo, MDC(36, 48) = 12 grupos com a mesma composição.</li>
+</ul>
+<h3>8. Onde a Vunesp pega</h3>
+<div class="tabela"><table>
+<thead>
+<tr>
+<th>Armadilha</th>
+<th>Como escapar</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Usar MMC em questão de dividir em partes iguais</td>
+<td>“O maior possível” e “sem sobra” pedem MDC</td>
+</tr>
+<tr>
+<td>Usar MDC em questão de coincidência</td>
+<td>“Novamente juntos” e “o menor” pedem MMC</td>
+</tr>
+<tr>
+<td>Esquecer de somar o resto no “menor número que deixa resto r”</td>
+<td>Número = MMC + r</td>
+</tr>
+<tr>
+<td>Dar como MMC um valor menor que algum dos números</td>
+<td>O MMC nunca é menor que o maior número</td>
+</tr>
+<tr>
+<td>Contar a saída inicial ou não, em “quantas vezes coincidem”</td>
+<td>Releia se o início “conta”; some 1 aos intervalos quando contar</td>
+</tr>
+<tr>
+<td>Pegar fatores comuns de maior expoente no MDC</td>
+<td>No MDC é o menor expoente; no MMC, o maior</td>
+</tr>
+<tr>
+<td>Aplicar MDC × MMC = produto com três números</td>
+<td>A relação só vale para dois números</td>
+</tr>
+<tr>
+<td>Tratar 1 como número primo</td>
+<td>Primo tem exatamente dois divisores</td>
+</tr>
+</tbody>
+</table></div>
+<h3>9. Quadro-resumo</h3>
+<div class="tabela"><table>
+<thead>
+<tr>
+<th>Ponto</th>
+<th>O essencial</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Primo</td>
+<td>Exatamente dois divisores; o 2 é o único par</td>
+</tr>
+<tr>
+<td>Fatoração</td>
+<td>Divide pelo menor primo até chegar a 1</td>
+</tr>
+<tr>
+<td>Quantidade de divisores</td>
+<td>Soma 1 a cada expoente e multiplica</td>
+</tr>
+<tr>
+<td>MDC</td>
+<td>Fatores comuns, menor expoente; partes iguais, o maior possível</td>
+</tr>
+<tr>
+<td>MMC</td>
+<td>Todos os fatores, maior expoente; ritmos que coincidem</td>
+</tr>
+<tr>
+<td>Relação</td>
+<td>MDC × MMC = a × b, só para dois números</td>
+</tr>
+<tr>
+<td>Resto igual r</td>
+<td>Número = MMC + r</td>
+</tr>
+<tr>
+<td>Euclides</td>
+<td>Divide o maior pelo menor, repete com o resto; o último divisor é o MDC</td>
+</tr>
+</tbody>
+</table></div>
+<p class="ref">Fontes: Edital 02/2026, Anexo I. Referências de base: Iezzi, Dolce e Murakami, <em>Fundamentos de Matemática Elementar</em>, v. 1; Dante, <em>Matemática: contexto e aplicações</em>. Exemplos criados para a aula; resultados recalculados em código.</p>
+`,
+"mt-3": `
+<span class="status">Versão 1 · em revisão</span>
+<p>Porcentagem é a ferramenta mais cobrada da prova de Matemática, porque aparece em quase tudo: preço, salário, estatística de ocorrências, tabelas e gráficos. A Vunesp cobra quatro habilidades: calcular a porcentagem de um valor, descobrir a taxa ou o total quando se conhece o resto, aplicar aumento e desconto, e encadear variações sucessivas. Os erros de prova quase sempre vêm de uma única confusão, a de somar percentuais que deveriam ser multiplicados. Esta aula constrói a ideia, depois a regra, e fecha com as armadilhas.</p>
+
+<h3>Mapa do assunto</h3>
+<figure class="fig">
+<svg viewBox="0 0 760 368" role="img" aria-label="Porcentagem: do fator multiplicador às armadilhas" font-size="13">
+<text x="24" y="28" font-size="16" font-weight="600">Porcentagem: do fator multiplicador às armadilhas</text>
+<rect class="ac" x="24" y="48" width="224" height="112" rx="8" style="stroke-width:1.5"/><text x="136" y="74" text-anchor="middle" font-weight="600">Por cento = por cem</text>
+<text x="136" y="96" text-anchor="middle" font-size="12">35% = 35/100 = 0,35</text>
+<text x="136" y="112" text-anchor="middle" font-size="12">“de” é vezes</text>
+<text x="136" y="128" text-anchor="middle" font-size="12">atalho: 10%, 1%, 50%</text>
+<text class="q" x="136" y="148" text-anchor="middle" font-size="12">seção 1</text>
+<rect class="ac" x="268" y="48" width="224" height="112" rx="8" style="stroke-width:1.5"/><text x="380" y="74" text-anchor="middle" font-weight="600">Parte, todo e taxa</text>
+<text x="380" y="96" text-anchor="middle" font-size="12">parte = taxa × todo</text>
+<text x="380" y="112" text-anchor="middle" font-size="12">taxa = parte ÷ todo</text>
+<text x="380" y="128" text-anchor="middle" font-size="12">todo = parte ÷ taxa</text>
+<text class="q" x="380" y="148" text-anchor="middle" font-size="12">seção 2</text>
+<rect class="ac" x="512" y="48" width="224" height="112" rx="8" style="stroke-width:1.5"/><text x="624" y="74" text-anchor="middle" font-weight="600">Aumento e desconto</text>
+<text x="624" y="96" text-anchor="middle" font-size="12">aumento i: fator 1 + i</text>
+<text x="624" y="112" text-anchor="middle" font-size="12">desconto i: fator 1 − i</text>
+<text x="624" y="128" text-anchor="middle" font-size="12">variação = (f − i) ÷ i</text>
+<text class="q" x="624" y="148" text-anchor="middle" font-size="12">seção 3</text>
+<rect class="ac" x="24" y="176" width="224" height="112" rx="8" style="stroke-width:1.5"/><text x="136" y="202" text-anchor="middle" font-weight="600">Variações sucessivas</text>
+<text x="136" y="224" text-anchor="middle" font-size="12">multiplica os fatores</text>
+<text x="136" y="240" text-anchor="middle" font-size="12">não soma as taxas</text>
+<text x="136" y="256" text-anchor="middle" font-size="12">+20% e −20% = −4%</text>
+<text class="q" x="136" y="276" text-anchor="middle" font-size="12">seção 4</text>
+<rect class="ac" x="268" y="176" width="224" height="112" rx="8" style="stroke-width:1.5"/><text x="380" y="202" text-anchor="middle" font-weight="600">Valor original</text>
+<text x="380" y="224" text-anchor="middle" font-size="12">divide pelo fator</text>
+<text x="380" y="240" text-anchor="middle" font-size="12">cuidado com a base</text>
+<text x="380" y="256" text-anchor="middle" font-size="12">desfazer: 1 ÷ fator</text>
+<text class="q" x="380" y="276" text-anchor="middle" font-size="12">seção 5</text>
+<rect class="ac" x="512" y="176" width="224" height="112" rx="8" style="stroke-width:1.5"/><text x="624" y="202" text-anchor="middle" font-weight="600">Pontos percentuais</text>
+<text x="624" y="224" text-anchor="middle" font-size="12">diferença das taxas</text>
+<text x="624" y="240" text-anchor="middle" font-size="12">relativo: sobre a inicial</text>
+<text x="624" y="256" text-anchor="middle" font-size="12">mistura: soma das partes</text>
+<text class="q" x="624" y="276" text-anchor="middle" font-size="12">seção 5</text>
+<rect class="tint" x="24" y="304" width="712" height="44" rx="8"/><text x="380" y="331" text-anchor="middle" font-size="13">Na prova: pergunte “em relação a quê?” e multiplique fatores em vez de somar taxas</text>
+</svg>
+<figcaption>As três primeiras caixas formam o núcleo; a quarta é onde mais se erra; as duas últimas completam com o caminho de volta e com as comparações entre taxas.</figcaption>
+</figure>
+<h3>1. A ideia de “por cento”</h3>
+<p>Por cento quer dizer “por cem”. Dizer que 25% dos guardas estão de folga é dizer que, a cada 100 guardas, 25 estão de folga; é a fração 25/100, ou 1/4, ou o decimal 0,25. Porcentagem, fração e decimal são três nomes para a mesma coisa. Para passar de porcentagem a decimal, divide-se por 100, ou seja, anda-se com a vírgula duas casas para a esquerda: 35% = 0,35; 8% = 0,08; 150% = 1,5. Para voltar, multiplica-se por 100.</p>
+<p>Calcular uma porcentagem de um valor é multiplicar o valor pelo decimal. A palavra “de” continua sendo multiplicação: 20% de 300 é 0,20 × 300 = 60. Alguns atalhos poupam conta. Para achar 10%, divida por 10. Para 1%, divida por 100. Para 50%, divida por 2; para 25%, divida por 4. Os demais saem por combinação: 15% de 80 é 10% mais a metade de 10%, ou 8 + 4 = 12. Porcentagem acima de 100% é válida e significa mais que o todo: 150% de 40 é 60.</p>
+<p>Se o todo é o preço de um produto, 100% é o preço inteiro. Um produto que custa R$ 200,00 e tem 15% de desconto custa 85% do preço original, porque 100% − 15% = 85%. Guarde esta ideia, porque ela vai simplificar tudo mais adiante: em vez de calcular o desconto e subtrair, calcule direto quanto sobra.</p>
+<h3>2. Parte, todo e taxa</h3>
+<p>Todo problema simples de porcentagem tem três ingredientes: o todo, a parte e a taxa. A relação entre eles é parte = taxa × todo. A pergunta é que ingrediente falta, e há três versões.</p>
+<p>Na primeira, falta a parte. Quanto é 30% de 250? A parte é 0,30 × 250 = 75. Na segunda, falta a taxa. 15 é quantos por cento de 60? A taxa é parte ÷ todo = 15 ÷ 60 = 0,25, ou 25%. Na terceira, falta o todo. Se 35% de um número é 70, que número é esse? O todo é parte ÷ taxa = 70 ÷ 0,35 = 200.</p>
+<p>A dica de leitura é perguntar “em relação a quê?”. A palavra que vem depois de “de”, ou depois de “em relação a”, é o todo, e é por ele que se divide quando se quer a taxa. Se 8 pessoas são aprovadas num grupo de 32, a taxa de aprovação é 8 ÷ 32 = 25%, e não 32 ÷ 8.</p>
+<p>Exemplo resolvido. Em um grupo de 60 guardas, 45% são mulheres. Quantos são homens? Há dois caminhos. No primeiro, calcula-se o número de mulheres, 0,45 × 60 = 27, e subtrai-se: 60 − 27 = 33 homens. No segundo, usa-se o complemento: se 45% são mulheres, 55% são homens, e 0,55 × 60 = 33. O segundo caminho é mais curto e é o que a prova premia.</p>
+<h3>3. Aumento e desconto: o fator multiplicador</h3>
+<p>Aumentar um valor em 15% é ficar com 100% + 15% = 115% dele, e 115% é 1,15. Descontar 20% é ficar com 100% − 20% = 80% dele, e 80% é 0,80. Esses números, 1,15 e 0,80, são os fatores multiplicadores. Em vez de calcular o aumento e depois somar, multiplica-se uma só vez.</p>
+<p>Com taxa de aumento i, o fator é 1 + i. Com taxa de desconto i, o fator é 1 − i. Assim, um produto de R$ 80,00 com aumento de 15% passa a custar 80 × 1,15 = R$ 92,00. Um produto de R$ 150,00 com desconto de 20% passa a custar 150 × 0,80 = R$ 120,00. Aumento de 30% tem fator 1,30; desconto de 15% tem fator 0,85; aumento de 100% tem fator 2, porque o valor dobra.</p>
+<p>O fator multiplicador também resolve a pergunta inversa, a de descobrir a variação. Se um valor passou de 80 para 100, o fator é 100 ÷ 80 = 1,25, e a variação é fator − 1 = 0,25, um aumento de 25%. Se passou de 100 para 80, o fator é 0,80, e a variação é −20%, uma queda de 20%. Note que a mesma diferença de 20 unidades vale 25% quando a base é 80 e 20% quando a base é 100. A variação percentual é sempre calculada sobre o valor inicial.</p>
+<div class="box">Variação percentual = (valor final − valor inicial) ÷ valor inicial. A base é o valor de antes, nunca o de depois.</div>
+<h3>4. Variações sucessivas</h3>
+<p>Quando há dois aumentos, dois descontos ou um aumento seguido de desconto, os percentuais não se somam. O segundo incide sobre o resultado do primeiro, e por isso os fatores se multiplicam. A razão é simples: depois do primeiro aumento, o valor é outro, e a segunda porcentagem é calculada sobre esse valor novo.</p>
+<p>O caso que a prova ama é o de um aumento de 20% seguido de um desconto de 20%. Muita gente conclui que o valor volta ao que era. Não volta. Os fatores são 1,20 e 0,80, e 1,20 × 0,80 = 0,96. O resultado final é 96% do valor original, uma queda de 4%. Com um preço de R$ 100,00, o aumento leva a R$ 120,00, e 20% de 120 é 24, que deixa R$ 96,00. O desconto de 20% foi aplicado sobre uma base maior, e por isso tirou mais do que o aumento acrescentou.</p>
+<p>O mesmo vale para dois descontos. Um desconto de 10% seguido de outro de 20% tem fator 0,90 × 0,80 = 0,72, e o desconto total é 1 − 0,72 = 28%, não 30%. Dois aumentos de 10% têm fator 1,10 × 1,10 = 1,21, ou seja, aumento total de 21%. Três descontos de 10% têm fator 0,90<sup>3</sup> = 0,729, e o desconto total é 27,1%.</p>
+<p>O mesmo raciocínio explica o crescimento composto: um valor que cresce 10% ao mês durante 3 meses fica multiplicado por 1,10<sup>3</sup> = 1,331, ou seja, 33,1% de aumento total, e não 30%.</p>
+<p>Exemplo resolvido. O salário de R$ 2.400,00 recebeu um aumento de 15% e, no mês seguinte, outro de 10%. Qual o salário final? Os fatores são 1,15 e 1,10. Então 2.400 × 1,15 = 2.760 e 2.760 × 1,10 = 3.036. O salário final é R$ 3.036,00, e o aumento total foi de 26,5%, e não de 25%, porque 1,15 × 1,10 = 1,265.</p>
+<h3>5. Voltar ao valor original e outras armadilhas</h3>
+<p>Se um valor foi multiplicado por um fator, para recuperar o original divide-se pelo mesmo fator. Um produto que, depois de um aumento de 25%, custa R$ 150,00, tinha preço original de 150 ÷ 1,25 = R$ 120,00. Um produto que, depois de um desconto de 20%, foi vendido por R$ 144,00, custava 144 ÷ 0,80 = R$ 180,00. O erro típico é calcular 25% de 150 e subtrair, o que dá R$ 112,50, porque o aumento incidiu sobre o valor antigo e não sobre o novo.</p>
+<p>Pela mesma lógica, o aumento que desfaz um desconto não é igual ao desconto. Depois de um desconto de 20%, o valor é 0,80 do original, e para voltar a 1 é preciso multiplicar por 1 ÷ 0,80 = 1,25, ou seja, um aumento de 25%. Da mesma forma, um aumento de 25% é desfeito por um desconto de 20%, porque 1,25 × 0,80 = 1.</p>
+<p>Outra confusão é entre porcentagem e pontos percentuais. Se a taxa de aprovação subiu de 40% para 55%, a diferença é de 15 pontos percentuais. Já o aumento relativo é de 15 ÷ 40 = 37,5%. Quando o enunciado diz “pontos percentuais”, é a subtração das taxas; quando diz “aumento de X%”, é a variação relativa.</p>
+<p>Por fim, em problemas de mistura, como 40 litros de uma solução a 30% de álcool com 60 litros de outra a 20%, somam-se as partes e divide-se pelo total. O álcool é 0,30 × 40 + 0,20 × 60 = 12 + 12 = 24 litros, num total de 100 litros: concentração de 24%. A média simples dos percentuais, 25%, estaria errada, porque as quantidades são diferentes.</p>
+<h3>6. Questões resolvidas</h3>
+<h4>Questão 1</h4>
+<p>O preço de uma jaqueta recebeu dois descontos sucessivos, o primeiro de 20% e o segundo de 10%. O desconto total sobre o preço original foi de</p>
+<ol class="alts" type="A"><li>30%</li><li>32%</li><li>27%</li><li>28%</li><li>25%</li></ol>
+<p><strong>Resposta: D.</strong> Fatores 0,80 e 0,90: 0,80 × 0,90 = 0,72. O preço final é 72% do original, e o desconto total é 100% − 72% = 28%. Os descontos não se somam.</p>
+<h4>Questão 2</h4>
+<p>Em uma sala, 40% dos candidatos são mulheres. Depois de 10 homens saírem, as mulheres passam a ser 50% dos presentes. O número inicial de candidatos era</p>
+<ol class="alts" type="A"><li>50</li><li>40</li><li>60</li><li>80</li><li>100</li></ol>
+<p><strong>Resposta: A.</strong> Seja N o total. Mulheres: 0,4N; homens: 0,6N. Saindo 10 homens, as mulheres (0,4N) igualam os homens restantes (0,6N − 10). Então 0,4N = 0,6N − 10, e 0,2N = 10, logo N = 50. Conferindo: 20 mulheres e 30 homens; saem 10, ficam 20 e 20.</p>
+<h4>Questão 3</h4>
+<p>Depois de um aumento de 25%, um produto passou a custar R$ 150,00. O preço antes do aumento era</p>
+<ol class="alts" type="A"><li>R$ 112,50</li><li>R$ 125,00</li><li>R$ 120,00</li><li>R$ 130,00</li><li>R$ 187,50</li></ol>
+<p><strong>Resposta: C.</strong> O preço novo é 125% do antigo: 1,25 × antigo = 150, então antigo = 150 ÷ 1,25 = 120. O erro seria tirar 25% de 150, que dá 112,50, porque os 25% incidiram sobre o preço antigo.</p>
+<h4>Questão 4</h4>
+<p>A taxa de aprovação em um curso passou de 40% para 55%. É correto afirmar que a taxa</p>
+<ol class="alts" type="A"><li>aumentou 15%, em termos relativos.</li><li>aumentou 15 pontos percentuais, ou 37,5% em termos relativos.</li><li>aumentou 15 pontos percentuais, ou 15% em termos relativos.</li><li>aumentou 37,5 pontos percentuais.</li><li>aumentou 27,5%, em termos relativos.</li></ol>
+<p><strong>Resposta: B.</strong> A diferença entre as taxas é 55 − 40 = 15 pontos percentuais. A variação relativa é 15 ÷ 40 = 0,375, ou 37,5%. Pontos percentuais e porcentagem são medidas diferentes.</p>
+<h3>7. Na rotina do guarda</h3>
+<ul>
+<li><strong>Estatística de ocorrências:</strong> “os furtos caíram 20% em relação ao semestre anterior” exige calcular sobre o valor do semestre anterior. Se foram 250 e caíram 20%, passaram a 200.</li>
+<li><strong>Compras do órgão:</strong> em uma licitação, dois descontos sucessivos de 10% e 5% não valem 15%; valem 1 − 0,90 × 0,95 = 14,5%.</li>
+<li><strong>Relatório de efetivo:</strong> “45% do efetivo é feminino” vira número de pessoas só depois de multiplicar pelo total.</li>
+<li><strong>Orçamento de combustível:</strong> um reajuste de 8% sobre R$ 2.500,00 leva a R$ 2.700,00, e esse novo valor é a base do reajuste seguinte.</li>
+<li><strong>Leitura de gráficos e tabelas:</strong> “aumentou 10 pontos percentuais” e “aumentou 10%” são afirmações diferentes, e a prova costuma explorar a diferença.</li>
+</ul>
+<h3>8. Onde a Vunesp pega</h3>
+<div class="tabela"><table>
+<thead>
+<tr>
+<th>Armadilha</th>
+<th>Como escapar</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Somar 20% e −20% e dizer que volta ao original</td>
+<td>Multiplique os fatores: 1,20 × 0,80 = 0,96, queda de 4%</td>
+</tr>
+<tr>
+<td>Somar 10% e 20% de descontos como 30%</td>
+<td>Multiplique 0,90 × 0,80 = 0,72, desconto de 28%</td>
+</tr>
+<tr>
+<td>Calcular 25% sobre o preço novo para achar o original</td>
+<td>Divida o preço novo pelo fator: 150 ÷ 1,25</td>
+</tr>
+<tr>
+<td>Calcular a variação sobre o valor final</td>
+<td>A base é sempre o valor inicial</td>
+</tr>
+<tr>
+<td>Confundir pontos percentuais com porcentagem</td>
+<td>De 40% para 55% são 15 pontos e 37,5% relativos</td>
+</tr>
+<tr>
+<td>Fazer a média simples de percentuais com bases diferentes</td>
+<td>Some as partes e divida pelo total</td>
+</tr>
+<tr>
+<td>Achar que 100% mais 100% é o triplo</td>
+<td>Aumento de 100% dobra: fator 2</td>
+</tr>
+<tr>
+<td>Dar a resposta como fração quando pedem porcentagem</td>
+<td>Multiplique por 100 e escreva o símbolo %</td>
+</tr>
+</tbody>
+</table></div>
+<h3>9. Quadro-resumo</h3>
+<div class="tabela"><table>
+<thead>
+<tr>
+<th>Ponto</th>
+<th>O essencial</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Por cento</td>
+<td>Fração de denominador 100: 35% = 35/100 = 0,35</td>
+</tr>
+<tr>
+<td>Parte, todo e taxa</td>
+<td>parte = taxa × todo; taxa = parte ÷ todo; todo = parte ÷ taxa</td>
+</tr>
+<tr>
+<td>Aumento de i</td>
+<td>Fator 1 + i</td>
+</tr>
+<tr>
+<td>Desconto de i</td>
+<td>Fator 1 − i</td>
+</tr>
+<tr>
+<td>Variação percentual</td>
+<td>(final − inicial) ÷ inicial</td>
+</tr>
+<tr>
+<td>Variações sucessivas</td>
+<td>Multiplicam-se os fatores; não se somam as taxas</td>
+</tr>
+<tr>
+<td>Voltar ao original</td>
+<td>Divide-se pelo fator</td>
+</tr>
+<tr>
+<td>Pontos percentuais</td>
+<td>Diferença entre duas taxas</td>
+</tr>
+</tbody>
+</table></div>
+<p class="ref">Fontes: Edital 02/2026, Anexo I. Referências de base: Iezzi, Dolce e Murakami, <em>Fundamentos de Matemática Elementar</em>, v. 11 (Matemática comercial); Dante, <em>Matemática: contexto e aplicações</em>. Exemplos criados para a aula; resultados recalculados em código.</p>
+`,
 "gm-1": `
 <span class="status">Versão 1 · em revisão</span>
 <p>A Lei 13.022/2014, o Estatuto Geral das Guardas Municipais, é a norma que define o que a guarda é e o que ela pode fazer em qualquer cidade do país. Esta primeira parte cobre os arts. 1º a 5º: natureza, princípios e competências. A Vunesp cobra quase sempre a letra da lei, trocando uma palavra para ver se o candidato percebe.</p>
@@ -5096,6 +5458,132 @@ BANCO["mt-1"] = [
 {id:"m1-60",n:3,tx:"mt1b",e:"Se o total percorrido pela equipe no dia, manhã e tarde, tivesse sido feito em 5 horas de deslocamento, a velocidade média seria, em km/h, de",a:["6,2", "3,72", "7,44", "6,0", "18,6"],c:"Total: 18,6 + 12,4 = 31 km. Em 5 horas, 31 ÷ 5 = 6,2 km/h."}
 ];
 
+BANCO["mt-2"] = [
+{id:"m2-01",n:1,e:"O máximo divisor comum de 12 e 18 é",a:["6", "3", "2", "36", "1"],c:"12 = 2<sup>2</sup> × 3 e 18 = 2 × 3<sup>2</sup>. Comuns: 2 e 3, com menor expoente. MDC = 6."},
+{id:"m2-02",n:1,e:"O mínimo múltiplo comum de 4 e 6 é",a:["12", "2", "24", "10", "6"],c:"Múltiplos de 4: 4, 8, 12. Múltiplos de 6: 6, 12. O menor comum é 12."},
+{id:"m2-03",n:1,e:"Entre os números abaixo, o único que é primo é",a:["29", "27", "33", "39", "51"],c:"27 = 3<sup>3</sup>; 33 = 3 × 11; 39 = 3 × 13; 51 = 3 × 17. Só o 29 tem exatamente dois divisores."},
+{id:"m2-04",n:1,e:"A decomposição de 60 em fatores primos é",a:["2<sup>2</sup> × 3 × 5", "2 × 3 × 10", "4 × 15", "2 × 30", "2<sup>3</sup> × 3 × 5"],c:"60 ÷ 2 = 30; 30 ÷ 2 = 15; 15 ÷ 3 = 5; 5 ÷ 5 = 1. Logo 60 = 2<sup>2</sup> × 3 × 5."},
+{id:"m2-05",n:1,e:"O número de divisores positivos de 12 é",a:["6", "4", "5", "12", "3"],c:"Divisores: 1, 2, 3, 4, 6 e 12. Pela fatoração 2<sup>2</sup> × 3: (2 + 1)(1 + 1) = 6."},
+{id:"m2-06",n:1,e:"O mínimo múltiplo comum de 5 e 10 é",a:["10", "5", "15", "50", "2"],c:"10 já é múltiplo de 5. O MMC de um número e do seu múltiplo é o maior deles."},
+{id:"m2-07",n:1,e:"Os números 8 e 15 são primos entre si porque",a:["o MDC entre eles é 1.", "ambos são primos.", "o MMC entre eles é 1.", "ambos são ímpares.", "ambos são múltiplos de 1 e de 3."],c:"Primos entre si são os que não têm fator comum além do 1. 8 = 2<sup>3</sup> e 15 = 3 × 5, e o MDC é 1. O 8 e o 15 não são primos."},
+{id:"m2-08",n:1,e:"Entre os números abaixo, o divisível por 9 é",a:["4.527", "4.526", "4.525", "4.528", "4.529"],c:"Soma dos algarismos de 4.527: 4 + 5 + 2 + 7 = 18, múltiplo de 9."},
+{id:"m2-09",n:1,e:"Entre 20 e 40, a quantidade de múltiplos de 7 é",a:["3", "2", "4", "5", "6"],c:"21, 28 e 35."},
+{id:"m2-10",n:1,e:"O mínimo múltiplo comum de 3 e 5 é",a:["15", "8", "2", "1", "30"],c:"Primos entre si: o MMC é o produto, 3 × 5 = 15."},
+{id:"m2-11",n:1,e:"O máximo divisor comum de 24 e 36 é",a:["12", "6", "24", "72", "4"],c:"24 = 2<sup>3</sup> × 3 e 36 = 2<sup>2</sup> × 3<sup>2</sup>. Comuns, menor expoente: 2<sup>2</sup> × 3 = 12."},
+{id:"m2-12",n:1,e:"O mínimo múltiplo comum de 6 e 8 é",a:["24", "48", "2", "14", "12"],c:"6 = 2 × 3 e 8 = 2<sup>3</sup>. Maiores expoentes: 2<sup>3</sup> × 3 = 24."},
+{id:"m2-13",n:1,e:"O máximo divisor comum de 18 e 27 é",a:["9", "3", "54", "6", "18"],c:"18 = 2 × 3<sup>2</sup> e 27 = 3<sup>3</sup>. Comum: 3<sup>2</sup> = 9."},
+{id:"m2-14",n:1,e:"A decomposição de 84 em fatores primos é",a:["2<sup>2</sup> × 3 × 7", "2 × 3 × 14", "2<sup>3</sup> × 3 × 7", "4 × 21", "2 × 42"],c:"84 ÷ 2 = 42; 42 ÷ 2 = 21; 21 ÷ 3 = 7. Logo 84 = 2<sup>2</sup> × 3 × 7."},
+{id:"m2-15",n:1,e:"O mínimo múltiplo comum de 2, 3 e 4 é",a:["12", "24", "9", "6", "4"],c:"2 = 2; 3 = 3; 4 = 2<sup>2</sup>. Maiores expoentes: 2<sup>2</sup> × 3 = 12."},
+{id:"m2-16",n:1,e:"Um guarda passa por um ponto a cada 10 minutos e outro a cada 15 minutos. Passaram juntos às 8h. Passarão juntos novamente às",a:["8h30", "8h25", "8h10", "9h", "8h50"],c:"MMC(10, 15) = 30 minutos. 8h + 30 min = 8h30."},
+{id:"m2-17",n:1,e:"Uma equipe tem 20 cones e 30 coletes para montar kits iguais, sem sobra, com o maior número possível de kits. O número de kits é",a:["10", "5", "2", "60", "15"],c:"Partes iguais, o maior possível: MDC(20, 30) = 10 kits."},
+{id:"m2-18",n:1,e:"O número de divisores positivos de 7 é",a:["2", "1", "3", "7", "0"],c:"7 é primo: tem só o 1 e o 7."},
+{id:"m2-19",n:1,tx:"mt2a",e:"De acordo com o texto, as equipes A e B passam juntas pelo portão pela primeira vez, depois da saída, após",a:["36 minutos.", "6 minutos.", "30 minutos.", "18 minutos.", "216 minutos."],c:"MMC(12, 18) = 36 minutos."},
+{id:"m2-20",n:1,tx:"mt2b",e:"De acordo com o texto, o maior número possível de kits idênticos, sem sobras, é",a:["36", "12", "18", "24", "72"],c:"MDC(72, 108, 144): 72 = 2<sup>3</sup> × 3<sup>2</sup>, 108 = 2<sup>2</sup> × 3<sup>3</sup>, 144 = 2<sup>4</sup> × 3<sup>2</sup>. Comuns, menor expoente: 2<sup>2</sup> × 3<sup>2</sup> = 36."},
+{id:"m2-21",n:2,e:"O mínimo múltiplo comum de 12, 15 e 20 é",a:["60", "30", "120", "180", "20"],c:"12 = 2<sup>2</sup> × 3; 15 = 3 × 5; 20 = 2<sup>2</sup> × 5. Maiores expoentes: 2<sup>2</sup> × 3 × 5 = 60."},
+{id:"m2-22",n:2,e:"O máximo divisor comum de 48, 72 e 120 é",a:["24", "12", "8", "6", "48"],c:"48 = 2<sup>4</sup> × 3; 72 = 2<sup>3</sup> × 3<sup>2</sup>; 120 = 2<sup>3</sup> × 3 × 5. Comuns, menor expoente: 2<sup>3</sup> × 3 = 24."},
+{id:"m2-23",n:2,e:"O MDC de dois números é 6 e o MMC é 60. Se um deles é 12, o outro é",a:["30", "20", "10", "36", "5"],c:"MDC × MMC = produto. 6 × 60 = 360, e 360 ÷ 12 = 30."},
+{id:"m2-24",n:2,e:"O menor número natural, maior que 1, que dividido por 4, por 6 e por 9 deixa sempre resto 1 é",a:["37", "36", "35", "73", "13"],c:"O número menos 1 é múltiplo de 4, 6 e 9: MMC = 36. O número é 37."},
+{id:"m2-25",n:2,e:"O maior número que divide 90 e 126 sem deixar resto é",a:["18", "9", "6", "3", "36"],c:"90 = 2 × 3<sup>2</sup> × 5 e 126 = 2 × 3<sup>2</sup> × 7. MDC = 2 × 3<sup>2</sup> = 18."},
+{id:"m2-26",n:2,e:"O número de divisores positivos de 72 é",a:["12", "9", "8", "6", "24"],c:"72 = 2<sup>3</sup> × 3<sup>2</sup>. (3 + 1)(2 + 1) = 12."},
+{id:"m2-27",n:2,e:"O menor número natural, diferente de zero, divisível por 2, 3, 4, 5 e 6 é",a:["60", "30", "120", "12", "360"],c:"Maiores expoentes: 2<sup>2</sup> (do 4), 3, 5. 4 × 3 × 5 = 60."},
+{id:"m2-28",n:2,e:"O menor número natural diferente de zero que é, ao mesmo tempo, múltiplo de 12 e de 18 e um quadrado perfeito é",a:["36", "216", "72", "144", "18"],c:"MMC(12, 18) = 36 = 6<sup>2</sup>, já é quadrado perfeito."},
+{id:"m2-29",n:2,e:"Um piso retangular de 3,6 m por 4,8 m será coberto com ladrilhos quadrados, todos iguais e inteiros, sem cortes e com o maior lado possível. O lado do ladrilho, em centímetros, é",a:["120", "60", "30", "240", "12"],c:"MDC(360, 480): 360 = 2<sup>3</sup> × 3<sup>2</sup> × 5 e 480 = 2<sup>5</sup> × 3 × 5. Comuns: 2<sup>3</sup> × 3 × 5 = 120."},
+{id:"m2-30",n:2,e:"Dois relógios tocam, um a cada 45 minutos e outro a cada 60 minutos. Tocaram juntos às 6h. Tocarão juntos novamente às",a:["9h", "7h", "8h", "10h", "12h"],c:"MMC(45, 60) = 180 minutos = 3 horas. 6h + 3h = 9h."},
+{id:"m2-31",n:2,e:"Três lâmpadas piscam, a primeira a cada 4 s, a segunda a cada 6 s e a terceira a cada 10 s. Se piscaram juntas num instante, voltarão a piscar juntas depois de",a:["60 s.", "20 s.", "30 s.", "120 s.", "24 s."],c:"MMC(4, 6, 10): 4 = 2<sup>2</sup>, 6 = 2 × 3, 10 = 2 × 5. Resultado 2<sup>2</sup> × 3 × 5 = 60 s."},
+{id:"m2-32",n:2,e:"O valor de 2<sup>3</sup> × 3 × 5<sup>2</sup> é",a:["600", "120", "360", "300", "150"],c:"8 × 3 = 24 e 24 × 25 = 600."},
+{id:"m2-33",n:2,e:"O número de divisores positivos de 100 é",a:["9", "4", "6", "10", "25"],c:"100 = 2<sup>2</sup> × 5<sup>2</sup>. (2 + 1)(2 + 1) = 9."},
+{id:"m2-34",n:2,e:"O máximo divisor comum de 150 e 225 é",a:["75", "25", "15", "50", "45"],c:"150 = 2 × 3 × 5<sup>2</sup> e 225 = 3<sup>2</sup> × 5<sup>2</sup>. Comuns: 3 × 5<sup>2</sup> = 75."},
+{id:"m2-35",n:2,e:"O menor número de pessoas com o qual se podem formar grupos de 6, de 8 ou de 10 pessoas, sem sobra em qualquer caso, é",a:["120", "24", "60", "240", "30"],c:"MMC(6, 8, 10): 2<sup>3</sup> × 3 × 5 = 120."},
+{id:"m2-36",n:2,e:"O MDC entre 2<sup>3</sup> × 3<sup>2</sup> × 5 e 2<sup>2</sup> × 3<sup>3</sup> × 7 é",a:["2<sup>2</sup> × 3<sup>2</sup>", "2<sup>3</sup> × 3<sup>3</sup>", "2<sup>2</sup> × 3<sup>3</sup> × 5 × 7", "2 × 3", "2<sup>3</sup> × 3<sup>2</sup> × 5 × 7"],c:"No MDC, só fatores comuns, com menor expoente: 2<sup>2</sup> × 3<sup>2</sup> = 36."},
+{id:"m2-37",n:2,e:"O MMC entre 2<sup>3</sup> × 3<sup>2</sup> × 5 e 2<sup>2</sup> × 3<sup>3</sup> × 7 é",a:["7.560", "36", "2.520", "3.780", "15.120"],c:"No MMC, todos os fatores com maior expoente: 2<sup>3</sup> × 3<sup>3</sup> × 5 × 7 = 8 × 27 × 35 = 7.560."},
+{id:"m2-38",n:2,tx:"mt2a",e:"Depois da saída às 22h, as equipes A, B e C do texto passam juntas pelo portão pela primeira vez às",a:["1h.", "22h36.", "23h.", "23h30.", "0h."],c:"MMC(12, 18, 30) = 180 minutos = 3 horas. 22h + 3h = 1h."},
+{id:"m2-39",n:2,tx:"mt2a",e:"Considerando o texto, entre a saída das 22h e as 1h, incluindo as 1h, o número de vezes em que as equipes A e B passam juntas pelo portão é",a:["5", "4", "6", "3", "15"],c:"A e B coincidem a cada 36 minutos: aos 36, 72, 108, 144 e 180 minutos. São 5 passagens conjuntas."},
+{id:"m2-40",n:2,tx:"mt2b",e:"Segundo o texto, cada kit idêntico terá",a:["2 coletes, 3 lanternas e 4 apitos.", "3 coletes, 2 lanternas e 4 apitos.", "4 coletes, 6 lanternas e 8 apitos.", "1 colete, 3 lanternas e 4 apitos.", "36 coletes, 36 lanternas e 36 apitos."],c:"São 36 kits: 72 ÷ 36 = 2; 108 ÷ 36 = 3; 144 ÷ 36 = 4."},
+{id:"m2-41",n:3,e:"O MDC de dois números é 12 e o MMC é 180. Se um deles é 36, o outro é",a:["60", "45", "90", "30", "15"],c:"MDC × MMC = produto: 12 × 180 = 2.160. 2.160 ÷ 36 = 60."},
+{id:"m2-42",n:3,e:"O menor número natural que, dividido por 6, por 8 e por 12, deixa sempre resto 5 é",a:["29", "24", "19", "53", "47"],c:"O número menos 5 é múltiplo comum: MMC(6, 8, 12) = 24. O número é 24 + 5 = 29."},
+{id:"m2-43",n:3,e:"O menor número natural que, dividido por 5, por 6 e por 7, deixa sempre resto 3 é",a:["213", "210", "207", "423", "63"],c:"5, 6 e 7 não têm fatores em comum dois a dois, então MMC(5, 6, 7) = 5 × 6 × 7 = 210. O número é 210 + 3 = 213."},
+{id:"m2-44",n:3,e:"O maior número que, dividindo 200 e 250, deixa resto 8 e 10, respectivamente, é",a:["48", "24", "16", "12", "50"],c:"Se sobra 8 em 200, o divisor divide 192. Se sobra 10 em 250, divide 240. MDC(192, 240) = 48. Como 48 é maior que os restos 8 e 10, serve."},
+{id:"m2-45",n:3,e:"O menor número natural pelo qual se deve multiplicar 12 para obter um quadrado perfeito é",a:["3", "2", "4", "6", "12"],c:"12 = 2<sup>2</sup> × 3. Falta um fator 3 para o expoente do 3 ficar par. 12 × 3 = 36 = 6<sup>2</sup>."},
+{id:"m2-46",n:3,e:"O menor número natural pelo qual se deve multiplicar 90 para obter um cubo perfeito é",a:["300", "30", "900", "10", "60"],c:"90 = 2 × 3<sup>2</sup> × 5. Para ser cubo, todos os expoentes devem ser múltiplos de 3. Faltam 2<sup>2</sup>, 3 e 5<sup>2</sup>: 4 × 3 × 25 = 300, e 90 × 300 = 27.000 = 30<sup>3</sup>."},
+{id:"m2-47",n:3,e:"Entre os divisores positivos de 360, o número dos que são ímpares é",a:["6", "12", "24", "3", "9"],c:"360 = 2<sup>3</sup> × 3<sup>2</sup> × 5. Divisores ímpares não levam o fator 2: (2 + 1)(1 + 1) = 6."},
+{id:"m2-48",n:3,e:"O produto de dois números naturais é 1.296 e o MDC deles é 6. Então o MMC é",a:["216", "1.290", "7.776", "162", "432"],c:"MMC = produto ÷ MDC = 1.296 ÷ 6 = 216."},
+{id:"m2-49",n:3,e:"Três ônibus saem às 6h de um terminal, com intervalos de 15, 20 e 24 minutos. Contando a saída das 6h, o número de vezes em que saem juntos até as 18h, inclusive, é",a:["7", "6", "8", "12", "5"],c:"MMC(15, 20, 24) = 120 minutos. Em 12 horas (720 minutos) há 6 intervalos, e com a saída inicial são 7 vezes."},
+{id:"m2-50",n:3,e:"Duas engrenagens têm 18 e 30 dentes e giram acopladas. Partindo da posição em que dois dentes marcados estão em contato, elas voltam a essa posição quando a primeira tiver dado",a:["5 voltas e a segunda, 3.", "3 voltas e a segunda, 5.", "15 voltas e a segunda, 9.", "9 voltas e a segunda, 15.", "30 voltas e a segunda, 18."],c:"MMC(18, 30) = 90 dentes passados. Primeira: 90 ÷ 18 = 5 voltas. Segunda: 90 ÷ 30 = 3 voltas."},
+{id:"m2-51",n:3,e:"Três cordas de 84 m, 126 m e 210 m serão cortadas em pedaços iguais, os maiores possíveis, sem sobra. O número total de pedaços é",a:["10", "7", "21", "5", "42"],c:"MDC(84, 126, 210) = 42 m. Pedaços: 84 ÷ 42 = 2, 126 ÷ 42 = 3, 210 ÷ 42 = 5. Total 10."},
+{id:"m2-52",n:3,e:"A forma irredutível da fração 252/420 é",a:["3/5", "126/210", "6/10", "9/15", "21/35"],c:"MDC(252, 420) = 84. 252 ÷ 84 = 3 e 420 ÷ 84 = 5. As demais são equivalentes, porém não irredutíveis."},
+{id:"m2-53",n:3,e:"O menor número natural que, dividido por 12, por 15 e por 20, deixa resto 7 em todos os casos é",a:["67", "60", "53", "127", "47"],c:"MMC(12, 15, 20) = 60. O número é 60 + 7 = 67."},
+{id:"m2-54",n:3,e:"Entre 1 e 100, inclusive, o número de múltiplos comuns de 6 e de 8 é",a:["4", "3", "8", "12", "16"],c:"São os múltiplos de MMC(6, 8) = 24: 24, 48, 72 e 96."},
+{id:"m2-55",n:3,e:"O valor de 1/12 + 1/18 + 1/30 é",a:["31/180", "3/60", "1/20", "1/10", "3/180"],c:"MMC(12, 18, 30) = 180. 15/180 + 10/180 + 6/180 = 31/180."},
+{id:"m2-56",n:3,e:"O número de divisores positivos de 2<sup>4</sup> × 3<sup>2</sup> × 5 é",a:["30", "11", "15", "24", "45"],c:"(4 + 1)(2 + 1)(1 + 1) = 5 × 3 × 2 = 30."},
+{id:"m2-57",n:3,e:"O MDC de dois números naturais é 15 e o MMC é 210. Se um deles é 30, o outro é",a:["105", "70", "90", "210", "45"],c:"MDC × MMC = produto: 15 × 210 = 3.150. 3.150 ÷ 30 = 105."},
+{id:"m2-58",n:3,e:"Assinale a afirmação INCORRETA.",a:["O MDC de dois números naturais pode ser maior que o MMC deles.", "O MMC de dois números é divisível por cada um deles.", "O MDC de dois números primos entre si é 1.", "O MMC de um número e do seu dobro é o dobro desse número.", "O produto do MDC pelo MMC de dois números é igual ao produto dos dois números."],c:"O MDC nunca é maior que o MMC: o MDC divide o MMC. Todas as demais afirmações são verdadeiras."},
+{id:"m2-59",n:3,tx:"mt2a",e:"No texto, quando as três equipes passam juntas pelo portão pela primeira vez, as equipes A, B e C terão completado, respectivamente,",a:["15, 10 e 6 voltas.", "6, 10 e 15 voltas.", "12, 18 e 30 voltas.", "15, 9 e 6 voltas.", "30, 20 e 12 voltas."],c:"Passam juntas aos 180 minutos. A: 180 ÷ 12 = 15. B: 180 ÷ 18 = 10. C: 180 ÷ 30 = 6."},
+{id:"m2-60",n:3,tx:"mt2b",e:"Se a Secretaria do texto recebesse 180 apitos, em vez de 144, e mantivesse os 72 coletes e as 108 lanternas, montando de novo o maior número possível de kits idênticos, sem sobras, cada kit teria",a:["5 apitos.", "4 apitos.", "3 apitos.", "6 apitos.", "2 apitos."],c:"MDC(72, 108, 180) = 36, pois 180 = 2<sup>2</sup> × 3<sup>2</sup> × 5 mantém os fatores comuns 2<sup>2</sup> × 3<sup>2</sup>. São 36 kits, com 180 ÷ 36 = 5 apitos cada."}
+];
+
+BANCO["mt-3"] = [
+{id:"m3-01",n:1,e:"O valor de 10% de 200 é",a:["20", "10", "2", "100", "180"],c:"10% é a décima parte: 200 ÷ 10 = 20."},
+{id:"m3-02",n:1,e:"O valor de 25% de 80 é",a:["20", "25", "32", "40", "8"],c:"25% é a quarta parte: 80 ÷ 4 = 20."},
+{id:"m3-03",n:1,e:"O número decimal 0,35, escrito como porcentagem, é",a:["35%", "3,5%", "0,35%", "350%", "3%"],c:"Multiplica-se por 100: 0,35 × 100 = 35%."},
+{id:"m3-04",n:1,e:"A fração 3/4, escrita como porcentagem, é",a:["75%", "34%", "43%", "7,5%", "25%"],c:"3 ÷ 4 = 0,75 = 75%."},
+{id:"m3-05",n:1,e:"O valor de 20% de 300 é",a:["60", "6", "20", "600", "150"],c:"0,20 × 300 = 60."},
+{id:"m3-06",n:1,e:"O número 15 corresponde a quantos por cento de 60?",a:["25%", "15%", "40%", "4%", "9%"],c:"15 ÷ 60 = 0,25 = 25%."},
+{id:"m3-07",n:1,e:"Um produto de R$ 50,00 sofreu aumento de 10%. O novo preço é",a:["R$ 55,00", "R$ 45,00", "R$ 60,00", "R$ 51,00", "R$ 5,00"],c:"50 × 1,10 = 55."},
+{id:"m3-08",n:1,e:"Um produto de R$ 150,00 recebeu desconto de 20%. O novo preço é",a:["R$ 120,00", "R$ 130,00", "R$ 30,00", "R$ 170,00", "R$ 148,00"],c:"150 × 0,80 = 120."},
+{id:"m3-09",n:1,e:"O valor de 5% de 400 é",a:["20", "5", "40", "80", "2"],c:"10% de 400 é 40, então 5% é a metade: 20."},
+{id:"m3-10",n:1,e:"O fator multiplicador de um aumento de 30% é",a:["1,3", "0,3", "1,03", "0,7", "30"],c:"100% + 30% = 130% = 1,3."},
+{id:"m3-11",n:1,e:"O fator multiplicador de um desconto de 15% é",a:["0,85", "1,15", "0,15", "1,5", "0,015"],c:"100% − 15% = 85% = 0,85."},
+{id:"m3-12",n:1,e:"Um guarda recebe R$ 3.000,00 e terá aumento de 5%. O novo salário será",a:["R$ 3.150,00", "R$ 3.015,00", "R$ 3.050,00", "R$ 3.500,00", "R$ 3.105,00"],c:"3.000 × 1,05 = 3.150."},
+{id:"m3-13",n:1,e:"Em uma turma de 40 candidatos, 60% são mulheres. O número de mulheres é",a:["24", "16", "20", "60", "40"],c:"0,60 × 40 = 24."},
+{id:"m3-14",n:1,e:"A porcentagem 12%, escrita como número decimal, é",a:["0,12", "1,2", "0,012", "12", "0,0012"],c:"12 ÷ 100 = 0,12."},
+{id:"m3-15",n:1,e:"O valor de 1% de 2.500 é",a:["25", "250", "2,5", "0,25", "1"],c:"2.500 ÷ 100 = 25."},
+{id:"m3-16",n:1,e:"O valor de 150% de 40 é",a:["60", "6", "15", "150", "40"],c:"1,5 × 40 = 60."},
+{id:"m3-17",n:1,e:"Um produto de R$ 200,00 recebeu desconto de 10%. O valor a pagar é",a:["R$ 180,00", "R$ 190,00", "R$ 20,00", "R$ 220,00", "R$ 100,00"],c:"200 × 0,90 = 180."},
+{id:"m3-18",n:1,e:"O número 8 corresponde a quantos por cento de 32?",a:["25%", "4%", "40%", "8%", "256%"],c:"8 ÷ 32 = 0,25 = 25%."},
+{id:"m3-19",n:1,tx:"mt3a",e:"Segundo o texto, os 20% de queda dos furtos no segundo semestre correspondem, em ocorrências, a",a:["50", "25", "20", "200", "75"],c:"20% de 250 = 0,20 × 250 = 50."},
+{id:"m3-20",n:1,tx:"mt3a",e:"De acordo com o texto, o número de furtos de bicicleta no segundo semestre foi",a:["200", "230", "50", "275", "220"],c:"O fator da queda de 20% é 0,80: 250 × 0,80 = 200."},
+{id:"m3-21",n:2,e:"Depois de um aumento de 25%, um produto custa R$ 150,00. O preço antes do aumento era",a:["R$ 120,00", "R$ 112,50", "R$ 125,00", "R$ 130,00", "R$ 187,50"],c:"150 ÷ 1,25 = 120."},
+{id:"m3-22",n:2,e:"Depois de um desconto de 20%, um produto foi vendido por R$ 144,00. O preço original era",a:["R$ 180,00", "R$ 172,80", "R$ 164,00", "R$ 160,00", "R$ 115,20"],c:"144 ÷ 0,80 = 180."},
+{id:"m3-23",n:2,e:"Um aumento de 20% seguido de um desconto de 20% resulta em",a:["queda de 4%.", "manutenção do valor.", "aumento de 4%.", "queda de 2%.", "aumento de 2%."],c:"1,20 × 0,80 = 0,96, ou seja, 96% do original: queda de 4%."},
+{id:"m3-24",n:2,e:"Dois descontos sucessivos, de 10% e de 20%, equivalem a um desconto único de",a:["28%", "30%", "32%", "27%", "18%"],c:"0,90 × 0,80 = 0,72. Desconto de 1 − 0,72 = 28%."},
+{id:"m3-25",n:2,e:"Dois aumentos sucessivos de 10% equivalem a um aumento único de",a:["21%", "20%", "11%", "10,5%", "22%"],c:"1,10 × 1,10 = 1,21: aumento de 21%."},
+{id:"m3-26",n:2,e:"Um salário de R$ 2.400,00 teve aumento de 15% e, depois, de 10%. O salário final é",a:["R$ 3.036,00", "R$ 3.000,00", "R$ 3.024,00", "R$ 2.760,00", "R$ 3.060,00"],c:"2.400 × 1,15 = 2.760; 2.760 × 1,10 = 3.036."},
+{id:"m3-27",n:2,e:"Um valor passou de 80 para 100. O aumento percentual foi de",a:["25%", "20%", "80%", "125%", "10%"],c:"A base é o valor inicial: (100 − 80) ÷ 80 = 0,25."},
+{id:"m3-28",n:2,e:"Um valor passou de 100 para 80. A variação percentual foi de",a:["queda de 20%.", "queda de 25%.", "aumento de 20%.", "queda de 80%.", "queda de 10%."],c:"(80 − 100) ÷ 100 = −0,20."},
+{id:"m3-29",n:2,e:"Em uma prova de 50 questões, um candidato acertou 38. O percentual de acertos foi",a:["76%", "38%", "12%", "19%", "88%"],c:"38 ÷ 50 = 0,76."},
+{id:"m3-30",n:2,e:"A população de um bairro passou de 8.000 para 9.200 habitantes. O crescimento percentual foi de",a:["15%", "12%", "13%", "20%", "1.200%"],c:"Aumento de 1.200 sobre a base de 8.000: 1.200 ÷ 8.000 = 0,15."},
+{id:"m3-31",n:2,e:"Após um aumento de 20%, um produto custa R$ 360,00. O preço anterior era",a:["R$ 300,00", "R$ 288,00", "R$ 320,00", "R$ 340,00", "R$ 432,00"],c:"360 ÷ 1,20 = 300."},
+{id:"m3-32",n:2,e:"A taxa de aprovação de um curso passou de 40% para 55%. Essa mudança corresponde a um aumento de",a:["15 pontos percentuais.", "15%.", "37,5 pontos percentuais.", "27,5%.", "55 pontos percentuais."],c:"A diferença das taxas é 15 pontos percentuais. Em termos relativos, seriam 37,5%, mas a alternativa exata é a que diz “pontos”."},
+{id:"m3-33",n:2,e:"Uma loja dá 15% de desconto no pagamento à vista. Um item de R$ 640,00 sai à vista por",a:["R$ 544,00", "R$ 96,00", "R$ 625,00", "R$ 576,00", "R$ 736,00"],c:"640 × 0,85 = 544."},
+{id:"m3-34",n:2,e:"O valor de 20% de 30% de 500 é",a:["30", "100", "150", "75", "300"],c:"30% de 500 = 150; 20% de 150 = 30. Os fatores se multiplicam: 0,20 × 0,30 = 0,06, e 0,06 × 500 = 30."},
+{id:"m3-35",n:2,e:"Se 35% de um número é 70, esse número é",a:["200", "24,5", "245", "105", "35"],c:"O todo é parte ÷ taxa: 70 ÷ 0,35 = 200."},
+{id:"m3-36",n:2,e:"Um valor de R$ 250,00 recebeu acréscimo de 8%. O valor final é",a:["R$ 270,00", "R$ 258,00", "R$ 252,00", "R$ 280,00", "R$ 200,00"],c:"250 × 1,08 = 270."},
+{id:"m3-37",n:2,e:"Em um grupo de 60 guardas, 45% são mulheres. O número de homens é",a:["33", "27", "45", "15", "30"],c:"Homens são 55%: 0,55 × 60 = 33."},
+{id:"m3-38",n:2,tx:"mt3a",e:"Segundo o texto, no terceiro semestre o número de furtos de bicicleta foi de",a:["220", "225", "230", "210", "240"],c:"Fator 1,10 sobre o semestre anterior: 200 × 1,10 = 220."},
+{id:"m3-39",n:2,tx:"mt3a",e:"Segundo o texto, as bicicletas recuperadas entre as furtadas no primeiro semestre foram",a:["75", "30", "50", "175", "25"],c:"30% de 250 = 0,30 × 250 = 75."},
+{id:"m3-40",n:2,tx:"mt3b",e:"De acordo com o texto, o preço de cada camisa no fornecedor A, já com o desconto, é de",a:["R$ 68,00", "R$ 65,00", "R$ 12,00", "R$ 70,00", "R$ 72,00"],c:"80 × 0,85 = 68. Como a compra é de 200 unidades (acima de 150), vale o desconto."},
+{id:"m3-41",n:3,e:"Depois de um aumento de 25%, que desconto deve ser aplicado para o preço voltar ao valor original?",a:["20%", "25%", "15%", "30%", "12,5%"],c:"Fator do aumento 1,25. Para voltar a 1, é preciso multiplicar por 1 ÷ 1,25 = 0,80, um desconto de 20%."},
+{id:"m3-42",n:3,e:"Depois de um desconto de 20%, que aumento deve ser aplicado para o preço voltar ao valor original?",a:["25%", "20%", "15%", "30%", "80%"],c:"Fator 0,80. Para voltar a 1: 1 ÷ 0,80 = 1,25, um aumento de 25%."},
+{id:"m3-43",n:3,e:"Três descontos sucessivos de 10% equivalem a um desconto único de",a:["27,1%", "30%", "29%", "27%", "33,1%"],c:"0,90<sup>3</sup> = 0,729. Desconto de 1 − 0,729 = 0,271, ou 27,1%."},
+{id:"m3-44",n:3,e:"Um produto teve aumento de 30% e, depois, desconto de 30%. Em relação ao preço original, o preço final é",a:["9% menor.", "igual.", "9% maior.", "30% menor.", "3% menor."],c:"1,30 × 0,70 = 0,91. O preço final é 91% do original: queda de 9%."},
+{id:"m3-45",n:3,e:"Um salário teve dois aumentos sucessivos de 20% cada e hoje é de R$ 3.600,00. O salário antes dos dois aumentos era",a:["R$ 2.500,00", "R$ 2.571,43", "R$ 2.592,00", "R$ 3.000,00", "R$ 2.160,00"],c:"O fator total é 1,20 × 1,20 = 1,44. Salário original = 3.600 ÷ 1,44 = 2.500."},
+{id:"m3-46",n:3,e:"Um valor que cresce 10% ao mês, sempre sobre o valor do mês anterior, terá crescido, depois de 3 meses, um total de",a:["33,1%", "30%", "31%", "33%", "36,3%"],c:"1,10<sup>3</sup> = 1,331: aumento total de 33,1%."},
+{id:"m3-47",n:3,e:"Em uma sala, 40% dos candidatos são mulheres. Saindo 10 homens, as mulheres passam a ser 50% dos presentes. O número inicial de candidatos era",a:["50", "40", "60", "100", "80"],c:"Com N candidatos: 0,4N = 0,6N − 10, logo 0,2N = 10 e N = 50."},
+{id:"m3-48",n:3,e:"Uma mercadoria foi vendida por R$ 96,00, com lucro de 20% sobre o preço de custo. O custo foi de",a:["R$ 80,00", "R$ 76,80", "R$ 72,00", "R$ 115,20", "R$ 84,00"],c:"Preço de venda = 1,20 × custo. Custo = 96 ÷ 1,20 = 80."},
+{id:"m3-49",n:3,e:"Um produto custava R$ 200,00, teve aumento de 10% e, em seguida, desconto de 10%. O preço final é",a:["R$ 198,00", "R$ 200,00", "R$ 202,00", "R$ 180,00", "R$ 220,00"],c:"200 × 1,10 = 220; 220 × 0,90 = 198."},
+{id:"m3-50",n:3,e:"Sobre um salário bruto de R$ 5.000,00 incidem descontos de 11% e de 7,5%, ambos calculados sobre o valor bruto. O salário líquido é",a:["R$ 4.075,00", "R$ 4.050,00", "R$ 4.162,50", "R$ 4.100,00", "R$ 4.000,00"],c:"Descontos somados: 18,5% do bruto. 5.000 × (1 − 0,185) = 4.075. Aqui os percentuais se somam porque têm a mesma base, o salário bruto."},
+{id:"m3-51",n:3,e:"Um reservatório perde por evaporação 20% da água que tem no início de cada semana. Depois de duas semanas, a água restante é",a:["64% do volume inicial.", "60% do volume inicial.", "80% do volume inicial.", "40% do volume inicial.", "66% do volume inicial."],c:"0,80 × 0,80 = 0,64."},
+{id:"m3-52",n:3,e:"Se A é 20% maior que B, então B é, em relação a A, aproximadamente",a:["16,7% menor.", "20% menor.", "16% menor.", "25% menor.", "17,5% menor."],c:"A = 1,2B. B = A ÷ 1,2 = 0,8333A, ou seja, B vale cerca de 83,3% de A, 16,7% menor."},
+{id:"m3-53",n:3,e:"Misturam-se 40 litros de uma solução com 30% de álcool e 60 litros de outra com 20% de álcool. A concentração da mistura é",a:["24%", "25%", "20%", "26%", "22,5%"],c:"Álcool: 0,30 × 40 + 0,20 × 60 = 12 + 12 = 24 litros em 100 litros: 24%. A média simples, 25%, ignora as quantidades."},
+{id:"m3-54",n:3,e:"Um item foi comprado por R$ 120,00, com 20% de desconto sobre o preço de tabela. O preço de tabela era",a:["R$ 150,00", "R$ 144,00", "R$ 140,00", "R$ 96,00", "R$ 160,00"],c:"120 = 0,80 × tabela. Tabela = 120 ÷ 0,80 = 150."},
+{id:"m3-55",n:3,e:"As vendas de uma loja subiram 20% em um mês e caíram 25% no mês seguinte. No conjunto dos dois meses, as vendas",a:["caíram 10%.", "caíram 5%.", "subiram 5%.", "ficaram iguais.", "caíram 4%."],c:"1,20 × 0,75 = 0,90. Queda de 10%."},
+{id:"m3-56",n:3,e:"O preço de um produto foi reduzido em 10% e, depois, aumentado em x%, ficando 8% acima do preço original. O valor de x é",a:["20%", "18%", "19%", "16%", "17,5%"],c:"Fatores: 0,90 × (1 + x) = 1,08. Então 1 + x = 1,08 ÷ 0,90 = 1,20, e x = 20%."},
+{id:"m3-57",n:3,tx:"mt3a",e:"Segundo o texto, em relação ao número de furtos do primeiro semestre, o do terceiro semestre foi",a:["12% menor.", "10% menor.", "12% maior.", "8% menor.", "10% maior."],c:"220 ÷ 250 = 0,88. Queda de 12%. Os 20% de queda e os 10% de alta não se compensam."},
+{id:"m3-58",n:3,tx:"mt3a",e:"Se, no quarto semestre, os furtos caíssem 25% em relação ao terceiro, a variação total, do primeiro ao quarto semestre, seria de",a:["queda de 34%.", "queda de 35%.", "queda de 33%.", "queda de 25%.", "queda de 20%."],c:"Fatores: 0,80 × 1,10 × 0,75 = 0,66. Queda de 34%. Em números: 250 → 200 → 220 → 165."},
+{id:"m3-59",n:3,tx:"mt3b",e:"Segundo o texto, os dois descontos sucessivos do fornecedor B equivalem a um desconto único de",a:["14,5%", "15%", "5%", "10%", "14%"],c:"0,90 × 0,95 = 0,855. Desconto de 1 − 0,855 = 14,5%."},
+{id:"m3-60",n:3,tx:"mt3b",e:"Segundo o texto, ao comprar as 200 camisas, o fornecedor B resulta em um valor total",a:["R$ 775,00 menor que o do fornecedor A.", "R$ 775,00 maior que o do fornecedor A.", "R$ 1.000,00 menor que o do fornecedor A.", "igual ao do fornecedor A.", "R$ 200,00 menor que o do fornecedor A."],c:"A: 200 × 68 = 13.600. B: 75 × 0,90 × 0,95 = 64,125 por camisa; 200 × 64,125 = 12.825. Diferença: 13.600 − 12.825 = 775."}
+];
+
 BANCO["gm-1"] = [
 {id:"g1-01",n:1,e:"A Lei 13.022/2014 institui normas gerais para as guardas municipais, disciplinando o",a:["§ 8º do art. 144 da Constituição Federal.", "§ 4º do art. 144 da Constituição Federal.", "art. 30 da Constituição Federal.", "art. 5º da Constituição Federal.", "§ 7º do art. 144 da Constituição Federal."],c:"Art. 1º."},
 {id:"g1-02",n:1,e:"Segundo a Lei 13.022/2014, as guardas municipais são instituições de caráter",a:["civil.", "militar.", "paramilitar.", "policial militar.", "auxiliar do Exército."],c:"Art. 2º."},
@@ -5228,6 +5716,10 @@ tg1: "<strong>Equipe da Guarda atende duas ocorrências na mesma noite</strong><
 tg2: "<strong>Município de Vale Verde discute a criação de sua guarda</strong><br><br>O prefeito de Vale Verde, cidade fictícia de 40 mil habitantes, anunciou que pretende criar a guarda municipal por decreto, com efetivo de 80 agentes, todos desarmados no primeiro momento. Para comandar a corporação no primeiro ano, ele indicou um coronel da reserva da polícia militar, sem vínculo com a guarda.<br><br>O projeto apresentado à imprensa prevê que os agentes usem as patentes de soldado, cabo e sargento e propõe dispensar a ouvidoria, “por se tratar de uma guarda pequena e desarmada”.<br><br>Para cobrir a falta de efetivo nos primeiros meses, a prefeitura estuda usar os serviços da guarda de Serra Alta, município vizinho que faz divisa com Vale Verde.",
 mt1a: "<strong>Guarda renova frota e reduz gasto com combustível</strong><br><br>A Guarda Municipal de Vila Nova, cidade fictícia, recebeu 12 viaturas novas. O tanque de cada uma comporta 50 litros. Em abril, uma delas gastou 3/5 do tanque na primeira semana e 1/4 do tanque na segunda. O litro do combustível custou R$ 6,40 no período. A Guarda informou ainda que, com a nova frota, a economia mensal estimada é de 0,15 do gasto anterior, que era de R$ 20.000,00.",
 mt1b: "<strong>Relatório de ronda</strong><br><br>Na manhã de terça-feira, a equipe 3 da Guarda Municipal percorreu 18,6 km em ronda preventiva pelos parques da região norte. À tarde, percorreu 2/3 da distância feita pela manhã, em trajeto pelas escolas do bairro. A viatura saiu da base às 7h e retornou às 12h, na ronda da manhã.",
+mt2a: "<strong>Escala de rondas do Parque Linear</strong><br><br>Três equipes da Guarda Municipal fazem rondas circulares no Parque Linear, partindo juntas do portão principal às 22h. A equipe A completa uma volta a cada 12 minutos; a equipe B, a cada 18 minutos; e a equipe C, a cada 30 minutos. Sempre que duas ou mais equipes passam juntas pelo portão, aproveitam para trocar informações.",
+mt2b: "<strong>Distribuição de material</strong><br><br>A Secretaria de Segurança recebeu 72 coletes, 108 lanternas e 144 apitos. O material será distribuído em kits idênticos, sem sobra de nenhum item, com o maior número possível de kits.",
+mt3a: "<strong>Furtos de bicicleta caem após campanha de registro</strong><br><br>Segundo balanço da Guarda Municipal de Vila Nova, cidade fictícia, os furtos de bicicleta somaram 250 ocorrências no primeiro semestre. Após uma campanha de registro das bicicletas, o número caiu 20% no segundo semestre. No terceiro semestre, houve aumento de 10% em relação ao segundo. Das bicicletas furtadas no primeiro semestre, 30% foram recuperadas.",
+mt3b: "<strong>Compra de camisas de uniforme</strong><br><br>A Guarda Municipal de Vila Nova pretende comprar 200 camisas de uniforme. O fornecedor A cobra R$ 80,00 por camisa e oferece 15% de desconto para compras acima de 150 unidades. O fornecedor B cobra R$ 75,00 por camisa e oferece dois descontos sucessivos: 10% e, em seguida, mais 5% sobre o valor já reduzido.",
 tp: "<strong>Guarda vistoria quiosques da orla do lago</strong><br><br>A Guarda Municipal procedeu, na manhã de ontem, à vistoria dos quiosques instalados às margens do lago do parque. A ação atende a um pedido dos frequentadores, que reclamavam do som alto nos fins de semana.<br><br>Os comerciantes foram informados das novas regras e terão 15 dias para se adequar. Segundo a coordenação, o descumprimento implica multa e, em caso de reincidência, a suspensão da licença.<br><br>A medida agradou aos moradores do entorno, com quem a Guarda se reuniu na semana passada. A corporação prefere orientar a multar, mas lembra que as regras a que todos devem obedecer estão afixadas em cada quiosque.",
 tq: "<strong>Guarda encontra idoso desaparecido</strong><br><br>Um idoso de 78 anos que estava desaparecido desde a manhã de domingo foi encontrado por agentes da Guarda Municipal na tarde de ontem. Os guardas avistaram-no sentado em um banco da praça central, confuso e com frio.<br><br>Segundo a corporação, a equipe aproximou-se com calma, ofereceu-lhe água e conversou com ele até que se lembrasse do nome da filha. Não se sabe ainda como ele chegou ao centro.<br><br>A família agradeceu aos agentes e disse que nunca se esquecerá do cuidado com que o idoso foi tratado. Encaminhá-lo-ão, nos próximos dias, a uma avaliação médica.",
 tr: "<strong>Guarda reforça rondas no terminal à noite</strong><br><br>A partir da próxima segunda-feira, a Guarda Municipal reforçará as rondas no terminal central, das 18h às 23h. A medida atende às reclamações de passageiros, que relataram furtos à saída das plataformas.<br><br>Os agentes circularão a pé e ficarão à disposição dos usuários para qualquer orientação. Segundo a coordenação, a operação deve durar de 10 a 30 de novembro e poderá ser estendida a outros terminais.<br><br>Há duas semanas, a corporação já havia instalado uma base móvel à frente da bilheteria. Quem precisar de ajuda deve dirigir-se a qualquer agente uniformizado.",
