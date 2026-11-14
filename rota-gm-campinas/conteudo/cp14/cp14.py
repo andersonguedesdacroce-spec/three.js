@@ -16,7 +16,7 @@ A concussão é exigir, para si ou para outrem, direta ou indiretamente, ainda q
 
 O excesso de exação é exigir tributo ou contribuição social que sabe ou deveria saber indevido, ou, quando devido, empregar na cobrança meio vexatório ou gravoso que a lei não autoriza, com reclusão de três a oito anos e multa. E, se o funcionário desvia, em proveito próprio ou de outrem, o que recebeu indevidamente para recolher aos cofres públicos, a pena é de dois a doze anos e multa.
 """
-S[2]="## 2. Corrupção passiva\n\n"+L("art. 317, caput","Art. 317. Solicitar ou receber","§ 1º A pena é aumentada")+"\n\n"+L("art. 317, §§ 1º e 2º","§ 1º A pena é aumentada","Facilitação de contrabando")+"""
+S[2]="## 2. Corrupção passiva\n\n"+L("art. 317, caput","Art. 317. Solicitar ou receber","§ 1º A pena é aumentada")+"\n\n"+L("art. 317, §§ 1º e 2º","§ 1º A pena é aumentada de um terço, se, em conseqüência da vantagem","Facilitação de contrabando")+"""
 
 A corrupção passiva é solicitar ou receber, para si ou para outrem, direta ou indiretamente, ainda que fora da função ou antes de assumi-la, mas em razão dela, vantagem indevida, ou aceitar promessa de tal vantagem. A pena é de reclusão de dois a doze anos e multa, a mesma da concussão. Os verbos são três: solicitar (pedir), receber e aceitar promessa. É um crime que se consuma com a solicitação, com o recebimento ou com a aceitação, e não depende de o ato ser praticado depois.
 
