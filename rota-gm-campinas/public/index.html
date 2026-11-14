@@ -358,7 +358,9 @@ const TRILHAS = [
   ["Infrações","Natureza, pontuação e infrações mais cobradas"],
   ["Penalidades e medidas administrativas","Advertência, multa, suspensão, cassação, retenção e remoção"],
   ["Processo administrativo","Autuação, notificação, defesa e recursos"],
-  ["Crimes de trânsito","Disposições gerais e crimes em espécie"]]},
+  ["Crimes de trânsito","Disposições gerais e crimes em espécie"],
+  ["Demais infrações","Ultrapassagem, preferência, luzes, documentos, motos, celular, pedestres e ciclistas"],
+  ["Conceitos e definições","Anexo I: vias, manobras, imobilizações, veículos e agentes"]]},
  {id:"eca", bloco:"Conhecimentos Específicos", nome:"Estatuto da Criança e do Adolescente", postos:[
   ["Disposições preliminares","Arts. 1º a 6º"],
   ["Direito à liberdade, ao respeito e à dignidade","Arts. 15 a 18-B"],
@@ -383,7 +385,8 @@ const TRILHAS = [
   ["Taxas e poder de polícia","Arts. 77 a 79"]]},
  {id:"susp", bloco:"Conhecimentos Específicos", nome:"Sistema Único de Segurança Pública", postos:[
   ["Política Nacional de Segurança Pública e Defesa Social","Lei 13.675/2018: princípios, diretrizes e objetivos"],
-  ["Composição e funcionamento do Susp","Integrantes, governança, Sinesp e planos"]]},
+  ["Composição e funcionamento do Susp","Integrantes, governança, conselhos e planos"],
+  ["Metas, Sinesp, formação e valorização","Arts. 11 a 14, 24 a 27 e 36 a 45: Sinesp, Sievap e Pró-Vida"]]},
  {id:"amb", bloco:"Conhecimentos Específicos", nome:"Lei de Crimes Ambientais", postos:[
   ["Crimes contra a fauna","Arts. 29 a 37"],
   ["Crimes contra a flora","Arts. 38 a 53"],
@@ -12956,6 +12959,811 @@ const AULAS = {
 </table></div>
 <p class="ref">Fontes: Edital 02/2026, Anexo I; Lei 9.503/1997 (Código de Trânsito Brasileiro), arts. 291 a 312-B, texto consolidado da Câmara dos Deputados. Exemplos criados para a aula.</p>
 `,
+"ctb-11": `
+<span class="status">Versão 1 · em revisão</span>
+<p>O posto ctb-7 trouxe as infrações de maior incidência (habilitação, álcool, velocidade, estacionamento, sinal vermelho). Este posto completa o Capítulo XV com o que ainda falta e cai bastante em prova de guarda: ultrapassagens e preferências, luzes e buzina, som automotivo, documentos, transporte remunerado irregular, motocicletas, celular ao volante, bloqueio de via e as infrações de pedestres e ciclistas. O foco é a natureza da infração (leve, média, grave ou gravíssima) e a conduta exata descrita no artigo.</p>
+
+<h3>Mapa do assunto</h3>
+<figure class="fig">
+<svg viewBox="0 0 760 368" role="img" aria-label="CTB: demais infrações" font-size="13">
+<text x="24" y="28" font-size="16" font-weight="600">CTB: demais infrações</text>
+<rect class="ac" x="24" y="48" width="224" height="112" rx="8" style="stroke-width:1.5"/><text x="136" y="74" text-anchor="middle" font-weight="600">Ultrapassagem</text>
+<text x="136" y="96" text-anchor="middle" font-size="12">direita: média</text>
+<text x="136" y="112" text-anchor="middle" font-size="12">ônibus parado: gravíssima</text>
+<text x="136" y="128" text-anchor="middle" font-size="12">acostamento: gravíssima × 5</text>
+<text class="q" x="136" y="148" text-anchor="middle" font-size="12">seção 1</text>
+<rect class="ac" x="268" y="48" width="224" height="112" rx="8" style="stroke-width:1.5"/><text x="380" y="74" text-anchor="middle" font-weight="600">Preferência</text>
+<text x="380" y="96" text-anchor="middle" font-size="12">pedestre na faixa: gravíssima</text>
+<text x="380" y="112" text-anchor="middle" font-size="12">vulneráveis: gravíssima</text>
+<text x="380" y="128" text-anchor="middle" font-size="12">rotatória e quem vem da direita</text>
+<text class="q" x="380" y="148" text-anchor="middle" font-size="12">seção 1</text>
+<rect class="ac" x="512" y="48" width="224" height="112" rx="8" style="stroke-width:1.5"/><text x="624" y="74" text-anchor="middle" font-weight="600">Luzes e som</text>
+<text x="624" y="96" text-anchor="middle" font-size="12">luz alta na cidade: leve</text>
+<text x="624" y="112" text-anchor="middle" font-size="12">buzina 22h–6h: leve</text>
+<text x="624" y="128" text-anchor="middle" font-size="12">som alto: grave</text>
+<text class="q" x="624" y="148" text-anchor="middle" font-size="12">seção 2</text>
+<rect class="ac" x="24" y="176" width="224" height="112" rx="8" style="stroke-width:1.5"/><text x="136" y="202" text-anchor="middle" font-weight="600">Documentos</text>
+<text x="136" y="224" text-anchor="middle" font-size="12">esqueceu: leve</text>
+<text x="136" y="240" text-anchor="middle" font-size="12">recusou entregar: gravíssima</text>
+<text x="136" y="256" text-anchor="middle" font-size="12">falsificou: gravíssima</text>
+<text class="q" x="136" y="276" text-anchor="middle" font-size="12">seção 2</text>
+<rect class="ac" x="268" y="176" width="224" height="112" rx="8" style="stroke-width:1.5"/><text x="380" y="202" text-anchor="middle" font-weight="600">Moto e celular</text>
+<text x="380" y="224" text-anchor="middle" font-size="12">sem capacete: gravíssima</text>
+<text x="380" y="240" text-anchor="middle" font-size="12">criança < 10: gravíssima</text>
+<text x="380" y="256" text-anchor="middle" font-size="12">celular na mão: gravíssima</text>
+<text class="q" x="380" y="276" text-anchor="middle" font-size="12">seção 3</text>
+<rect class="ac" x="512" y="176" width="224" height="112" rx="8" style="stroke-width:1.5"/><text x="624" y="202" text-anchor="middle" font-weight="600">Pedestre e ciclista</text>
+<text x="624" y="224" text-anchor="middle" font-size="12">pedestre: leve 50%</text>
+<text x="624" y="240" text-anchor="middle" font-size="12">bicicleta na calçada: média</text>
+<text x="624" y="256" text-anchor="middle" font-size="12">bloquear via: gravíssima</text>
+<text class="q" x="624" y="276" text-anchor="middle" font-size="12">seção 3</text>
+<rect class="tint" x="24" y="304" width="712" height="44" rx="8"/><text x="380" y="331" text-anchor="middle" font-size="13">Na prova: identifique a natureza da infração e a medida administrativa</text>
+</svg>
+<figcaption>A primeira linha trata da ultrapassagem e da preferência; a segunda, das luzes, documentos, motos, pedestres e ciclistas.</figcaption>
+</figure>
+<h3>1. Ultrapassagem, preferência e manobras</h3>
+<blockquote class="lei"><p>Art. 200. Ultrapassar pela direita veículo de transporte coletivo ou de escolares, parado para embarque ou desembarque de passageiros, salvo quando houver refúgio de segurança para o pedestre: Infração - gravíssima; Penalidade - multa.</p><cite>art. 200</cite></blockquote>
+
+<blockquote class="lei"><p>Art. 201. Deixar de guardar a distância lateral de um metro e cinqüenta centímetros ao passar ou ultrapassar bicicleta: Infração - média; Penalidade - multa.</p><cite>art. 201</cite></blockquote>
+
+<blockquote class="lei"><p>Art. 202. Ultrapassar outro veículo: I - pelo acostamento; II - em interseções e passagens de nível; Infração - gravíssima;</p><cite>art. 202</cite></blockquote>
+
+<blockquote class="lei"><p>Executar operação de retorno: I - em locais proibidos pela sinalização; II - nas curvas, aclives, declives, pontes viadutos e túneis; III - passando por cima de calçada, passeio, ilhas, ajardinamentos ou canteiros de divisões de pista de rolamento, refúgios e faixas de pedestres e nas de veículos não motorizados; IV - nas interseções, entrando na contramão de direção da via transversal; V - com prejuízo da livre circulação ou da segurança, ainda que em locais permitidos: Infração - gravíssima; Penalidade - multa.</p><cite>art. 206</cite></blockquote>
+
+<blockquote class="lei"><p>Art. 212. Deixar de parar o veículo antes de transpor linha férrea: Infração - gravíssima; Penalidade - multa.</p><cite>art. 212</cite></blockquote>
+
+<blockquote class="lei"><p>Deixar de dar preferência de passarem a pedestre e a veículo não motorizado: I - que se encontre na faixa a ele destinada; II - que não haja concluído a travessia mesmo que ocorra sinal verde para o veículo; III - portadores de deficiência física, crianças, idosos e gestantes; Infração - gravíssima; Penalidade - multa. IV - quando houver iniciado a travessia mesmo que não haja sinalização a ele destinada; V - que esteja atravessando a via transversal para onde se dirige o veículo: Infração - grave; Penalidade - multa.</p><cite>art. 214</cite></blockquote>
+
+<blockquote class="lei"><p>Deixar de dar preferência de passagem: I - em interseção não sinalizada; a) a veículo que estiver circulando por rodovia ou rotatória; b) a veículo que vier da direita; II - nas interseções com sinalização de regulamentação de Dê a Preferência: Infração - grave; Penalidade - multa.</p><cite>art. 215</cite></blockquote>
+
+<p><strong>O que é, em uma frase:</strong> a lei pune mais forte quem coloca o <strong>pedestre</strong> e o <strong>vulnerável</strong> em risco.</p>
+<div class="tabela"><table>
+<thead>
+<tr>
+<th>Conduta</th>
+<th>Natureza</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ultrapassar pela direita (regra)</td>
+<td>Média (art. 199)</td>
+</tr>
+<tr>
+<td>Ultrapassar pela direita <strong>ônibus ou escolar parado</strong> embarcando</td>
+<td><strong>Gravíssima</strong> (art. 200)</td>
+</tr>
+<tr>
+<td>Não guardar <strong>1,5 m</strong> da bicicleta</td>
+<td>Média (art. 201)</td>
+</tr>
+<tr>
+<td>Ultrapassar pelo <strong>acostamento</strong> ou em interseção</td>
+<td><strong>Gravíssima</strong> (multa × 5) (art. 202)</td>
+</tr>
+<tr>
+<td>Retorno proibido ou perigoso</td>
+<td>Gravíssima (art. 206)</td>
+</tr>
+<tr>
+<td>Não parar antes da <strong>linha férrea</strong></td>
+<td>Gravíssima (art. 212)</td>
+</tr>
+<tr>
+<td>Não dar preferência ao pedestre <strong>na faixa</strong>, ao que <strong>não terminou a travessia</strong>, a deficientes, crianças, idosos e gestantes</td>
+<td><strong>Gravíssima</strong> (art. 214, I a III)</td>
+</tr>
+<tr>
+<td>Pedestre que iniciou travessia sem sinalização; pedestre na via transversal</td>
+<td><strong>Grave</strong> (art. 214, IV e V)</td>
+</tr>
+<tr>
+<td>Preferência em cruzamento não sinalizado (rotatória, rodovia, quem vem da direita)</td>
+<td>Grave (art. 215)</td>
+</tr>
+<tr>
+<td>Furar fila de veículos parados em sinal ou bloqueio</td>
+<td>Grave (art. 211)</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p><strong>Cuidado!</strong> No art. 214, os incisos I a III são <strong>gravíssimos</strong> e os IV e V são <strong>graves</strong>. A banca troca.</p>
+</blockquote>
+<h3>2. Luzes, buzina, som, documentos e condições do veículo</h3>
+<blockquote class="lei"><p>Art. 224. Fazer uso do facho de luz alta dos faróis em vias providas de iluminação pública: Infração - leve; Penalidade - multa.</p><cite>art. 224</cite></blockquote>
+
+<blockquote class="lei"><p>Usar buzina: I - em situação que não a de simples toque breve como advertência ao pedestre ou a condutores de outros veículos: II - prolongada e sucessivamente a qualquer pretexto; III - entre as vinte e duas e as seis horas; IV - em locais e horários proibidos pela sinalização; V - em desacordo com os padrões e freqüências estabelecidas pelo CONTRAN: Infração - leve; Penalidade - multa.</p><cite>art. 227</cite></blockquote>
+
+<blockquote class="lei"><p>Art. 228. Usar no veículo equipamento com som em volume ou freqüência que não sejam autorizados pelo CONTRAN: Infração - grave; Penalidade - multa.</p><cite>art. 228</cite></blockquote>
+
+<blockquote class="lei"><p>VIII - efetuando transporte remunerado de pessoas ou bens, quando não for licenciado para esse fim, salvo casos de força maior ou com permissão da autoridade competente: Infração - gravíssima;</p><cite>art. 231, VIII</cite></blockquote>
+
+<blockquote class="lei"><p>Art. 232. Conduzir veiculo sem os documentos de porte obrigatório referidos neste Código: Infração - leve; Penalidade - multa; Medida administrativa - retenção do veiculo até a apresentação do documento.</p><cite>art. 232</cite></blockquote>
+
+<blockquote class="lei"><p>Art. 234. Falsificar ou adulterar documento de habilitação e de identificação do veículo: Infração - gravíssima;</p><cite>art. 234</cite></blockquote>
+
+<blockquote class="lei"><p>Art. 238. Recusar-se a entregar à autoridade de trânsito ou a seus agentes, mediante recibo, os documentos de habilitação, de registro, de licenciamento de veículo e outros exigidos por lei, para averiguação de sua autenticidade: Infração - gravíssima;</p><cite>art. 238</cite></blockquote>
+
+<blockquote class="lei"><p>Art. 239. Retirar do local veículo legalmente retido para regularização, sem permissão da autoridade competente ou de seus agentes: Infração - gravíssima;</p><cite>art. 239</cite></blockquote>
+
+<div class="tabela"><table>
+<thead>
+<tr>
+<th>Conduta</th>
+<th>Natureza</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Luz alta em via <strong>iluminada</strong></td>
+<td>Leve (art. 224)</td>
+</tr>
+<tr>
+<td>Buzina prolongada, entre <strong>22h e 6h</strong>, ou fora do toque breve</td>
+<td>Leve (art. 227)</td>
+</tr>
+<tr>
+<td>Som em volume não autorizado</td>
+<td><strong>Grave</strong> + retenção (art. 228)</td>
+</tr>
+<tr>
+<td>Alarme que perturba o sossego</td>
+<td>Média (art. 229)</td>
+</tr>
+<tr>
+<td>Película, cortina fechada, equipamento obrigatório ineficiente, mau estado</td>
+<td>Grave + retenção (art. 230, VII a XIX)</td>
+</tr>
+<tr>
+<td>Lâmpada queimada</td>
+<td>Média (art. 230, XXII)</td>
+</tr>
+<tr>
+<td><strong>Transporte remunerado</strong> sem licença</td>
+<td><strong>Gravíssima</strong> + remoção (art. 231, VIII)</td>
+</tr>
+<tr>
+<td>Lotação excedente</td>
+<td>Grave (art. 231, VII)</td>
+</tr>
+<tr>
+<td>Sem <strong>documento de porte obrigatório</strong></td>
+<td><strong>Leve</strong> + retenção até apresentar (art. 232)</td>
+</tr>
+<tr>
+<td>Não registrar veículo em 30 dias</td>
+<td>Média (art. 233)</td>
+</tr>
+<tr>
+<td><strong>Recusar</strong> entregar documentos ao agente</td>
+<td><strong>Gravíssima</strong> (art. 238)</td>
+</tr>
+<tr>
+<td>Retirar veículo <strong>retido</strong> sem permissão</td>
+<td>Gravíssima (art. 239)</td>
+</tr>
+<tr>
+<td>Falsa declaração de domicílio</td>
+<td>Gravíssima (art. 242)</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p><strong>Cuidado!</strong> Alguns artigos ainda citam "apreensão do veículo" como penalidade, mas o inciso IV do art. 256 (apreensão) foi <strong>revogado</strong>. Em prova, foque na <strong>natureza</strong> e na <strong>medida administrativa</strong> (retenção ou remoção).</p>
+</blockquote>
+<h3>3. Motocicletas, celular, pedestres e ciclistas</h3>
+<blockquote class="lei"><p>I - sem usar capacete de segurança ou vestuário de acordo com as normas e as especificações aprovadas pelo Contran;</p><cite>art. 244, I</cite></blockquote>
+
+<blockquote class="lei"><p>V - transportando criança menor de 10 (dez) anos de idade ou que não tenha, nas circunstâncias, condições de cuidar da própria segurança: Infração - gravíssima; Penalidade - multa e suspensão do direito de dirigir;</p><cite>art. 244, V</cite></blockquote>
+
+<blockquote class="lei"><p>Dirigir o veículo: I - com o braço do lado de fora; II - transportando pessoas, animais ou volume à sua esquerda ou entre os braços e pernas; III - com incapacidade física ou mental temporária que comprometa a segurança do trânsito; IV - usando calçado que não se firme nos pés ou que comprometa a utilização dos pedais; V - com apenas uma das mãos, exceto quando deva fazer sinais regulamentares de braço, mudar a marcha do veículo, ou acionar equipamentos e acessórios do veículo; VI - utilizando-se de fones nos ouvidos conectados a aparelhagem sonora ou de telefone celular; Infração - média; Penalidade - multa. VII - realizando a cobrança de tarifa com o veículo em movimento: Infração - média; Penalidade - multa. Parágrafo único. A hipótese prevista no inciso V caracterizar-se-á como infração gravíssima no caso de o condutor estar segurando ou manuseando telefone celular.</p><cite>art. 252</cite></blockquote>
+
+<blockquote class="lei"><p>Art. 253. Bloquear a via com veículo: Infração - gravíssima;</p><cite>art. 253</cite></blockquote>
+
+<blockquote class="lei"><p>É proibido ao pedestre: I - permanecer ou andar nas pistas de rolamento, exceto para cruzá-las onde for permitido; II - cruzar pistas de rolamento nos viadutos, pontes, ou túneis, salvo onde exista permissão; III - atravessar a via dentro das áreas de cruzamento, salvo quando houver sinalização para esse fim; IV - utilizar-se da via em agrupamentos capazes de perturbar o trânsito, ou para a prática de qualquer folguedo, esporte, desfiles e similares, salvo em casos especiais e com a devida licença da autoridade competente; V - andar fora da faixa própria, passarela, passagem aérea ou subterrânea; VI - desobedecer à sinalização de trânsito específica: Infração - leve; Penalidade - multa, em 50% (cinqüenta por cento) do valor da infração de natureza leve.</p><cite>art. 254, caput</cite></blockquote>
+
+<blockquote class="lei"><p>Art. 255. Conduzir bicicleta em passeios onde não seja permitida a circulação desta, ou de forma agressiva, em desacordo com o disposto no parágrafo único do art. 59: Infração - média; Penalidade - multa; Medida administrativa - remoção da bicicleta, mediante recibo para o pagamento da multa.</p><cite>art. 255</cite></blockquote>
+
+<p><strong>Moto (art. 244)</strong>
+- <strong>Gravíssima + suspensão:</strong> sem capacete; passageiro sem capacete ou fora do assento; malabarismo ou "uma roda"; <strong>criança menor de 10 anos</strong>.
+- <strong>Grave:</strong> rebocar outro veículo; sem segurar o guidom com as duas mãos; carga incompatível; transporte remunerado irregular de mercadorias.
+- <strong>Média:</strong> capacete sem viseira ou óculos de proteção.</p>
+<p><strong>Celular (art. 252)</strong>
+- Dirigir com fone ou <strong>usando</strong> celular: <strong>média</strong>.
+- <strong>Segurando ou manuseando</strong> o celular: <strong>gravíssima</strong> (parágrafo único).</p>
+<p><strong>Luzes (art. 250):</strong> luz baixa à noite; de dia em túneis, sob chuva, neblina ou cerração; motos sempre; rodovias de pista simples fora da cidade sem luz diurna: média. Porta aberta de ônibus ou escolar em movimento: <strong>gravíssima</strong>.</p>
+<p><strong>Pedestre (art. 254):</strong> leve, com multa de <strong>50%</strong> do valor da leve. <strong>Bicicleta na calçada proibida ou de forma agressiva (art. 255):</strong> média, com remoção da bicicleta.</p>
+<blockquote>
+<p><strong>Macete:</strong> "<strong>segurou, gravíssima</strong>": celular na mão é a pegadinha mais comum do art. 252.</p>
+</blockquote>
+<h3>4. Questões resolvidas</h3>
+<h4>Questão 1</h4>
+<p>Dirigir o veículo segurando ou manuseando telefone celular é infração</p>
+<ol class="alts" type="A"><li>gravíssima.</li><li>leve.</li><li>média.</li><li>grave.</li><li>não prevista no CTB.</li></ol>
+<p><strong>Resposta: A.</strong> Art. 252, parágrafo único.</p>
+<h4>Questão 2</h4>
+<p>Conduzir motocicleta transportando criança menor de 10 anos é infração</p>
+<ol class="alts" type="A"><li>média, com multa.</li><li>gravíssima, com multa e suspensão do direito de dirigir.</li><li>leve, com advertência.</li><li>grave, com multa.</li><li>permitida, com capacete.</li></ol>
+<p><strong>Resposta: B.</strong> Art. 244, V.</p>
+<h4>Questão 3</h4>
+<p>Conduzir veículo sem os documentos de porte obrigatório é infração</p>
+<ol class="alts" type="A"><li>gravíssima, com remoção.</li><li>grave, com multa.</li><li>leve, com retenção do veículo até a apresentação do documento.</li><li>média, com recolhimento da CNH.</li><li>não punível.</li></ol>
+<p><strong>Resposta: C.</strong> Art. 232.</p>
+<h4>Questão 4</h4>
+<p>Deixar de dar preferência ao pedestre que se encontre na faixa a ele destinada é infração</p>
+<ol class="alts" type="A"><li>leve.</li><li>média.</li><li>grave.</li><li>gravíssima.</li><li>isenta de multa.</li></ol>
+<p><strong>Resposta: D.</strong> Art. 214, I.</p>
+<h3>5. Na rotina do guarda</h3>
+<p>Em Campinas, a fiscalização de trânsito é feita pela EMDEC; a guarda municipal autua quando há convênio ou competência delegada (CTB, art. 280, § 4º) e atua sempre na proteção do pedestre e na segurança viária.</p>
+<ul>
+<li><strong>Moto com criança pequena na garupa:</strong> gravíssima, com suspensão e retenção (art. 244, V).</li>
+<li><strong>Som alto no carro na praça:</strong> grave, com retenção (art. 228); se perturbar o sossego, também pode haver contravenção penal.</li>
+<li><strong>Carro de aplicativo pirata:</strong> transporte remunerado sem licença é gravíssimo, com remoção (art. 231, VIII).</li>
+<li><strong>Condutor recusa entregar a CNH:</strong> gravíssima (art. 238); se só esqueceu o documento, é leve (art. 232).</li>
+<li><strong>Bloqueio de via em protesto com veículos:</strong> art. 253-A, gravíssima com suspensão por 12 meses; organizadores pagam multa agravada em 60 vezes.</li>
+</ul>
+<h3>6. Onde a Vunesp pega</h3>
+<div class="tabela"><table>
+<thead>
+<tr>
+<th>Armadilha</th>
+<th>Como escapar</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Celular ao volante</td>
+<td>Usar ou fone: média; <strong>segurar ou manusear</strong>: gravíssima</td>
+</tr>
+<tr>
+<td>Esquecer a CNH em casa</td>
+<td>Leve (art. 232), não gravíssima</td>
+</tr>
+<tr>
+<td>Recusar entregar documentos</td>
+<td>Gravíssima (art. 238)</td>
+</tr>
+<tr>
+<td>Criança na garupa da moto</td>
+<td>Menor de 10 anos: gravíssima</td>
+</tr>
+<tr>
+<td>Luz alta na cidade iluminada</td>
+<td>Leve</td>
+</tr>
+<tr>
+<td>Buzina</td>
+<td>Proibida das 22h às 6h; leve</td>
+</tr>
+<tr>
+<td>Pedestre infrator</td>
+<td>Leve, com multa de 50%</td>
+</tr>
+<tr>
+<td>Distância da bicicleta</td>
+<td>1,5 m; média</td>
+</tr>
+<tr>
+<td>Ultrapassar ônibus escolar parado pela direita</td>
+<td>Gravíssima, salvo refúgio para o pedestre</td>
+</tr>
+<tr>
+<td>Preferência ao pedestre na faixa</td>
+<td>Gravíssima</td>
+</tr>
+</tbody>
+</table></div>
+<h3>7. Quadro-resumo</h3>
+<div class="tabela"><table>
+<thead>
+<tr>
+<th>Artigo</th>
+<th>Conduta</th>
+<th>Natureza</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>200</td>
+<td>Ultrapassar pela direita coletivo ou escolar parado</td>
+<td>Gravíssima</td>
+</tr>
+<tr>
+<td>201</td>
+<td>1,5 m da bicicleta</td>
+<td>Média</td>
+</tr>
+<tr>
+<td>202</td>
+<td>Ultrapassar pelo acostamento ou em interseção</td>
+<td>Gravíssima (× 5)</td>
+</tr>
+<tr>
+<td>212</td>
+<td>Não parar antes de linha férrea</td>
+<td>Gravíssima</td>
+</tr>
+<tr>
+<td>214, I a III</td>
+<td>Preferência a pedestre na faixa, travessia não concluída, vulneráveis</td>
+<td>Gravíssima</td>
+</tr>
+<tr>
+<td>224</td>
+<td>Luz alta em via iluminada</td>
+<td>Leve</td>
+</tr>
+<tr>
+<td>227</td>
+<td>Buzina indevida</td>
+<td>Leve</td>
+</tr>
+<tr>
+<td>228</td>
+<td>Som não autorizado</td>
+<td>Grave</td>
+</tr>
+<tr>
+<td>231, VIII</td>
+<td>Transporte remunerado sem licença</td>
+<td>Gravíssima</td>
+</tr>
+<tr>
+<td>232</td>
+<td>Sem documento de porte obrigatório</td>
+<td>Leve</td>
+</tr>
+<tr>
+<td>238</td>
+<td>Recusar entregar documentos</td>
+<td>Gravíssima</td>
+</tr>
+<tr>
+<td>244</td>
+<td>Moto sem capacete; criança menor de 10</td>
+<td>Gravíssima</td>
+</tr>
+<tr>
+<td>252</td>
+<td>Celular: usar (média); segurar (gravíssima)</td>
+<td>Média ou gravíssima</td>
+</tr>
+<tr>
+<td>253</td>
+<td>Bloquear a via com veículo</td>
+<td>Gravíssima</td>
+</tr>
+<tr>
+<td>254</td>
+<td>Pedestre</td>
+<td>Leve (50%)</td>
+</tr>
+<tr>
+<td>255</td>
+<td>Bicicleta na calçada proibida</td>
+<td>Média</td>
+</tr>
+</tbody>
+</table></div>
+<p class="ref">Fontes: Edital 02/2026, Anexo I; Lei 9.503/1997 (CTB), consolidação da Câmara dos Deputados. Exemplos criados para a aula.</p>
+`,
+"ctb-12": `
+<span class="status">Versão 1 · em revisão</span>
+<p>O Anexo I do CTB é o glossário do Código: diz o que é via arterial, o que é parada e o que é estacionamento, a diferença entre ultrapassagem e passagem, entre ciclovia e ciclofaixa, entre motocicleta e motoneta. A Vunesp adora cobrar essas definições ao pé da letra, trocando uma pela outra. Como o edital cobra o CTB inteiro, este posto reúne os conceitos mais cobrados, organizados em três blocos: vias, manobras e imobilizações, e veículos e agentes.</p>
+
+<h3>Mapa do assunto</h3>
+<figure class="fig">
+<svg viewBox="0 0 760 368" role="img" aria-label="CTB, Anexo I: conceitos e definições" font-size="13">
+<text x="24" y="28" font-size="16" font-weight="600">CTB, Anexo I: conceitos e definições</text>
+<rect class="ac" x="24" y="48" width="224" height="112" rx="8" style="stroke-width:1.5"/><text x="136" y="74" text-anchor="middle" font-weight="600">Vias urbanas</text>
+<text x="136" y="96" text-anchor="middle" font-size="12">trânsito rápido: sem interseção</text>
+<text x="136" y="112" text-anchor="middle" font-size="12">arterial: semáforo, entre regiões</text>
+<text x="136" y="128" text-anchor="middle" font-size="12">coletora e local</text>
+<text class="q" x="136" y="148" text-anchor="middle" font-size="12">seção 1</text>
+<rect class="ac" x="268" y="48" width="224" height="112" rx="8" style="stroke-width:1.5"/><text x="380" y="74" text-anchor="middle" font-weight="600">Vias rurais</text>
+<text x="380" y="96" text-anchor="middle" font-size="12">estrada: não pavimentada</text>
+<text x="380" y="112" text-anchor="middle" font-size="12">rodovia: pavimentada</text>
+<text class="q" x="380" y="148" text-anchor="middle" font-size="12">seção 1</text>
+<rect class="ac" x="512" y="48" width="224" height="112" rx="8" style="stroke-width:1.5"/><text x="624" y="74" text-anchor="middle" font-weight="600">Ciclos e pedestres</text>
+<text x="624" y="96" text-anchor="middle" font-size="12">ciclovia: separada</text>
+<text x="624" y="112" text-anchor="middle" font-size="12">ciclofaixa: sinalizada</text>
+<text x="624" y="128" text-anchor="middle" font-size="12">refúgio, passeio, calçada</text>
+<text class="q" x="624" y="148" text-anchor="middle" font-size="12">seção 1</text>
+<rect class="ac" x="24" y="176" width="224" height="112" rx="8" style="stroke-width:1.5"/><text x="136" y="202" text-anchor="middle" font-weight="600">Manobras</text>
+<text x="136" y="224" text-anchor="middle" font-size="12">ultrapassagem: mesma faixa</text>
+<text x="136" y="240" text-anchor="middle" font-size="12">passagem: faixas distintas</text>
+<text x="136" y="256" text-anchor="middle" font-size="12">conversão e transposição</text>
+<text class="q" x="136" y="276" text-anchor="middle" font-size="12">seção 2</text>
+<rect class="ac" x="268" y="176" width="224" height="112" rx="8" style="stroke-width:1.5"/><text x="380" y="202" text-anchor="middle" font-weight="600">Imobilizações</text>
+<text x="380" y="224" text-anchor="middle" font-size="12">interrupção de marcha</text>
+<text x="380" y="240" text-anchor="middle" font-size="12">parada: embarque</text>
+<text x="380" y="256" text-anchor="middle" font-size="12">estacionamento: mais que isso</text>
+<text class="q" x="380" y="276" text-anchor="middle" font-size="12">seção 2</text>
+<rect class="ac" x="512" y="176" width="224" height="112" rx="8" style="stroke-width:1.5"/><text x="624" y="202" text-anchor="middle" font-weight="600">Veículos e agentes</text>
+<text x="624" y="224" text-anchor="middle" font-size="12">automóvel: até 8 + condutor</text>
+<text x="624" y="240" text-anchor="middle" font-size="12">moto montada x motoneta sentada</text>
+<text x="624" y="256" text-anchor="middle" font-size="12">autoridade x agente</text>
+<text class="q" x="624" y="276" text-anchor="middle" font-size="12">seção 3</text>
+<rect class="tint" x="24" y="304" width="712" height="44" rx="8"/><text x="380" y="331" text-anchor="middle" font-size="13">Na prova: as definições são cobradas ao pé da letra</text>
+</svg>
+<figcaption>Os blocos seguem as três seções: vias, manobras e imobilizações, veículos e agentes.</figcaption>
+</figure>
+<h3>1. Vias e suas partes</h3>
+<blockquote class="lei"><p>VIA DE TRÂNSITO RÁPIDO - aquela caracterizada por acessos especiais com trânsito livre, sem interseções em nível, sem acessibilidade direta aos lotes lindeiros e sem travessia de pedestres em nível.</p><cite>Anexo I</cite></blockquote>
+
+<blockquote class="lei"><p>VIA ARTERIAL - aquela caracterizada por interseções em nível, geralmente controlada por semáforo, com acessibilidade aos lotes lindeiros e às vias secundárias e locais, possibilitando o trânsito entre as regiões da cidade.</p><cite>Anexo I</cite></blockquote>
+
+<blockquote class="lei"><p>VIA COLETORA - aquela destinada a coletar e distribuir o trânsito que tenha necessidade de entrar ou sair das vias de trânsito rápido ou arteriais, possibilitando o trânsito dentro das regiões da cidade.</p><cite>Anexo I</cite></blockquote>
+
+<blockquote class="lei"><p>VIA LOCAL - aquela caracterizada por interseções em nível não semaforizadas, destinada apenas ao acesso local ou a áreas restritas.</p><cite>Anexo I</cite></blockquote>
+
+<blockquote class="lei"><p>VIA RURAL - estradas e rodovias.</p><cite>Anexo I</cite></blockquote>
+
+<blockquote class="lei"><p>ESTRADA - via rural não pavimentada.</p><cite>Anexo I</cite></blockquote>
+
+<blockquote class="lei"><p>RODOVIA - via rural pavimentada.</p><cite>Anexo I</cite></blockquote>
+
+<blockquote class="lei"><p>CICLOVIA - pista própria destinada à circulação de ciclos, separada fisicamente do tráfego comum.</p><cite>Anexo I</cite></blockquote>
+
+<blockquote class="lei"><p>CICLOFAIXA - parte da pista de rolamento destinada à circulação exclusiva de ciclos, delimitada por sinalização específica.</p><cite>Anexo I</cite></blockquote>
+
+<blockquote class="lei"><p>ACOSTAMENTO - parte da via diferenciada da pista de rolamento destinada à parada ou estacionamento de veículos, em caso de emergência, e à circulação de pedestres e bicicletas, quando não houver local apropriado para esse fim.</p><cite>Anexo I</cite></blockquote>
+
+<p><strong>Escada das vias urbanas (da mais rápida para a mais lenta)</strong></p>
+<div class="tabela"><table>
+<thead>
+<tr>
+<th>Via</th>
+<th>Marca registrada</th>
+<th>Velocidade máxima sem sinalização (art. 61)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Trânsito rápido</td>
+<td><strong>Sem</strong> interseção em nível, <strong>sem</strong> acesso aos lotes, <strong>sem</strong> travessia de pedestre em nível</td>
+<td>80 km/h</td>
+</tr>
+<tr>
+<td>Arterial</td>
+<td>Interseção em nível, <strong>semáforo</strong>, trânsito <strong>entre</strong> regiões</td>
+<td>60 km/h</td>
+</tr>
+<tr>
+<td>Coletora</td>
+<td><strong>Coleta e distribui</strong>; trânsito <strong>dentro</strong> das regiões</td>
+<td>40 km/h</td>
+</tr>
+<tr>
+<td>Local</td>
+<td>Interseções <strong>sem semáforo</strong>; acesso local</td>
+<td>30 km/h</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p><strong>Macete:</strong> <strong>E</strong>strada é de t<strong>E</strong>rra (não pavimentada); <strong>R</strong>odovia é <strong>R</strong>evestida (pavimentada).</p>
+<p><strong>Cuidado!</strong> <strong>Ciclovia</strong> é <strong>separada fisicamente</strong>; <strong>ciclofaixa</strong> é parte da pista, <strong>só pintada</strong> (sinalização).</p>
+</blockquote>
+<div class="tabela"><table>
+<thead>
+<tr>
+<th>Parte da via</th>
+<th>Para que serve</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Calçada</td>
+<td>Não é para veículos; pedestres e mobiliário urbano</td>
+</tr>
+<tr>
+<td>Passeio</td>
+<td>Parte da calçada (ou da pista, separada) só para pedestres e, excepcionalmente, ciclistas</td>
+</tr>
+<tr>
+<td>Refúgio</td>
+<td>Parte sinalizada e protegida para o pedestre durante a travessia</td>
+</tr>
+<tr>
+<td>Ilha</td>
+<td>Obstáculo físico na pista para ordenar fluxos em interseção</td>
+</tr>
+<tr>
+<td>Canteiro central</td>
+<td>Separa as pistas</td>
+</tr>
+</tbody>
+</table></div>
+<h3>2. Manobras e imobilizações</h3>
+<blockquote class="lei"><p>ULTRAPASSAGEM - movimento de passar à frente de outro veículo que se desloca no mesmo sentido, em menor velocidade e na mesma faixa de tráfego, necessitando sair e retornar à faixa de origem.</p><cite>Anexo I</cite></blockquote>
+
+<blockquote class="lei"><p>PASSAGEM POR OUTRO VEÍCULO - movimento de passagem à frente de outro veículo que se desloca no mesmo sentido, em menor velocidade, mas em faixas distintas da via.</p><cite>Anexo I</cite></blockquote>
+
+<blockquote class="lei"><p>TRANSPOSIÇÃO DE FAIXAS - passagem de um veículo de uma faixa demarcada para outra.</p><cite>Anexo I</cite></blockquote>
+
+<blockquote class="lei"><p>CONVERSÃO - movimento em ângulo, à esquerda ou à direita, de mudança da direção original do veículo.</p><cite>Anexo I</cite></blockquote>
+
+<blockquote class="lei"><p>PARADA - imobilização do veículo com a finalidade e pelo tempo estritamente necessário para efetuar embarque ou desembarque de passageiros.</p><cite>Anexo I</cite></blockquote>
+
+<blockquote class="lei"><p>ESTACIONAMENTO - imobilização de veículos por tempo superior ao necessário para embarque ou desembarque de passageiros.</p><cite>Anexo I</cite></blockquote>
+
+<blockquote class="lei"><p>INTERRUPÇÃO DE MARCHA - imobilização do veículo para atender circunstância momentânea do trânsito.</p><cite>Anexo I</cite></blockquote>
+
+<blockquote class="lei"><p>NOITE - período do dia compreendido entre o pôr-do-sol e o nascer do sol.</p><cite>Anexo I</cite></blockquote>
+
+<div class="tabela"><table>
+<thead>
+<tr>
+<th>Movimento</th>
+<th>Mesma faixa?</th>
+<th>Sai e volta?</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Ultrapassagem</strong></td>
+<td><strong>Sim</strong></td>
+<td><strong>Sim</strong></td>
+</tr>
+<tr>
+<td><strong>Passagem</strong> por outro veículo</td>
+<td><strong>Não</strong> (faixas distintas)</td>
+<td>Não</td>
+</tr>
+<tr>
+<td><strong>Transposição</strong> de faixas</td>
+<td>Muda de uma faixa para outra</td>
+<td>Não precisa voltar</td>
+</tr>
+</tbody>
+</table></div>
+<div class="tabela"><table>
+<thead>
+<tr>
+<th>Imobilização</th>
+<th>Por quê</th>
+<th>Por quanto tempo</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Interrupção de marcha</strong></td>
+<td>Circunstância <strong>momentânea</strong> do trânsito (semáforo, congestionamento)</td>
+<td>O necessário</td>
+</tr>
+<tr>
+<td><strong>Parada</strong></td>
+<td><strong>Embarque ou desembarque</strong> de passageiros</td>
+<td><strong>Estritamente</strong> necessário</td>
+</tr>
+<tr>
+<td><strong>Estacionamento</strong></td>
+<td>Qualquer outro motivo</td>
+<td><strong>Superior</strong> ao do embarque e desembarque</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p><strong>Cai muito:</strong> parar o carro para <strong>descarregar mercadorias</strong> por mais tempo do que o necessário para o embarque ou desembarque de <strong>pessoas</strong> é <strong>estacionamento</strong>, não parada.</p>
+</blockquote>
+<h3>3. Veículos, trânsito e agentes</h3>
+<blockquote class="lei"><p>TRÂNSITO - movimentação e imobilização de veículos, pessoas e animais nas vias terrestres.</p><cite>Anexo I</cite></blockquote>
+
+<blockquote class="lei"><p>AUTOMÓVEL - veículo automotor destinado ao transporte de passageiros, com capacidade para até oito pessoas, exclusive o condutor.</p><cite>Anexo I</cite></blockquote>
+
+<blockquote class="lei"><p>MOTOCICLETA - veículo automotor de duas rodas, com ou sem "side-car", dirigido por condutor em posição montada.</p><cite>Anexo I</cite></blockquote>
+
+<blockquote class="lei"><p>MOTONETA - veículo automotor de duas rodas, dirigido por condutor em posição sentada.</p><cite>Anexo I</cite></blockquote>
+
+<blockquote class="lei"><p>BICICLETA - veículo de propulsão humana, dotado de duas rodas, não sendo, para efeito deste Código, similar à motocicleta, motoneta e ciclomotor.</p><cite>Anexo I</cite></blockquote>
+
+<blockquote class="lei"><p>AUTORIDADE DE TRÂNSITO - dirigente máximo de órgão ou entidade executivo integrante do Sistema Nacional de Trânsito ou pessoa por ele expressamente credenciada.</p><cite>Anexo I</cite></blockquote>
+
+<blockquote class="lei"><p>INFRAÇÃO - inobservância a qualquer preceito da legislação de trânsito, às normas emanadas do Código de Trânsito, do Conselho Nacional de Trânsito e a regulamentação estabelecida pelo órgão ou entidade executiva do trânsito.</p><cite>Anexo I</cite></blockquote>
+
+<blockquote class="lei"><p>SINISTRO DE TRÂNSITO - evento que resulta em dano ao veículo ou à sua carga e/ou em lesões a pessoas ou animais e que pode trazer dano material ou prejuízo ao trânsito, à via ou ao meio ambiente, em que pelo menos uma das partes está em movimento nas vias terrestres ou em áreas abertas ao público.</p><cite>Anexo I</cite></blockquote>
+
+<div class="tabela"><table>
+<thead>
+<tr>
+<th>Veículo</th>
+<th>Como reconhecer</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Automóvel</td>
+<td>Passageiros, <strong>até 8 pessoas além do condutor</strong></td>
+</tr>
+<tr>
+<td>Motocicleta</td>
+<td>Duas rodas, condutor <strong>montado</strong></td>
+</tr>
+<tr>
+<td>Motoneta</td>
+<td>Duas rodas, condutor <strong>sentado</strong> (tipo "scooter")</td>
+</tr>
+<tr>
+<td>Ciclomotor</td>
+<td>2 ou 3 rodas, até <strong>50 cm³</strong> ou elétrico até <strong>4 kW</strong>, máximo <strong>50 km/h</strong></td>
+</tr>
+<tr>
+<td>Bicicleta</td>
+<td>Propulsão <strong>humana</strong>, duas rodas; <strong>não</strong> é similar à moto</td>
+</tr>
+<tr>
+<td>Caminhonete</td>
+<td><strong>Carga</strong>, peso bruto total até <strong>3.500 kg</strong></td>
+</tr>
+<tr>
+<td>Camioneta</td>
+<td><strong>Misto</strong>: passageiros e carga no <strong>mesmo compartimento</strong></td>
+</tr>
+<tr>
+<td>Utilitário</td>
+<td>Misto, versátil, inclusive fora de estrada</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p><strong>Cuidado!</strong> O CTB hoje usa <strong>"sinistro de trânsito"</strong> (Lei 14.599/2023) no lugar de "acidente". <strong>Autoridade</strong> de trânsito é o <strong>dirigente máximo</strong> do órgão; o <strong>agente</strong> é quem fiscaliza e lavra o auto.</p>
+<p><strong>Macete:</strong> caminhone<strong>T</strong>e = <strong>T</strong>ransporte de carga; camione<strong>T</strong>a = <strong>T</strong>udo junto (misto).</p>
+</blockquote>
+<h3>4. Questões resolvidas</h3>
+<h4>Questão 1</h4>
+<p>Segundo o Anexo I do CTB, a via caracterizada por interseções em nível, geralmente controlada por semáforo, que possibilita o trânsito entre as regiões da cidade, é a via</p>
+<ol class="alts" type="A"><li>arterial.</li><li>coletora.</li><li>local.</li><li>de trânsito rápido.</li><li>rural.</li></ol>
+<p><strong>Resposta: A.</strong> Anexo I, via arterial.</p>
+<h4>Questão 2</h4>
+<p>A imobilização do veículo pelo tempo estritamente necessário para efetuar embarque ou desembarque de passageiros denomina-se</p>
+<ol class="alts" type="A"><li>estacionamento.</li><li>parada.</li><li>interrupção de marcha.</li><li>retenção.</li><li>remoção.</li></ol>
+<p><strong>Resposta: B.</strong> Anexo I, parada.</p>
+<h4>Questão 3</h4>
+<p>Rodovia é a via rural</p>
+<ol class="alts" type="A"><li>não pavimentada.</li><li>urbana.</li><li>pavimentada.</li><li>sem sinalização.</li><li>de trânsito rápido.</li></ol>
+<p><strong>Resposta: C.</strong> Anexo I, rodovia.</p>
+<h4>Questão 4</h4>
+<p>A parte da pista de rolamento destinada à circulação exclusiva de ciclos, delimitada por sinalização específica, é a</p>
+<ol class="alts" type="A"><li>ciclovia.</li><li>calçada.</li><li>passeio.</li><li>ciclofaixa.</li><li>acostamento.</li></ol>
+<p><strong>Resposta: D.</strong> Anexo I, ciclofaixa.</p>
+<h3>5. Na rotina do guarda</h3>
+<ul>
+<li><strong>Boletim de ocorrência:</strong> use os termos do Anexo I: "sinistro de trânsito", "via arterial", "estacionado" ou "parado". A descrição correta evita nulidade no auto.</li>
+<li><strong>Carro de entrega na faixa:</strong> se fica além do tempo de embarque e desembarque, é <strong>estacionamento</strong>.</li>
+<li><strong>Ciclista na ciclofaixa:</strong> a faixa é exclusiva de ciclos; o carro que a invade pode cometer infração de trânsito.</li>
+<li><strong>Veículo abandonado:</strong> o Anexo I define veículo em estado de abandono como o que não se locomove por meios próprios e oferece risco à saúde, à segurança ou ao meio ambiente, ainda que em local permitido.</li>
+<li><strong>Policiamento ostensivo de trânsito:</strong> é função das <strong>Polícias Militares</strong>; a guarda atua na fiscalização quando houver convênio (CTB, art. 25-A e art. 280, § 4º).</li>
+</ul>
+<h3>6. Onde a Vunesp pega</h3>
+<div class="tabela"><table>
+<thead>
+<tr>
+<th>Armadilha</th>
+<th>Como escapar</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Estrada x rodovia</td>
+<td>Estrada: não pavimentada. Rodovia: pavimentada</td>
+</tr>
+<tr>
+<td>Ciclovia x ciclofaixa</td>
+<td>Ciclovia: separada fisicamente. Ciclofaixa: sinalização na pista</td>
+</tr>
+<tr>
+<td>Parada x estacionamento</td>
+<td>Parada: só o tempo do embarque ou desembarque</td>
+</tr>
+<tr>
+<td>Ultrapassagem x passagem</td>
+<td>Ultrapassagem: mesma faixa, sai e volta. Passagem: faixas distintas</td>
+</tr>
+<tr>
+<td>Via arterial x coletora</td>
+<td>Arterial: entre regiões, semáforo. Coletora: dentro das regiões</td>
+</tr>
+<tr>
+<td>Via de trânsito rápido</td>
+<td>Sem interseção em nível e sem travessia de pedestre em nível</td>
+</tr>
+<tr>
+<td>Motocicleta x motoneta</td>
+<td>Montado x sentado</td>
+</tr>
+<tr>
+<td>Automóvel</td>
+<td>Até 8 pessoas, sem contar o condutor</td>
+</tr>
+<tr>
+<td>Caminhonete x camioneta</td>
+<td>Carga (3.500 kg) x misto</td>
+</tr>
+<tr>
+<td>Noite</td>
+<td>Do pôr do sol ao nascer do sol</td>
+</tr>
+</tbody>
+</table></div>
+<h3>7. Quadro-resumo</h3>
+<div class="tabela"><table>
+<thead>
+<tr>
+<th>Conceito</th>
+<th>Definição em poucas palavras</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Trânsito</td>
+<td>Movimentação e imobilização de veículos, pessoas e animais nas vias terrestres</td>
+</tr>
+<tr>
+<td>Trânsito rápido</td>
+<td>Sem interseção em nível, sem acesso a lotes, sem travessia em nível</td>
+</tr>
+<tr>
+<td>Arterial</td>
+<td>Semáforo; entre regiões da cidade</td>
+</tr>
+<tr>
+<td>Coletora</td>
+<td>Coleta e distribui; dentro das regiões</td>
+</tr>
+<tr>
+<td>Local</td>
+<td>Sem semáforo; acesso local</td>
+</tr>
+<tr>
+<td>Estrada / Rodovia</td>
+<td>Rural não pavimentada / pavimentada</td>
+</tr>
+<tr>
+<td>Ciclovia / Ciclofaixa</td>
+<td>Separada fisicamente / delimitada por sinalização</td>
+</tr>
+<tr>
+<td>Ultrapassagem</td>
+<td>Mesma faixa, sai e retorna</td>
+</tr>
+<tr>
+<td>Passagem</td>
+<td>Faixas distintas</td>
+</tr>
+<tr>
+<td>Parada</td>
+<td>Embarque ou desembarque, tempo estritamente necessário</td>
+</tr>
+<tr>
+<td>Estacionamento</td>
+<td>Tempo superior ao da parada</td>
+</tr>
+<tr>
+<td>Automóvel</td>
+<td>Até 8 pessoas além do condutor</td>
+</tr>
+<tr>
+<td>Motocicleta / Motoneta</td>
+<td>Montado / sentado</td>
+</tr>
+<tr>
+<td>Ciclomotor</td>
+<td>Até 50 cm³ ou 4 kW; até 50 km/h</td>
+</tr>
+<tr>
+<td>Autoridade de trânsito</td>
+<td>Dirigente máximo do órgão executivo ou pessoa credenciada</td>
+</tr>
+<tr>
+<td>Sinistro de trânsito</td>
+<td>Evento com dano ou lesão, ao menos uma parte em movimento</td>
+</tr>
+</tbody>
+</table></div>
+<p class="ref">Fontes: Edital 02/2026, Anexo I; Lei 9.503/1997 (CTB), Anexo I, consolidação da Câmara dos Deputados. Exemplos criados para a aula.</p>
+`,
 "eca-1": `
 <span class="status">Versão 1 · em revisão</span>
 <p>O Estatuto da Criança e do Adolescente (Lei 8.069/1990) começa pelos princípios que sustentam todo o resto: proteção integral, prioridade absoluta e condição peculiar de pessoa em desenvolvimento. Os arts. 1º a 6º são curtos, mas a Vunesp cobra os detalhes: a idade que separa criança de adolescente, os quatro itens da garantia de prioridade, quem tem o dever de assegurar os direitos e a forma de interpretar a lei. Para o guarda municipal, é a base de qualquer atendimento a criança ou adolescente em situação de risco, de rua ou de violência.</p>
@@ -16504,6 +17312,296 @@ const AULAS = {
 </tbody>
 </table></div>
 <p class="ref">Fontes: Edital 02/2026, Anexo I; Lei 13.675/2018 (Susp), arts. 9º a 37, texto consolidado da Câmara dos Deputados. Exemplos criados para a aula.</p>
+`,
+"susp-3": `
+<span class="status">Versão 1 · em revisão</span>
+<p>Os postos susp-1 e susp-2 trataram da política nacional (princípios, diretrizes, objetivos) e da composição do Susp. Este posto fecha a Lei 13.675/2018 com o que costuma aparecer no fim das provas: as metas anuais e como cada atividade é medida, as diretrizes para os planos, o Sinesp (o banco nacional de dados da segurança pública), a formação dos profissionais (Sievap, matriz curricular, Renaesp e Rede EaD) e o cuidado com quem trabalha na segurança (Pró-Vida, prevenção do suicídio, identidade funcional e conferências a cada cinco anos).</p>
+
+<h3>Mapa do assunto</h3>
+<figure class="fig">
+<svg viewBox="0 0 760 368" role="img" aria-label="Lei 13.675/2018: metas, dados e valorização" font-size="13">
+<text x="24" y="28" font-size="16" font-weight="600">Lei 13.675/2018: metas, dados e valorização</text>
+<rect class="ac" x="24" y="48" width="224" height="112" rx="8" style="stroke-width:1.5"/><text x="136" y="74" text-anchor="middle" font-weight="600">Metas (arts. 11 e 12)</text>
+<text x="136" y="96" text-anchor="middle" font-size="12">anuais</text>
+<text x="136" y="112" text-anchor="middle" font-size="12">indicadores por atividade</text>
+<text x="136" y="128" text-anchor="middle" font-size="12">ostensiva: incidência na área</text>
+<text class="q" x="136" y="148" text-anchor="middle" font-size="12">seção 1</text>
+<rect class="ac" x="268" y="48" width="224" height="112" rx="8" style="stroke-width:1.5"/><text x="380" y="74" text-anchor="middle" font-weight="600">Planos (art. 24)</text>
+<text x="380" y="96" text-anchor="middle" font-size="12">articulação e participação social</text>
+<text x="380" y="112" text-anchor="middle" font-size="12">escola e egressos</text>
+<text x="380" y="128" text-anchor="middle" font-size="12">plano diretor e iluminação</text>
+<text class="q" x="380" y="148" text-anchor="middle" font-size="12">seção 1</text>
+<rect class="ac" x="512" y="48" width="224" height="112" rx="8" style="stroke-width:1.5"/><text x="624" y="74" text-anchor="middle" font-weight="600">Sinesp (arts. 36 e 37)</text>
+<text x="624" y="96" text-anchor="middle" font-size="12">todos os entes</text>
+<text x="624" y="112" text-anchor="middle" font-size="12">sem dados, sem recursos</text>
+<text x="624" y="128" text-anchor="middle" font-size="12">omissão: responsabilidade</text>
+<text class="q" x="624" y="148" text-anchor="middle" font-size="12">seção 2</text>
+<rect class="ac" x="24" y="176" width="224" height="112" rx="8" style="stroke-width:1.5"/><text x="136" y="202" text-anchor="middle" font-weight="600">Sievap (arts. 38 a 41)</text>
+<text x="136" y="224" text-anchor="middle" font-size="12">matriz curricular</text>
+<text x="136" y="240" text-anchor="middle" font-size="12">Renaesp</text>
+<text x="136" y="256" text-anchor="middle" font-size="12">Rede EaD</text>
+<text class="q" x="136" y="276" text-anchor="middle" font-size="12">seção 3</text>
+<rect class="ac" x="268" y="176" width="224" height="112" rx="8" style="stroke-width:1.5"/><text x="380" y="202" text-anchor="middle" font-weight="600">Pró-Vida (arts. 42 e 42-A)</text>
+<text x="380" y="224" text-anchor="middle" font-size="12">saúde e segurança do trabalho</text>
+<text x="380" y="240" text-anchor="middle" font-size="12">prevenção do suicídio</text>
+<text x="380" y="256" text-anchor="middle" font-size="12">não compulsório</text>
+<text class="q" x="380" y="276" text-anchor="middle" font-size="12">seção 3</text>
+<rect class="ac" x="512" y="176" width="224" height="112" rx="8" style="stroke-width:1.5"/><text x="624" y="202" text-anchor="middle" font-weight="600">Finais (arts. 43 e 45)</text>
+<text x="624" y="224" text-anchor="middle" font-size="12">identidade com fé pública</text>
+<text x="624" y="240" text-anchor="middle" font-size="12">validade nacional</text>
+<text x="624" y="256" text-anchor="middle" font-size="12">conferências a cada 5 anos</text>
+<text class="q" x="624" y="276" text-anchor="middle" font-size="12">seção 3</text>
+<rect class="tint" x="24" y="304" width="712" height="44" rx="8"/><text x="380" y="331" text-anchor="middle" font-size="13">Na prova: metas anuais, conferências a cada 5 anos, Sinesp com todos os entes</text>
+</svg>
+<figcaption>A primeira linha trata das metas, dos planos e dos dados; a segunda, da formação e da valorização do profissional.</figcaption>
+</figure>
+<h3>1. Metas e diretrizes dos planos (arts. 11 a 14 e 24 a 27)</h3>
+<blockquote class="lei"><p>Art. 11. O Ministério Extraordinário da Segurança Pública fixará, anualmente, metas de excelência no âmbito das respectivas competências, visando à prevenção e à repressão das infrações penais e administrativas e à prevenção dos desastres, e utilizará indicadores públicos que demonstrem de forma objetiva os resultados pretendidos.</p><cite>art. 11</cite></blockquote>
+
+<blockquote class="lei"><p>III - as atividades de polícia ostensiva e de preservação da ordem pública serão aferidas, entre outros fatores, pela maior ou menor incidência de infrações penais e administrativas em determinada área, seguindo os parâmetros do Sinesp;</p><cite>art. 12, III</cite></blockquote>
+
+<blockquote class="lei"><p>III - efetivar o intercâmbio de experiências técnicas e operacionais entre os órgãos policiais federais, estaduais, distrital e as guardas municipais;</p><cite>art. 13, III</cite></blockquote>
+
+<blockquote class="lei"><p>XII - fomentar estudos de planejamento urbano para que medidas de prevenção da criminalidade façam parte do plano diretor das cidades, de forma a estimular, entre outras ações, o reforço na iluminação pública e a verificação de pessoas e de famílias em situação de risco social e criminal.</p><cite>art. 24, XII</cite></blockquote>
+
+<blockquote class="lei"><p>Art. 26. É instituído, no âmbito do Susp, o Sistema Nacional de Acompanhamento e Avaliação das Políticas de Segurança Pública e Defesa Social (Sinaped),</p><cite>art. 26, caput</cite></blockquote>
+
+<p><strong>Como cada atividade é medida (art. 12)</strong></p>
+<div class="tabela"><table>
+<thead>
+<tr>
+<th>Atividade</th>
+<th>Indicador</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Polícia judiciária</td>
+<td><strong>Elucidação</strong> de delitos (sobretudo mortes dolosas e roubos), prisões, mandados cumpridos, recuperação do produto do crime</td>
+</tr>
+<tr>
+<td>Perícia</td>
+<td>Critérios técnicos; laudos e qualidade da prova</td>
+</tr>
+<tr>
+<td><strong>Polícia ostensiva</strong> e preservação da ordem</td>
+<td><strong>Incidência</strong> de infrações em determinada área (parâmetros do Sinesp)</td>
+</tr>
+<tr>
+<td>Bombeiros</td>
+<td>Prevenção, tempo de resposta e recuperação de áreas</td>
+</tr>
+<tr>
+<td>Sistema prisional</td>
+<td>Vagas, relação presos/vagas, <strong>reincidência</strong> dos egressos</td>
+</tr>
+</tbody>
+</table></div>
+<blockquote>
+<p><strong>Cuidado!</strong> Na polícia judiciária, a aferição deve <strong>distinguir</strong> autoria por <strong>prisão em flagrante</strong> da autoria obtida por <strong>investigação</strong> (art. 12, § 2º).</p>
+<p><strong>Cai muito:</strong> entre as diretrizes dos planos (art. 24) está levar a prevenção da criminalidade ao <strong>plano diretor</strong> das cidades, com reforço da <strong>iluminação pública</strong>. É o ponto em que o Município e a guarda entram de forma direta.</p>
+</blockquote>
+<h3>2. Sinesp: dados e informações (arts. 36 e 37)</h3>
+<blockquote class="lei"><p>O Sinesp tem por objetivos: I - proceder à coleta, análise, atualização, sistematização, integração e interpretação de dados e informações relativos às políticas de segurança pública e defesa social; II - disponibilizar estudos, estatísticas, indicadores e outras informações para auxiliar na formulação, implementação, execução, monitoramento e avaliação de políticas públicas; III - promover a integração das redes e sistemas de dados e informações de segurança pública e defesa social, criminais, do sistema prisional e sobre drogas; IV - garantir a interoperabilidade dos sistemas de dados e informações, conforme os padrões definidos pelo conselho gestor.</p><cite>art. 36, I a IV</cite></blockquote>
+
+<blockquote class="lei"><p>Art. 37. Integram o Sinesp todos os entes federados, por intermédio de órgãos criados ou designados para esse fim.</p><cite>art. 37, caput</cite></blockquote>
+
+<blockquote class="lei"><p>§ 2º O integrante que deixar de fornecer ou atualizar seus dados e informações no Sinesp poderá não receber recursos nem celebrar parcerias com a União para financiamento de programas, projetos ou ações de segurança pública e defesa social e do sistema prisional, na forma do regulamento.</p><cite>art. 37, § 2º</cite></blockquote>
+
+<blockquote class="lei"><p>§ 4º A omissão no fornecimento das informações legais implica responsabilidade administrativa do agente público.</p><cite>art. 37, § 4º</cite></blockquote>
+
+<p><strong>O que é, em uma frase:</strong> o Sinesp é o sistema que reúne e padroniza os dados de segurança pública, prisionais e sobre drogas de todo o país.</p>
+<ul>
+<li><strong>Quem integra:</strong> <strong>todos os entes federados</strong> (União, Estados, DF e <strong>Municípios</strong>).</li>
+<li><strong>Também produz dados sobre o próprio profissional:</strong> qualidade de vida e saúde, vitimização (inclusive fora do horário), deficiência por vitimização, dependência química e <strong>transtornos mentais e comportamento suicida</strong>.</li>
+<li><strong>Padrões:</strong> integridade, disponibilidade, confidencialidade, confiabilidade e tempestividade.</li>
+</ul>
+<blockquote>
+<p><strong>Cai muito:</strong> quem <strong>não fornece ou não atualiza</strong> dados pode <strong>ficar sem recursos</strong> e sem parcerias com a União; e a omissão gera <strong>responsabilidade administrativa</strong> do agente público.</p>
+</blockquote>
+<h3>3. Formação e valorização: Sievap e Pró-Vida (arts. 38 a 45)</h3>
+<blockquote class="lei"><p>§ 1º O Sievap é constituído, entre outros, pelos seguintes programas: I - matriz curricular nacional; II - Rede Nacional de Altos Estudos em Segurança Pública (Renaesp); III - Rede Nacional de Educação a Distância em Segurança Pública (Rede EaD-Senasp); IV - programa nacional de qualidade de vida para segurança pública e defesa social.</p><cite>art. 38, § 1º</cite></blockquote>
+
+<blockquote class="lei"><p>§ 1º A matriz curricular é pautada nos direitos humanos, nos princípios da andragogia e nas teorias que enfocam o processo de construção do conhecimento.</p><cite>art. 39, § 1º</cite></blockquote>
+
+<blockquote class="lei"><p>Art. 41. A Rede EaD-Senasp é escola virtual destinada aos profissionais de segurança pública e defesa social e tem como objetivo viabilizar o acesso aos processos de aprendizagem, independentemente das limitações geográficas e sociais existentes, com o propósito de democratizar a educação em segurança pública e defesa social.</p><cite>art. 41</cite></blockquote>
+
+<blockquote class="lei"><p>Art. 42-A. O Pró-Vida produzirá diretrizes direcionadas à prevenção da violência autoprovocada e do suicídio.</p><cite>art. 42-A, caput</cite></blockquote>
+
+<blockquote class="lei"><p>Art. 43. Os documentos de identificação funcional dos profissionais da área de segurança pública e defesa social serão padronizados mediante ato do Ministro de Estado Extraordinário da Segurança Pública e terão fé pública e validade em todo o território nacional.</p><cite>art. 43</cite></blockquote>
+
+<blockquote class="lei"><p>Art. 45. Deverão ser realizadas conferências a cada 5 (cinco) anos para debater as diretrizes dos planos nacional, estaduais e municipais de segurança pública e defesa social.</p><cite>art. 45</cite></blockquote>
+
+<p><strong>Mapa das siglas</strong></p>
+<div class="tabela"><table>
+<thead>
+<tr>
+<th>Sigla</th>
+<th>O que é</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Sievap</strong></td>
+<td>Sistema Integrado de <strong>Educação e Valorização</strong> Profissional</td>
+</tr>
+<tr>
+<td>Matriz curricular nacional</td>
+<td>Referencial teórico, metodológico e avaliativo; pautada em <strong>direitos humanos</strong> e <strong>andragogia</strong></td>
+</tr>
+<tr>
+<td><strong>Renaesp</strong></td>
+<td>Rede Nacional de <strong>Altos Estudos</strong>: instituições de ensino superior; graduação, extensão e pós</td>
+</tr>
+<tr>
+<td><strong>Rede EaD-Senasp</strong></td>
+<td><strong>Escola virtual</strong>; democratiza a educação</td>
+</tr>
+<tr>
+<td><strong>Pró-Vida</strong></td>
+<td>Qualidade de vida: saúde biopsicossocial, ocupacional, segurança do trabalho, prevenção do suicídio</td>
+</tr>
+<tr>
+<td><strong>Sinaped</strong></td>
+<td>Acompanhamento e <strong>avaliação</strong> das políticas</td>
+</tr>
+<tr>
+<td><strong>Sinesp</strong></td>
+<td>Dados e <strong>informações</strong></td>
+</tr>
+</tbody>
+</table></div>
+<p><strong>Pró-Vida: prevenção em três níveis (art. 42-A)</strong>
+- <strong>Primária:</strong> todos os profissionais (convívio, palestras, saúde mental na formação, espaços de escuta).
+- <strong>Secundária:</strong> quem já está em risco (álcool e drogas, acompanhamento psicológico, inclusive após ocorrências traumáticas).
+- <strong>Terciária:</strong> quem comunicou ideação suicida ou tem histórico de violência autoprovocada (aproximação da família, combate ao isolamento, <strong>restrição do porte e uso de arma de fogo</strong>, acompanhamento psicológico e médico).</p>
+<blockquote>
+<p><strong>Macete:</strong> <strong>andragogia</strong> = educação de <strong>adultos</strong>. <strong>Atendimento não compulsório</strong> é diretriz do Pró-Vida.</p>
+</blockquote>
+<h3>4. Questões resolvidas</h3>
+<h4>Questão 1</h4>
+<p>Nos termos da Lei 13.675/2018, deverão ser realizadas conferências para debater as diretrizes dos planos de segurança pública e defesa social a cada</p>
+<ol class="alts" type="A"><li>5 anos.</li><li>2 anos.</li><li>10 anos.</li><li>4 anos.</li><li>ano.</li></ol>
+<p><strong>Resposta: A.</strong> Art. 45.</p>
+<h4>Questão 2</h4>
+<p>Integram o Sinesp</p>
+<ol class="alts" type="A"><li>apenas a União.</li><li>todos os entes federados, por intermédio de órgãos criados ou designados para esse fim.</li><li>apenas a União e os Estados.</li><li>apenas as polícias federais.</li><li>apenas os Municípios com guarda.</li></ol>
+<p><strong>Resposta: B.</strong> Art. 37.</p>
+<h4>Questão 3</h4>
+<p>As atividades de polícia ostensiva e de preservação da ordem pública serão aferidas, entre outros fatores, pela</p>
+<ol class="alts" type="A"><li>quantidade de multas aplicadas.</li><li>número de viaturas.</li><li>maior ou menor incidência de infrações penais e administrativas em determinada área.</li><li>quantidade de prisões em flagrante apenas.</li><li>arrecadação de taxas.</li></ol>
+<p><strong>Resposta: C.</strong> Art. 12, III.</p>
+<h4>Questão 4</h4>
+<p>A matriz curricular nacional é pautada</p>
+<ol class="alts" type="A"><li>exclusivamente na doutrina militar.</li><li>no treinamento de tiro.</li><li>na legislação de trânsito.</li><li>nos direitos humanos, nos princípios da andragogia e nas teorias de construção do conhecimento.</li><li>em critérios de antiguidade.</li></ol>
+<p><strong>Resposta: D.</strong> Art. 39, § 1º.</p>
+<h3>5. Na rotina do guarda</h3>
+<ul>
+<li><strong>Dados da ocorrência:</strong> o boletim da guarda alimenta estatísticas estaduais e o Sinesp; registro incompleto prejudica o Município (art. 37).</li>
+<li><strong>Avaliação da guarda:</strong> como atividade de patrulhamento preventivo, é medida pela incidência de infrações em determinada área (art. 12, III).</li>
+<li><strong>Formação:</strong> cursos da Rede EaD-Senasp são acessíveis a guardas municipais, que integram o Susp.</li>
+<li><strong>Saúde mental:</strong> depois de ocorrência traumática, a lei prevê acompanhamento psicológico (art. 42-A, § 5º, V).</li>
+<li><strong>Identidade funcional:</strong> tem fé pública e validade nacional, conforme padrão federal (art. 43).</li>
+</ul>
+<h3>6. Onde a Vunesp pega</h3>
+<div class="tabela"><table>
+<thead>
+<tr>
+<th>Armadilha</th>
+<th>Como escapar</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Periodicidade das metas</td>
+<td>Anual</td>
+</tr>
+<tr>
+<td>Conferências de segurança pública</td>
+<td>A cada 5 anos</td>
+</tr>
+<tr>
+<td>Quem integra o Sinesp</td>
+<td>Todos os entes federados</td>
+</tr>
+<tr>
+<td>Sanção por não fornecer dados ao Sinesp</td>
+<td>Pode não receber recursos nem celebrar parcerias com a União</td>
+</tr>
+<tr>
+<td>Omissão do agente no fornecimento</td>
+<td>Responsabilidade administrativa</td>
+</tr>
+<tr>
+<td>Matriz curricular</td>
+<td>Direitos humanos e andragogia</td>
+</tr>
+<tr>
+<td>Renaesp x Rede EaD</td>
+<td>Ensino superior x escola virtual</td>
+</tr>
+<tr>
+<td>Sinaped x Sinesp</td>
+<td>Avaliação de políticas x dados e informações</td>
+</tr>
+<tr>
+<td>Atendimento do Pró-Vida</td>
+<td>Não compulsório</td>
+</tr>
+<tr>
+<td>Identidade funcional</td>
+<td>Fé pública e validade nacional</td>
+</tr>
+</tbody>
+</table></div>
+<h3>7. Quadro-resumo</h3>
+<div class="tabela"><table>
+<thead>
+<tr>
+<th>Ponto</th>
+<th>O essencial</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Arts. 11 e 12</td>
+<td>Metas anuais; indicadores por atividade</td>
+</tr>
+<tr>
+<td>Arts. 13 e 14</td>
+<td>Gestão federal: aparelhamento, Sinesp, intercâmbio com guardas, inteligência</td>
+</tr>
+<tr>
+<td>Art. 24</td>
+<td>Diretrizes dos planos: articulação, participação social, escola, egressos, plano diretor</td>
+</tr>
+<tr>
+<td>Arts. 26 e 27</td>
+<td>Sinaped e relatório de avaliação enviado aos Conselhos</td>
+</tr>
+<tr>
+<td>Arts. 36 e 37</td>
+<td>Sinesp: objetivos; todos os entes; sanção e responsabilidade</td>
+</tr>
+<tr>
+<td>Arts. 38 a 41</td>
+<td>Sievap: matriz curricular, Renaesp, Rede EaD, Pró-Vida</td>
+</tr>
+<tr>
+<td>Arts. 42 e 42-A</td>
+<td>Pró-Vida e prevenção do suicídio em três níveis</td>
+</tr>
+<tr>
+<td>Art. 43</td>
+<td>Identidade funcional padronizada, fé pública, validade nacional</td>
+</tr>
+<tr>
+<td>Art. 45</td>
+<td>Conferências a cada 5 anos</td>
+</tr>
+</tbody>
+</table></div>
+<p class="ref">Fontes: Edital 02/2026, Anexo I; Lei 13.675/2018, consolidação da Câmara dos Deputados. Exemplos criados para a aula.</p>
 `,
 "amb-1": `
 <span class="status">Versão 1 · em revisão</span>
@@ -22447,6 +23545,132 @@ BANCO["ctb-10"] = [
 {id:"t10-60",n:3,e:"A suspensão da habilitação decretada como medida cautelar, em qualquer fase da investigação, tem como fundamento a necessidade de garantia da",a:["ordem pública.", "vontade do réu.", "pressa do juiz.", "imprensa.", "arrecadação."],c:"Art. 294."}
 ];
 
+BANCO["ctb-11"] = [
+{id:"t11-01",n:1,e:"Ultrapassar pela direita veículo de transporte coletivo parado para embarque, sem refúgio para pedestre, é infração",a:["gravíssima.", "leve.", "média.", "grave.", "isenta."],c:"Art. 200."},
+{id:"t11-02",n:1,e:"Ao ultrapassar bicicleta, o condutor deve guardar distância lateral de",a:["um metro e cinquenta centímetros.", "cinquenta centímetros.", "um metro.", "dois metros.", "três metros."],c:"Art. 201."},
+{id:"t11-03",n:1,e:"Ultrapassar outro veículo pelo acostamento é infração",a:["gravíssima.", "leve.", "média.", "grave.", "isenta."],c:"Art. 202, I."},
+{id:"t11-04",n:1,e:"Deixar de parar o veículo antes de transpor linha férrea é infração",a:["gravíssima.", "leve.", "média.", "grave.", "isenta."],c:"Art. 212."},
+{id:"t11-05",n:1,e:"Usar o facho de luz alta em vias providas de iluminação pública é infração",a:["leve.", "gravíssima.", "grave.", "média.", "isenta."],c:"Art. 224."},
+{id:"t11-06",n:1,e:"É proibido usar buzina entre as",a:["vinte e duas e as seis horas.", "dezoito e as seis horas.", "vinte e as oito horas.", "meia-noite e as cinco horas.", "vinte e três e as sete horas."],c:"Art. 227, III."},
+{id:"t11-07",n:1,e:"Usar no veículo som em volume ou frequência não autorizados pelo Contran é infração",a:["grave.", "leve.", "média.", "gravíssima.", "isenta."],c:"Art. 228."},
+{id:"t11-08",n:1,e:"Efetuar transporte remunerado de pessoas sem licença para esse fim é infração",a:["gravíssima.", "leve.", "média.", "grave.", "isenta."],c:"Art. 231, VIII."},
+{id:"t11-09",n:1,e:"Conduzir veículo sem os documentos de porte obrigatório é infração",a:["leve.", "gravíssima.", "grave.", "média.", "isenta."],c:"Art. 232."},
+{id:"t11-10",n:1,e:"Recusar-se a entregar ao agente os documentos de habilitação e do veículo é infração",a:["gravíssima.", "leve.", "média.", "grave.", "isenta."],c:"Art. 238."},
+{id:"t11-11",n:1,e:"Conduzir motocicleta sem capacete de segurança é infração",a:["gravíssima.", "leve.", "média.", "grave.", "isenta."],c:"Art. 244, I."},
+{id:"t11-12",n:1,e:"Dirigir com fones nos ouvidos conectados a aparelhagem sonora é infração",a:["média.", "leve.", "grave.", "gravíssima.", "isenta."],c:"Art. 252, VI."},
+{id:"t11-13",n:1,e:"Dirigir o veículo com o braço do lado de fora é infração",a:["média.", "leve.", "grave.", "gravíssima.", "isenta."],c:"Art. 252, I."},
+{id:"t11-14",n:1,e:"Bloquear a via com veículo é infração",a:["gravíssima.", "leve.", "média.", "grave.", "isenta."],c:"Art. 253."},
+{id:"t11-15",n:1,e:"As infrações cometidas por pedestres são de natureza",a:["leve.", "média.", "grave.", "gravíssima.", "penal."],c:"Art. 254."},
+{id:"t11-16",n:1,e:"Conduzir bicicleta em passeio onde não seja permitida a circulação é infração",a:["média.", "leve.", "grave.", "gravíssima.", "isenta."],c:"Art. 255."},
+{id:"t11-17",n:1,e:"Retirar do local veículo legalmente retido, sem permissão, é infração",a:["gravíssima.", "leve.", "média.", "grave.", "isenta."],c:"Art. 239."},
+{id:"t11-18",n:1,tx:"ctb11a",e:"No texto do motoqueiro e o filho, o transporte da criança de 7 anos na moto é infração",a:["gravíssima.", "leve.", "média.", "grave.", "permitida, pois ambos usavam capacete."],c:"Art. 244, V."},
+{id:"t11-19",n:1,tx:"ctb11b",e:"No texto do celular no semáforo, a motorista que segura e manuseia o celular comete infração",a:["gravíssima.", "leve.", "média.", "grave.", "isenta."],c:"Art. 252, parágrafo único."},
+{id:"t11-20",n:1,tx:"ctb11c",e:"No texto do som na praça, o som em volume não autorizado configura infração",a:["grave.", "leve.", "média.", "gravíssima.", "isenta."],c:"Art. 228."},
+{id:"t11-21",n:2,e:"Ultrapassar pela direita, salvo quando o veículo da frente estiver na faixa apropriada e sinalizar que vai entrar à esquerda, é infração",a:["média.", "leve.", "grave.", "gravíssima.", "isenta."],c:"Art. 199."},
+{id:"t11-22",n:2,e:"Ultrapassar veículos em fila, parados em razão de sinal luminoso ou bloqueio, com exceção dos não motorizados, é infração",a:["grave.", "leve.", "média.", "gravíssima.", "isenta."],c:"Art. 211."},
+{id:"t11-23",n:2,e:"Deixar de parar quando a marcha for interceptada por agrupamento de pessoas, como passeatas e desfiles, é infração",a:["gravíssima.", "leve.", "média.", "grave.", "isenta."],c:"Art. 213, I."},
+{id:"t11-24",n:2,e:"Deixar de dar preferência ao pedestre que já iniciou a travessia, mesmo sem sinalização a ele destinada, é infração",a:["grave.", "gravíssima.", "leve.", "média.", "isenta."],c:"Art. 214, IV."},
+{id:"t11-25",n:2,e:"Em interseção não sinalizada, a preferência é do veículo que circula por rodovia ou rotatória e do que vier da",a:["direita.", "esquerda.", "frente.", "contramão.", "via secundária."],c:"Art. 215, I."},
+{id:"t11-26",n:2,e:"Deixar de manter ligada, em atendimento de emergência, a iluminação intermitente de ambulâncias e viaturas de polícia, ainda que paradas, é infração",a:["média.", "leve.", "grave.", "gravíssima.", "isenta."],c:"Art. 222."},
+{id:"t11-27",n:2,e:"Transitar com o farol desregulado, perturbando a visão de outro condutor, é infração grave, com medida administrativa de",a:["retenção do veículo para regularização.", "remoção do veículo.", "recolhimento da CNH.", "apreensão da placa.", "nenhuma medida."],c:"Art. 223."},
+{id:"t11-28",n:2,e:"Usar indevidamente aparelho de alarme que perturbe o sossego público é infração",a:["média.", "leve.", "grave.", "gravíssima.", "isenta."],c:"Art. 229."},
+{id:"t11-29",n:2,e:"Conduzir com vidros cobertos por películas não autorizadas é infração",a:["grave.", "leve.", "média.", "gravíssima.", "isenta."],c:"Art. 230, XVI."},
+{id:"t11-30",n:2,e:"Conduzir com defeito no sistema de iluminação ou com lâmpadas queimadas é infração",a:["média.", "leve.", "grave.", "gravíssima.", "isenta."],c:"Art. 230, XXII."},
+{id:"t11-31",n:2,e:"Deixar de efetuar o registro do veículo no prazo de trinta dias, nas hipóteses do art. 123, é infração",a:["média.", "leve.", "grave.", "gravíssima.", "isenta."],c:"Art. 233."},
+{id:"t11-32",n:2,e:"Rebocar outro veículo com cabo flexível ou corda, salvo emergência, é infração",a:["média.", "leve.", "grave.", "gravíssima.", "isenta."],c:"Art. 236."},
+{id:"t11-33",n:2,e:"Fazer falsa declaração de domicílio para fins de registro, licenciamento ou habilitação é infração",a:["gravíssima.", "leve.", "média.", "grave.", "isenta."],c:"Art. 242."},
+{id:"t11-34",n:2,e:"Conduzir motocicleta com capacete sem viseira ou óculos de proteção é infração",a:["média.", "leve.", "grave.", "gravíssima.", "isenta."],c:"Art. 244, X."},
+{id:"t11-35",n:2,e:"Deixar o veículo de transporte coletivo ou escolar de manter a porta fechada, em movimento, é infração",a:["gravíssima.", "leve.", "média.", "grave.", "isenta."],c:"Art. 250, IV."},
+{id:"t11-36",n:2,e:"Utilizar o pisca-alerta fora de imobilizações ou situações de emergência é infração",a:["média.", "leve.", "grave.", "gravíssima.", "isenta."],c:"Art. 251, I."},
+{id:"t11-37",n:2,e:"A multa aplicada ao pedestre corresponde a",a:["50% do valor da infração de natureza leve.", "100% do valor da infração média.", "o dobro da infração leve.", "20% da infração grave.", "valor fixo de gravíssima."],c:"Art. 254."},
+{id:"t11-38",n:2,tx:"ctb11a",e:"No texto do motoqueiro e o filho, além da multa, a penalidade inclui",a:["suspensão do direito de dirigir.", "cassação da CNH.", "advertência apenas.", "curso de reciclagem apenas.", "nenhuma outra."],c:"Art. 244, V."},
+{id:"t11-39",n:2,tx:"ctb11b",e:"No texto do celular no semáforo, se a motorista apenas usasse fone conectado ao celular, a infração seria",a:["média.", "gravíssima.", "leve.", "grave.", "isenta."],c:"Art. 252, VI."},
+{id:"t11-40",n:2,tx:"ctb11c",e:"No texto do som na praça, a recusa em entregar a CNH e o documento do veículo é infração",a:["gravíssima.", "leve.", "média.", "grave.", "isenta."],c:"Art. 238."},
+{id:"t11-41",n:3,e:"Assinale a alternativa correta sobre o art. 214 do CTB.",a:["Deixar de dar preferência a idosos e gestantes é gravíssima; ao pedestre que atravessa a via transversal para onde se dirige o veículo é grave.", "Todas as hipóteses são gravíssimas.", "Todas as hipóteses são graves.", "Não dar preferência ao pedestre na faixa é média.", "O artigo não protege veículos não motorizados."],c:"Art. 214."},
+{id:"t11-42",n:3,e:"Considere. I. Dirigir usando celular sem segurá-lo é infração média. II. Dirigir segurando o celular é gravíssima. III. Dirigir com fone conectado ao celular é leve. Está correto o que se afirma em",a:["I e II, apenas.", "I, apenas.", "II, apenas.", "II e III, apenas.", "I, II e III."],c:"Art. 252, VI e parágrafo único: fone é média."},
+{id:"t11-43",n:3,e:"Assinale a INCORRETA.",a:["Conduzir sem documento de porte obrigatório é infração gravíssima.", "Usar buzina prolongada e sucessivamente é infração leve.", "Usar luz alta em via iluminada é infração leve.", "Bloquear a via com veículo é gravíssima.", "Ultrapassar pelo acostamento é gravíssima."],c:"Art. 232: leve."},
+{id:"t11-44",n:3,e:"Ultrapassar outro veículo pelo acostamento ou em interseções e passagens de nível é gravíssima, com multa",a:["multiplicada por cinco.", "em dobro.", "simples.", "multiplicada por dez.", "reduzida à metade."],c:"Art. 202."},
+{id:"t11-45",n:3,e:"No art. 244, as condutas de rebocar outro veículo com a moto, sem segurar o guidom com ambas as mãos e transportando carga incompatível são infrações",a:["graves.", "gravíssimas.", "leves.", "médias.", "isentas."],c:"Art. 244, VI a IX."},
+{id:"t11-46",n:3,e:"Ao ciclista aplica-se a infração de conduzir passageiro fora da garupa ou do assento especial, sendo infração",a:["média.", "gravíssima.", "grave.", "leve.", "isenta."],c:"Art. 244, § 1º, a, e § 2º."},
+{id:"t11-47",n:3,e:"Usar veículo para, deliberadamente, interromper a circulação na via sem autorização é infração gravíssima, com multa de vinte vezes e suspensão do direito de dirigir por",a:["12 meses.", "6 meses.", "2 meses.", "24 meses.", "30 dias."],c:"Art. 253-A."},
+{id:"t11-48",n:3,e:"Aos organizadores da conduta de bloqueio deliberado da via com veículos, a multa é agravada em",a:["60 vezes.", "20 vezes.", "10 vezes.", "5 vezes.", "2 vezes."],c:"Art. 253-A, § 1º."},
+{id:"t11-49",n:3,e:"Deixar de sinalizar obstáculo à livre circulação no leito da via ou na calçada é infração gravíssima, com multa agravada em até",a:["cinco vezes, conforme o risco à segurança.", "duas vezes.", "dez vezes.", "vinte vezes.", "sessenta vezes."],c:"Art. 246."},
+{id:"t11-50",n:3,e:"Utilizar a via para depósito de mercadorias, sem autorização, é infração grave, com medida administrativa de",a:["remoção da mercadoria ou do material.", "apreensão do veículo.", "recolhimento da CNH.", "retenção do veículo.", "interdição do estabelecimento."],c:"Art. 245."},
+{id:"t11-51",n:3,e:"Deixar de manter acesa a luz baixa, de dia, sob chuva, neblina ou cerração, é infração",a:["média.", "leve.", "grave.", "gravíssima.", "isenta."],c:"Art. 250, I, b."},
+{id:"t11-52",n:3,e:"Conduzir pessoas, animais ou carga nas partes externas do veículo, salvo nos casos autorizados, é infração grave, com",a:["retenção do veículo para transbordo.", "remoção do veículo.", "recolhimento da CNH.", "apreensão do animal.", "advertência apenas."],c:"Art. 235."},
+{id:"t11-53",n:3,e:"A infração do art. 252, V (dirigir com apenas uma das mãos), torna-se gravíssima quando o condutor estiver",a:["segurando ou manuseando telefone celular.", "fazendo sinais de braço.", "mudando a marcha.", "acionando o limpador.", "ligando o pisca."],c:"Art. 252, parágrafo único."},
+{id:"t11-54",n:3,e:"Deixar a seguradora de comunicar ao órgão de trânsito a perda total do veículo e de devolver placas e documentos é infração",a:["grave.", "leve.", "média.", "gravíssima.", "isenta."],c:"Art. 243."},
+{id:"t11-55",n:3,e:"Ultrapassar veículo em movimento que integre cortejo, préstito, desfile ou formação militar, sem autorização, é infração",a:["leve.", "gravíssima.", "grave.", "média.", "isenta."],c:"Art. 205."},
+{id:"t11-56",n:3,tx:"ctb11a",e:"No texto do motoqueiro e o filho, a medida administrativa prevista é a",a:["retenção do veículo até regularização e o recolhimento do documento de habilitação.", "remoção da criança pelo Conselho Tutelar.", "apreensão do capacete.", "advertência verbal.", "interdição da escola."],c:"Art. 244, V."},
+{id:"t11-57",n:3,tx:"ctb11b",e:"No texto do celular no semáforo, a regra aplicada é a do art. 252, que transforma em gravíssima a hipótese de dirigir com",a:["apenas uma das mãos, segurando ou manuseando o celular.", "braço para fora.", "calçado inadequado.", "fone de ouvido.", "incapacidade física temporária."],c:"Art. 252, V e parágrafo único."},
+{id:"t11-58",n:3,tx:"ctb11c",e:"No texto do som na praça, se o condutor apenas tivesse esquecido os documentos em casa, a infração seria",a:["leve, com retenção até a apresentação do documento.", "gravíssima.", "grave.", "média.", "isenta."],c:"Art. 232."},
+{id:"t11-59",n:3,tx:"ctb11c",e:"No texto do som na praça, a medida administrativa prevista para o som em volume não autorizado é a",a:["retenção do veículo para regularização.", "remoção do veículo.", "cassação da CNH.", "apreensão da placa.", "prisão em flagrante."],c:"Art. 228."},
+{id:"t11-60",n:3,tx:"ctb11c",e:"No texto do som na praça, a atuação dos guardas, em Campinas, na autuação de trânsito depende de",a:["convênio ou competência delegada pelo órgão de trânsito com circunscrição sobre a via.", "autorização do juiz.", "pedido do motorista.", "decisão da Câmara.", "nada, pois a guarda é órgão de trânsito por natureza."],c:"CTB, art. 280, § 4º."}
+];
+
+BANCO["ctb-12"] = [
+{id:"t12-01",n:1,e:"Estrada, segundo o Anexo I do CTB, é a via rural",a:["não pavimentada.", "pavimentada.", "urbana.", "de trânsito rápido.", "arterial."],c:"Anexo I."},
+{id:"t12-02",n:1,e:"A via rural pavimentada denomina-se",a:["rodovia.", "estrada.", "via local.", "via coletora.", "ciclovia."],c:"Anexo I."},
+{id:"t12-03",n:1,e:"A via caracterizada por interseções em nível não semaforizadas, destinada apenas ao acesso local, é a via",a:["local.", "arterial.", "coletora.", "de trânsito rápido.", "rural."],c:"Anexo I."},
+{id:"t12-04",n:1,e:"A via sem interseções em nível, sem acessibilidade direta aos lotes lindeiros e sem travessia de pedestres em nível é a via",a:["de trânsito rápido.", "arterial.", "coletora.", "local.", "rural."],c:"Anexo I."},
+{id:"t12-05",n:1,e:"A pista própria destinada à circulação de ciclos, separada fisicamente do tráfego comum, é a",a:["ciclovia.", "ciclofaixa.", "calçada.", "faixa de pedestres.", "ilha."],c:"Anexo I."},
+{id:"t12-06",n:1,e:"A imobilização de veículos por tempo superior ao necessário para embarque ou desembarque de passageiros é o",a:["estacionamento.", "parada.", "retorno.", "bloqueio.", "sinistro."],c:"Anexo I."},
+{id:"t12-07",n:1,e:"A imobilização do veículo para atender circunstância momentânea do trânsito é a",a:["interrupção de marcha.", "parada.", "estacionamento.", "conversão.", "retenção."],c:"Anexo I."},
+{id:"t12-08",n:1,e:"O movimento em ângulo, à esquerda ou à direita, de mudança da direção original do veículo, é a",a:["conversão.", "ultrapassagem.", "transposição.", "passagem.", "parada."],c:"Anexo I."},
+{id:"t12-09",n:1,e:"Noite, para o CTB, é o período compreendido entre o",a:["pôr do sol e o nascer do sol.", "meio-dia e a meia-noite.", "18h e as 6h.", "22h e as 6h.", "anoitecer e a meia-noite."],c:"Anexo I."},
+{id:"t12-10",n:1,e:"Trânsito é a movimentação e a imobilização de veículos, pessoas e",a:["animais nas vias terrestres.", "cargas no mar.", "aeronaves.", "trens nos trilhos.", "embarcações."],c:"Anexo I."},
+{id:"t12-11",n:1,e:"Automóvel é o veículo automotor de passageiros com capacidade para até",a:["oito pessoas, exclusive o condutor.", "cinco pessoas, incluído o condutor.", "dez pessoas.", "doze pessoas.", "vinte pessoas."],c:"Anexo I."},
+{id:"t12-12",n:1,e:"A motocicleta é dirigida por condutor em posição",a:["montada.", "sentada.", "em pé.", "deitada.", "ajoelhada."],c:"Anexo I."},
+{id:"t12-13",n:1,e:"A motoneta é dirigida por condutor em posição",a:["sentada.", "montada.", "em pé.", "deitada.", "lateral."],c:"Anexo I."},
+{id:"t12-14",n:1,e:"A bicicleta é veículo de propulsão",a:["humana.", "elétrica.", "a combustão.", "animal.", "híbrida."],c:"Anexo I."},
+{id:"t12-15",n:1,e:"A caminhonete é veículo destinado ao transporte de",a:["carga, com peso bruto total de até 3.500 kg.", "passageiros, até oito pessoas.", "passageiros e carga no mesmo compartimento.", "pessoas com deficiência.", "animais."],c:"Anexo I."},
+{id:"t12-16",n:1,e:"A parte da via, sinalizada e protegida, destinada ao uso de pedestres durante a travessia, é o",a:["refúgio.", "acostamento.", "canteiro.", "lote lindeiro.", "bordo."],c:"Anexo I."},
+{id:"t12-17",n:1,e:"A inobservância a qualquer preceito da legislação de trânsito denomina-se",a:["infração.", "sinistro.", "crime.", "fiscalização.", "operação."],c:"Anexo I."},
+{id:"t12-18",n:1,tx:"ctb12a",e:"No texto da van de entregas, a via descrita, com semáforos e ligando regiões da cidade, é",a:["arterial.", "local.", "coletora.", "de trânsito rápido.", "rural."],c:"Anexo I."},
+{id:"t12-19",n:1,tx:"ctb12b",e:"No texto da motoneta e a ciclofaixa, a faixa pintada na pista para ciclistas é a",a:["ciclofaixa.", "ciclovia.", "calçada.", "faixa de pedestres.", "acostamento."],c:"Anexo I."},
+{id:"t12-20",n:1,tx:"ctb12c",e:"No texto do sinistro na rodovia, a via rural pavimentada é uma",a:["rodovia.", "estrada.", "via local.", "via arterial.", "ciclovia."],c:"Anexo I."},
+{id:"t12-21",n:2,e:"A via destinada a coletar e distribuir o trânsito que entra ou sai das vias de trânsito rápido ou arteriais, possibilitando o trânsito dentro das regiões da cidade, é a via",a:["coletora.", "arterial.", "local.", "rural.", "de trânsito rápido."],c:"Anexo I."},
+{id:"t12-22",n:2,e:"Via urbana compreende ruas, avenidas, vielas ou caminhos abertos à circulação pública, situados na área urbana, caracterizados principalmente por possuírem",a:["imóveis edificados ao longo de sua extensão.", "pavimentação asfáltica.", "semáforos.", "ciclovias.", "canteiros centrais."],c:"Anexo I."},
+{id:"t12-23",n:2,e:"O acostamento destina-se à parada ou estacionamento em emergência e à circulação de pedestres e bicicletas",a:["quando não houver local apropriado para esse fim.", "sempre.", "apenas à noite.", "apenas aos domingos.", "apenas em rodovias federais."],c:"Anexo I."},
+{id:"t12-24",n:2,e:"A ultrapassagem é o movimento de passar à frente de veículo que se desloca no mesmo sentido, em menor velocidade, na mesma faixa,",a:["necessitando sair e retornar à faixa de origem.", "sem sair da faixa.", "em faixas distintas.", "pela contramão obrigatoriamente.", "pelo acostamento."],c:"Anexo I."},
+{id:"t12-25",n:2,e:"A passagem por outro veículo ocorre quando o veículo passa à frente de outro que se desloca no mesmo sentido, em menor velocidade, mas em",a:["faixas distintas da via.", "mesma faixa.", "sentido oposto.", "acostamento.", "contramão."],c:"Anexo I."},
+{id:"t12-26",n:2,e:"A passagem de um veículo de uma faixa demarcada para outra denomina-se",a:["transposição de faixas.", "conversão.", "ultrapassagem.", "retorno.", "interseção."],c:"Anexo I."},
+{id:"t12-27",n:2,e:"Interseção é todo cruzamento em nível, entroncamento ou",a:["bifurcação.", "viaduto.", "túnel.", "ponte.", "passarela."],c:"Anexo I."},
+{id:"t12-28",n:2,e:"Cruzamento é a interseção de duas vias",a:["em nível.", "em desnível.", "rurais.", "de trânsito rápido.", "paralelas."],c:"Anexo I."},
+{id:"t12-29",n:2,e:"A ilha é obstáculo físico, colocado na pista de rolamento, destinado à",a:["ordenação dos fluxos de trânsito em uma interseção.", "travessia de pedestres.", "parada de ônibus.", "circulação de bicicletas.", "estacionamento."],c:"Anexo I."},
+{id:"t12-30",n:2,e:"A calçada é parte da via, normalmente segregada e em nível diferente,",a:["não destinada à circulação de veículos, reservada ao trânsito de pedestres.", "destinada à circulação de motos.", "destinada ao estacionamento.", "destinada a ciclistas exclusivamente.", "destinada a carga e descarga."],c:"Anexo I."},
+{id:"t12-31",n:2,e:"Camioneta é o veículo",a:["misto destinado ao transporte de passageiros e carga no mesmo compartimento.", "de carga até 3.500 kg.", "de passageiros até oito pessoas.", "de duas rodas.", "de tração animal."],c:"Anexo I."},
+{id:"t12-32",n:2,e:"O ciclomotor com motor de combustão tem cilindrada que não exceda a",a:["50 cm³.", "125 cm³.", "250 cm³.", "100 cm³.", "30 cm³."],c:"Anexo I."},
+{id:"t12-33",n:2,e:"A velocidade máxima de fabricação do ciclomotor não pode exceder",a:["50 km/h.", "80 km/h.", "30 km/h.", "60 km/h.", "100 km/h."],c:"Anexo I."},
+{id:"t12-34",n:2,e:"Autoridade de trânsito é o dirigente máximo de órgão ou entidade executivo integrante do SNT ou",a:["pessoa por ele expressamente credenciada.", "qualquer servidor público.", "qualquer policial.", "qualquer guarda municipal.", "o prefeito necessariamente."],c:"Anexo I."},
+{id:"t12-35",n:2,e:"O etilômetro é o aparelho destinado à medição do teor alcoólico no",a:["ar alveolar.", "sangue.", "suor.", "urina.", "cabelo."],c:"Anexo I."},
+{id:"t12-36",n:2,e:"O perímetro urbano é o limite entre",a:["área urbana e área rural.", "dois Municípios.", "dois Estados.", "duas vias.", "calçada e pista."],c:"Anexo I."},
+{id:"t12-37",n:2,e:"Lote lindeiro é aquele situado ao longo das vias urbanas ou rurais e que com elas",a:["se limita.", "se cruza.", "se sobrepõe.", "se separa por rio.", "não tem contato."],c:"Anexo I."},
+{id:"t12-38",n:2,tx:"ctb12a",e:"No texto da van de entregas, os vinte minutos descarregando caixas configuram",a:["estacionamento.", "parada.", "interrupção de marcha.", "conversão.", "transposição de faixas."],c:"Anexo I."},
+{id:"t12-39",n:2,tx:"ctb12b",e:"No texto da motoneta e a ciclofaixa, o condutor está em posição",a:["sentada, pois se trata de motoneta.", "montada, pois se trata de motoneta.", "em pé.", "deitada.", "de bicicleta."],c:"Anexo I."},
+{id:"t12-40",n:2,tx:"ctb12c",e:"No texto do sinistro na rodovia, o CTB chama o evento de",a:["sinistro de trânsito.", "acidente aéreo.", "infração.", "crime ambiental.", "interrupção de marcha."],c:"Anexo I."},
+{id:"t12-41",n:3,e:"Assinale a alternativa correta.",a:["Ciclovia é separada fisicamente do tráfego comum; ciclofaixa é parte da pista delimitada por sinalização.", "Ciclofaixa é separada fisicamente; ciclovia é só sinalizada.", "Ciclovia e ciclofaixa são sinônimos no CTB.", "Ciclofaixa é parte da calçada.", "Ciclovia é parte do acostamento."],c:"Anexo I."},
+{id:"t12-42",n:3,e:"Considere. I. Estrada é via rural pavimentada. II. Rodovia é via rural pavimentada. III. Via rural compreende estradas e rodovias. Está correto o que se afirma em",a:["II e III, apenas.", "I, apenas.", "I e II, apenas.", "III, apenas.", "I, II e III."],c:"Anexo I."},
+{id:"t12-43",n:3,e:"Assinale a INCORRETA.",a:["Passagem por outro veículo exige sair e retornar à faixa de origem.", "Ultrapassagem ocorre na mesma faixa de tráfego.", "Transposição de faixas é a passagem de uma faixa demarcada para outra.", "Conversão é movimento em ângulo de mudança de direção.", "Parada é para embarque ou desembarque de passageiros."],c:"Passagem ocorre em faixas distintas."},
+{id:"t12-44",n:3,e:"O passeio é parte da calçada ou da pista, separada por pintura ou elemento físico, destinada à circulação exclusiva de pedestres e, excepcionalmente, de",a:["ciclistas.", "motociclistas.", "carros de mão.", "veículos de emergência.", "animais."],c:"Anexo I."},
+{id:"t12-45",n:3,e:"Logradouro público é o espaço livre destinado pela municipalidade à circulação, parada ou estacionamento de veículos, ou à circulação de pedestres, tais como",a:["calçada, parques, áreas de lazer e calçadões.", "lotes particulares.", "garagens privadas.", "pátios de empresas.", "condomínios fechados."],c:"Anexo I."},
+{id:"t12-46",n:3,e:"Agente da autoridade de trânsito inclui o agente de trânsito e o policial rodoviário federal e, quando designados mediante convênio, também o",a:["policial militar ou os agentes do art. 25-A.", "vigilante privado.", "fiscal sanitário.", "oficial de justiça.", "bombeiro civil."],c:"Anexo I."},
+{id:"t12-47",n:3,e:"O policiamento ostensivo de trânsito, segundo o Anexo I, é função exercida pelas",a:["Polícias Militares.", "Guardas Municipais.", "Polícias Civis.", "Forças Armadas.", "empresas de engenharia de tráfego."],c:"Anexo I."},
+{id:"t12-48",n:3,e:"A fiscalização de trânsito é o ato de controlar o cumprimento das normas por meio do poder de polícia",a:["administrativa de trânsito.", "judiciária.", "militar.", "fiscal tributária.", "sanitária."],c:"Anexo I."},
+{id:"t12-49",n:3,e:"No sinistro de trânsito, conforme o Anexo I, ao menos uma das partes está",a:["em movimento nas vias terrestres ou em áreas abertas ao público.", "parada em garagem particular.", "em via aérea.", "em embarcação.", "sem condutor habilitado."],c:"Anexo I."},
+{id:"t12-50",n:3,e:"O veículo em estado de abandono é o estacionado na via, sem capacidade de locomoção por meios próprios, que ofereça risco à saúde, à segurança ou ao meio ambiente,",a:["independentemente de encontrar-se em local permitido.", "apenas se em local proibido.", "apenas se sem placa.", "apenas se há mais de um ano.", "apenas se incendiado."],c:"Anexo I."},
+{id:"t12-51",n:3,e:"O veículo automotor inclui, por expressa previsão, os veículos conectados a uma linha elétrica que não circulam sobre trilhos, como o",a:["ônibus elétrico.", "bonde.", "trem.", "metrô.", "teleférico."],c:"Anexo I."},
+{id:"t12-52",n:3,e:"A bicicleta, para efeito do CTB,",a:["não é similar à motocicleta, motoneta e ciclomotor.", "é similar ao ciclomotor.", "é veículo automotor.", "é equiparada à motocicleta.", "não é veículo."],c:"Anexo I."},
+{id:"t12-53",n:3,e:"O ciclomotor elétrico tem potência máxima de",a:["4 kW.", "10 kW.", "1 kW.", "50 kW.", "20 kW."],c:"Anexo I."},
+{id:"t12-54",n:3,e:"A operação de trânsito é o monitoramento técnico, baseado em engenharia de tráfego, das condições de fluidez, de estacionamento e de",a:["parada na via.", "arrecadação.", "licenciamento.", "habilitação.", "pesagem de carga."],c:"Anexo I."},
+{id:"t12-55",n:3,e:"Utilitário é o veículo",a:["misto caracterizado pela versatilidade do seu uso, inclusive fora de estrada.", "de carga com mais de 3.500 kg.", "de duas rodas.", "de propulsão humana.", "de tração animal."],c:"Anexo I."},
+{id:"t12-56",n:3,tx:"ctb12a",e:"No texto da van de entregas, a velocidade máxima, onde não houver sinalização, nessa via é de",a:["60 km/h.", "80 km/h.", "40 km/h.", "30 km/h.", "110 km/h."],c:"Art. 61, § 1º, I, b."},
+{id:"t12-57",n:3,tx:"ctb12a",e:"No texto da van de entregas, se a van ficasse apenas o tempo para um passageiro descer, haveria",a:["parada.", "estacionamento.", "interrupção de marcha.", "abandono.", "bloqueio."],c:"Anexo I."},
+{id:"t12-58",n:3,tx:"ctb12b",e:"No texto da motoneta e a ciclofaixa, se a faixa fosse separada fisicamente da pista, seria uma",a:["ciclovia.", "ciclofaixa.", "calçada.", "ilha.", "faixa de rolamento."],c:"Anexo I."},
+{id:"t12-59",n:3,tx:"ctb12c",e:"No texto do sinistro na rodovia, se a via rural não fosse pavimentada, seria uma",a:["estrada.", "rodovia.", "via arterial.", "via coletora.", "via local."],c:"Anexo I."},
+{id:"t12-60",n:3,tx:"ctb12c",e:"No texto do sinistro na rodovia, o termo usado pelo CTB, após a Lei 14.599/2023, é sinistro de trânsito, que abrange dano ao veículo ou à carga e lesões a",a:["pessoas ou animais.", "apenas pessoas.", "apenas veículos.", "apenas animais.", "apenas o patrimônio público."],c:"Anexo I."}
+];
+
 BANCO["eca-1"] = [
 {id:"e1-01",n:1,e:"O Estatuto da Criança e do Adolescente dispõe sobre a",a:["proteção integral à criança e ao adolescente.", "proteção apenas do adolescente infrator.", "aplicação de penas a adolescentes.", "tutela do idoso.", "disciplina do trabalho infantil, apenas."],c:"Art. 1º."},
 {id:"e1-02",n:1,e:"Considera-se adolescente a pessoa entre",a:["doze e dezoito anos de idade.", "dez e catorze anos.", "catorze e dezesseis anos.", "dezesseis e vinte anos.", "dezoito e vinte e um anos."],c:"Art. 2º."},
@@ -23581,6 +24805,69 @@ BANCO["susp-2"] = [
 {id:"s2-60",n:3,tx:"susp2c",e:"No texto da reclamação contra um guarda, a ouvidoria deve ser instituída pela União, pelos Estados, pelo DF e pelos",a:["Municípios.", "clubes.", "sindicatos.", "bancos.", "partidos."],c:"Art. 34."}
 ];
 
+BANCO["susp-3"] = [
+{id:"s3-01",n:1,e:"As metas de excelência previstas na Lei 13.675/2018 são fixadas",a:["anualmente.", "mensalmente.", "a cada 5 anos.", "a cada 10 anos.", "semestralmente."],c:"Arts. 11 e 25."},
+{id:"s3-02",n:1,e:"Sinesp é o sistema nacional de",a:["informações de segurança pública.", "educação profissional.", "avaliação de políticas.", "qualidade de vida.", "altos estudos."],c:"Art. 35 e seguintes."},
+{id:"s3-03",n:1,e:"Sievap é o Sistema Integrado de",a:["Educação e Valorização Profissional.", "Estatística e Vigilância Policial.", "Emergência e Vigilância.", "Educação Viária e Pública.", "Execução de Penas."],c:"Art. 38."},
+{id:"s3-04",n:1,e:"A Rede EaD-Senasp é uma escola",a:["virtual.", "militar.", "presencial obrigatória.", "privada.", "estadual."],c:"Art. 41."},
+{id:"s3-05",n:1,e:"O Pró-Vida é o programa nacional de",a:["qualidade de vida para profissionais de segurança pública.", "proteção a vítimas.", "proteção a testemunhas.", "prevenção à violência doméstica.", "prevenção a desastres."],c:"Art. 42."},
+{id:"s3-06",n:1,e:"O Pró-Vida produzirá diretrizes direcionadas à prevenção da violência autoprovocada e do",a:["suicídio.", "furto.", "tráfico.", "roubo.", "homicídio culposo."],c:"Art. 42-A."},
+{id:"s3-07",n:1,e:"Os documentos de identificação funcional dos profissionais de segurança pública terão fé pública e validade",a:["em todo o território nacional.", "apenas no Estado.", "apenas no Município.", "apenas em serviço.", "por um ano."],c:"Art. 43."},
+{id:"s3-08",n:1,e:"As conferências de segurança pública e defesa social devem ser realizadas a cada",a:["5 anos.", "ano.", "2 anos.", "10 anos.", "3 anos."],c:"Art. 45."},
+{id:"s3-09",n:1,e:"Integram o Sinesp",a:["todos os entes federados.", "apenas a União.", "apenas os Estados.", "apenas as polícias civis.", "apenas os Municípios."],c:"Art. 37."},
+{id:"s3-10",n:1,e:"A omissão no fornecimento das informações legais ao Sinesp implica responsabilidade",a:["administrativa do agente público.", "penal da União.", "civil do cidadão.", "eleitoral.", "nenhuma."],c:"Art. 37, § 4º."},
+{id:"s3-11",n:1,e:"A matriz curricular nacional é pautada nos direitos humanos e nos princípios da",a:["andragogia.", "pedagogia infantil.", "hierarquia militar.", "economia.", "engenharia."],c:"Art. 39, § 1º."},
+{id:"s3-12",n:1,e:"A Renaesp é integrada por instituições de ensino",a:["superior.", "fundamental.", "infantil.", "técnico militar exclusivamente.", "religiosas."],c:"Art. 40."},
+{id:"s3-13",n:1,e:"O Sinaped é o sistema de acompanhamento e",a:["avaliação das políticas de segurança pública.", "arrecadação de multas.", "registro de armas.", "pagamento de servidores.", "licenciamento de veículos."],c:"Art. 26."},
+{id:"s3-14",n:1,e:"Entre as ações do órgão gestor do Susp está efetivar o intercâmbio de experiências técnicas e operacionais entre os órgãos policiais e as",a:["guardas municipais.", "empresas privadas.", "escolas particulares.", "igrejas.", "clubes."],c:"Art. 13, III."},
+{id:"s3-15",n:1,e:"A aferição das atividades do sistema prisional considera, entre outros, o índice de reiteração criminal dos",a:["egressos.", "servidores.", "advogados.", "juízes.", "visitantes."],c:"Art. 12, V, c."},
+{id:"s3-16",n:1,e:"Entre as diretrizes dos planos está fomentar estudos de planejamento urbano para que a prevenção da criminalidade faça parte do",a:["plano diretor das cidades.", "orçamento federal.", "código penal.", "regimento da Câmara.", "calendário escolar."],c:"Art. 24, XII."},
+{id:"s3-17",n:1,e:"O Sinesp adota padrões de integridade, disponibilidade, confidencialidade, confiabilidade e",a:["tempestividade.", "publicidade irrestrita.", "gratuidade.", "anonimato.", "exclusividade."],c:"Art. 36, parágrafo único."},
+{id:"s3-18",n:1,tx:"susp3a",e:"No texto dos dados atrasados, o Município que deixou de atualizar dados no Sinesp",a:["poderá não receber recursos nem celebrar parcerias com a União.", "receberá recursos em dobro.", "será dissolvido.", "perderá a guarda municipal.", "ficará isento de fornecer dados."],c:"Art. 37, § 2º."},
+{id:"s3-19",n:1,tx:"susp3b",e:"No texto depois da ocorrência, o programa federal voltado à saúde da guarda é o",a:["Pró-Vida.", "Sinesp.", "Renaesp.", "Sinaped.", "Funpen."],c:"Art. 42."},
+{id:"s3-20",n:1,tx:"susp3c",e:"No texto da praça escura, a medida de prevenção prevista entre as diretrizes dos planos é o reforço na",a:["iluminação pública.", "arrecadação de tributos.", "venda de imóveis.", "fiscalização de trânsito apenas.", "construção de presídios."],c:"Art. 24, XII."},
+{id:"s3-21",n:2,e:"As atividades de polícia judiciária serão aferidas, entre outros fatores, pelos índices de",a:["elucidação dos delitos.", "multas aplicadas.", "viaturas adquiridas.", "horas extras.", "denúncias anônimas."],c:"Art. 12, I."},
+{id:"s3-22",n:2,e:"As atividades periciais serão aferidas mediante critérios técnicos, considerando os laudos periciais e o resultado na produção qualificada das",a:["provas relevantes à instrução criminal.", "multas de trânsito.", "certidões de nascimento.", "licenças ambientais.", "escalas de serviço."],c:"Art. 12, II."},
+{id:"s3-23",n:2,e:"As atividades dos corpos de bombeiros militares serão aferidas, entre outros, pelos índices de",a:["tempo de resposta aos desastres.", "prisões efetuadas.", "multas aplicadas.", "inquéritos concluídos.", "armas apreendidas."],c:"Art. 12, IV."},
+{id:"s3-24",n:2,e:"Na polícia judiciária, a aferição deve distinguir as autorias definidas em razão de prisão em flagrante das autorias resultantes de",a:["diligências investigatórias.", "denúncias anônimas.", "confissões.", "delações.", "pedidos da vítima."],c:"Art. 12, § 2º."},
+{id:"s3-25",n:2,e:"A aferição de metas considera aspectos relativos à estrutura de trabalho físico, de equipamentos e de",a:["efetivo.", "propaganda.", "eleições.", "imóveis particulares.", "horário de verão."],c:"Art. 12, § 1º."},
+{id:"s3-26",n:2,e:"Entre as ações do órgão gestor do Susp está valorizar a autonomia técnica, científica e funcional dos institutos oficiais de criminalística, medicina legal e",a:["identificação.", "trânsito.", "engenharia.", "educação.", "comércio."],c:"Art. 13, IV."},
+{id:"s3-27",n:2,e:"Entre as ações do órgão gestor está coordenar as atividades de inteligência da segurança pública integradas ao",a:["Sisbin.", "Sinarm.", "Sigma.", "Renach.", "Sinaped."],c:"Art. 13, VII."},
+{id:"s3-28",n:2,e:"Entre as diretrizes dos planos está incentivar a inclusão das disciplinas de prevenção da violência e de prevenção de desastres nos",a:["conteúdos curriculares dos diversos níveis de ensino.", "contratos de trabalho.", "editais de licitação.", "programas de televisão.", "regulamentos de condomínio."],c:"Art. 24, V."},
+{id:"s3-29",n:2,e:"Entre as diretrizes dos planos está ampliar as alternativas de inserção econômica e social dos",a:["egressos do sistema prisional.", "turistas.", "empresários.", "estudantes estrangeiros.", "aposentados."],c:"Art. 24, VI."},
+{id:"s3-30",n:2,e:"O relatório da avaliação do Plano Nacional deve ser encaminhado aos respectivos",a:["Conselhos de Segurança Pública e Defesa Social.", "Tribunais de Contas apenas.", "partidos políticos.", "sindicatos.", "órgãos de imprensa."],c:"Art. 27, § 2º."},
+{id:"s3-31",n:2,e:"O Sinesp tem por objetivo promover a integração das redes e sistemas de dados de segurança pública, criminais, do sistema prisional e sobre",a:["drogas.", "trânsito apenas.", "educação.", "turismo.", "agricultura."],c:"Art. 36, III."},
+{id:"s3-32",n:2,e:"O Sinesp também produzirá dados sobre transtornos mentais e comportamento suicida dos",a:["profissionais de segurança pública e defesa social.", "presos provisórios.", "adolescentes infratores.", "vigilantes privados.", "estudantes."],c:"Art. 36, IX."},
+{id:"s3-33",n:2,e:"O Sinesp produzirá dados sobre a vitimização dos profissionais de segurança pública, inclusive",a:["fora do horário de trabalho.", "apenas em serviço.", "apenas em operações federais.", "apenas em rodovias.", "apenas em presídios."],c:"Art. 36, VI."},
+{id:"s3-34",n:2,e:"Compõem o Sievap, entre outros: matriz curricular nacional, Renaesp, Rede EaD-Senasp e o programa nacional de",a:["qualidade de vida para segurança pública e defesa social.", "armamento.", "combate ao tráfico.", "proteção de fronteiras.", "defesa civil."],c:"Art. 38, § 1º."},
+{id:"s3-35",n:2,e:"A matriz curricular deve ser observada nas atividades formativas de ingresso, aperfeiçoamento, atualização, capacitação e especialização, nas modalidades",a:["presencial e a distância.", "apenas presencial.", "apenas a distância.", "apenas militar.", "apenas universitária."],c:"Art. 39."},
+{id:"s3-36",n:2,e:"Entre os objetivos da Renaesp está difundir a cidadania, os direitos humanos e a educação para a",a:["paz.", "guerra.", "competição.", "disciplina militar.", "obediência."],c:"Art. 40, IV."},
+{id:"s3-37",n:2,e:"O Pró-Vida desenvolverá ações direcionadas à saúde biopsicossocial, à saúde ocupacional e à",a:["segurança do trabalho.", "arrecadação fiscal.", "política partidária.", "propaganda institucional.", "logística de armas."],c:"Art. 42, § 1º."},
+{id:"s3-38",n:2,tx:"susp3a",e:"No texto dos dados atrasados, além da restrição de recursos, o agente público omisso responde",a:["administrativamente.", "penalmente, com prisão.", "apenas civilmente.", "eleitoralmente.", "de nenhuma forma."],c:"Art. 37, § 4º."},
+{id:"s3-39",n:2,tx:"susp3b",e:"No texto depois da ocorrência, a lei prevê, na prevenção secundária, acompanhamento psicológico para profissionais que tenham se envolvido em",a:["ocorrência de risco e em experiências traumáticas.", "processos de promoção.", "férias prolongadas.", "atividades administrativas.", "eventos esportivos."],c:"Art. 42-A, § 5º, V."},
+{id:"s3-40",n:2,tx:"susp3c",e:"No texto da praça escura, avaliar a atividade de patrulhamento preventivo na área considera a",a:["incidência de infrações penais e administrativas naquela área.", "quantidade de multas.", "arrecadação do IPTU.", "quantidade de viaturas.", "número de eventos culturais."],c:"Art. 12, III."},
+{id:"s3-41",n:3,e:"Assinale a alternativa correta.",a:["O Sinaped acompanha e avalia políticas; o Sinesp reúne dados e informações; o Sievap trata da educação e valorização profissional.", "O Sinesp avalia políticas; o Sinaped reúne dados.", "O Sievap reúne dados criminais.", "A Renaesp é escola virtual.", "A Rede EaD integra apenas universidades."],c:"Arts. 26, 35, 38, 40 e 41."},
+{id:"s3-42",n:3,e:"Considere. I. As conferências de segurança pública ocorrem a cada 5 anos. II. As metas de excelência são fixadas anualmente. III. A identidade funcional padronizada vale apenas no Estado de origem. Está correto o que se afirma em",a:["I e II, apenas.", "I, apenas.", "II, apenas.", "II e III, apenas.", "I, II e III."],c:"Arts. 11, 43 e 45."},
+{id:"s3-43",n:3,e:"Assinale a INCORRETA sobre o Pró-Vida.",a:["O atendimento é compulsório para todos os profissionais.", "Produz diretrizes de prevenção da violência autoprovocada e do suicídio.", "Desenvolve ações de saúde biopsicossocial.", "Publica anualmente dados sobre saúde e vitimização dos profissionais.", "Tem implementação pactuada entre União, Estados, DF e Municípios."],c:"Art. 42-A, § 2º, VI: atendimento não compulsório."},
+{id:"s3-44",n:3,e:"A prevenção primária do suicídio entre profissionais de segurança destina-se a",a:["todos os profissionais da segurança pública e defesa social.", "apenas quem tentou suicídio.", "apenas os aposentados.", "apenas a família.", "apenas os comandantes."],c:"Art. 42-A, § 4º."},
+{id:"s3-45",n:3,e:"A prevenção secundária destina-se aos profissionais",a:["que já se encontram em situação de risco de violência autoprovocada.", "recém-ingressos.", "aposentados.", "de outros países.", "que nunca apresentaram risco."],c:"Art. 42-A, § 5º."},
+{id:"s3-46",n:3,e:"Entre as diretrizes do art. 42-A, § 2º, para a prevenção do suicídio está o",a:["atendimento não compulsório e o respeito à intimidade.", "afastamento obrigatório de todos.", "atendimento público com exposição do caso.", "atendimento apenas por chefia.", "desligamento imediato."],c:"Art. 42-A, § 2º, III e VI."},
+{id:"s3-47",n:3,e:"Os casos de ideação e de tentativa de suicídio de profissionais de segurança serão notificados no Sistema Nacional de Vigilância Epidemiológica,",a:["resguardada a identidade do profissional.", "com divulgação do nome.", "apenas se houver morte.", "apenas com autorização judicial.", "com publicação em diário oficial."],c:"Art. 42-A, § 5º, III."},
+{id:"s3-48",n:3,e:"O Pró-Vida publicará anualmente as informações dos incisos V a IX do art. 36, que tratam de",a:["qualidade de vida, vitimização, deficiência, dependência química e saúde mental dos profissionais.", "estatísticas de multas.", "número de presos.", "orçamento dos Estados.", "licitações."],c:"Art. 42, § 2º."},
+{id:"s3-49",n:3,e:"A implementação das ações do Pró-Vida será pactuada, nos termos dos planos de segurança pública, entre",a:["a União, os Estados, o Distrito Federal e os Municípios.", "apenas a União e os Estados.", "apenas a União.", "apenas os Municípios.", "as empresas privadas."],c:"Art. 42, § 4º."},
+{id:"s3-50",n:3,e:"A Lei 13.675/2018 autoriza o órgão federal a celebrar convênios com o Poder Judiciário e o Ministério Público para compatibilização de sistemas, desde que o objeto fundamental seja",a:["a prevenção e a repressão da violência.", "a arrecadação de tributos.", "a propaganda institucional.", "a contratação de pessoal.", "o comércio de armas."],c:"Art. 37, § 3º."},
+{id:"s3-51",n:3,e:"Os resultados da avaliação das políticas serão utilizados, entre outros fins, para melhorar e ampliar a capacitação dos",a:["operadores do Susp.", "juízes eleitorais.", "empresários.", "parlamentares.", "advogados."],c:"Art. 27, § 1º, VI."},
+{id:"s3-52",n:3,e:"O Sinaped visa garantir, entre outros, a verificação da eficácia da utilização dos",a:["recursos públicos.", "recursos privados.", "recursos de partidos.", "tributos municipais apenas.", "prêmios de loteria."],c:"Art. 26, III, b."},
+{id:"s3-53",n:3,e:"A Lei 13.675/2018 entrou em vigor após decorridos",a:["30 dias de sua publicação oficial.", "90 dias.", "180 dias.", "1 ano.", "na data da publicação."],c:"Art. 50."},
+{id:"s3-54",n:3,e:"No art. 12, a eficiência do sistema prisional é aferida, entre outros fatores, pela relação entre o número de presos e a quantidade de",a:["vagas ofertadas.", "agentes penitenciários.", "visitas.", "processos.", "advogados."],c:"Art. 12, V, b."},
+{id:"s3-55",n:3,e:"Os integrantes do Susp fixam metas anuais com finalidades como apoiar e promover o sistema de saúde e o sistema",a:["habitacional para os profissionais de segurança pública.", "eleitoral.", "bancário.", "tributário.", "de transportes urbanos."],c:"Art. 25, V e VI."},
+{id:"s3-56",n:3,tx:"susp3a",e:"No texto dos dados atrasados, a regra que relaciona dados no Sinesp e recursos federais está no art. 37, § 2º, e alcança programas de segurança pública e do",a:["sistema prisional.", "sistema eleitoral.", "sistema de trânsito.", "sistema tributário.", "sistema de saúde."],c:"Art. 37, § 2º."},
+{id:"s3-57",n:3,tx:"susp3b",e:"No texto depois da ocorrência, as ações do Pró-Vida para a guarda devem observar, entre outras diretrizes,",a:["discrição e respeito à intimidade nos atendimentos.", "exposição pública do caso.", "afastamento compulsório.", "punição disciplinar.", "transferência obrigatória."],c:"Art. 42-A, § 2º, III."},
+{id:"s3-58",n:3,tx:"susp3b",e:"No texto depois da ocorrência, o caso da guarda se enquadra na prevenção",a:["secundária.", "primária.", "terciária.", "quaternária.", "judicial."],c:"Art. 42-A, § 5º."},
+{id:"s3-59",n:3,tx:"susp3c",e:"No texto da praça escura, a diretriz do art. 24, XII, também prevê a verificação de",a:["pessoas e de famílias em situação de risco social e criminal.", "imóveis abandonados para venda.", "empresas em débito.", "veículos licenciados.", "escolas particulares."],c:"Art. 24, XII."},
+{id:"s3-60",n:3,tx:"susp3c",e:"No texto da praça escura, outra diretriz útil dos planos é viabilizar ampla participação",a:["social na formulação, implementação e avaliação das políticas.", "apenas militar.", "apenas do Judiciário.", "apenas de empresas.", "apenas federal."],c:"Art. 24, III."}
+];
+
 BANCO["amb-1"] = [
 {id:"b1-01",n:1,e:"Matar, perseguir, caçar ou apanhar espécimes da fauna silvestre sem a devida permissão tem pena de detenção de seis meses a",a:["um ano e multa.", "dois anos.", "três anos.", "cinco anos.", "dez anos."],c:"Art. 29."},
 {id:"b1-02",n:1,e:"A pena do art. 29 é aumentada de metade se o crime é praticado durante a",a:["noite.", "tarde.", "manhã.", "hora do almoço.", "semana."],c:"Art. 29, § 4º, III."},
@@ -24276,6 +25563,12 @@ ctb1b: "<strong>Recurso contra uma multa</strong><br><br>Um motorista, autuado p
 ctb10a: "<strong>Sinistro com vítima</strong><br><br>Em Vila Nova, cidade fictícia, um condutor atropelou um pedestre na faixa e, em vez de socorrê-lo, deixou o local. A guarda municipal chegou depois e encontrou a vítima ferida por terceiros socorrida.",
 ctb10b: "<strong>Fiscalização de embriaguez</strong><br><br>Numa blitz, um condutor apresentava fala arrastada e odor de álcool. O teste de etilômetro indicou 0,4 miligrama de álcool por litro de ar alveolar.",
 ctb10c: "<strong>Racha no centro</strong><br><br>Dois jovens disputavam corrida de carros numa avenida da cidade, sem autorização da autoridade, e um deles atropelou um ciclista, que sofreu lesão corporal grave sem dolo.",
+ctb11a: "<strong>O motoqueiro e o filho</strong><br><br>Na saída de uma escola municipal, um pai passou de motocicleta levando o filho de 7 anos na garupa, os dois de capacete.",
+ctb11b: "<strong>O celular no semáforo</strong><br><br>Uma motorista digitava mensagens no celular, com o aparelho na mão, enquanto conduzia o carro pela avenida.",
+ctb11c: "<strong>O som na praça</strong><br><br>Um carro com o porta-malas aberto tocava música em volume muito alto em frente a uma praça, e o dono, ao ser abordado, recusou-se a entregar a CNH e o documento do veículo.",
+ctb12a: "<strong>A van de entregas</strong><br><br>Uma van parou junto ao meio-fio de uma avenida com semáforos que liga o Centro a outras regiões de Campinas e ficou vinte minutos descarregando caixas.",
+ctb12b: "<strong>A motoneta e a ciclofaixa</strong><br><br>Um condutor de motoneta trafegava sobre a faixa pintada na pista, destinada aos ciclistas, para fugir do congestionamento.",
+ctb12c: "<strong>O sinistro na rodovia</strong><br><br>Dois carros colidiram em uma via rural pavimentada próxima ao limite do município, ferindo um motorista; a guarda municipal apoiou a sinalização do local.",
 ctb2a: "<strong>Viatura em atendimento</strong><br><br>Uma viatura da Guarda Municipal de Vila Nova, cidade fictícia, seguia com sirene e luz intermitente acionadas, para atender a uma ocorrência de ameaça em andamento. Em um cruzamento, os demais condutores se detiveram.",
 ctb2b: "<strong>Via de rodagem</strong><br><br>Em uma via arterial de Vila Nova, sem placa de velocidade, um motorista dirigia a 70 km/h. Em uma estrada rural próxima, outro condutor, de automóvel, dirigia a 70 km/h, também sem sinalização.",
 ctb3a: "<strong>Travessia em frente à escola</strong><br><br>Em Vila Nova, cidade fictícia, um grupo de crianças atravessava a avenida sobre a faixa de pedestres em frente a uma escola, sem semáforo. Um motorista não parou. Uma equipe da Guarda Municipal presenciou a cena.",
@@ -24418,7 +25711,10 @@ susp1b: "<strong>Ocorrência em outro município</strong><br><br>Um registro de 
 susp1c: "<strong>Uso da força na abordagem</strong><br><br>Numa abordagem, um guarda de Vila Nova imobilizou um homem que resistia, usando apenas a força necessária, e cessou assim que ele se acalmou.",
 susp2a: "<strong>Operação integrada</strong><br><br>Uma operação de Vila Nova, cidade fictícia, reuniu a polícia militar, a guarda municipal e os agentes de trânsito, com planejamento conjunto, para combater furtos no centro.",
 susp2b: "<strong>Plano municipal</strong><br><br>O Plano Nacional de Segurança Pública foi publicado, e o Município de Vila Nova ainda não elaborou seu plano, passados três anos.",
-susp2c: "<strong>Reclamação contra um guarda</strong><br><br>Um morador de Vila Nova quis registrar uma reclamação sobre a abordagem de um guarda e procurou a ouvidoria do Município."
+susp2c: "<strong>Reclamação contra um guarda</strong><br><br>Um morador de Vila Nova quis registrar uma reclamação sobre a abordagem de um guarda e procurou a ouvidoria do Município.",
+susp3a: "<strong>Os dados atrasados</strong><br><br>Um Município deixou de atualizar por meses seus registros de ocorrências no sistema nacional de informações de segurança pública e, depois, pediu recursos federais para equipar a guarda.",
+susp3b: "<strong>Depois da ocorrência</strong><br><br>Uma guarda municipal participou do atendimento a um homicídio com várias vítimas e, nas semanas seguintes, passou a ter insônia e crises de ansiedade.",
+susp3c: "<strong>A praça escura</strong><br><br>Moradores reclamaram de roubos frequentes em uma praça mal iluminada, e a Prefeitura passou a discutir a revisão do plano diretor e um projeto de iluminação."
 };
 
 /* ---------- Índices ---------- */

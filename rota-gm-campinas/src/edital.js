@@ -72,7 +72,9 @@ const TRILHAS = [
   ["Infrações","Natureza, pontuação e infrações mais cobradas"],
   ["Penalidades e medidas administrativas","Advertência, multa, suspensão, cassação, retenção e remoção"],
   ["Processo administrativo","Autuação, notificação, defesa e recursos"],
-  ["Crimes de trânsito","Disposições gerais e crimes em espécie"]]},
+  ["Crimes de trânsito","Disposições gerais e crimes em espécie"],
+  ["Demais infrações","Ultrapassagem, preferência, luzes, documentos, motos, celular, pedestres e ciclistas"],
+  ["Conceitos e definições","Anexo I: vias, manobras, imobilizações, veículos e agentes"]]},
  {id:"eca", bloco:"Conhecimentos Específicos", nome:"Estatuto da Criança e do Adolescente", postos:[
   ["Disposições preliminares","Arts. 1º a 6º"],
   ["Direito à liberdade, ao respeito e à dignidade","Arts. 15 a 18-B"],
@@ -97,7 +99,8 @@ const TRILHAS = [
   ["Taxas e poder de polícia","Arts. 77 a 79"]]},
  {id:"susp", bloco:"Conhecimentos Específicos", nome:"Sistema Único de Segurança Pública", postos:[
   ["Política Nacional de Segurança Pública e Defesa Social","Lei 13.675/2018: princípios, diretrizes e objetivos"],
-  ["Composição e funcionamento do Susp","Integrantes, governança, Sinesp e planos"]]},
+  ["Composição e funcionamento do Susp","Integrantes, governança, conselhos e planos"],
+  ["Metas, Sinesp, formação e valorização","Arts. 11 a 14, 24 a 27 e 36 a 45: Sinesp, Sievap e Pró-Vida"]]},
  {id:"amb", bloco:"Conhecimentos Específicos", nome:"Lei de Crimes Ambientais", postos:[
   ["Crimes contra a fauna","Arts. 29 a 37"],
   ["Crimes contra a flora","Arts. 38 a 53"],
