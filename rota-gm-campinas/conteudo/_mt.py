@@ -35,3 +35,10 @@ def fechar():
     """Ordena por nível (fáceis, médias, difíceis), mantendo a ordem de escrita dentro de cada nível."""
     global Q
     Q = sorted(Q, key=lambda t: t[0]); return Q
+
+def num(x):
+    x = Fr(str(x)) if not isinstance(x, Fr) else x
+    return str(x.numerator) if x.denominator == 1 else dc(x)
+def qv(n, e, fmt, correct, wrongs, c, tx=None):
+    """Questão numérica: alternativas formatadas por fmt (ex.: '{} horas'). 'correct' e 'wrongs' são números."""
+    q(n, e, [fmt.format(num(v)) for v in [correct] + list(wrongs)], c, tx)
