@@ -1,0 +1,224 @@
+<span class="status">Versão 1 · em revisão</span>
+<p>Estruturas lógicas e lógica de argumentação é a parte da prova em que não há número para calcular, e sim afirmações para analisar. A Vunesp cobra quatro habilidades: reconhecer proposições e seus valores lógicos, operar com os conectivos (e, ou, se...então, se e somente se), negar e reescrever proposições de forma equivalente e decidir se um argumento é válido. A chave é a tabela-verdade e algumas regras de negação que valem decorar, porque elas resolvem a maioria das questões em segundos.</p>
+
+<h3>Mapa do assunto</h3>
+<figure class="fig">
+<svg viewBox="0 0 760 368" role="img" aria-label="Lógica: do conectivo ao argumento" font-size="13">
+<text x="24" y="28" font-size="16" font-weight="600">Lógica: do conectivo ao argumento</text>
+<rect class="ac" x="24" y="48" width="224" height="112" rx="8" style="stroke-width:1.5"/><text x="136" y="74" text-anchor="middle" font-weight="600">Proposições</text>
+<text x="136" y="96" text-anchor="middle" font-size="12">declarativa, V ou F</text>
+<text x="136" y="112" text-anchor="middle" font-size="12">negação inverte o valor</text>
+<text x="136" y="128" text-anchor="middle" font-size="12">sentença aberta não é</text>
+<text class="q" x="136" y="148" text-anchor="middle" font-size="12">seção 1</text>
+<rect class="ac" x="268" y="48" width="224" height="112" rx="8" style="stroke-width:1.5"/><text x="380" y="74" text-anchor="middle" font-weight="600">Conectivos</text>
+<text x="380" y="96" text-anchor="middle" font-size="12">e: só V com V e V</text>
+<text x="380" y="112" text-anchor="middle" font-size="12">ou: só F com F e F</text>
+<text x="380" y="128" text-anchor="middle" font-size="12">se...então: só F com V e F</text>
+<text class="q" x="380" y="148" text-anchor="middle" font-size="12">seção 2</text>
+<rect class="ac" x="512" y="48" width="224" height="112" rx="8" style="stroke-width:1.5"/><text x="624" y="74" text-anchor="middle" font-weight="600">Negações</text>
+<text x="624" y="96" text-anchor="middle" font-size="12">e ↔ ou (De Morgan)</text>
+<text x="624" y="112" text-anchor="middle" font-size="12">condicional: p e não q</text>
+<text x="624" y="128" text-anchor="middle" font-size="12">todo ↔ algum não</text>
+<text class="q" x="624" y="148" text-anchor="middle" font-size="12">seção 3</text>
+<rect class="ac" x="24" y="176" width="224" height="112" rx="8" style="stroke-width:1.5"/><text x="136" y="202" text-anchor="middle" font-weight="600">Equivalências</text>
+<text x="136" y="224" text-anchor="middle" font-size="12">contrapositiva</text>
+<text x="136" y="240" text-anchor="middle" font-size="12">não p ou q</text>
+<text x="136" y="256" text-anchor="middle" font-size="12">recíproca não vale</text>
+<text class="q" x="136" y="276" text-anchor="middle" font-size="12">seção 4</text>
+<rect class="ac" x="268" y="176" width="224" height="112" rx="8" style="stroke-width:1.5"/><text x="380" y="202" text-anchor="middle" font-weight="600">Argumentos</text>
+<text x="380" y="224" text-anchor="middle" font-size="12">modus ponens e tollens</text>
+<text x="380" y="240" text-anchor="middle" font-size="12">silogismo hipotético</text>
+<text x="380" y="256" text-anchor="middle" font-size="12">falácias</text>
+<text class="q" x="380" y="276" text-anchor="middle" font-size="12">seção 5</text>
+<rect class="ac" x="512" y="176" width="224" height="112" rx="8" style="stroke-width:1.5"/><text x="624" y="202" text-anchor="middle" font-weight="600">Tabela-verdade</text>
+<text x="624" y="224" text-anchor="middle" font-size="12">2 elevado a n linhas</text>
+<text x="624" y="240" text-anchor="middle" font-size="12">tautologia: sempre V</text>
+<text x="624" y="256" text-anchor="middle" font-size="12">contradição: sempre F</text>
+<text class="q" x="624" y="276" text-anchor="middle" font-size="12">seção 2</text>
+<rect class="tint" x="24" y="304" width="712" height="44" rx="8"/><text x="380" y="331" text-anchor="middle" font-size="13">Na prova: use a negação certa e teste o argumento com a hipótese contrária</text>
+</svg>
+<figcaption>Conectivos e tabelas-verdade são a base; negações e equivalências resolvem a maioria das questões; os argumentos fecham o assunto.</figcaption>
+</figure>
+<h3>1. Proposições</h3>
+<p>Proposição é uma frase declarativa, à qual se pode atribuir o valor lógico verdadeiro (V) ou falso (F), mas nunca os dois. “Campinas é uma cidade paulista” é proposição verdadeira; “2 + 2 = 5” é proposição falsa. Não são proposições as perguntas (“Que horas são?”), as ordens (“Feche a porta”), as exclamações (“Que bom!”) e as sentenças abertas, em que o valor depende de uma variável não definida (“x + 2 = 5”).</p>
+<p>A negação de uma proposição p, escrita ¬p (“não p”), inverte o valor: se p é verdadeira, ¬p é falsa, e vice-versa. A negação de “O guarda está de serviço” é “O guarda não está de serviço”. Negar duas vezes volta ao início: ¬(¬p) = p. Uma proposição que contém outras ligadas por conectivos é composta; as que não contêm são simples.</p>
+<h3>2. Conectivos e tabelas-verdade</h3>
+<p>Os conectivos ligam proposições. A conjunção “p e q” (p ∧ q) é verdadeira só quando as duas são verdadeiras. A disjunção “p ou q” (p ∨ q) é falsa só quando as duas são falsas; é o “ou” inclusivo, que admite as duas verdadeiras. A disjunção exclusiva “ou p ou q” é verdadeira quando exatamente uma delas é. O condicional “se p, então q” (p → q) é falso só quando p é verdadeira e q é falsa: a promessa só é quebrada se a condição ocorre e o resultado não. O bicondicional “p se e somente se q” (p ↔ q) é verdadeiro quando p e q têm o mesmo valor.</p>
+<p>A tabela-verdade reúne todas as combinações de valores. Com duas proposições há 4 linhas; com três, 8; com n, 2<sup>n</sup>.</p>
+<div class="tabela"><table>
+<thead>
+<tr>
+<th>p</th>
+<th>q</th>
+<th>p ∧ q</th>
+<th>p ∨ q</th>
+<th>p → q</th>
+<th>p ↔ q</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>V</td>
+<td>V</td>
+<td>V</td>
+<td>V</td>
+<td>V</td>
+<td>V</td>
+</tr>
+<tr>
+<td>V</td>
+<td>F</td>
+<td>F</td>
+<td>V</td>
+<td>F</td>
+<td>F</td>
+</tr>
+<tr>
+<td>F</td>
+<td>V</td>
+<td>F</td>
+<td>V</td>
+<td>V</td>
+<td>F</td>
+</tr>
+<tr>
+<td>F</td>
+<td>F</td>
+<td>F</td>
+<td>F</td>
+<td>V</td>
+<td>V</td>
+</tr>
+</tbody>
+</table></div>
+<p>O condicional intriga porque é verdadeiro quando p é falsa. A razão é a da promessa: “Se chover, levo guarda-chuva” não é quebrada num dia de sol, qualquer que seja o que eu faça. Só se chover e eu esquecer o guarda-chuva, a frase é falsa.</p>
+<p>Uma proposição composta que é verdadeira em todas as linhas é uma tautologia, como p ∨ ¬p. Se é falsa em todas, é uma contradição, como p ∧ ¬p. Nos demais casos, é uma contingência.</p>
+<h3>3. Negações</h3>
+<p>As negações são o ponto mais cobrado. As leis de De Morgan mostram que a negação troca o conectivo: ¬(p ∧ q) = ¬p ∨ ¬q e ¬(p ∨ q) = ¬p ∧ ¬q. A negação de “Ana é guarda e Bruno é fiscal” é “Ana não é guarda ou Bruno não é fiscal”. A negação de “Ana é guarda ou Bruno é fiscal” é “Ana não é guarda e Bruno não é fiscal”.</p>
+<p>A negação do condicional é “p e não q”, porque a única forma de o condicional ser falso é p verdadeira e q falsa: ¬(p → q) = p ∧ ¬q. A negação de “Se chove, a rua molha” é “Chove e a rua não molha”. A negação do bicondicional é o “ou exclusivo”.</p>
+<p>Com os quantificadores, a regra é trocar “todo” por “algum... não”, e “algum” por “nenhum”. A negação de “Todo guarda é pontual” é “Algum guarda não é pontual”. A negação de “Algum guarda usa óculos” é “Nenhum guarda usa óculos”. A negação de “Nenhum guarda é pontual” é “Algum guarda é pontual”.</p>
+<h3>4. Equivalências</h3>
+<p>Duas proposições são equivalentes quando têm a mesma tabela-verdade. As equivalências do condicional resolvem muitas questões: “se p, então q” é equivalente à sua contrapositiva, “se não q, então não p”, e também a “não p ou q”. “Se estudo, passo” equivale a “Se não passei, então não estudei” e a “Não estudo ou passo”.</p>
+<p>Atenção para o que não é equivalente: a recíproca, “se q, então p”, e a inversa, “se não p, então não q”, não equivalem ao condicional original. “Se chove, a rua molha” não significa que, se a rua molhou, choveu: pode ter sido um caminhão-pipa.</p>
+<p>As demais equivalências úteis são as de De Morgan (seção 3), a dupla negação e a absorção: p ∧ (p ∨ q) equivale a p.</p>
+<h3>5. Argumentos</h3>
+<p>Um argumento é um conjunto de premissas (afirmações dadas como verdadeiras) e uma conclusão. O argumento é válido quando, sendo todas as premissas verdadeiras, a conclusão não pode ser falsa. Validade não é verdade: um argumento pode ser válido com premissas falsas, e a prova só pergunta se a conclusão decorre das premissas.</p>
+<p>Duas formas válidas aparecem sempre. A primeira é o modus ponens: “Se p, então q; p; logo q.” Se o alarme dispara, a equipe é acionada; o alarme disparou; logo a equipe foi acionada. A segunda é o modus tollens: “Se p, então q; não q; logo não p.” Se a equipe não foi acionada, o alarme não disparou. Há também o silogismo hipotético: “se p, então q; se q, então r; logo, se p, então r.”</p>
+<p>Duas formas parecem válidas, mas são falácias. A afirmação do consequente: “Se p, então q; q; logo p.” Se o alarme dispara, a equipe é acionada; a equipe foi acionada; logo o alarme disparou? Não, a equipe pode ter sido acionada por outro motivo. A negação do antecedente: “Se p, então q; não p; logo não q.” Se o alarme não disparou, a equipe pode ainda ter sido acionada por outra via.</p>
+<p>Nos silogismos com quantificadores, “Todo A é B; todo B é C; logo todo A é C” é válido. Com “algum”, é preciso cuidado: “Todo guarda é treinado; algum treinado é jovem” não leva a nenhuma conclusão sobre guardas jovens.</p>
+<p>Exemplo resolvido, de quem disse a verdade. Três guardas, Ana, Bruno e Carla, discutem quem deixou uma viatura ligada. Ana diz: “Foi Bruno.” Bruno diz: “Foi Ana.” Carla diz: “Foi Ana.” Só um disse a verdade. Teste cada culpado. Se foi Ana, Bruno e Carla dizem a verdade, dois verdadeiros, o que não serve. Se foi Carla, ninguém diz a verdade, o que também não serve. Se foi Bruno, só Ana diz a verdade: um verdadeiro, como o enunciado pede. O culpado é Bruno.</p>
+<h3>6. Questões resolvidas</h3>
+<h4>Questão 1</h4>
+<p>A negação da proposição “Se chove, então a rua molha” é</p>
+<ol class="alts" type="A"><li>Não chove e a rua molha.</li><li>Se não chove, então a rua não molha.</li><li>Chove e a rua não molha.</li><li>Se a rua molha, então chove.</li><li>Não chove ou a rua não molha.</li></ol>
+<p><strong>Resposta: C.</strong> A negação do condicional é “p e não q”: chove e a rua não molha.</p>
+<h4>Questão 2</h4>
+<p>Todo guarda é pontual. A negação dessa afirmação é</p>
+<ol class="alts" type="A"><li>Nenhum guarda é pontual.</li><li>Todo guarda é impontual.</li><li>Algum guarda é pontual.</li><li>Nem todo guarda é pontual, mas alguns são.</li><li>Algum guarda não é pontual.</li></ol>
+<p><strong>Resposta: E.</strong> Negação de “todo” é “algum não”. “Nenhum” é uma afirmação mais forte que a negação.</p>
+<h4>Questão 3</h4>
+<p>Sabe-se que “se o alarme dispara, a equipe é acionada” é verdadeira e que a equipe não foi acionada. Conclui-se que</p>
+<ol class="alts" type="A"><li>o alarme disparou.</li><li>o alarme não disparou.</li><li>a equipe foi acionada por outro motivo.</li><li>nada se pode concluir.</li><li>a regra é falsa.</li></ol>
+<p><strong>Resposta: B.</strong> Modus tollens: se p então q; não q; logo não p.</p>
+<h4>Questão 4</h4>
+<p>Em uma tabela-verdade com três proposições simples, o número de linhas é</p>
+<ol class="alts" type="A"><li>6</li><li>9</li><li>3</li><li>8</li><li>4</li></ol>
+<p><strong>Resposta: D.</strong> 2 × 2 × 2 = 8.</p>
+<h3>7. Na rotina do guarda</h3>
+<ul>
+<li><strong>Regulamentos:</strong> “Se ocorre X, então o guarda deve fazer Y” é um condicional; saber a contrapositiva ajuda a aplicar a regra no sentido inverso.</li>
+<li><strong>Depoimentos:</strong> quando as versões se contradizem, o método do culpado hipotético permite descobrir quem mentiu.</li>
+<li><strong>Relatórios:</strong> negar uma afirmação do relato (“todos estavam armados”) exige a negação correta (“algum não estava armado”).</li>
+<li><strong>Ofícios e ordens de serviço:</strong> “e” e “ou” mudam o alcance da ordem e pedem leitura atenta.</li>
+</ul>
+<h3>8. Onde a Vunesp pega</h3>
+<div class="tabela"><table>
+<thead>
+<tr>
+<th>Armadilha</th>
+<th>Como escapar</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Negar “todo” como “nenhum”</td>
+<td>A negação de “todo” é “algum não”</td>
+</tr>
+<tr>
+<td>Negar “e” mantendo o “e”</td>
+<td>De Morgan: a negação troca e por ou</td>
+</tr>
+<tr>
+<td>Negar “se p então q” como “se p então não q”</td>
+<td>A negação é “p e não q”</td>
+</tr>
+<tr>
+<td>Tomar a recíproca pela contrapositiva</td>
+<td>Contrapositiva: “se não q, então não p”</td>
+</tr>
+<tr>
+<td>Concluir de “se p então q” e “q” que p</td>
+<td>É a falácia da afirmação do consequente</td>
+</tr>
+<tr>
+<td>Achar que condicional com p falso é falso</td>
+<td>Com p falso o condicional é verdadeiro</td>
+</tr>
+<tr>
+<td>Confundir validade com verdade</td>
+<td>Válido é a conclusão decorrer das premissas</td>
+</tr>
+</tbody>
+</table></div>
+<h3>9. Quadro-resumo</h3>
+<div class="tabela"><table>
+<thead>
+<tr>
+<th>Ponto</th>
+<th>O essencial</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Proposição</td>
+<td>Declarativa, verdadeira ou falsa</td>
+</tr>
+<tr>
+<td>Conjunção</td>
+<td>Verdadeira só se as duas forem verdadeiras</td>
+</tr>
+<tr>
+<td>Disjunção</td>
+<td>Falsa só se as duas forem falsas</td>
+</tr>
+<tr>
+<td>Condicional</td>
+<td>Falso só se p verdadeiro e q falso</td>
+</tr>
+<tr>
+<td>Negação do e / ou</td>
+<td>De Morgan: troca o conectivo e nega as partes</td>
+</tr>
+<tr>
+<td>Negação do condicional</td>
+<td>p e não q</td>
+</tr>
+<tr>
+<td>Negação de todo / algum</td>
+<td>Algum não / nenhum</td>
+</tr>
+<tr>
+<td>Equivalente do condicional</td>
+<td>Contrapositiva e “não p ou q”</td>
+</tr>
+<tr>
+<td>Argumento válido</td>
+<td>Modus ponens e modus tollens</td>
+</tr>
+<tr>
+<td>Linhas da tabela</td>
+<td>2 elevado ao número de proposições</td>
+</tr>
+</tbody>
+</table></div>
+<p class="ref">Fontes: Edital 02/2026, Anexo I. Referências de base: Alencar Filho, <em>Iniciação à Lógica Matemática</em>; Copi, <em>Introdução à Lógica</em>. Exemplos criados para a aula.</p>
