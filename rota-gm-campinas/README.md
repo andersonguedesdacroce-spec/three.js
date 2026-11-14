@@ -16,6 +16,8 @@ Site estático de um único `index.html`, montado a partir de arquivos pequenos.
 | `gerador/aulas.py` | funções que geram aula, banco, mapa e documento de revisão |
 | `conteudo/<posto>/` | script de conteúdo de cada posto (escrito em Markdown) |
 | `revisao/<posto>.md` | aula, fontes, cobertura e pontos para revisão |
+| `destaques/destaques.py` | caixas Cai muito, Cuidado e Macete inseridas pelo build nas aulas que não as têm (`python3 destaques/destaques.py` gera o JSON) |
+| `MARKETING.md` | briefing de marketing: fatos verificáveis, público, mensagens, riscos e pendências antes de vender |
 | `public/index.html` | **saída do build**, é o que o Vercel publica |
 | `ferramentas/` | teste no navegador e comparador de builds |
 
@@ -36,3 +38,14 @@ Rode o build e **faça commit de `public/index.html`** junto com a mudança.
 
 O `vercel.json` já aponta `outputDirectory` para `public/`, sem etapa de build no servidor.
 Se o repositório contiver outras pastas, em *Project Settings → General → Root Directory* escolha `rota-gm-campinas`.
+
+## Recursos do painel
+
+- **Página de vendas** com dados do edital, peso das matérias, amostra de aula e oferta (checkout ainda é demonstração).
+- **Painel** com indicadores, sugestão do próximo posto, busca, revisões do dia, caderno de erros e peso da prova.
+- **Mapa do edital**: cada item do Anexo I ligado ao posto que o cobre, com a situação do aluno.
+- **Posto** com abas Aula, Resumo (mapa, destaques, armadilhas e quadro-resumo) e Questões.
+- **Caixas com função**: azul conceito, verde regra, vermelho cuidado, amarelo cai muito, roxo macete.
+- **Revisão espaçada** (1, 7 e 30 dias) e **caderno de erros** (erradas e marcadas; sai ao acertar).
+- **Avise a equipe**: aviso de correção ao fim de cada aula, gravado no banco do painel (coleção `correcoes`).
+- Progresso salvo no navegador e, no Claude, sincronizado pela conta (`data/users/<id>/progresso`).
