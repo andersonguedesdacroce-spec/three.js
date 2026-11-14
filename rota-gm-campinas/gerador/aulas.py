@@ -64,7 +64,7 @@ def qr_md(QR, qr_num):
 def banco(pid, Q):
     from collections import Counter
     assert len(Q)==60, len(Q); c=Counter(x[0] for x in Q); assert c=={1:20,2:20,3:20}, c
-    pre=('p' if pid.startswith('pt') else pid.split('-')[0][0])+pid.split('-')[1]
+    pre=json.load(open(os.path.join(RAIZ,'prefixos.json')))[pid.rsplit('-',1)[0]]+pid.rsplit('-',1)[1]
     L=[]
     for i,(n,e,a,cm,tx) in enumerate(Q,1):
         assert len(a)==5 and len(set(a))==5, e

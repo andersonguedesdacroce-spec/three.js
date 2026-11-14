@@ -10,6 +10,7 @@ trilhas = re.findall(r'\{id:"([a-z]+)"', edital)           # ordem das trilhas n
 def chave(pid): t, n = pid.rsplit('-', 1); return (trilhas.index(t) if t in trilhas else 99, int(n))
 def ids(pasta, ext): return sorted((os.path.basename(f)[:-len(ext)] for f in glob.glob(f'{AQUI}/{pasta}/*{ext}')), key=chave)
 
+PREFIXOS = json.load(open(os.path.join(AQUI, 'prefixos.json')))
 aulas = ids('aulas', '.html')
 bancos = ids('bancos', '.js')
 textos = {}
@@ -35,7 +36,7 @@ def validar():
             if len(q['a']) != 5 or len(set(q['a'])) != 5: erros.append(f'{q["id"]}: precisa de 5 alternativas distintas')
             if not q.get('c'): erros.append(f'{q["id"]}: sem comentário')
             if q.get('tx') and q['tx'] not in textos: erros.append(f'{q["id"]}: texto de apoio inexistente ({q["tx"]})')
-        pref = ('p' if pid.startswith('pt') else pid.split('-')[0][0]) + pid.split('-')[1] + '-'
+        pref = PREFIXOS[pid.rsplit('-', 1)[0]] + pid.rsplit('-', 1)[1] + '-'
         for q in Q:
             if not q['id'].startswith(pref): erros.append(f'{q["id"]}: prefixo esperado {pref}')
     for pid in aulas:
