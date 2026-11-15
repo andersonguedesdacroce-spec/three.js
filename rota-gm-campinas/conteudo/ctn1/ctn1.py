@@ -16,7 +16,7 @@ S[2]="## 2. Poder de polícia\n\n"+L("art. 78","Art. 78. Considera-se poder de p
 
 Poder de polícia é a atividade da administração pública que, limitando ou disciplinando direito, interesse ou liberdade, regula a prática de ato ou abstenção de fato, em razão de interesse público concernente à segurança, à higiene, à ordem, aos costumes, à disciplina da produção e do mercado, ao exercício de atividades econômicas dependentes de concessão ou autorização, à tranquilidade pública ou ao respeito à propriedade e aos direitos individuais ou coletivos. O exercício é regular quando feito pelo órgão competente, nos limites da lei, com observância do processo legal e, na atividade discricionária, sem abuso ou desvio de poder.
 """
-S[3]="## 3. Serviços públicos que geram taxa\n\n"+L("art. 79","Art. 79. Os serviços públicos","TÍTULO")+"""
+S[3]="## 3. Serviços públicos que geram taxa\n\n"+L("art. 79","Art. 79. Os serviços públicos","Art. 80.")+"""
 
 Os serviços públicos que podem gerar taxa são considerados utilizados pelo contribuinte efetivamente, quando por ele usufruídos a qualquer título, ou potencialmente, quando de utilização compulsória e postos à sua disposição mediante atividade administrativa em efetivo funcionamento. São específicos quando possam ser destacados em unidades autônomas de intervenção, de utilidade ou de necessidade públicas, e divisíveis quando suscetíveis de utilização separadamente por cada usuário.
 """

@@ -1,0 +1,23 @@
+{"posto":"ctn-1","titulo":"Taxas e poder de polícia","chamada":"Agora faça as questões deste posto",
+"cenas":[
+{"tipo":"capa","sobre":"Código Tributário Nacional · arts. 77 a 79","titulo":"Taxas e poder de polícia","gancho":"Três artigos, questão certa",
+ "fala":"Taxas e poder de polícia. São só três artigos do Código Tributário Nacional, do [[77|setenta e sete]] ao [[79|setenta e nove]]. {1}Poucas linhas, e questão quase certa na prova."},
+{"tipo":"versus","titulo":"Art. 77 · Dois fatos geradores da taxa","a":{"cor":"blue","rotulo":"Fato gerador 1","titulo":"Poder de polícia","itens":["Exercício regular|da fiscalização"]},"b":{"cor":"green","rotulo":"Fato gerador 2","titulo":"Serviço público","itens":["Específico e divisível|os dois juntos","Utilização|efetiva ou potencial"]},
+ "fala":"A taxa pode ser cobrada pela União, pelos Estados, pelo Distrito Federal e pelos Municípios, cada um nas suas atribuições. E tem dois fatos geradores. {1}O exercício regular do poder de polícia. Ou a utilização de serviço público {2}específico e divisível, {3}efetiva ou potencial, prestado ao contribuinte ou posto à sua disposição."},
+{"tipo":"alerta","cor":"red","rotulo":"Cuidado · art. 77, parágrafo único","titulo":"O que a taxa não pode","grande":"≠ IMPOSTO","sub":"nem capital das empresas",
+ "itens":["Base de cálculo ou fato gerador|idênticos aos de imposto","Cálculo|em função do capital das empresas"],
+ "fala":"Duas proibições. {g}{1}A taxa não pode ter base de cálculo ou fato gerador idênticos aos de imposto. {2}E não pode ser calculada em função do capital das empresas."},
+{"tipo":"lei","cor":"navy","rotulo":"Art. 78 · Poder de polícia","selo":"LIMITA E DISCIPLINA","pena":"Em razão do interesse público",
+ "itens":["Direito, interesse ou liberdade|regula ato ou abstenção de fato","Segurança, higiene, ordem, costumes|produção e mercado","Tranquilidade pública|propriedade e direitos individuais ou coletivos"],
+ "fala":"O artigo [[78|setenta e oito]] define poder de polícia. É a atividade da administração que {s}limita ou disciplina {1}direito, interesse ou liberdade, regulando a prática de ato ou a abstenção de fato, {p}em razão do interesse público. {2}Esse interesse envolve segurança, higiene, ordem, costumes, produção e mercado, {3}tranquilidade pública e respeito à propriedade e aos direitos individuais ou coletivos."},
+{"tipo":"lista","cor":"amber","sobre":"Art. 78, parágrafo único","titulo":"Quando o exercício é regular",
+ "itens":["Órgão competente|quem age tem atribuição para isso","Nos limites da lei|aplicável","Processo legal|observado","Sem abuso ou desvio de poder|na atividade discricionária"],
+ "fala":"E quando o exercício do poder de polícia é regular? {1}Quando desempenhado pelo órgão competente, {2}nos limites da lei aplicável, {3}com observância do processo legal {4}e, na atividade discricionária, sem abuso ou desvio de poder."},
+{"tipo":"lista","cor":"green","sobre":"Art. 79 · Serviços públicos","titulo":"Três conceitos que a banca troca",
+ "itens":["Utilização efetiva|o contribuinte usufrui do serviço, a qualquer título","Utilização potencial|uso compulsório, posto à disposição e em efetivo funcionamento","Específico|pode ser destacado em unidades autônomas","Divisível|cada usuário pode utilizar separadamente"],
+ "fala":"O artigo [[79|setenta e nove]] explica os serviços. {1}A utilização é efetiva quando o contribuinte usufrui do serviço. {2}É potencial quando o serviço, de utilização compulsória, é posto à sua disposição, em efetivo funcionamento. {3}O serviço é específico quando pode ser destacado em unidades autônomas. {4}E é divisível quando cada usuário pode utilizá-lo separadamente."},
+{"tipo":"caso","cor":"blue","sobre":"Vamos testar","titulo":"Pode cobrar taxa?","texto":"O Município cobra taxa de quem tem imóvel em rua atendida pela coleta de lixo, **mesmo que o morador não use o serviço**.","selo":"PODE","resposta":"UTILIZAÇÃO POTENCIAL","porque":"Art. 79, I, b: serviço de uso compulsório, posto à disposição e em funcionamento.",
+ "fala":"Vamos testar. O Município cobra taxa de quem tem imóvel em rua atendida pela coleta de lixo, mesmo que o morador não use o serviço. Pode? {s}Pode. {r}É a utilização potencial."},
+{"tipo":"resumo","sobre":"Resumindo","linhas":[["Taxa","Poder de polícia ou serviço","blue"],["Serviço","Específico e divisível","green"],["Utilização","Efetiva ou potencial","amber"],["Proibido","Base de imposto e capital","red"]],"final":"Poder de polícia *limita e disciplina*",
+ "fala":"Resumindo. {1}Taxa: poder de polícia ou serviço público. {2}Serviço específico e divisível. {3}Utilização efetiva ou potencial. {4}Proibido usar base de imposto ou capital das empresas. {f}E o poder de polícia limita e disciplina."}
+]}

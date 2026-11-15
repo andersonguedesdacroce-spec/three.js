@@ -8,7 +8,9 @@ Registradas em 14/11/2026, a pedido do Anderson. Nada aqui foi feito ainda, salv
   facilitação de contrabando, **prevaricação** e **condescendência criminosa** (arts. 316 a 320).
 - **Regra para todos os vídeos daqui em diante:** o vídeo pode ser resumido, mas tem de passar por todos os tópicos
   da aula do posto (todas as seções numeradas). Roteiro = uma cena por seção da aula, mais abertura, teste e resumo.
-- A fazer: refazer o vídeo do cp-14 com as seções que faltam (material de produção em `videos/fonte-cp-14/`).
+- **Feito em 15/11:** o vídeo do cp-14 foi refeito e agora cobre os seis crimes do posto (3min32). Também foram publicados gm-1 e ctn-1.
+- **Bloqueio:** a cota de 10.000 créditos do ElevenLabs acabou. Há quatro roteiros prontos à espera de narração (ver `videos/FILA.md`).
+  Para cobrir os 91 postos é preciso um plano maior do ElevenLabs (cerca de 280 mil créditos) ou outra voz.
 - Padrão visual e de narração aprovado: o do vídeo atual (modelo Fable 5.2; voz "Henrique" do ElevenLabs). Ver `videos/LEIA-ME.md`.
 
 ## 2. Texto de lei nas aulas está ruim de ler
@@ -30,3 +32,4 @@ Registradas em 14/11/2026, a pedido do Anderson. Nada aqui foi feito ainda, salv
 - O `build.py` agora recusa qualquer citação de lei com mais de 6.000 caracteres, para isso não voltar.
 - Ainda vale conferir as 10 citações longas que juntam vários artigos num bloco só (ctb-7, ctb-8 e ctb-10):
   o texto é do posto, mas deveria estar separado por artigo.
+- **ctn-1**, citação do art. 79: o trecho avançava sobre o art. 80. **Corrigido.**

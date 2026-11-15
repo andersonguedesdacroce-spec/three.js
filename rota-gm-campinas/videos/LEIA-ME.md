@@ -1,14 +1,19 @@
 # Vídeos das aulas
 
-Padrão dos vídeos: animação em HTML sincronizada com a narração, gravada quadro a quadro (1920×1080, 30 qps) e unida ao áudio com ffmpeg.
+Padrão aprovado: animação sincronizada com narração (voz "Henrique", ElevenLabs, modelo eleven_v4), 1920×1080, com legendas.
+**Regra:** o vídeo pode ser resumido, mas passa por todas as seções da aula do posto.
 
-- `videos.json`: lista dos vídeos publicados (posto → título, duração, arquivo, capa). O `build.py` copia os arquivos para `public/videos/` e a aba **Vídeo** aparece no posto.
-- `fonte-<posto>/aula.html`: cenas e linha do tempo (`CUES` traz o início e o fim de cada frase da narração).
-- `fonte-<posto>/voz.mp3`: narração (ElevenLabs, voz "Henrique", modelo eleven_v4).
-- `fonte-<posto>/render.cjs`: `node render.cjs` gera `aula-fable.mp4` na pasta.
+## Como funciona o motor (`motor/`)
 
-## Como fazer um vídeo novo
-1. Escreva o roteiro (cerca de 90 segundos, 7 cenas: gancho, o que é comum, a diferença, teste com casos, detalhe de prova, resumo, marca).
-2. Gere a narração e meça as pausas: `ffmpeg -i voz.mp3 -af silencedetect=noise=-35dB:d=0.25 -f null -`.
-3. Copie uma pasta `fonte-*`, troque as cenas e ajuste os tempos de `CUES` e das animações às pausas medidas.
-4. `node render.cjs`, copie o MP4 para `videos/<posto>.mp4`, gere a capa e registre em `videos.json`.
+1. `fonte/<posto>/roteiro.json`: lista de cenas. Tipos: `capa`, `lei`, `lista`, `versus`, `caso`, `alerta`, `resumo` (a tela final da marca entra sozinha).
+   No campo `fala` de cada cena, `{1}`, `{s}`, `{p}`, `{g}`, `{r}`, `{f}` marcam o instante em que cada elemento entra;
+   `[[316|trezentos e dezesseis]]` mostra "316" na legenda e manda o texto por extenso para a voz.
+2. `python3 motor/alinhar.py fonte/<posto> --estimar` grava `narracao.txt` (o texto que vai para a voz) e tempos estimados;
+   `node motor/gerar.cjs fonte/<posto> auto` tira uma foto de cada cena para conferir o visual antes de gastar créditos.
+3. Gerar a narração com o texto de `narracao.txt` (cada caractere custa 1 crédito) e salvar como `fonte/<posto>/voz.mp3`.
+4. `motor/produzir.sh <posto> "<url do mp3>"` (ou `""` se o mp3 já estiver na pasta): alinha a voz ao roteiro pelas pausas da fala,
+   renderiza, copia `<posto>.mp4` e a capa e registra em `videos.json`. Depois, `python3 build.py`.
+
+## Situação
+
+Ver `FILA.md`.
