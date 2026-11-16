@@ -1,0 +1,161 @@
+<span class="status">Versão 1 · em revisão</span>
+<p>Diagramas lógicos e sequências fecham a parte de raciocínio da prova. Nos diagramas, a Vunesp cobra as relações todo, algum e nenhum, e a contagem de elementos em conjuntos que se cruzam. Nas sequências, cobra o padrão de uma lista de números ou de figuras e a posição dos termos em ciclos. O método é o mesmo nos dois casos: desenhar, ou escrever os primeiros termos, antes de procurar a fórmula.</p>
+
+<h3>Mapa do assunto</h3>
+<figure class="fig">
+<svg viewBox="0 0 760 368" role="img" aria-label="Diagramas e sequências: desenhar antes de calcular" font-size="13">
+<text x="24" y="28" font-size="16" font-weight="600">Diagramas e sequências: desenhar antes de calcular</text>
+<rect class="ac" x="24" y="48" width="224" height="112" rx="8" style="stroke-width:1.5"/><text x="136" y="74" text-anchor="middle" font-weight="600">Diagramas de Venn</text>
+<text x="136" y="96" text-anchor="middle" font-size="12">todo: dentro</text>
+<text x="136" y="112" text-anchor="middle" font-size="12">nenhum: separados</text>
+<text x="136" y="128" text-anchor="middle" font-size="12">algum: parte comum</text>
+<text class="q" x="136" y="148" text-anchor="middle" font-size="12">seção 1</text>
+<rect class="ac" x="268" y="48" width="224" height="112" rx="8" style="stroke-width:1.5"/><text x="380" y="74" text-anchor="middle" font-weight="600">Contagem</text>
+<text x="380" y="96" text-anchor="middle" font-size="12">união: soma menos interseção</text>
+<text x="380" y="112" text-anchor="middle" font-size="12">três conjuntos</text>
+<text x="380" y="128" text-anchor="middle" font-size="12">preencher de dentro para fora</text>
+<text class="q" x="380" y="148" text-anchor="middle" font-size="12">seção 2</text>
+<rect class="ac" x="512" y="48" width="224" height="112" rx="8" style="stroke-width:1.5"/><text x="624" y="74" text-anchor="middle" font-weight="600">PA</text>
+<text x="624" y="96" text-anchor="middle" font-size="12">diferença constante</text>
+<text x="624" y="112" text-anchor="middle" font-size="12">aₙ = a₁ + (n − 1)r</text>
+<text x="624" y="128" text-anchor="middle" font-size="12">soma = (a₁ + aₙ)n/2</text>
+<text class="q" x="624" y="148" text-anchor="middle" font-size="12">seção 3</text>
+<rect class="ac" x="24" y="176" width="224" height="112" rx="8" style="stroke-width:1.5"/><text x="136" y="202" text-anchor="middle" font-weight="600">PG</text>
+<text x="136" y="224" text-anchor="middle" font-size="12">razão constante</text>
+<text x="136" y="240" text-anchor="middle" font-size="12">aₙ = a₁ qⁿ⁻¹</text>
+<text x="136" y="256" text-anchor="middle" font-size="12">soma geométrica</text>
+<text class="q" x="136" y="276" text-anchor="middle" font-size="12">seção 3</text>
+<rect class="ac" x="268" y="176" width="224" height="112" rx="8" style="stroke-width:1.5"/><text x="380" y="202" text-anchor="middle" font-weight="600">Sequências famosas</text>
+<text x="380" y="224" text-anchor="middle" font-size="12">quadrados e triangulares</text>
+<text x="380" y="240" text-anchor="middle" font-size="12">Fibonacci</text>
+<text x="380" y="256" text-anchor="middle" font-size="12">diferenças crescentes</text>
+<text class="q" x="380" y="276" text-anchor="middle" font-size="12">seção 3</text>
+<rect class="ac" x="512" y="176" width="224" height="112" rx="8" style="stroke-width:1.5"/><text x="624" y="202" text-anchor="middle" font-weight="600">Ciclos</text>
+<text x="624" y="224" text-anchor="middle" font-size="12">posição = resto</text>
+<text x="624" y="240" text-anchor="middle" font-size="12">resto 0 = último</text>
+<text x="624" y="256" text-anchor="middle" font-size="12">dias da semana: ciclo 7</text>
+<text class="q" x="624" y="276" text-anchor="middle" font-size="12">seção 4</text>
+<rect class="tint" x="24" y="304" width="712" height="44" rx="8"/><text x="380" y="331" text-anchor="middle" font-size="13">Na prova: escreva os primeiros termos e olhe as diferenças; em ciclos, use o resto</text>
+</svg>
+<figcaption>Os diagramas e a contagem cuidam dos conjuntos; as sequências e os ciclos, dos padrões numéricos e de posição.</figcaption>
+</figure>
+<h3>1. Diagramas: todo, algum e nenhum</h3>
+<p>Os diagramas de Venn representam conjuntos por regiões. A afirmação “todo A é B” é o diagrama em que a região de A está dentro da de B. “Nenhum A é B” é o diagrama em que as regiões não se tocam. “Algum A é B” é o diagrama em que as regiões têm uma parte em comum, ao menos um elemento. “Algum A não é B” indica que há pelo menos um elemento de A fora de B.</p>
+<p>O que os diagramas ensinam é a diferença entre o que a premissa garante e o que ela apenas permite. Se “todo guarda é servidor” e Ana é guarda, então Ana é servidora: a conclusão é necessária. Se “todo guarda é servidor” e Bruno é servidor, nada se pode dizer sobre Bruno ser guarda: a região de servidor é maior que a de guarda. Duas regras úteis: “algum A é B” equivale a “algum B é A”, mas “todo A é B” não equivale a “todo B é A”.</p>
+<p>Com duas premissas, desenha-se o caso mais geral e vê-se o que vale em todos os desenhos possíveis. Se “todo A é B” e “nenhum B é C”, então nenhum A é C: os A estão dentro de B, que não toca C. Se “todo A é B” e “algum B é C”, nada se conclui sobre A e C: o pedaço de B que toca C pode ficar fora de A.</p>
+<h3>2. Contagem em conjuntos</h3>
+<p>Quando dois grupos se cruzam, somar os dois conta duas vezes a parte comum. A correção é a regra da união: n(A ∪ B) = n(A) + n(B) − n(A ∩ B). Em um grupo de 100 guardas, 60 falam inglês, 45 falam espanhol e 20 falam as duas línguas. Quantos falam pelo menos uma? 60 + 45 − 20 = 85. Quantos não falam nenhuma? 100 − 85 = 15. Quantos falam só inglês? 60 − 20 = 40. Quantos falam exatamente uma língua? 40 + 25 = 65, porque só espanhol é 45 − 20 = 25.</p>
+<p>O jeito mais seguro é preencher o diagrama de dentro para fora: primeiro a interseção (20), depois o que resta de cada conjunto (40 e 25) e por fim o que está fora de todos (15). A soma das regiões deve dar o total.</p>
+<p>Com três conjuntos, a regra é n(A ∪ B ∪ C) = n(A) + n(B) + n(C) − n(A ∩ B) − n(A ∩ C) − n(B ∩ C) + n(A ∩ B ∩ C). Com n(A) = 20, n(B) = 18, n(C) = 15, interseções de dois a dois 8, 6 e 5 e a tripla 3, a união é 20 + 18 + 15 − 8 − 6 − 5 + 3 = 37. A parte tripla é somada de volta, porque foi subtraída demais.</p>
+<h3>3. Sequências numéricas</h3>
+<p>Para descobrir o padrão, escreva os termos e olhe as diferenças e as razões entre vizinhos. Se a diferença é constante, é uma progressão aritmética (PA). Se a razão é constante, é uma progressão geométrica (PG). Se nenhuma das duas é constante, olhe as diferenças das diferenças.</p>
+<p>Em uma PA de primeiro termo a<sub>1</sub> e razão r, o termo de ordem n é a<sub>n</sub> = a<sub>1</sub> + (n − 1) r. Na sequência 3, 7, 11, 15, a razão é 4, e o 20º termo é 3 + 19 × 4 = 79. A soma dos n primeiros termos é a média do primeiro e do último, vezes n: S = (a<sub>1</sub> + a<sub>n</sub>) × n ÷ 2. A soma de 1 a 100 é (1 + 100) × 100 ÷ 2 = 5.050; é a história de Gauss, que emparelhou 1 com 100, 2 com 99 e assim por diante, 50 pares de 101.</p>
+<p>Em uma PG de primeiro termo a<sub>1</sub> e razão q, a<sub>n</sub> = a<sub>1</sub> × q<sup>n−1</sup>. Na sequência 3, 6, 12, 24, a razão é 2, e o 8º termo é 3 × 2<sup>7</sup> = 384. A soma dos n primeiros termos é a<sub>1</sub> (q<sup>n</sup> − 1) ÷ (q − 1). Em 2, 6, 18, 54, 162, a soma é 2 × (3<sup>5</sup> − 1) ÷ 2 = 242.</p>
+<p>Algumas sequências famosas valem reconhecer. Os quadrados: 1, 4, 9, 16, 25. Os triangulares: 1, 3, 6, 10, 15, em que se soma 1, 2, 3, 4 em cada passo. Fibonacci: 1, 1, 2, 3, 5, 8, 13, 21, 34, em que cada termo é a soma dos dois anteriores. Quando as diferenças crescem de 1 em 1, como em 1, 2, 4, 7, 11, 16, o termo de ordem n é 1 mais a soma de 1 a n − 1. Há ainda as sequências alternadas, em que os termos de ordem ímpar seguem um padrão e os de ordem par seguem outro.</p>
+<h3>4. Sequências com ciclo</h3>
+<p>Quando o padrão se repete em ciclos, a posição de um termo distante sai do resto da divisão. Se as letras A, B, C, D, E se repetem sem parar, a 2.026ª letra é calculada dividindo 2.026 por 5: o resto é 1, e então a letra é A, a primeira do ciclo. Se o resto for 0, o termo é o último do ciclo. Com figuras, vale o mesmo: um ciclo de triângulo, quadrado e círculo tem a 7ª figura igual à 1ª, porque 7 dividido por 3 deixa resto 1.</p>
+<p>Para dias da semana, o ciclo é 7. Se hoje é quinta-feira, daqui a 100 dias será que dia? 100 dividido por 7 dá resto 2, e dois dias depois de quinta é sábado. O resto é o que importa, porque cada bloco de 7 dias volta ao mesmo dia.</p>
+<p>Exemplo resolvido. Os códigos das viaturas seguem a sequência V1, V2, V4, V7, V11, e assim por diante. As diferenças são 1, 2, 3, 4, logo as próximas são 5, 6 e 7. O sexto termo é 11 + 5 = 16 e o sétimo, 16 + 6 = 22. O décimo termo é 1 mais a soma de 1 a 9, ou seja, 1 + 45 = 46.</p>
+<h3>5. Questões resolvidas</h3>
+<h4>Questão 1</h4>
+<p>Em um grupo de 100 guardas, 60 falam inglês, 45 falam espanhol e 20 falam as duas línguas. O número de guardas que não falam nenhuma delas é</p>
+<ol class="alts" type="A"><li>25</li><li>15</li><li>40</li><li>55</li><li>0</li></ol>
+<p><strong>Resposta: B.</strong> Pelo menos uma: 60 + 45 − 20 = 85. Nenhuma: 100 − 85 = 15.</p>
+<h4>Questão 2</h4>
+<p>Considere as premissas: todo guarda é servidor; nenhum servidor é aposentado. Conclui-se que</p>
+<ol class="alts" type="A"><li>algum guarda é aposentado.</li><li>todo aposentado é guarda.</li><li>algum servidor é guarda e aposentado.</li><li>nenhum guarda é aposentado.</li><li>todo servidor é guarda.</li></ol>
+<p><strong>Resposta: D.</strong> Os guardas estão dentro de servidor, que não toca aposentado. Logo nenhum guarda é aposentado.</p>
+<h4>Questão 3</h4>
+<p>A sequência 3, 7, 11, 15, ... tem o 20º termo igual a</p>
+<ol class="alts" type="A"><li>75</li><li>83</li><li>79</li><li>80</li><li>77</li></ol>
+<p><strong>Resposta: C.</strong> PA de razão 4: 3 + 19 × 4 = 79.</p>
+<h4>Questão 4</h4>
+<p>Se as letras A, B, C, D, E se repetem indefinidamente, a 2.026ª letra é</p>
+<ol class="alts" type="A"><li>A</li><li>B</li><li>C</li><li>D</li><li>E</li></ol>
+<p><strong>Resposta: A.</strong> 2.026 ÷ 5 deixa resto 1: primeira letra do ciclo, A.</p>
+<h3>6. Na rotina do guarda</h3>
+<ul>
+<li><strong>Cadastro de línguas e habilitações:</strong> contar quantos têm pelo menos uma habilitação exige descontar a interseção.</li>
+<li><strong>Escalas cíclicas:</strong> um plantão que se repete a cada certo número de dias cai no mesmo dia da semana segundo o resto da divisão.</li>
+<li><strong>Numeração de viaturas, ocorrências e boletins:</strong> os códigos seguem padrões, e saber identificá-los evita erro de registro.</li>
+<li><strong>Depoimentos:</strong> testar o que a premissa garante e o que apenas permite é o mesmo exercício dos diagramas.</li>
+</ul>
+<h3>7. Onde a Vunesp pega</h3>
+<div class="tabela"><table>
+<thead>
+<tr>
+<th>Armadilha</th>
+<th>Como escapar</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Somar dois conjuntos sem descontar a interseção</td>
+<td>n(A ∪ B) = n(A) + n(B) − n(A ∩ B)</td>
+</tr>
+<tr>
+<td>Concluir “todo B é A” de “todo A é B”</td>
+<td>Desenhe: a região de B é maior</td>
+</tr>
+<tr>
+<td>Tirar conclusão de duas premissas com “algum”</td>
+<td>Se nem todo desenho obriga a conclusão, ela não vale</td>
+</tr>
+<tr>
+<td>Errar a posição em ciclos quando o resto é zero</td>
+<td>Resto 0 é o último termo do ciclo</td>
+</tr>
+<tr>
+<td>Usar a fórmula da PA em sequência que não é PA</td>
+<td>Confira a diferença entre termos vizinhos</td>
+</tr>
+<tr>
+<td>Contar o primeiro termo duas vezes ou esquecê-lo</td>
+<td>O n-ésimo termo vem depois de n − 1 passos</td>
+</tr>
+</tbody>
+</table></div>
+<h3>8. Quadro-resumo</h3>
+<div class="tabela"><table>
+<thead>
+<tr>
+<th>Ponto</th>
+<th>O essencial</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Todo A é B</td>
+<td>Região de A dentro da de B</td>
+</tr>
+<tr>
+<td>Nenhum A é B</td>
+<td>Regiões separadas</td>
+</tr>
+<tr>
+<td>Algum A é B</td>
+<td>Regiões com parte comum</td>
+</tr>
+<tr>
+<td>União</td>
+<td>n(A) + n(B) − n(A ∩ B)</td>
+</tr>
+<tr>
+<td>PA</td>
+<td>a<sub>n</sub> = a<sub>1</sub> + (n − 1) r; soma = (a<sub>1</sub> + a<sub>n</sub>) n / 2</td>
+</tr>
+<tr>
+<td>PG</td>
+<td>a<sub>n</sub> = a<sub>1</sub> q<sup>n−1</sup></td>
+</tr>
+<tr>
+<td>Ciclo</td>
+<td>Posição = resto da divisão pelo tamanho do ciclo</td>
+</tr>
+<tr>
+<td>Fibonacci</td>
+<td>Cada termo é a soma dos dois anteriores</td>
+</tr>
+</tbody>
+</table></div>
+<p class="ref">Fontes: Edital 02/2026, Anexo I. Referências de base: Iezzi e Murakami, <em>Fundamentos de Matemática Elementar</em>, v. 1 (Conjuntos) e v. 4 (Sequências); Alencar Filho, <em>Iniciação à Lógica Matemática</em>. Exemplos criados para a aula.</p>

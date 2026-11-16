@@ -1,0 +1,8 @@
+__pycache__/
+*.pkl
+node_modules/
+.vercel/
+capturas/
+videos/fonte/*/video.mp4
+videos/fonte/*/foto-*.jpg
+videos/fonte/*/m?.jpg

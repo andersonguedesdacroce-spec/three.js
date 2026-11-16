@@ -1,0 +1,1109 @@
+{
+ "abuso-1": [
+  [
+   1,
+   "Cai muito:",
+   "Sem a **finalidade específica** (prejudicar outrem, beneficiar a si ou a terceiro, ou capricho e satisfação pessoal), não há abuso de autoridade. A **divergência na interpretação** da lei ou na avaliação de fatos também não é crime."
+  ],
+  [
+   2,
+   "Cuidado!",
+   "A **perda do cargo** não é automática: depende de **reincidência** e de declaração motivada na sentença. A inabilitação vai de 1 a 5 anos."
+  ]
+ ],
+ "abuso-2": [
+  [
+   1,
+   "Cai muito:",
+   "A **nota de culpa** deve ser entregue ao preso em **24 horas**. Deixar de entregá-la é crime da lei."
+  ],
+  [
+   2,
+   "Cuidado!",
+   "Cumprir mandado de busca domiciliar **depois das 21h ou antes das 5h** é crime. Entrar sem mandado **não** é crime para prestar **socorro**, em **flagrante** ou em caso de **desastre**."
+  ],
+  [
+   3,
+   "Macete:",
+   "Pena-padrão da lei: **1 a 4 anos**. As exceções de **6 meses a 2 anos** e a do art. 15-A (3 meses a 1 ano) são as que a banca troca."
+  ]
+ ],
+ "amb-1": [
+  [
+   2,
+   "Cai muito:",
+   "Maus-tratos a **cão ou gato**: reclusão de **2 a 5 anos**, multa e **proibição da guarda**. Para os demais animais, detenção de 3 meses a 1 ano."
+  ],
+  [
+   3,
+   "Cuidado!",
+   "O **abate** não é crime para saciar a **fome** do agente ou da família, para proteger lavouras com autorização e quando o animal é **nocivo**, assim caracterizado pelo órgão competente (art. 37)."
+  ]
+ ],
+ "amb-2": [
+  [
+   2,
+   "Cai muito:",
+   "Provocar **incêndio** em mata ou floresta: reclusão de **2 a 4 anos**. Fabricar, vender, transportar ou **soltar balões**: detenção de 1 a 3 anos."
+  ],
+  [
+   1,
+   "Cuidado!",
+   "Nos arts. 38 e 40, a forma **culposa** existe e tem a pena **reduzida à metade**."
+  ]
+ ],
+ "amb-3": [
+  [
+   3,
+   "Cai muito:",
+   "**Pichação**: detenção de 3 meses a 1 ano e multa; em monumento **tombado**, 6 meses a 1 ano. **Grafite autorizado** não é crime."
+  ],
+  [
+   1,
+   "Cuidado!",
+   "No art. 54, a poluição culposa tem pena de detenção de 6 meses a 1 ano. Os aumentos do art. 58 vão até o **dobro** se resultar **morte**."
+  ]
+ ],
+ "armas-1": [
+  [
+   3,
+   "Cai muito:",
+   "Porte da guarda municipal: concedido pela **Polícia Federal**, válido por **dez anos**, nos limites do **Estado**, com treinamento de **100 horas** para semiautomática e **65%** de prática."
+  ],
+  [
+   3,
+   "Macete:",
+   "**PF, 10, 100, 65, 80**: quem concede, anos de validade, horas de treinamento, percentual prático e horas do estágio anual."
+  ]
+ ],
+ "cp-1": [
+  [
+   1,
+   "Cai muito:",
+   "Homicídio **simples**: 6 a 20 anos. **Qualificado**: 12 a 30 anos. O feminicídio hoje é **crime autônomo** (art. 121-A), com reclusão de 20 a 40 anos."
+  ],
+  [
+   4,
+   "Cuidado!",
+   "**Infanticídio** é crime próprio da **mãe**, sob influência do estado puerperal, durante ou logo após o parto: detenção de 2 a 6 anos."
+  ],
+  [
+   5,
+   "Cuidado!",
+   "O aborto legal (art. 128) exige **médico** e os requisitos de cada inciso. A lei **não** exige autorização judicial."
+  ]
+ ],
+ "cp-10": [
+  [
+   1,
+   "Cai muito:",
+   "Na apropriação indébita, o agente **já tem a posse ou a detenção** da coisa e passa a agir como dono. Se tira a coisa de quem tem a posse, é furto."
+  ],
+  [
+   3,
+   "Cuidado!",
+   "Quem acha coisa alheia perdida tem **15 dias** para restituí-la ao dono ou entregá-la à autoridade."
+  ]
+ ],
+ "cp-11": [
+  [
+   2,
+   "Cai muito:",
+   "**Fraude eletrônica**: reclusão de **4 a 8 anos**. Contra **idoso ou vulnerável**, a pena aumenta de **um terço ao dobro**."
+  ],
+  [
+   3,
+   "Cuidado!",
+   "O **calote de refeição** (art. 176) tem pena de 15 dias a 2 meses e depende de **representação**."
+  ]
+ ],
+ "cp-12": [
+  [
+   1,
+   "Macete:",
+   "**Sabe**: própria (2 a 6 anos). **Deve saber**: qualificada, no comércio (3 a 8 anos). **Deve presumir**: culposa (1 mês a 1 ano)."
+  ],
+  [
+   3,
+   "Cuidado!",
+   "A imunidade entre parentes **não vale** em roubo, extorsão, crimes com violência ou grave ameaça, para o **estranho** que participa e quando a vítima tem **60 anos ou mais**."
+  ]
+ ],
+ "cp-13": [
+  [
+   1,
+   "Cai muito:",
+   "**Peculato-furto**: o funcionário não tem a posse, mas se vale da **facilidade do cargo** para subtrair (§ 1º)."
+  ],
+  [
+   1,
+   "Cuidado!",
+   "No peculato **culposo**, reparar o dano **antes da sentença** extingue a punibilidade; **depois**, reduz a pena de metade."
+  ]
+ ],
+ "cp-14": [
+  [
+   1,
+   "Macete:",
+   "**Concussão exige**; **corrupção passiva solicita, recebe ou aceita promessa**. O verbo decide a resposta."
+  ],
+  [
+   3,
+   "Cai muito:",
+   "**Prevaricação** é retardar ou deixar de praticar ato **por interesse ou sentimento pessoal**. **Condescendência criminosa** é a indulgência do chefe que não responsabiliza o subordinado."
+  ]
+ ],
+ "cp-15": [
+  [
+   4,
+   "Cai muito:",
+   "Para a lei penal, é funcionário público quem exerce **cargo, emprego ou função pública**, ainda que **transitoriamente** ou **sem remuneração**."
+  ],
+  [
+   3,
+   "Cuidado!",
+   "Emprestar a **senha** de sistema da Administração a pessoa não autorizada tem as **mesmas penas** da violação de sigilo funcional."
+  ]
+ ],
+ "cp-2": [
+  [
+   1,
+   "Cuidado!",
+   "**Debilidade** permanente é lesão **grave**; **perda ou inutilização** de membro, sentido ou função é **gravíssima**. **Aceleração de parto** é grave; **aborto** é gravíssima."
+  ],
+  [
+   2,
+   "Cai muito:",
+   "Lesão corporal **seguida de morte** é crime **preterdoloso**: dolo na lesão e culpa na morte. Reclusão de 4 a 12 anos."
+  ]
+ ],
+ "cp-3": [
+  [
+   3,
+   "Cai muito:",
+   "**Omissão de socorro**: detenção de 1 a 6 meses, ou multa. A pena aumenta de **metade** se resulta lesão grave e é **triplicada** se resulta morte."
+  ],
+  [
+   4,
+   "Cuidado!",
+   "Na **rixa**, quem entra apenas para **separar** os brigões não pratica o crime."
+  ]
+ ],
+ "cp-4": [
+  [
+   2,
+   "Macete:",
+   "**Calúnia** = fato **criminoso** falso. **Difamação** = fato **ofensivo** à reputação. **Injúria** = **xingamento**, sem fato."
+  ],
+  [
+   4,
+   "Cuidado!",
+   "A **retratação** antes da sentença isenta de pena só na **calúnia** e na **difamação**. Na injúria, não."
+  ]
+ ],
+ "cp-5": [
+  [
+   2,
+   "Cai muito:",
+   "**Ameaça contra a mulher** por razões da condição do sexo feminino: pena **em dobro** e ação penal **sem necessidade de representação**."
+  ],
+  [
+   1,
+   "Cuidado!",
+   "**Intimidação sistemática** (bullying) é punida com multa; no **ambiente digital**, reclusão de 2 a 4 anos."
+  ]
+ ],
+ "cp-6": [
+  [
+   1,
+   "Cai muito:",
+   "Em **flagrante**, a entrada na casa é permitida a **qualquer hora**. Sem flagrante, só **de dia** e com as formalidades legais."
+  ],
+  [
+   2,
+   "Cuidado!",
+   "Estabelecimento **aberto ao público**, enquanto aberto, **não é casa**. O local de profissão **não aberto ao público** é."
+  ]
+ ],
+ "cp-7": [
+  [
+   1,
+   "Cuidado!",
+   "Com **violência ou grave ameaça**, não é furto: é **roubo**."
+  ],
+  [
+   2,
+   "Cai muito:",
+   "O **repouso noturno** aumenta a pena de metade no furto **simples**. O **privilégio** exige **os dois** requisitos juntos: réu primário **e** coisa de pequeno valor."
+  ]
+ ],
+ "cp-8": [
+  [
+   1,
+   "Macete:",
+   "No **roubo**, o agente **toma**; na **extorsão**, a vítima **colabora** (faz, deixa de fazer ou tolera algo)."
+  ],
+  [
+   2,
+   "Cai muito:",
+   "Arma de fogo aumenta a pena do roubo em **2/3**; de uso **restrito ou proibido**, aplica-se a pena **em dobro**. **Latrocínio**: 24 a 30 anos."
+  ]
+ ],
+ "cp-9": [
+  [
+   1,
+   "Cai muito:",
+   "Dano contra patrimônio do **Município** é **qualificado** (detenção de 6 meses a 3 anos) e de ação penal **pública**."
+  ],
+  [
+   2,
+   "Cuidado!",
+   "O **esbulho possessório** exige **violência**, **grave ameaça** ou concurso de **mais de duas pessoas**."
+  ]
+ ],
+ "cpp-1": [
+  [
+   1,
+   "Cai muito:",
+   "A autoridade policial **nunca** manda arquivar o inquérito: só o **juiz** ordena o arquivamento (art. 17)."
+  ],
+  [
+   3,
+   "Macete:",
+   "Prazo do inquérito: **preso, 10 dias**; **solto, 30 dias**."
+  ],
+  [
+   2,
+   "Cuidado!",
+   "Nos crimes de ação pública **condicionada**, sem **representação** o inquérito não pode ser iniciado (art. 5º, § 4º)."
+  ]
+ ],
+ "cpp-2": [
+  [
+   1,
+   "Cai muito:",
+   "**Qualquer do povo poderá** prender quem esteja em flagrante; as **autoridades policiais e seus agentes deverão**."
+  ],
+  [
+   2,
+   "Macete:",
+   "**Impróprio**: perseguido **logo após**. **Presumido**: encontrado **logo depois** com instrumentos, armas ou objetos."
+  ],
+  [
+   4,
+   "Cuidado!",
+   "Quem decide a prisão na **audiência de custódia** é o **juiz**: relaxa, converte em preventiva ou concede liberdade provisória."
+  ]
+ ],
+ "ctb-1": [
+  [
+   1,
+   "Cai muito:",
+   "Trânsito inclui **parada**, **estacionamento** e **operação de carga ou descarga**. Via inclui **praias abertas** à circulação, vias internas de **condomínios** e estacionamentos de uso coletivo."
+  ],
+  [
+   2,
+   "Cuidado!",
+   "O **Contran** é o órgão máximo **normativo e consultivo** e coordenador do sistema. Quem julga os recursos dos infratores são as **JARI**."
+  ]
+ ],
+ "ctb-10": [
+  [
+   2,
+   "Cai muito:",
+   "Limites que configuram embriaguez ao volante: **6 dg** de álcool por litro de **sangue** ou **0,3 mg** por litro de **ar alveolar**."
+  ],
+  [
+   1,
+   "Cuidado!",
+   "Ao condutor que prestar **pronto e integral socorro** à vítima não se impõe prisão em flagrante nem se exige fiança."
+  ],
+  [
+   3,
+   "Macete:",
+   "Homicídio culposo no trânsito: **2 a 4 anos**; com álcool, **5 a 8** (reclusão). Suspensão ou proibição de dirigir: **2 meses a 5 anos**."
+  ]
+ ],
+ "ctb-2": [
+  [
+   4,
+   "Cai muito:",
+   "Sem sinalização: **80** km/h (trânsito rápido), **60** (arterial), **40** (coletora), **30** (local). Rodovia de pista dupla: **110** para automóveis e motos."
+  ],
+  [
+   1,
+   "Macete:",
+   "Preferência em cruzamento sem sinal: **rodovia**, depois **rotatória**, depois **quem vem pela direita**."
+  ],
+  [
+   3,
+   "Cuidado!",
+   "Criança **menor de 10 anos** com menos de **1,45 m** vai no **banco traseiro**, com dispositivo de retenção."
+  ]
+ ],
+ "ctb-3": [
+  [
+   1,
+   "Cai muito:",
+   "O ciclista **desmontado, empurrando a bicicleta**, equipara-se ao **pedestre** em direitos e deveres."
+  ],
+  [
+   1,
+   "Cuidado!",
+   "Em via **rural** sem acostamento, o pedestre anda em **sentido contrário** ao dos veículos."
+  ]
+ ],
+ "ctb-4": [
+  [
+   1,
+   "Macete:",
+   "Ordem de prevalência: **agente** > **semáforo** > **sinais**. O gesto do agente vence o semáforo."
+  ],
+  [
+   2,
+   "Cuidado!",
+   "Não se aplicam as sanções do CTB quando a sinalização é **insuficiente ou incorreta**."
+  ]
+ ],
+ "ctb-5": [
+  [
+   1,
+   "Macete:",
+   "**Registro**: uma vez, gera o **CRV**. **Licenciamento**: **todo ano**, gera o Certificado de Licenciamento Anual."
+  ],
+  [
+   3,
+   "Cai muito:",
+   "Veículo **escolar**: faixa amarela de 40 cm com a palavra ESCOLAR em preto e inspeção **semestral**."
+  ]
+ ],
+ "ctb-6": [
+  [
+   1,
+   "Cai muito:",
+   "Categoria **B**: até **3.500 kg** e até **8 lugares**, excluído o motorista. **D e E** exigem mais de **21 anos**."
+  ],
+  [
+   2,
+   "Cuidado!",
+   "A **Permissão para Dirigir** vale **um ano**. Exame de aptidão física e mental: **10 anos** (menos de 50), **5 anos** (50 a 69) e **3 anos** (70 ou mais)."
+  ]
+ ],
+ "ctb-7": [
+  [
+   3,
+   "Cai muito:",
+   "Velocidade: até **20%** acima é **média**; até **50%**, **grave**; acima de **50%**, **gravíssima** com suspensão."
+  ],
+  [
+   2,
+   "Macete:",
+   "Multas em múltiplos: **sem CNH × 3**; **álcool × 10**; **corrida × 10**. Reincidência em 12 meses **dobra**."
+  ],
+  [
+   4,
+   "Cuidado!",
+   "Bloqueio viário **comum**: grave. Bloqueio **policial**: **gravíssima**."
+  ]
+ ],
+ "ctb-8": [
+  [
+   1,
+   "Macete:",
+   "Pontos: gravíssima **7**, grave **5**, média **4**, leve **3**. Suspensão com **20, 30 ou 40** pontos em 12 meses, conforme o número de gravíssimas (2 ou mais, 1 ou nenhuma)."
+  ],
+  [
+   3,
+   "Cuidado!",
+   "**Retenção**: o veículo é liberado no local se a irregularidade for sanada. **Remoção**: vai para o **depósito**. Medida administrativa **complementa** a penalidade, não a substitui."
+  ]
+ ],
+ "ctb-9": [
+  [
+   1,
+   "Cai muito:",
+   "A notificação da autuação deve ser expedida em **30 dias**; senão, o auto é **arquivado**."
+  ],
+  [
+   3,
+   "Macete:",
+   "Pagou até o vencimento: **20% de desconto** (paga 80%). Optou pelo sistema eletrônico sem defesa nem recurso: **40%** de desconto (paga 60%)."
+  ]
+ ],
+ "ctn-1": [
+  [
+   1,
+   "Cai muito:",
+   "Taxa tem dois fatos geradores: **poder de polícia** ou **serviço público específico e divisível**, efetivo ou potencial."
+  ],
+  [
+   3,
+   "Cuidado!",
+   "A taxa **não pode** ter base de cálculo **idêntica à de imposto** nem ser calculada em função do **capital das empresas**."
+  ]
+ ],
+ "dudh-1": [
+  [
+   1,
+   "Cai muito:",
+   "Art. 1º: todos nascem **livres e iguais em dignidade e em direitos**. Art. 5º: ninguém será submetido a tortura nem a tratamento **cruel, desumano ou degradante**."
+  ],
+  [
+   3,
+   "Cuidado!",
+   "O direito de **asilo** não pode ser invocado em caso de perseguição motivada por **crime de direito comum** (art. 14)."
+  ]
+ ],
+ "dudh-2": [
+  [
+   2,
+   "Cai muito:",
+   "Art. 26: a educação deve ser **gratuita**, ao menos a **elementar**, que é **obrigatória**. Os pais têm prioridade na escolha do gênero de educação dos filhos."
+  ],
+  [
+   3,
+   "Cuidado!",
+   "Art. 30: nada na Declaração autoriza interpretá-la para **destruir** os direitos e liberdades nela previstos."
+  ]
+ ],
+ "eca-1": [
+  [
+   1,
+   "Cai muito:",
+   "**Criança**: até **12 anos incompletos**. **Adolescente**: de **12 a 18** anos. Com 12 anos completos, já é adolescente."
+  ],
+  [
+   2,
+   "Macete:",
+   "Prioridade absoluta em 4 itens: **primazia** de socorro, **precedência** no atendimento, **preferência** nas políticas, **destinação privilegiada** de recursos."
+  ]
+ ],
+ "eca-2": [
+  [
+   2,
+   "Cai muito:",
+   "**Castigo físico**: força física que resulte em **sofrimento físico ou lesão**. **Tratamento cruel ou degradante**: o que **humilha**, ameaça gravemente ou ridiculariza."
+  ],
+  [
+   3,
+   "Cuidado!",
+   "Quem aplica as medidas do art. 18-B é o **Conselho Tutelar**."
+  ]
+ ],
+ "eca-3": [
+  [
+   1,
+   "Cai muito:",
+   "Creche e pré-escola atendem crianças de **zero a cinco anos**. O acesso ao ensino obrigatório e gratuito é **direito público subjetivo**."
+  ],
+  [
+   2,
+   "Cuidado!",
+   "Quem comunica maus-tratos, faltas reiteradas e evasão ao Conselho Tutelar são os **dirigentes** de estabelecimentos de ensino fundamental."
+  ]
+ ],
+ "eca-4": [
+  [
+   1,
+   "Cai muito:",
+   "Crianças **menores de 10 anos** só entram e permanecem em espetáculos e diversões **acompanhadas dos pais** ou responsável."
+  ],
+  [
+   2,
+   "Cuidado!",
+   "É proibido vender a criança e adolescente **armas**, **bebidas alcoólicas**, produtos que causem dependência, **fogos** (salvo os de reduzido potencial) e **bilhetes lotéricos**."
+  ]
+ ],
+ "eca-5": [
+  [
+   3,
+   "Cai muito:",
+   "Acolhimento institucional **de urgência**: comunicação ao juiz em até **24 horas**."
+  ],
+  [
+   4,
+   "Macete:",
+   "Programas reavaliados a cada **2 anos**; registro válido por no máximo **4 anos**."
+  ]
+ ],
+ "eca-6": [
+  [
+   1,
+   "Cai muito:",
+   "Considera-se a idade do adolescente **na data do fato**. Ato de **criança** recebe medidas de **proteção** (art. 101)."
+  ],
+  [
+   2,
+   "Cuidado!",
+   "Nenhum adolescente é privado de liberdade senão em **flagrante** ou por **ordem escrita e fundamentada** do juiz. A internação provisória dura no máximo **45 dias**."
+  ]
+ ],
+ "forca-1": [
+  [
+   1,
+   "Macete:",
+   "Princípios do uso da força: **legalidade, necessidade, razoabilidade e proporcionalidade** (art. 2º)."
+  ],
+  [
+   2,
+   "Cuidado!",
+   "É ilegítimo atirar contra **pessoa em fuga desarmada** ou que não represente risco imediato, e contra **veículo que desrespeite bloqueio**, salvo risco de morte ou lesão."
+  ]
+ ],
+ "forca-2": [
+  [
+   1,
+   "Cai muito:",
+   "A arma de fogo é **medida de último recurso**. Antes vêm a comunicação, a negociação e as técnicas que impeçam a escalada."
+  ],
+  [
+   2,
+   "Cuidado!",
+   "Sempre que o uso da força resultar em **ferimento ou morte**, é obrigatório o **relatório circunstanciado**."
+  ]
+ ],
+ "gm-1": [
+  [
+   1,
+   "Cai muito:",
+   "A guarda municipal é instituição de **caráter civil**, com proteção municipal **preventiva** e uso **progressivo** da força."
+  ],
+  [
+   3,
+   "Cuidado!",
+   "O autor de flagrante é encaminhado ao **delegado de polícia**, não ao juiz nem ao Ministério Público. Atividade de **polícia judiciária** está excluída."
+  ],
+  [
+   2,
+   "Macete:",
+   "Os princípios do art. 3º são **mínimos**, não taxativos."
+  ]
+ ],
+ "gm-2": [
+  [
+   1,
+   "Cai muito:",
+   "A guarda é criada **por lei** municipal, é **subordinada ao prefeito** e sua criação é **facultativa**."
+  ],
+  [
+   4,
+   "Macete:",
+   "Efetivo máximo: **0,4%**, **0,3%** e **0,2%** da população; quanto **maior** a cidade, **menor** o percentual."
+  ],
+  [
+   6,
+   "Cuidado!",
+   "**Corregedoria** própria: obrigatória para guardas com **mais de 50 servidores** ou que usem **arma de fogo**. **Ouvidoria**: em qualquer guarda."
+  ]
+ ],
+ "idoso-1": [
+  [
+   4,
+   "Cai muito:",
+   "Transporte coletivo urbano **gratuito** a partir dos **65 anos**; entre 60 e 65, a lei local dispõe. Assentos reservados: **10%**."
+  ],
+  [
+   2,
+   "Macete:",
+   "**10%** dos assentos, **5%** das vagas de estacionamento, **3%** das moradias, **50%** de desconto em ingressos."
+  ],
+  [
+   1,
+   "Cuidado!",
+   "A **preferência especial** dentro da prioridade é dos **maiores de 80 anos**."
+  ]
+ ],
+ "idoso-2": [
+  [
+   1,
+   "Cai muito:",
+   "As medidas de proteção do art. 45 são aplicadas pelo **Ministério Público** ou pelo **Judiciário**, a requerimento dele."
+  ],
+  [
+   3,
+   "Cuidado!",
+   "Entidade **governamental** infratora: **afastamento** de dirigentes. **Não governamental**: multa, suspensão do repasse, proibição de atendimento."
+  ]
+ ],
+ "idoso-3": [
+  [
+   1,
+   "Cai muito:",
+   "Os crimes do Estatuto da Pessoa Idosa são de ação penal **pública incondicionada**, e **não** se aplicam as imunidades dos arts. 181 e 182 do CP."
+  ],
+  [
+   2,
+   "Cuidado!",
+   "Observe o tipo da pena em cada artigo: **reclusão** (ex.: arts. 99, 102, 106, 107) ou **detenção** (ex.: arts. 97, 98, 104, 105)."
+  ]
+ ],
+ "lm-1": [
+  [
+   1,
+   "Cuidado!",
+   "O Estatuto de 1955 fala em estágio de **um ano** (art. 15), mas hoje são **três anos**, pela Constituição e pelo Decreto 21.019/2020."
+  ],
+  [
+   2,
+   "Cai muito:",
+   "Penas disciplinares: **advertência** (verbal), **repreensão** (por escrito), multa, **suspensão** (até 90 dias), demissão e cassação."
+  ]
+ ],
+ "lm-2": [
+  [
+   1,
+   "Cai muito:",
+   "Estágio probatório de **3 anos**, com **seis** avaliações **semestrais** e nota mínima de **70** pontos."
+  ],
+  [
+   2,
+   "Cuidado!",
+   "Mais de **doze** faltas injustificadas no estágio levam à exoneração."
+  ]
+ ],
+ "mp-1": [
+  [
+   1,
+   "Cai muito:",
+   "A lei vale na **unidade doméstica**, na **família** e em **relação íntima de afeto**, **sem exigir coabitação** e independentemente de orientação sexual."
+  ],
+  [
+   2,
+   "Macete:",
+   "Formas de violência: **física, psicológica, sexual, patrimonial, moral** e **vicária**."
+  ]
+ ],
+ "mp-2": [
+  [
+   3,
+   "Cai muito:",
+   "Pedido de medidas protetivas: remessa ao juiz em **48 horas**."
+  ],
+  [
+   3,
+   "Cuidado!",
+   "Afastamento do agressor do lar: pelo **juiz**; pelo **delegado** se o município não é sede de comarca; pelo **policial** se não houver comarca nem delegado disponível. Comunicação ao juiz em até **24 horas**."
+  ]
+ ],
+ "mp-3": [
+  [
+   2,
+   "Cai muito:",
+   "As medidas protetivas **independem** de tipificação penal, de inquérito e de boletim de ocorrência, e vigoram **enquanto persistir o risco**."
+  ],
+  [
+   4,
+   "Cuidado!",
+   "Descumprir medida protetiva (art. 24-A): reclusão de **2 a 5 anos** e multa; na prisão em flagrante, **só o juiz** concede fiança."
+  ],
+  [
+   3,
+   "Cuidado!",
+   "Nos crimes contra a mulher, é **vedada** a pena de **cesta básica** ou outra prestação pecuniária, e a multa isolada."
+  ]
+ ],
+ "mt-1": [
+  [
+   2,
+   "Cuidado!",
+   "Para somar frações, primeiro o **denominador comum**: 1/2 + 1/3 = 3/6 + 2/6 = **5/6**."
+  ],
+  [
+   5,
+   "Cai muito:",
+   "Sem parênteses, o sinal fica de fora: **−3² = −9**. Com parênteses, (−3)² = 9."
+  ],
+  [
+   3,
+   "Macete:",
+   "Na divisão de frações: **conserva** a primeira, **inverte** a segunda e **multiplica**."
+  ]
+ ],
+ "mt-10": [
+  [
+   1,
+   "Cuidado!",
+   "A área do **triângulo** é base × altura **÷ 2**. Perímetro é contorno (m); área é superfície (m²)."
+  ],
+  [
+   4,
+   "Cai muito:",
+   "**Pitágoras**: hipotenusa² = cateto² + cateto². Faltando um cateto, **subtraia**."
+  ],
+  [
+   5,
+   "Macete:",
+   "Pirâmide e cone valem **um terço** do prisma e do cilindro de mesma base e altura."
+  ]
+ ],
+ "mt-11": [
+  [
+   2,
+   "Cai muito:",
+   "A negação de **todo** é **algum não**. A negação de **p e q** é **não p ou não q**."
+  ],
+  [
+   3,
+   "Cuidado!",
+   "A negação de **se p, então q** é **p e não q**. A contrapositiva equivalente é **se não q, então não p**."
+  ],
+  [
+   3,
+   "Macete:",
+   "Condicional só é **falsa** quando **V → F**. Com antecedente falso, é sempre verdadeira."
+  ]
+ ],
+ "mt-12": [
+  [
+   1,
+   "Cai muito:",
+   "União de dois conjuntos: n(A ∪ B) = n(A) + n(B) **− n(A ∩ B)**."
+  ],
+  [
+   3,
+   "Cuidado!",
+   "Em sequência cíclica, **resto zero** corresponde ao **último** termo do ciclo."
+  ]
+ ],
+ "mt-2": [
+  [
+   3,
+   "Macete:",
+   "**Dividir em partes iguais, o maior possível, sem sobra**: MDC. **Coincidir de novo, o menor**: MMC."
+  ],
+  [
+   1,
+   "Cuidado!",
+   "**1 não é primo**: número primo tem exatamente dois divisores."
+  ],
+  [
+   4,
+   "Cai muito:",
+   "No **MDC**, fatores comuns com o **menor** expoente; no **MMC**, todos os fatores com o **maior** expoente."
+  ]
+ ],
+ "mt-3": [
+  [
+   3,
+   "Cai muito:",
+   "Aumento de 20% seguido de queda de 20% **não** volta ao original: 1,20 × 0,80 = 0,96, queda de **4%**."
+  ],
+  [
+   2,
+   "Cuidado!",
+   "Para achar o valor **original** depois de um aumento, **divida** pelo fator: 150 ÷ 1,25 = 120."
+  ],
+  [
+   4,
+   "Macete:",
+   "De 40% para 55% são **15 pontos percentuais**, mas um aumento **relativo** de 37,5%."
+  ]
+ ],
+ "mt-4": [
+  [
+   1,
+   "Cuidado!",
+   "Converta as unidades **antes** de montar a razão: 40 min para 2 h é 40/120."
+  ],
+  [
+   3,
+   "Cai muito:",
+   "Grandezas **inversamente** proporcionais: aumentando uma, a outra **diminui**. Na divisão inversa, a **maior** parte fica com o **menor** número."
+  ]
+ ],
+ "mt-5": [
+  [
+   1,
+   "Macete:",
+   "Antes de montar a regra de três, pergunte: aumentando uma grandeza, a outra **aumenta** (direta) ou **diminui** (inversa)?"
+  ],
+  [
+   3,
+   "Cuidado!",
+   "Na composta, compare **cada** grandeza com a que tem o **x**, nunca as grandezas entre si."
+  ]
+ ],
+ "mt-6": [
+  [
+   3,
+   "Cuidado!",
+   "Em ax² + bx + c, se **b = −3**, então **−b = 3**. O erro de sinal em Bhaskara é o mais cobrado."
+  ],
+  [
+   4,
+   "Cai muito:",
+   "Descarte a raiz que **não faz sentido** no problema, como comprimento ou idade negativos."
+  ]
+ ],
+ "mt-7": [
+  [
+   2,
+   "Cuidado!",
+   "Ao multiplicar uma equação para igualar coeficientes, multiplique **todos** os termos, dos dois lados."
+  ],
+  [
+   4,
+   "Cai muito:",
+   "Releia a pergunta: muitas vezes a banca pede **x + y** ou o **maior** valor, não só x."
+  ]
+ ],
+ "mt-8": [
+  [
+   2,
+   "Macete:",
+   "Comprimento anda de **10 em 10**; área, de **100 em 100**; volume, de **1.000 em 1.000**. **1 dm³ = 1 L**."
+  ],
+  [
+   1,
+   "Cuidado!",
+   "**2 h 30 min = 2,5 h**, não 2,3 h. E km/h para m/s: **divida** por 3,6."
+  ],
+  [
+   3,
+   "Cai muito:",
+   "**1 hectare = 10.000 m²**; 1 are = 100 m²."
+  ]
+ ],
+ "mt-9": [
+  [
+   3,
+   "Cuidado!",
+   "Média de grupos de tamanhos diferentes: some **tudo** e divida pelo **total** de elementos, nunca faça a média das médias."
+  ],
+  [
+   2,
+   "Cai muito:",
+   "Gráfico de setores mostra **parte do todo**: multiplique a porcentagem pelo total para achar a quantidade."
+  ]
+ ],
+ "pt-1": [
+  [
+   1,
+   "Cai muito:",
+   "A resposta tem de estar **no texto**. Pergunte sempre: **em que linha está?** Verdade do mundo não serve."
+  ],
+  [
+   1,
+   "Cuidado!",
+   "Cuidado com a troca de **grau**: o texto diz \"pode\", a alternativa diz \"sempre\"."
+  ],
+  [
+   7,
+   "Macete:",
+   "Sublinhe **incorreta**, **exceto** e **não** no enunciado antes de ler as alternativas."
+  ]
+ ],
+ "pt-10": [
+  [
+   1,
+   "Cai muito:",
+   "**Assistir**, no sentido de **ver**, exige **a**: assisti **ao** jogo. No sentido de ajudar, é direto: assistir alguém."
+  ],
+  [
+   2,
+   "Cuidado!",
+   "**Implicar** (acarretar) é direto: o atraso **implica** punição, sem \"em\". **Preferir** é preferir isto **a** aquilo, sem \"mais\" nem \"do que\"."
+  ],
+  [
+   4,
+   "Macete:",
+   "Verbo de movimento pede **a**: **chegar a**, **ir a**. \"Chegou **na** delegacia\" é da fala corrente."
+  ]
+ ],
+ "pt-11": [
+  [
+   1,
+   "Cai muito:",
+   "Não se inicia frase com pronome oblíquo átono na norma-padrão: **diga-me**, não \"me diga\"."
+  ],
+  [
+   2,
+   "Macete:",
+   "Atraem o pronome (próclise): palavras **negativas**, **indefinidos**, **relativos** e **advérbios** sem vírgula: **ninguém me** avisou."
+  ],
+  [
+   4,
+   "Cuidado!",
+   "Com **futuro**, nunca ênclise: **entregar-lhe-ei**, **far-se-ia** (ou próclise, se houver atrativa). Nunca pronome depois de **particípio**."
+  ]
+ ],
+ "pt-12": [
+  [
+   2,
+   "Cuidado!",
+   "**Nunca** há crase antes de **verbo**, de **masculino** (salvo \"à moda de\"), de pronomes **pessoais** e de **tratamento**."
+  ],
+  [
+   3,
+   "Macete:",
+   "Troque por masculino: se der **ao**, tem crase. **Vou à** praia (vou ao clube); **volto de** Campinas, logo **vou a** Campinas."
+  ],
+  [
+   4,
+   "Cai muito:",
+   "\"**a**\" no singular antes de palavra no plural é só preposição: fui **a** reuniões. **De 10 a 30**, **daqui a dois dias**."
+  ]
+ ],
+ "pt-2": [
+  [
+   1,
+   "Cai muito:",
+   "Defina o sentido da palavra **na frase** antes de olhar as alternativas: a mesma palavra muda de sentido conforme o contexto."
+  ],
+  [
+   4,
+   "Cuidado!",
+   "**Parônimos** confundem: eminente (ilustre) e iminente (prestes a acontecer); **prescindir** é dispensar, não precisar."
+  ]
+ ],
+ "pt-3": [
+  [
+   1,
+   "Macete:",
+   "**Comparação** tem conectivo (como, tal qual); **metáfora** não tem."
+  ],
+  [
+   2,
+   "Cuidado!",
+   "**Metonímia** é proximidade: \"a Câmara aprovou\" (os vereadores), não personificação. **Metáfora** é semelhança."
+  ],
+  [
+   3,
+   "Cai muito:",
+   "**Antítese**: ideias opostas lado a lado. **Paradoxo**: opostos no **mesmo** ser ao mesmo tempo. **Ironia** inverte; **hipérbole** só exagera."
+  ]
+ ],
+ "pt-4": [
+  [
+   1,
+   "Cai muito:",
+   "**Nunca** separe **sujeito e verbo** por vírgula, por mais longo que seja o sujeito."
+  ],
+  [
+   2,
+   "Cuidado!",
+   "Termo **intercalado** pede **duas** vírgulas. Retirar as vírgulas de uma oração **explicativa** muda o sentido (de todos para só parte)."
+  ],
+  [
+   3,
+   "Macete:",
+   "Vírgula antes de **e**: aceita com **sujeitos diferentes**, **oposição** ou **e** repetido."
+  ]
+ ],
+ "pt-5": [
+  [
+   1,
+   "Cuidado!",
+   "Classifique a palavra pelo **papel na frase**, não fora do contexto."
+  ],
+  [
+   2,
+   "Cai muito:",
+   "**Sobrecomum** não troca o artigo: **a** vítima, mesmo homem. **O grama** (peso) é masculino: duzent**os** gramas."
+  ]
+ ],
+ "pt-6": [
+  [
+   2,
+   "Cai muito:",
+   "Pronome de tratamento leva o verbo e os possessivos à **3ª pessoa**: Vossa Excelência encaminhará **seu** parecer."
+  ],
+  [
+   5,
+   "Macete:",
+   "**Este** = o que vem (ou perto de quem fala); **esse** = o que já foi dito."
+  ],
+  [
+   3,
+   "Cuidado!",
+   "**Cujo** concorda com o possuído e **dispensa artigo**: \"cujo **o**\" está errado. \"Entre **mim** e ela\"; \"para **eu** fazer\"."
+  ]
+ ],
+ "pt-7": [
+  [
+   2,
+   "Cai muito:",
+   "Futuro do subjuntivo: **se ele vir**, **quando ele puser**. Derivados seguem a base: **interveio**, **deteve**."
+  ],
+  [
+   3,
+   "Cuidado!",
+   "**Haver** (existir) e **fazer** (tempo) ficam no **singular**: **houve** ocorrências, **faz** dois anos."
+  ],
+  [
+   6,
+   "Macete:",
+   "Na voz passiva, o verbo **ser** fica no **mesmo tempo** do verbo da ativa, e só o **transitivo direto** vai para a passiva."
+  ]
+ ],
+ "pt-8": [
+  [
+   2,
+   "Cuidado!",
+   "**E** pode ser **adversativo**: estudou **e** não passou. **Pois** depois do verbo, entre vírgulas, é **conclusivo**."
+  ],
+  [
+   3,
+   "Cai muito:",
+   "**Desde que** com subjuntivo é **condição**. **Como** no início da frase costuma ser **causa**."
+  ],
+  [
+   6,
+   "Macete:",
+   "**Em vez de** = no lugar de; **ao invés de** = ao contrário de. **Ao encontro de** = concordância; **de encontro a** = choque."
+  ]
+ ],
+ "pt-9": [
+  [
+   1,
+   "Cai muito:",
+   "Sujeito **depois** do verbo: pergunte **quem?** ao verbo. **Chegaram** os reforços."
+  ],
+  [
+   3,
+   "Cuidado!",
+   "**Vendem-se** casas: com o **se** apassivador, o verbo concorda com o sujeito. **Mais de um** leva o verbo ao singular."
+  ],
+  [
+   5,
+   "Macete:",
+   "\"É **proibido** entrada\" (sem artigo, invariável); \"é **proibida a** entrada\" (com artigo, concorda)."
+  ]
+ ],
+ "racial-1": [
+  [
+   1,
+   "Cai muito:",
+   "A Lei Estadual 14.187/2010 prevê **punição administrativa**, apurada em **processo administrativo**, para pessoa física ou jurídica, inclusive quem exerce função pública."
+  ],
+  [
+   3,
+   "Cuidado!",
+   "Multa de até **1.000 UFESPs**, até **3.000** na reincidência, elevável até o **triplo** se ineficaz. Para o agente público, também **penalidades disciplinares**."
+  ]
+ ],
+ "susp-1": [
+  [
+   1,
+   "Cai muito:",
+   "Segurança pública é **dever do Estado** e **responsabilidade de todos**. A Política Nacional é estabelecida pela **União**."
+  ],
+  [
+   2,
+   "Cuidado!",
+   "O princípio sobre a força é o uso **comedido e proporcional**."
+  ]
+ ],
+ "susp-2": [
+  [
+   1,
+   "Cai muito:",
+   "As **guardas municipais** são integrantes **operacionais** do Susp (art. 9º, § 2º, VII). Os Conselhos de Segurança são integrantes **estratégicos**."
+  ],
+  [
+   4,
+   "Macete:",
+   "Plano Nacional: **10 anos**. Planos locais em até **2 anos**, sob pena de não receber recursos da União. Mandato de conselheiro: **2 anos**, uma recondução."
+  ]
+ ]
+}

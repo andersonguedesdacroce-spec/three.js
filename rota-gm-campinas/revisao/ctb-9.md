@@ -1,0 +1,175 @@
+# Revisão do posto ctb-9: Processo administrativo (CTB, arts. 280 a 290-A)
+
+## Resumo
+
+- Banco: 60 questões (20 fáceis, 20 médias, 20 difíceis); 11 com texto de apoio (ctb9a, ctb9b, ctb9c).
+- Questões resolvidas na aula: 4.
+- Seções: 1, 2, 3, 4, 5, 6, 7 (questões resolvidas na seção 5).
+
+## Fontes
+
+Fontes: Edital 02/2026, Anexo I; Lei 9.503/1997 (Código de Trânsito Brasileiro), arts. 280 a 290, texto consolidado da Câmara dos Deputados. Exemplos criados para a aula.
+
+Conferidas nesta produção:
+
+- CTB, arts. 280 a 290: texto da Câmara, copiado por programa.
+
+## Verificação de cobertura
+
+- Cobertos: arts. 280 a 290 (com 281-A, 282-A e 289-A). Não detalhados: art. 282, §§ 5º e 6º-A, art. 284, §§ 5º e 6º, art. 289, parágrafo único, art. 290-A.
+
+## Pontos para revisão (não conferidos na fonte)
+
+- Texto-fonte: consolidação da Câmara dos Deputados (Legin), baixada em 14/11/2026; reconferir no Planalto.
+- No texto da aula, a explicação do desconto de 60% (art. 284, § 1º) deve ser relida com a redação mais recente da Lei 14.599/2023.
+- Trechos de lei copiados de fontes/ctb.txt por programa.
+- Casos ctb9a, ctb9b e ctb9c fictícios.
+
+## Aula
+
+**O processo administrativo é o caminho da infração até a multa paga ou o recurso julgado: auto de infração, notificação da autuação, defesa prévia, penalidade, notificação da penalidade, recurso à JARI e depois ao Cetran. Para o guarda municipal, é o capítulo mais próximo do trabalho diário, porque quem lavra o auto é o agente de trânsito. A Vunesp cobra os requisitos do auto, quem pode lavrá-lo, os prazos (30 dias, 180 e 360 dias, 24 meses), os descontos no pagamento e os efeitos do recurso.**
+
+## 1. A autuação
+
+> Ocorrendo infração prevista na legislação de trânsito, lavrar-se-á auto de infração, do qual constará: I - tipificação da infração; II - local, data e hora do cometimento da infração; III - caracteres da placa de identificação do veículo, sua marca e espécie, e outros elementos julgados necessários à sua identificação; IV - o prontuário do condutor, sempre que possível; V - identificação do órgão ou entidade e da autoridade ou agente autuador ou equipamento que comprovar a infração; VI - assinatura do infrator, sempre que possível, valendo esta como notificação do cometimento da infração. *(art. 280, caput)*
+
+> § 2º A infração deverá ser comprovada por declaração da autoridade ou do agente da autoridade de trânsito, por aparelho eletrônico ou por equipamento audiovisual, reações químicas ou qualquer outro meio tecnologicamente disponível, previamente regulamentado pelo CONTRAN. § 3º Não sendo possível a autuação em flagrante, o agente de trânsito relatará o fato à autoridade no próprio auto de infração, informando os dados a respeito do veículo, além dos constantes nos incisos I, II e III, para o procedimento previsto no artigo seguinte. *(art. 280, §§ 2º e 3º)*
+
+> § 4º O agente da autoridade de trânsito competente para lavrar o auto de infração poderá ser servidor civil, estatutário ou celetista ou, ainda, policial militar designado pela autoridade de trânsito com jurisdição sobre a via no âmbito de sua competência. *(art. 280, § 4º)*
+
+> § 6º Não há infração de circulação, parada ou estacionamento relativa aos veículos destinados a socorro de incêndio e salvamento, aos de polícia, aos de fiscalização e operação de trânsito e às ambulâncias, ainda que não identificados ostensivamente. *(art. 280, § 6º)*
+
+Lavra-se o auto de infração quando ocorre infração prevista na legislação de trânsito. Ele traz a tipificação, o local, a data e a hora, os caracteres da placa, a marca e a espécie do veículo, o prontuário do condutor (sempre que possível), a identificação do órgão e do agente ou equipamento autuador e a assinatura do infrator, que vale como notificação. A infração é comprovada por declaração do agente, aparelho eletrônico, equipamento audiovisual, reações químicas ou outro meio previamente regulamentado pelo Contran. Quem não pode ser autuado em flagrante é relatado no próprio auto, para o procedimento seguinte.
+
+O agente que pode lavrar o auto é o servidor civil, estatutário ou celetista, ou o policial militar designado pela autoridade de trânsito com jurisdição sobre a via. É o caso do guarda municipal designado pelo órgão de trânsito do Município. Não há infração de circulação, parada ou estacionamento relativa a veículos de socorro de incêndio e salvamento, de polícia, de fiscalização e operação de trânsito e a ambulâncias, ainda que não identificados ostensivamente.
+
+## 2. Julgamento do auto, defesa prévia e notificação
+
+> A autoridade de trânsito, na esfera da competência estabelecida neste Código e dentro de sua circunscrição, julgará a consistência do auto de infração e aplicará a penalidade cabível. *(art. 281, caput)*
+
+> I - se considerado inconsistente ou irregular; II - se, no prazo máximo de trinta dias, não for expedida a notificação da autuação. *(art. 281, § 1º)*
+
+> Na notificação de autuação e no auto de infração, quando valer como notificação de autuação, deverá constar o prazo para apresentação de defesa prévia, que não será inferior a 30 (trinta) dias, contado da data de expedição da notificação. Art. 282. Caso a defesa prévia seja indeferida ou não seja apresentada no prazo estabelecido, será aplicada a penalidade e expedida notificação ao proprietário do veículo ou ao infrator, por remessa postal ou por qualquer outro meio tecnológico hábil que assegure a ciência da imposição da penalidade. *(arts. 281-A e 282)*
+
+> § 4º Da notificação deverá constar a data do término do prazo para apresentação de recurso pelo responsável pela infração, que não será inferior a trinta dias contados da data da notificação da penalidade. § 5º No caso de penalidade de multa, a data estabelecida no parágrafo anterior será a data para o recolhimento de seu valor. *(art. 282, § 4º)*
+
+> § 6º O prazo para expedição das notificações das penalidades previstas no art. 256 deste Código é de 180 (cento e oitenta) dias ou, se houver interposição de defesa prévia, de 360 (trezentos e sessenta) dias, contado: I - no caso das penalidades previstas nos incisos I e II do caput do art. 256 deste Código, da data do cometimento da infração; II - no caso das demais penalidades previstas no art. 256 deste Código, da conclusão do processo administrativo da penalidade que lhe der causa. *(art. 282, §§ 6º e 7º)*
+
+> § 7º O descumprimento dos prazos previstos no § 6º deste artigo implicará a decadência do direito de aplicar a respectiva penalidade. *(art. 282, § 7º)*
+
+A autoridade de trânsito julga a consistência do auto e aplica a penalidade. O auto é arquivado, e o registro julgado insubsistente, se for inconsistente ou irregular, ou se a notificação da autuação não for expedida em até 30 dias. A notificação da autuação deve indicar o prazo para a defesa prévia, que não pode ser inferior a 30 dias. Se a defesa prévia for indeferida ou não for apresentada, aplica-se a penalidade e expede-se nova notificação, ao proprietário do veículo ou ao infrator. A notificação devolvida por endereço desatualizado ou por recusa vale para todos os efeitos.
+
+Da notificação da penalidade deve constar o prazo para recurso, que não pode ser inferior a 30 dias. Em multa, essa data é também a do recolhimento. O prazo para expedir a notificação da penalidade é de 180 dias, ou de 360 dias se houve defesa prévia; descumprido, ocorre a decadência do direito de aplicar a penalidade. Quando a multa é imposta ao condutor, a notificação vai ao proprietário, que responde pelo pagamento.
+
+## 3. Pagamento da multa e recursos
+
+> O pagamento da multa poderá ser efetuado até a data do vencimento expressa na notificação, por oitenta por cento do seu valor. § 1º Caso o infrator declare pelo sistema de notificação eletrônica de que trata o art. 282-A deste Código a opção por não apresentar defesa prévia nem recurso, reconhecendo o cometimento da infração, o pagamento da multa poderá ser efetuado por 60% (sessenta por cento) do seu valor, em qualquer fase do processo, até o vencimento do prazo de pagamento da multa, desde que a adesão ao sistema seja realizada antes do correspondente envio da notificação da autuação. § 1º pela Lei nº 13.281, de 4/5/2016, e com nova redação dada pela Lei nº 14.599, de 19/6/2023) *(art. 284, caput e § 1º)*
+
+> § 2º O recolhimento do valor da multa não implica renúncia ao questionamento administrativo, que pode ser realizado a qualquer momento, respeitado o disposto no § 1º. § 3º Não incidirá cobrança moratória e não poderá ser aplicada qualquer restrição, inclusive para fins de licenciamento e transferência, enquanto não for encerrada a instância administrativa de julgamento de infrações e penalidades. *(art. 284, § 2º e § 3º)*
+
+> O recurso contra a penalidade imposta nos termos do art. 282 deste Código será interposto perante a autoridade que imputou a penalidade e terá efeito suspensivo. § 1º O recurso intempestivo ou interposto por parte ilegítima não terá efeito suspensivo. § 2º Recebido o recurso tempestivo, a autoridade o remeterá à Jari, no prazo de 10 (dez) dias, contado da data de sua interposição. *(arts. 285 e 286)*
+
+> § 6º O recurso de que trata o caput deste artigo deverá ser julgado no prazo de 24 (vinte e quatro) meses, contado do recebimento do recurso pelo órgão julgador. *(art. 285, § 6º)*
+
+> O recurso contra a imposição de multa poderá ser interposto no prazo legal, sem o recolhimento do seu valor. § 1º No caso de não provimento do recurso, aplicar-se-á o estabelecido no parágrafo único do art. 284. § 2º Se o infrator recolher o valor da multa e apresentar recurso, se julgada improcedente a penalidade, ser-lhe-á devolvida a importância paga, atualizada em UFIR ou por índice legal de correção dos débitos fiscais. Art. 287. Se a infração for cometida em localidade diversa daquela do licenciamento do veículo, o recurso poderá ser apresentado junto ao órgão ou entidade de trânsito da residência ou domicílio do infrator. Parágrafo único. A autoridade de trânsito que receber o recurso deverá remetê-lo, de pronto, à autoridade que impôs a penalidade acompanhado das cópias dos prontuários necessários ao julgamento. Art. 288. Das decisões da JARI cabe recurso a ser interposto, na forma do artigo seguinte, no prazo de trinta dias contado da publicação ou da notificação da decisão. § 1º O recurso será interposto, da decisão do não provimento, pelo responsável pela infração, e da decisão de provimento, pela autoridade que impôs a penalidade. § 2º [revogado *(arts. 286 a 288)*]
+
+A multa pode ser paga até o vencimento por 80% do valor. Se o infrator optar, pelo sistema de notificação eletrônica, por não apresentar defesa nem recurso e reconhecer a infração, o desconto é de 40% (paga-se 60%). Pagar a multa não impede questionar o processo, e enquanto não encerrada a instância administrativa não incide cobrança moratória nem restrição ao licenciamento ou à transferência.
+
+O recurso contra a penalidade é interposto perante a autoridade que a impôs e tem efeito suspensivo; o intempestivo ou de parte ilegítima não tem efeito suspensivo e é arquivado. A autoridade remete o recurso à JARI em dez dias, e a JARI julga no prazo de 24 meses. O recurso contra multa pode ser interposto sem o recolhimento do valor; se o infrator pagar e o recurso vencer, a quantia é devolvida, corrigida. Das decisões da JARI cabe novo recurso, em trinta dias, ao Cetran (penalidade estadual ou municipal) ou ao Contrandife (Distrito Federal), ou a colegiado especial (União).
+
+## 4. Segunda instância e encerramento
+
+> O recurso de que trata o art. 288 deste Código deverá ser julgado no prazo de 24 (vinte e quatro) meses, contado do recebimento do recurso pelo órgão julgador: I - tratando-se de penalidade imposta por órgão ou entidade da União, por colegiado especial integrado pelo Coordenador-Geral da Jari, pelo Presidente da Junta que apreciou o recurso e por mais um Presidente de Junta; a) [revogado] b) [revogado] II - tratando-se de penalidade imposta por órgão ou entidade de trânsito estadual, municipal ou do Distrito Federal, pelos CETRAN E CONTRANDIFE, respectivamente. *(art. 289, caput e incisos)*
+
+> O não julgamento dos recursos nos prazos previstos no § 6º do art. 285 e no caput do art. 289 deste Código ensejará a prescrição da pretensão punitiva. Art. 290. Implicam encerramento da instância administrativa de julgamento de infrações e penalidades: I - o julgamento do recurso de que tratam os arts. 288 e 289; II - a não interposição do recurso no prazo legal; e III - o pagamento da multa, com reconhecimento da infração e requerimento de encerramento do processo na fase em que se encontra, sem apresentação de defesa ou recurso. Parágrafo único. Esgotados os recursos, as penalidades aplicadas nos termos deste Código serão cadastradas no RENACH. *(arts. 289-A e 290)*
+
+O recurso à segunda instância é julgado em 24 meses. Se isso não ocorre, em qualquer das duas instâncias, ocorre a prescrição da pretensão punitiva. Encerram a instância administrativa o julgamento do recurso, a não interposição no prazo legal e o pagamento da multa com reconhecimento da infração e requerimento de encerramento do processo, sem defesa ou recurso. Esgotados os recursos, as penalidades são cadastradas no Renach. Os prazos processuais não se suspendem, salvo força maior comprovada.
+
+## 5. Questões resolvidas
+
+### Questão 1
+
+O auto de infração será arquivado, e seu registro julgado insubsistente, se não for expedida a notificação da autuação no prazo máximo de
+
+- (A) trinta dias.
+- (B) dez dias.
+- (C) sessenta dias.
+- (D) noventa dias.
+- (E) cento e oitenta dias.
+
+**Resposta: A.** Art. 281, § 1º, II.
+
+### Questão 2
+
+O prazo para apresentação de defesa prévia, na notificação de autuação, não será inferior a
+
+- (A) cinco dias.
+- (B) trinta dias, contado da data de expedição da notificação.
+- (C) dez dias.
+- (D) quinze dias.
+- (E) sessenta dias.
+
+**Resposta: B.** Art. 281-A.
+
+### Questão 3
+
+O recurso contra a penalidade será interposto perante a autoridade que imputou a penalidade e terá efeito
+
+- (A) devolutivo apenas.
+- (B) nenhum.
+- (C) suspensivo.
+- (D) meramente declaratório.
+- (E) retroativo.
+
+**Resposta: C.** Art. 285.
+
+### Questão 4
+
+O pagamento da multa pode ser efetuado até a data do vencimento expressa na notificação, por
+
+- (A) metade do valor.
+- (B) cem por cento, sem desconto.
+- (C) setenta por cento.
+- (D) oitenta por cento do seu valor.
+- (E) noventa por cento.
+
+**Resposta: D.** Art. 284.
+
+## 6. Na rotina do guarda
+
+- **Preencher o auto:** tipificação, local, data e hora, placa, marca e espécie, identificação do agente, e assinatura do infrator quando possível; sem ela, o auto segue por notificação.
+- **Autuar em flagrante:** quando não for possível, o agente relata o fato no auto e informa os dados do veículo.
+- **Veículos de emergência:** não há infração de circulação, parada ou estacionamento por viatura de socorro, de polícia, de fiscalização ou ambulância.
+- **Prova:** declaração do agente, aparelho eletrônico, imagem; o auto deve ser consistente para não ser arquivado.
+- **Prazos:** o auto é arquivado se a notificação da autuação não sair em 30 dias.
+
+## 7. Onde a Vunesp pega
+
+| Armadilha | Como escapar |
+| --- | --- |
+| Prazo da notificação da autuação | 30 dias; senão o auto é arquivado |
+| Defesa prévia | Prazo não inferior a 30 dias |
+| Prazo para recurso | Não inferior a 30 dias da notificação da penalidade |
+| Notificação da penalidade | 180 dias, ou 360 com defesa prévia; senão decadência |
+| Desconto no pagamento | 80% até o vencimento; 60% se optar pelo sistema eletrônico sem defesa nem recurso |
+| Efeito do recurso | Suspensivo, se tempestivo e de parte legítima |
+| Remessa à JARI | 10 dias |
+| Julgamento | 24 meses; senão prescrição da pretensão punitiva |
+| Recurso das decisões da JARI | 30 dias, ao Cetran ou Contrandife |
+| Quem lava o auto | Servidor civil (estatutário ou celetista) ou policial militar designado |
+
+## 8. Quadro-resumo
+
+| Ponto | O essencial |
+| --- | --- |
+| Auto de infração | Tipificação, local, data, hora, placa, agente, assinatura |
+| Quem lava | Servidor civil ou policial militar designado |
+| Veículos de emergência | Sem infração de circulação, parada ou estacionamento |
+| Notificação da autuação | 30 dias; senão, arquivamento |
+| Defesa prévia | Mínimo 30 dias |
+| Notificação da penalidade | 180 dias; 360 com defesa |
+| Recurso | Mínimo 30 dias; efeito suspensivo |
+| Pagamento | 80% até o vencimento; 60% sem defesa nem recurso |
+| JARI | Remessa em 10 dias; 24 meses |
+| Cetran / Contrandife | Recurso em 30 dias; 24 meses |
+| Encerramento | Julgamento, prazo ou pagamento com reconhecimento |

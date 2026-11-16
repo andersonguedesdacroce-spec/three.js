@@ -1,0 +1,1273 @@
+/* ---------- Índices ---------- */
+const POSTOS = [];
+TRILHAS.forEach(tr=>tr.postos.forEach((p,i)=>POSTOS.push({id:tr.id+"-"+(i+1), t:p[0], r:p[1], tr, n:i})));
+const POSTO = Object.fromEntries(POSTOS.map(p=>[p.id,p]));
+const TRILHA = Object.fromEntries(TRILHAS.map(t=>[t.id,t]));
+const postosDe = tid => POSTOS.filter(p=>p.tr.id===tid);
+const QIDX = {};
+Object.keys(BANCO).forEach(pid=>BANCO[pid].forEach(q=>{ QIDX[q.id] = {q, pid}; }));
+const TOTAL_Q = Object.keys(QIDX).length;
+const BLOCOS = [
+  {nome:"Conhecimentos Gerais", q:20, id:"cg"},
+  {nome:"Conhecimentos Específicos", q:30, id:"ce"}
+];
+
+/* ---------- Estado ---------- */
+const KEY_BASE = "rota-gm-campinas-v2";
+let KEY = KEY_BASE;
+function novoEstado(){ return {acesso:false, aprovados:{}, tentativas:{}, vistas:{}, erros:{}, marcadas:{}, revisoes:{}, correcoes:[], ultimo:null,
+  certas:{}, corrigidas:{}, dias:{}, simulados:[], stat:{}, statOk:false, pref:{modo:"final", meta:20}, semana:{id:"", xp:0}, total:0, apelido:"", noRanking:false, atualizado:0}; }
+function completar(e){ const n = novoEstado(); Object.keys(n).forEach(k=>{ if(!(k in e)) e[k] = n[k]; }); return e; }
+function lerLocal(){ try{ return completar(JSON.parse(localStorage.getItem(KEY)) || novoEstado()); }catch(e){ return novoEstado(); } }
+let S = lerLocal();
+let IS_OWNER = false;
+
+/* ---------- Conta e dados: Firebase (site), banco do Claude (Artifact) ou só o navegador ----------
+   BK.modo: "firebase" | "claude" | "local". Os dois bancos têm a mesma forma de uso:
+   doc(caminho).get/set/delete e collection(nome).orderBy().limit().get(). */
+const NO_CLAUDE = !!(window.claude && window.claude.use);
+const BK = {modo: (typeof FIREBASE_CONFIG!=="undefined" && FIREBASE_CONFIG && !NO_CLAUDE) ? "firebase" : (NO_CLAUDE ? "claude" : "local"),
+  pronto:false, uid:null, email:null, verificado:false, db:null, auth:null};
+function caminhoProgresso(){ return BK.modo==="firebase" ? "users/" + BK.uid : "data/users/" + BK.uid + "/progresso"; }
+async function salvar(){
+  S.atualizado = Date.now();
+  try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){}
+  if(BK.db && BK.uid){ try{ await BK.db.doc(caminhoProgresso()).set({estado: JSON.stringify(S), atualizado: S.atualizado}); }catch(e){} }
+  agendarRanking();
+}
+async function carregarRemoto(){
+  if(!BK.db || !BK.uid) return;
+  try{
+    const snap = await BK.db.doc(caminhoProgresso()).get();
+    if(snap.exists){
+      const remoto = completar(JSON.parse(snap.data().estado));
+      if((remoto.atualizado||0) > (S.atualizado||0)){ S = remoto; try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){} }
+      else if(S.atualizado > (remoto.atualizado||0)) salvar();
+    } else if(S.atualizado){ salvar(); }
+  }catch(e){}
+}
+function carregarScript(src){ return new Promise((ok,erro)=>{ const sc = document.createElement("script"); sc.src = src; sc.onload = ok; sc.onerror = erro; document.head.appendChild(sc); }); }
+const FB_VER = "10.12.2";
+async function iniciarFirebase(){
+  try{
+    await carregarScript(`https://www.gstatic.com/firebasejs/${FB_VER}/firebase-app-compat.js`);
+    await Promise.all([carregarScript(`https://www.gstatic.com/firebasejs/${FB_VER}/firebase-auth-compat.js`), carregarScript(`https://www.gstatic.com/firebasejs/${FB_VER}/firebase-firestore-compat.js`)]);
+  }catch(e){}
+  if(typeof firebase==="undefined"){ BK.modo = "local"; BK.pronto = true; atualizarConta(); render(); return; }
+  firebase.initializeApp(FIREBASE_CONFIG);
+  BK.auth = firebase.auth(); BK.auth.languageCode = "pt-BR";
+  const fs = firebase.firestore();
+  BK.db = { doc: p=>fs.doc(p), collection: p=>fs.collection(p) };
+  BK.auth.onAuthStateChanged(async u=>{
+    if(u){
+      BK.uid = u.uid; BK.email = u.email; BK.verificado = !!u.emailVerified;
+      KEY = KEY_BASE + "-" + u.uid; S = lerLocal();
+      if(BK.verificado && ehGmail(u.email)) await carregarRemoto();
+      migrar();
+    } else { BK.uid = null; BK.email = null; BK.verificado = false; KEY = KEY_BASE; S = lerLocal(); }
+    BK.pronto = true; atualizarConta();
+    if(!u && !["home","entrar","criar","recuperar","checkout"].includes(V.tela)) V = {tela:"home"};
+    render();
+  });
+}
+async function iniciarClaude(){
+  try{
+    const db = await claude.use("db"); const user = await claude.use("user");
+    if(user){ try{ IS_OWNER = !!(await user.isOwner()); }catch(e){} }
+    if(db && user){ const uid = await user.id(); if(uid){ BK.db = db; BK.uid = uid; BK.verificado = true; await carregarRemoto(); migrar(); } }
+  }catch(e){}
+  BK.pronto = true; render();
+}
+const ehGmail = e => /^[a-z0-9](?:[a-z0-9.+_-]*[a-z0-9])?@gmail\.com$/i.test((e||"").trim());
+const logado = () => BK.modo!=="firebase" || (BK.uid && BK.verificado && ehGmail(BK.email));
+
+/* ---------- Pontos, níveis e sequência (base do ranking) ----------
+   10 por questão diferente acertada (só a primeira vez conta), 100 por posto concluído,
+   40 por revisão espaçada concluída, 20 por questão do caderno de erros corrigida.
+   Refazer as mesmas questões não rende pontos novos: o ranking premia avançar no edital. */
+const PONTOS = {questao:10, posto:100, revisao:40, corrigida:20};
+const NIVEIS = [[0,"Recruta"],[300,"Aluno"],[800,"Aspirante"],[1500,"Patrulheiro"],[2500,"Vigilante"],[4000,"Sentinela"],[6000,"Agente"],[9000,"Veterano"],[13000,"Especialista"],[18000,"Instrutor"],[25000,"Mestre do edital"],[35000,"Lenda da Rota"]];
+function calcPontos(e){
+  const ok = k=>QIDX[k] || POSTO[k];
+  return PONTOS.questao*Object.keys(e.certas).filter(ok).length + PONTOS.posto*Object.keys(e.aprovados).filter(ok).length
+    + PONTOS.revisao*Object.values(e.revisoes).reduce((a,r)=>a+Math.min(r.etapa||0,3),0) + PONTOS.corrigida*Object.keys(e.corrigidas).filter(ok).length;
+}
+function nivelDe(p){ let i=0; NIVEIS.forEach((n,k)=>{ if(p>=n[0]) i=k; }); const prox = NIVEIS[i+1]; return {i, nome:NIVEIS[i][1], piso:NIVEIS[i][0], teto: prox ? prox[0] : null, proxNome: prox ? prox[1] : null}; }
+const hojeStr = (d=new Date()) => d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0")+"-"+String(d.getDate()).padStart(2,"0");
+function semanaId(d=new Date()){ const x = new Date(d.getFullYear(), d.getMonth(), d.getDate()); x.setDate(x.getDate() - ((x.getDay()+6)%7)); return "S" + hojeStr(x); } // semana começa na segunda
+function sequencia(e){
+  let d = new Date(), n = 0;
+  if(!e.dias[hojeStr(d)]) d.setDate(d.getDate()-1);
+  while(e.dias[hojeStr(d)]){ n++; d.setDate(d.getDate()-1); }
+  return n;
+}
+function registrarPontos(n=1){
+  const novo = calcPontos(S), sem = semanaId();
+  if(S.semana.id !== sem) S.semana = {id:sem, xp:0};
+  const delta = novo - (S.total||0);
+  if(delta > 0) S.semana.xp += delta;
+  S.total = novo; S.dias[hojeStr()] = (S.dias[hojeStr()]||0) + n;
+  const ds = Object.keys(S.dias).sort(); if(ds.length > 400) ds.slice(0, ds.length-400).forEach(k=>delete S.dias[k]);
+  return delta;
+}
+function migrar(){
+  if(!S.semana.id){ S.total = calcPontos(S); S.semana = {id:semanaId(), xp:0}; }
+  if(!S.statOk){ Object.entries(S.tentativas).forEach(([pid,ts])=>{ if(!POSTO[pid]) return; const tid = POSTO[pid].tr.id, e = S.stat[tid] = S.stat[tid] || {r:0,c:0}; ts.forEach(t=>{ e.r += (t.ids||[]).length; e.c += t.nota; }); }); S.statOk = true; }
+  if(!S.pref || typeof S.pref!=="object") S.pref = {modo:"final", meta:20};
+}
+let timerRanking = null;
+function agendarRanking(){ clearTimeout(timerRanking); timerRanking = setTimeout(publicarRanking, 1500); }
+async function publicarRanking(){
+  if(!BK.db || !BK.uid || !logado()) return;
+  const ref = BK.db.doc("ranking/" + BK.uid);
+  try{
+    if(!S.apelido || S.noRanking){ await ref.delete(); return; }
+    const sem = semanaId(), p = Math.min(calcPontos(S), 200000);
+    await ref.set({apelido:S.apelido, pontos:p, semana:sem, xpSemana: Math.min(S.semana.id===sem ? S.semana.xp : 0, p), sequencia: Math.min(sequencia(S), 400),
+      ultimoDia: Object.keys(S.dias).sort().pop() || "", postos: Object.keys(S.aprovados).filter(k=>POSTO[k]).length, nivel: nivelDe(p).nome, atualizado: Date.now()});
+  }catch(e){}
+}
+
+/* ---------- Utilidades ---------- */
+const $app = document.getElementById("app");
+const LETRAS = ["A","B","C","D","E"];
+const DIA = 86400000;
+const INTERVALOS = [1, 7, 30]; // revisão espaçada: 1 dia, 7 dias e 30 dias após concluir o posto
+const embaralhar = arr => { const a = arr.slice(); for(let i=a.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [a[i],a[j]]=[a[j],a[i]]; } return a; };
+const diasAte = d => Math.max(0, Math.ceil((d - new Date())/DIA));
+const feitos = tid => postosDe(tid).filter(p=>S.aprovados[p.id]).length;
+const fmt = n => n.toLocaleString("pt-BR");
+const norm = s => (s||"").normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase();
+const MODO_REVISAO = true; // true = todos os postos liberados, sem nota mínima. Voltar para false para reativar a trava.
+function liberado(pid){ const p = POSTO[pid]; if(!S.acesso) return false; if(MODO_REVISAO || p.n===0) return true; return !!S.aprovados[p.tr.id+"-"+p.n]; }
+function proximo(tid){ return postosDe(tid).find(p=>!S.aprovados[p.id]) || null; }
+function revisoesHoje(){ const agora = Date.now(); return Object.entries(S.revisoes).filter(([pid,r])=>POSTO[pid] && r.etapa < INTERVALOS.length && r.prox <= agora).map(([pid])=>POSTO[pid]); }
+function proximaRevisao(){ const fut = Object.entries(S.revisoes).filter(([pid,r])=>POSTO[pid] && r.etapa < INTERVALOS.length && r.prox > Date.now()).sort((a,b)=>a[1].prox-b[1].prox); return fut.length ? fut[0] : null; }
+function nErros(){ return Object.keys(S.erros).filter(k=>QIDX[k]).length; }
+function nMarcadas(){ return Object.keys(S.marcadas).filter(k=>QIDX[k]).length; }
+function respondidas(){ let r=0, c=0; Object.values(S.stat).forEach(e=>{ r += e.r; c += e.c; }); return {r, c}; }
+const acertou = it => it.escolha!==null && it.ordem[it.escolha].certa;
+function sugestao(){
+  if(S.ultimo && POSTO[S.ultimo] && !S.aprovados[S.ultimo]) return POSTO[S.ultimo];
+  // alterna as matérias: escolhe a trilha com menor proporção concluída
+  const abertas = TRILHAS.filter(t=>proximo(t.id)).sort((a,b)=>feitos(a.id)/a.postos.length - feitos(b.id)/b.postos.length);
+  return abertas.length ? proximo(abertas[0].id) : null;
+}
+const ICONE = {
+  cuidado:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 2 20h20L12 3z"/><path d="M12 10v4M12 17.5v.01"/></svg>',
+  caimuito:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2l3 6.5 7 .8-5.2 4.8 1.4 7L12 17.6 5.8 21l1.4-7L2 9.3l7-.8z"/></svg>',
+  macete:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"/></svg>',
+  conceito:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 11v6M12 7.5v.01"/></svg>',
+  "regra-p":'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12.5l5 5L20 6.5"/></svg>'
+};
+const ROTULO = {cuidado:"Cuidado", caimuito:"Cai muito", macete:"Macete", conceito:"Conceito", "regra-p":"Regra"};
+document.getElementById("dias").textContent = diasAte(PROVA);
+
+/* ---------- Modo claro e escuro ---------- */
+const TEMA_KEY = "rota-gm-tema";
+const SOL = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2.5M12 19.5V22M2 12h2.5M19.5 12H22M4.9 4.9l1.8 1.8M17.3 17.3l1.8 1.8M4.9 19.1l1.8-1.8M17.3 6.7l1.8-1.8"/></svg>';
+const LUA = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8.5 8.5 0 0 1 9.5 4a8.5 8.5 0 1 0 10.5 10.5z"/></svg>';
+function temaAtual(){ const t = document.documentElement.dataset.theme; if(t) return t; return (window.matchMedia && matchMedia("(prefers-color-scheme: dark)").matches) ? "dark" : "light"; }
+function aplicarTema(t){
+  document.documentElement.dataset.theme = t;
+  const b = document.getElementById("tema");
+  b.innerHTML = t==="dark" ? SOL : LUA;
+  b.title = t==="dark" ? "Mudar para modo claro" : "Mudar para modo escuro";
+  b.setAttribute("aria-label", b.title);
+}
+(()=>{
+  let salvo = null; try{ salvo = localStorage.getItem(TEMA_KEY); }catch(e){}
+  aplicarTema(salvo || temaAtual());
+  document.getElementById("tema").onclick = ()=>{ const novo = temaAtual()==="dark" ? "light" : "dark"; aplicarTema(novo); try{ localStorage.setItem(TEMA_KEY, novo); }catch(e){} };
+})();
+
+/* ---------- Navegação ---------- */
+let V = {tela:"home"};
+let Q = null;
+const TELAS_HASH = new Set(["painel","edital","simulado","desempenho","erros","ranking","taf"]);
+function hashDe(v){
+  if(v.tela==="home") return "";
+  if(v.tela==="posto") return "posto-" + v.posto + (v.aba && v.aba!=="aula" ? "-" + v.aba : "");
+  if(v.tela==="trilha") return "materia-" + v.trilha;
+  return TELAS_HASH.has(v.tela) ? v.tela : null;
+}
+function deHash(h){
+  h = (h||"").replace(/^#/,""); let m;
+  if((m = h.match(/^posto-([a-z]+-\d+)(?:-(video|resumo|questoes))?$/)) && POSTO[m[1]]) return {tela:"posto", posto:m[1], aba:m[2]||"aula"};
+  if((m = h.match(/^materia-([a-z]+)$/)) && TRILHA[m[1]]) return {tela:"trilha", trilha:m[1]};
+  return TELAS_HASH.has(h) ? {tela:h} : null;
+}
+let hashProprio = null;
+function ir(v){
+  pararRelogio();
+  V = Object.assign({}, V, v);
+  const h = hashDe(V);
+  if(h!==null && h!==location.hash.replace(/^#/,"")){ hashProprio = h; try{ location.hash = h; }catch(e){ hashProprio = null; } }
+  render(); window.scrollTo(0,0);
+}
+window.addEventListener("hashchange", ()=>{
+  const h = location.hash.replace(/^#/,"");
+  if(hashProprio===h){ hashProprio = null; return; }
+  hashProprio = null; pararRelogio();
+  const v = deHash(h);
+  if(v) V = Object.assign({}, V, v); else if(!h) V = Object.assign({}, V, {tela: (logado() && S.acesso) ? "painel" : "home"}); else return;
+  Q = null; render(); window.scrollTo(0,0);
+});
+(()=>{ const v0 = deHash(location.hash); if(v0) V = Object.assign(V, v0); })();
+const $nav = document.getElementById("nav");
+const NAV = [
+  ["painel","Painel",'<path d="M3 11l9-8 9 8v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/>'],
+  ["edital","Edital",'<path d="M6 3h9l4 4v14H6z"/><path d="M9 11h7M9 15h7M9 7h4"/>'],
+  ["simulado","Simulado",'<circle cx="12" cy="13" r="8"/><path d="M12 9v4l3 2M9 2h6"/>'],
+  ["desempenho","Desempenho",'<path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/>'],
+  ["erros","Erros",'<path d="M5 3h12a2 2 0 0 1 2 2v16l-7-4-7 4V5a2 2 0 0 1 2-2z"/>'],
+  ["ranking","Ranking",'<path d="M8 21h8M12 17v4M7 4h10v5a5 5 0 0 1-10 0zM7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4"/>']
+];
+function atualizarNav(){
+  const mostra = logado() && S.acesso && (BK.modo!=="firebase" || BK.pronto) && !["home","checkout","entrar","criar","recuperar","prova"].includes(V.tela);
+  $nav.hidden = !mostra; document.body.classList.toggle("com-nav", mostra);
+  if(!mostra) return;
+  const ativo = ["trilha","posto","banco","taf"].includes(V.tela) ? "painel" : (V.tela==="resultado" ? (Q && Q.modo==="simulado" ? "simulado" : Q && Q.modo==="erros" ? "erros" : "painel") : V.tela);
+  const ne = nErros() + revisoesHoje().length;
+  $nav.innerHTML = NAV.map(([id,nome,ic])=>`<button data-nav="${id}" aria-current="${ativo===id ? "page" : "false"}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${ic}</svg><span>${nome}</span>${id==="erros" && nErros() ? `<i class="bdg">${nErros()>99?"99+":nErros()}</i>` : ""}</button>`).join("");
+  $nav.querySelectorAll("button").forEach(b=>b.onclick=()=>ir({tela:b.dataset.nav}));
+}
+const LARGAS = new Set(["home","painel","desempenho"]);
+function render(){
+  let t = V.tela;
+  if((t==="prova" || t==="resultado") && !Q){ V.tela = "painel"; return render(); }
+  $app.classList.toggle("largo", LARGAS.has(t));
+  atualizarNav();
+  if(BK.modo==="firebase" && !BK.pronto) return telaCarregando();
+  if(t==="home") return telaHome();
+  if(["entrar","criar","recuperar"].includes(t)){ if(!logado()) return telaConta(t); V.tela = S.acesso ? "painel" : "checkout"; return render(); }
+  if(BK.modo==="firebase" && BK.uid && !logado()) return telaVerificar();
+  if(t==="checkout") return !logado() ? telaConta("criar") : (S.acesso ? telaPainel() : telaCheckout());
+  if(!logado()) return telaConta("entrar");
+  if(!S.acesso) return telaHome();
+  if(t==="painel") return telaPainel();
+  if(t==="trilha") return telaTrilha();
+  if(t==="posto") return telaPosto();
+  if(t==="prova") return telaProva();
+  if(t==="resultado") return telaResultado();
+  if(t==="taf") return telaTAF();
+  if(t==="banco") return telaBanco();
+  if(t==="erros") return telaErros();
+  if(t==="edital") return telaEdital();
+  if(t==="ranking") return telaRanking();
+  if(t==="simulado") return telaSimulado();
+  if(t==="desempenho") return telaDesempenho();
+}
+function bindGo(){ $app.querySelectorAll("[data-go]").forEach(b=>b.onclick=()=>ir({tela:b.dataset.go})); }
+function bindPostos(){ $app.querySelectorAll("[data-abrir]").forEach(b=>b.onclick=()=>ir({tela:"posto", posto:b.dataset.abrir, aba:b.dataset.aba||"aula"})); }
+
+/* ---------- Peso da prova ---------- */
+function pesoProva(){
+  const partes = [["pt","Língua Portuguesa",12],["mt","Matemática e Raciocínio Lógico",6],["lm","Legislação Municipal",2],["ce","Conhecimentos Específicos",30]];
+  return `<div class="peso" role="img" aria-label="Distribuição das 50 questões: Português 12, Matemática 6, Legislação Municipal 2, Conhecimentos Específicos 30">
+    <div class="barra">${partes.map(([c,n,q])=>`<span class="${c}" style="flex:${q}">${q}</span>`).join("")}</div>
+    <ul>${partes.map(([c,n,q])=>`<li><i class="${c}"></i>${n}: ${q} questões</li>`).join("")}</ul>
+  </div>`;
+}
+
+/* ---------- Página de vendas ---------- */
+function telaHome(){
+  const blocos = BLOCOS.map(b=>{
+    const trs = TRILHAS.filter(t=>t.bloco===b.nome);
+    return `<p class="bloco-tit">${b.nome} · ${b.q} questões</p><ul class="lista-materias">${trs.map(t=>`<li><span>${t.nome}</span><span>${t.postos.length} ${t.postos.length===1?"posto":"postos"}${t.q ? " · " + t.q : ""}</span></li>`).join("")}</ul>`;
+  }).join("");
+  const cta = (logado() && S.acesso) ? `<button class="btn" data-go="painel">Ir para o meu painel</button>` : `<button class="btn amber" data-go="checkout">Quero meu acesso</button>`;
+  $app.innerHTML = `
+  <div class="lp">
+  <section class="lp-hero">
+    <div>
+      <p class="eyebrow">Edital 02/2026 · Vunesp · prova em 21/03/2027</p>
+      <h1>Guarda Municipal de Campinas: o edital inteiro, estudado item por item</h1>
+      <p class="sub">Cada item do conteúdo programático virou um posto de estudo, com aula baseada no texto da lei, resumo de uma página e 60 questões comentadas no estilo Vunesp. O painel mostra o que estudar hoje, o que revisar e onde você mais erra.</p>
+      <div class="cta-row">${cta}<a class="btn sec" href="#materias">Ver o conteúdo</a>${BK.modo==="firebase" && !logado() ? `<span class="nota-cta">Já tem conta? <button class="link" data-go="entrar">Entrar</button></span>` : ""}</div>
+    </div>
+    <div class="credencial" aria-label="Dados do concurso">
+      <div class="faixa"><strong>Prefeitura de Campinas</strong><span>Edital 02/2026</span></div>
+      <dl>
+        <div><dt>Cargo</dt><dd>Guarda Municipal 3ª Classe</dd></div>
+        <div><dt>Vagas</dt><dd>100</dd></div>
+        <div><dt>Vencimento base</dt><dd>R$ 3.796,61</dd></div>
+        <div><dt>Auxílio-alimentação</dt><dd>R$ 2.150,12 por mês</dd></div>
+        <div><dt>Inscrições</dt><dd>até 08/01/2027</dd></div>
+        <div><dt>Prova objetiva</dt><dd>21/03/2027, às 13h</dd></div>
+      </dl>
+    </div>
+  </section>
+  <div class="numeros">
+    <div><b>${TRILHAS.length}</b><span>matérias do Anexo I</span></div>
+    <div><b>${POSTOS.length}</b><span>postos de estudo</span></div>
+    <div><b>${fmt(TOTAL_Q)}</b><span>questões comentadas</span></div>
+    <div><b>${diasAte(PROVA)}</b><span>dias até a prova</span></div>
+  </div>
+
+  <section class="lp-sec">
+    <h2>Quanto vale cada parte da prova objetiva</h2>
+    <p>São 50 questões. Os Conhecimentos Específicos respondem por 30 delas, e é nessa parte que estão as leis que o guarda usa no serviço.</p>
+    ${pesoProva()}
+  </section>
+
+  <section class="lp-sec duas">
+    <div>
+      <h2>Aulas que mostram, pela cor, o que é regra e o que é pegadinha</h2>
+      <p style="color:var(--muted)">Toda aula segue a mesma ordem: mapa do assunto, texto da lei, explicação em linguagem simples, caso da rotina do guarda, armadilhas da banca e quadro-resumo. As caixas coloridas têm sempre a mesma função.</p>
+      <div class="legenda-cores">
+        <span><i style="background:var(--blue)"></i>Conceito</span>
+        <span><i style="background:var(--ok)"></i>Regra</span>
+        <span><i style="background:var(--bad)"></i>Cuidado, exceção</span>
+        <span><i style="background:var(--amber)"></i>Cai muito</span>
+        <span><i style="background:var(--violet)"></i>Macete</span>
+      </div>
+    </div>
+    <div class="amostra"><p class="eyebrow">Trecho da aula de CTB · demais infrações</p><article class="aula apostila" id="amostra">
+      <p><strong>O que é, em uma frase:</strong> o art. 252 pune quem dirige sem atenção total ao volante.</p>
+      <blockquote><p><strong>Cai muito:</strong> dirigir com fone ou usando o celular é infração <strong>média</strong>; <strong>segurando ou manuseando</strong> o aparelho, é <strong>gravíssima</strong>.</p></blockquote>
+      <blockquote><p><strong>Macete:</strong> "segurou, gravíssima".</p></blockquote>
+      <blockquote><p><strong>Cuidado!</strong> Esquecer a CNH em casa é infração leve (art. 232). Recusar-se a entregá-la ao agente é gravíssima (art. 238).</p></blockquote>
+    </article></div>
+  </section>
+
+  <section class="lp-sec duas">
+    <div>
+      <h2>Aulas em vídeo curtas, direto na pegadinha</h2>
+      <p style="color:var(--muted)">Cada vídeo resolve em cerca de um minuto e meio uma dúvida que a banca explora, com narração, legendas e os artigos na tela. Assista a uma aula completa.</p>
+      <p class="demo">Os vídeos estão sendo publicados posto a posto; todos os postos já têm aula escrita, resumo e questões.</p>
+    </div>
+    <div class="video-box"><video controls playsinline preload="metadata" poster="videos/${VIDEOS["cp-14"].capa}" src="videos/${VIDEOS["cp-14"].arquivo}"></video></div>
+  </section>
+
+  <section class="lp-sec">
+    <h2>Como o estudo funciona</h2>
+    <ol class="passos">
+      <li><strong>Escolha a matéria</strong>Todas ficam abertas desde o primeiro dia, e o painel sugere a próxima para você alternar.</li>
+      <li><strong>Leia a aula</strong>Texto da lei citado com o artigo, explicação, caso prático e quadro-resumo.</li>
+      <li><strong>Faça 10 questões</strong>Sorteadas entre 60 do posto: fáceis, médias e difíceis. Com 7 acertos, o posto conta como concluído.</li>
+      <li><strong>Revise no tempo certo</strong>O posto volta para revisão após 1, 7 e 30 dias, e cada erro vai para o seu caderno.</li>
+    </ol>
+  </section>
+
+  <section class="lp-sec">
+    <h2>O que você encontra no painel</h2>
+    <div class="recursos">
+      <div class="recurso"><h3>Mapa do edital</h3><p>Cada item do Anexo I ligado ao posto que o cobre, com o seu progresso em cada um.</p></div>
+      <div class="recurso"><h3>Caderno de erros</h3><p>As questões que você errou e as que marcou ficam guardadas para treinar de novo até acertar.</p></div>
+      <div class="recurso"><h3>Revisão espaçada</h3><p>O painel avisa quais postos revisar hoje, para o conteúdo não se perder até março.</p></div>
+      <div class="recurso"><h3>Resumo de uma página</h3><p>Mapa, armadilhas da banca e quadro-resumo de cada posto, para a revisão da véspera.</p></div>
+      <div class="recurso"><h3>Simulado de 50 questões</h3><p>No formato da prova: 12 de Português, 6 de Matemática, 2 de Legislação Municipal e 30 específicas, em 3 horas.</p></div>
+      <div class="recurso"><h3>Desempenho por matéria</h3><p>Percentual de acerto em cada matéria e a indicação de onde focar primeiro.</p></div>
+      <div class="recurso"><h3>Guia do TAF</h3><p>As cinco provas físicas, os índices mínimo e máximo e o cálculo da nota, conforme o Anexo II.</p></div>
+      <div class="recurso"><h3>Ranking entre alunos</h3><p>Pontos por questão nova acertada, posto concluído e revisão feita. Ranking da semana, geral e de dias seguidos, só por apelido.</p></div>
+      <div class="recurso"><h3>Fontes à vista</h3><p>Cada aula cita a lei e o artigo usados. Achou um erro? Há um botão para avisar em todas as aulas.</p></div>
+    </div>
+  </section>
+
+  <section class="lp-sec" id="materias">
+    <h2>Todas as matérias do edital, sem exceção</h2>
+    <p>${TRILHAS.length} matérias e ${POSTOS.length} postos de estudo, montados a partir do Anexo I do edital.</p>
+    <div class="duas">${blocos.replace(/(<p class="bloco-tit">Conhecimentos Específicos)/, '</div><div>$1').replace(/^/, '<div>')}</div></div>
+  </section>
+
+  <section class="lp-sec">
+    <div class="destaque">
+      <h2>O teste físico vale o dobro da prova escrita</h2>
+      <p>A nota final é a soma da prova objetiva, que vale até 50 pontos, com o TAF, que vale até 100. A nota do TAF também é o primeiro critério de desempate.</p>
+    </div>
+  </section>
+
+  <section class="lp-sec">
+    <div class="oferta-box">
+      <div>
+        <h2>Acesso completo até a prova</h2>
+        <ul>
+          <li>${POSTOS.length} postos cobrindo todo o conteúdo programático</li>
+          <li>${fmt(TOTAL_Q)} questões comentadas, com sorteio que evita repetir</li>
+          <li>Caderno de erros, revisão espaçada e resumo de cada posto</li>
+          <li>Guia do Teste de Aptidão Física</li>
+          <li>Progresso salvo no celular e no computador</li>
+        </ul>
+      </div>
+      <div>
+        <div class="preco"><b>R$ 97</b><span>pagamento único, no Pix ou no cartão</span></div>
+        ${S.acesso ? `<button class="btn full" data-go="painel">Ir para o meu painel</button>` : `<button class="btn amber full" data-go="checkout">Quero meu acesso</button>`}
+        <p class="demo">Garantia de 7 dias pelo Código de Defesa do Consumidor.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="lp-sec faq">
+    <h2>Perguntas frequentes</h2>
+    <details><summary>Quando o acesso é liberado?</summary><p>No Pix, logo após a confirmação do pagamento. No cartão, assim que a operadora aprovar.</p></details>
+    <details><summary>Posso estudar pelo celular?</summary><p>Sim. O painel funciona no navegador do celular e do computador, e o progresso fica salvo.</p></details>
+    <details><summary>De onde vem o conteúdo?</summary><p>Do texto das leis e decretos cobrados no edital, citados com o número do artigo. Os temas de Campinas usam fontes oficiais do Município, da Câmara e da Região Metropolitana; cada aula traz a lista das fontes usadas.</p></details>
+    <details><summary>E se uma lei mudar até a prova?</summary><p>O edital manda considerar a legislação vigente até a data da sua publicação. O material segue esse texto e aponta, em cada aula, os pontos que estão sendo conferidos.</p></details>
+    <details><summary>Posso desistir da compra?</summary><p>Sim. Você tem 7 dias para exercer o direito de arrependimento, conforme o Código de Defesa do Consumidor.</p></details>
+  </section>
+  <p class="aviso">Material preparatório independente, sem vínculo com a Prefeitura de Campinas ou com a Fundação Vunesp.</p>
+  </div>`;
+  montarCaixas(document.getElementById("amostra"));
+  bindGo();
+}
+
+/* ---------- Checkout (demonstração) ---------- */
+let modoPag = null;
+function telaCheckout(){
+  $app.innerHTML = `
+  <section class="topico" style="max-width:560px">
+    <button class="voltar" data-go="home">‹ Voltar</button>
+    <h2>Finalize seu acesso</h2>
+    <p class="meta">Rota GM Campinas · acesso completo até a prova · R$ 97</p>
+    <div class="pag">
+      <button class="btn full" data-pag="pix">Pagar com Pix</button>
+      <button class="btn sec full" data-pag="cartao">Pagar com cartão</button>
+    </div>
+    <div id="pagbox"></div>
+    <p class="demo">Demonstração: nenhum valor é cobrado. Na versão final, o gateway confirma o pagamento e o acesso é liberado automaticamente.</p>
+  </section>`;
+  bindGo();
+  $app.querySelectorAll("[data-pag]").forEach(b=>b.onclick=()=>{ modoPag=b.dataset.pag; pagamento(); });
+  if(modoPag) pagamento();
+}
+function pagamento(){
+  const box = document.getElementById("pagbox");
+  const quadro = modoPag==="pix"
+    ? `<p><strong>Escaneie o QR Code no app do seu banco</strong></p>${qrFake()}<p class="ref">Código válido por 30 minutos</p>`
+    : `<p><strong>Pagamento com cartão</strong></p><p class="ref">Na versão final, aqui entra o formulário seguro do gateway.</p>`;
+  box.innerHTML = `<div class="pix">${quadro}<button class="btn full" id="aprovar">Simular pagamento aprovado</button></div>`;
+  document.getElementById("aprovar").onclick = async ()=>{ S.acesso = true; await salvar(); ir({tela:"painel"}); };
+}
+function qrFake(){
+  let r=""; const n=21; let seed=7;
+  const rnd=()=>{ seed=(seed*9301+49297)%233280; return seed/233280; };
+  const olho=(x,y,ox,oy)=>{ const dx=x-ox, dy=y-oy; if(dx<0||dy<0||dx>6||dy>6) return null; return (dx===0||dy===0||dx===6||dy===6||(dx>1&&dx<5&&dy>1&&dy<5)); };
+  for(let y=0;y<n;y++) for(let x=0;x<n;x++){
+    let v = olho(x,y,0,0); if(v===null) v = olho(x,y,n-7,0); if(v===null) v = olho(x,y,0,n-7);
+    if(v===null) v = rnd()>.5;
+    if(v) r+=`<rect x="${x}" y="${y}" width="1" height="1"/>`;
+  }
+  return `<svg viewBox="-1 -1 ${n+2} ${n+2}" role="img" aria-label="QR Code de demonstração" fill="currentColor">${r}</svg>`;
+}
+
+/* ---------- Painel ---------- */
+function telaPainel(){
+  const total = POSTOS.length, ok = Object.keys(S.aprovados).filter(k=>POSTO[k]).length;
+  const restantes = total - ok;
+  const semanas = Math.max(1, Math.ceil(diasAte(FIM_CONTEUDO)/7));
+  const meta = Math.ceil(restantes / semanas);
+  const {r, c} = respondidas();
+  const rev = revisoesHoje(), prox = proximaRevisao(), sug = sugestao();
+  const ne = nErros(), nm = nMarcadas();
+  const seq = sequencia(S), hoje = +S.dias[hojeStr()] || 0, meta2 = S.pref.meta || 20;
+  const card = tr => {
+    const f = feitos(tr.id), n = tr.postos.length, px = proximo(tr.id);
+    return `<button class="tcard ${f===n?"feita":""}" data-tr="${tr.id}">
+      <span class="linha"><span class="nome">${tr.nome}</span>${tr.q ? `<span class="q">${tr.q}</span>` : ""}</span>
+      <span class="bar fina" aria-hidden="true"><i style="width:${(f/n*100).toFixed(0)}%"></i></span>
+      <span class="info">${f} de ${n} ${n===1?"posto":"postos"}${px ? ` · próximo: ${px.t}` : " · matéria concluída"}</span>
+    </button>`;
+  };
+  const tudo = restantes===0;
+  $app.innerHTML = `
+  <section class="hero">
+    <div>
+      <p class="eyebrow">Seu plano até 21/03/2027</p>
+      <h1>${tudo ? "Edital concluído" : "Seu painel de estudo"}</h1>
+      <p>${tudo ? "Você concluiu todos os postos. Mantenha as revisões e treine o caderno de erros." : `Para fechar o edital até 14/03, conclua cerca de ${meta} ${meta===1?"posto":"postos"} por semana, alternando as matérias.`}</p>
+    </div>
+  </section>
+  <div class="kpis">
+    <div class="kpi"><b>${ok}<small style="font-size:18px;color:var(--muted)">/${total}</small></b><span>postos concluídos</span></div>
+    <div class="kpi"><b>${r ? Math.round(c/r*100)+"%" : "—"}</b><span>de acerto em ${fmt(r)} questões</span></div>
+    <div class="kpi"><b>${seq}</b><span>${seq===1?"dia seguido":"dias seguidos"} de estudo</span></div>
+    <div class="kpi ${hoje>=meta2?"feita":""}"><b>${hoje}<small style="font-size:18px;color:var(--muted)">/${meta2}</small></b><span>questões hoje</span><span class="bar fina" aria-hidden="true"><i style="width:${Math.min(100,hoje/meta2*100)}%"></i></span></div>
+  </div>
+  <div class="bar" role="progressbar" aria-label="Progresso no edital" aria-valuemin="0" aria-valuemax="${total}" aria-valuenow="${ok}"><i style="width:${(ok/total*100).toFixed(1)}%"></i></div>
+
+  ${rev.length ? `<div class="continuar">
+        <div><p class="eyebrow">Revisão de hoje · ${rev.length} ${rev.length===1?"posto":"postos"}</p><h2>${rev[0].t}</h2><p>${rev[0].tr.nome} · revisão ${S.revisoes[rev[0].id].etapa+1} de ${INTERVALOS.length}</p></div>
+        <button class="btn" data-abrir="${rev[0].id}" data-aba="questoes">Revisar</button>
+      </div>` : (sug ? `<div class="continuar">
+        <div><p class="eyebrow">${S.ultimo===sug.id ? "Continue de onde parou" : "Sugestão para agora"}</p><h2>${sug.t}</h2><p>${sug.tr.nome} · posto ${sug.n+1} de ${sug.tr.postos.length}</p></div>
+        <button class="btn" data-abrir="${sug.id}">Estudar</button>
+      </div>` : "")}
+  <div class="grade">
+    <div>
+
+      ${BLOCOS.map(b=>`<div class="bloco-cab"><h2>${b.nome}</h2><span>${b.q} questões na prova</span></div>
+        <div class="trilhas">${TRILHAS.filter(t=>t.bloco===b.nome).map(card).join("")}</div>`).join("")}
+      <div class="bloco-cab"><h2>Teste físico e reta final</h2></div>
+      <div class="trilhas">
+        <button class="tcard taf" data-go="taf"><span class="nome">Guia do Teste de Aptidão Física</span><span class="info">Vale até 100 pontos na classificação final</span></button>
+        <button class="tcard" data-go="simulado"><span class="nome">Simulado no formato Vunesp</span><span class="info">50 questões em 3 horas${S.simulados.length ? ` · último: ${S.simulados[S.simulados.length-1].nota}/50` : ""}</span></button>
+      </div>
+    </div>
+    <aside class="lado" aria-label="Revisão e ferramentas">
+      <div class="caixa busca">
+        <label for="busca" class="eyebrow">Buscar no edital</label>
+        <input id="busca" type="search" placeholder="Ex.: crase, flagrante, celular" autocomplete="off" style="margin-top:6px">
+        <ul class="res-busca" id="res-busca"></ul>
+      </div>
+      <div class="caixa">
+        <h3>Seu nível <span class="pill amb">${fmt(S.semana.id===semanaId()?S.semana.xp:0)} esta semana</span></h3>
+        ${cartaoNivel()}
+        <button class="btn peq" data-go="ranking" style="margin-top:10px">Ver o ranking</button>
+      </div>
+      <div class="caixa">
+        <h3>Revisões de hoje <span class="pill ${rev.length?"amb":"ok"}">${rev.length}</span></h3>
+        ${rev.length ? `<ul>${rev.slice(0,6).map(p=>`<li><button data-abrir="${p.id}" data-aba="resumo">${p.t}</button><small>${p.tr.nome} · revisão ${S.revisoes[p.id].etapa+1} de ${INTERVALOS.length}</small></li>`).join("")}</ul>${rev.length>6?`<p>E mais ${rev.length-6}.</p>`:""}`
+          : `<p>${prox ? `Nada para hoje. A próxima revisão é de <strong>${POSTO[prox[0]].t}</strong>, em ${Math.max(1,Math.ceil((prox[1].prox-Date.now())/DIA))} ${Math.ceil((prox[1].prox-Date.now())/DIA)>1?"dias":"dia"}.` : "Quando você concluir um posto, ele volta aqui para revisão após 1, 7 e 30 dias."}</p>`}
+      </div>
+      <div class="caixa">
+        <h3>Caderno de erros <span class="pill ${ne?"bad":"ok"}">${ne}</span></h3>
+        <p>${ne||nm ? `${ne} ${ne===1?"questão errada":"questões erradas"} e ${nm} ${nm===1?"marcada":"marcadas"} para revisar. Quando você acerta, a questão sai do caderno.` : "As questões que você errar ou marcar ficam aqui para treinar de novo."}</p>
+        <button class="btn peq ${ne||nm?"":"sec"}" data-go="erros">${ne||nm ? "Abrir o caderno" : "Ver como funciona"}</button>
+      </div>
+      <div class="caixa">
+        <h3>Meta diária</h3>
+        <p>${hoje>=meta2 ? "Meta de hoje cumprida." : `Faltam ${meta2-hoje} questões para a meta de hoje.`}</p>
+        <div class="seg" role="radiogroup" aria-label="Questões por dia">${[10,20,30,50].map(n=>`<button role="radio" aria-checked="${meta2===n}" data-meta="${n}">${n}</button>`).join("")}</div>
+      </div>
+      <div class="caixa"><p class="eyebrow" style="margin:0 0 8px">Peso na prova objetiva</p>${pesoProva()}</div>
+    </aside>
+  </div>
+  <div class="rodape" id="rodape"><button id="reset">Reiniciar demonstração</button></div>`;
+  bindGo(); bindPostos();
+  $app.querySelectorAll("[data-tr]").forEach(b=>b.onclick=()=>ir({tela:"trilha", trilha:b.dataset.tr}));
+  $app.querySelectorAll("[data-meta]").forEach(b=>b.onclick=()=>{ S.pref.meta = +b.dataset.meta; salvar(); telaPainel(); });
+  const busca = document.getElementById("busca"), rb = document.getElementById("res-busca");
+  busca.oninput = ()=>{
+    const termos = norm(busca.value).split(/\s+/).filter(Boolean);
+    if(!termos.length){ rb.innerHTML = ""; return; }
+    const achados = POSTOS.filter(p=>{ const h = norm(p.t+" "+p.r+" "+p.tr.nome); return termos.every(t=>h.includes(t)); }).slice(0,8);
+    rb.innerHTML = achados.length ? achados.map(p=>`<li><button data-abrir="${p.id}">${p.t}<small>${p.tr.nome} · ${p.r}</small></button></li>`).join("") : `<li><button disabled>Nenhum posto encontrado<small>Tente outro termo, como o nome da lei ou do assunto.</small></button></li>`;
+    bindPostos();
+  };
+  document.getElementById("reset").onclick = ()=>{
+    const r = document.getElementById("rodape");
+    r.innerHTML = `<div class="confirma"><p>Apagar todo o progresso e voltar à página de vendas?</p><button class="btn peq" id="sim">Apagar</button><button class="btn sec peq" id="nao">Cancelar</button></div>`;
+    document.getElementById("nao").onclick = ()=>render();
+    document.getElementById("sim").onclick = async ()=>{ S = novoEstado(); modoPag=null; await salvar(); ir({tela:"home"}); };
+  };
+}
+
+
+/* ---------- Conta: entrar, criar, recuperar senha, confirmar e-mail ---------- */
+const ERROS_AUTH = {
+  "auth/invalid-credential":"E-mail ou senha incorretos.", "auth/wrong-password":"E-mail ou senha incorretos.", "auth/user-not-found":"E-mail ou senha incorretos.",
+  "auth/invalid-login-credentials":"E-mail ou senha incorretos.", "auth/email-already-in-use":"Já existe uma conta com este e-mail. Use Entrar ou Esqueci minha senha.",
+  "auth/weak-password":"A senha precisa ter pelo menos 8 caracteres.", "auth/invalid-email":"Digite um endereço @gmail.com válido.",
+  "auth/too-many-requests":"Muitas tentativas seguidas. Aguarde alguns minutos e tente de novo.", "auth/network-request-failed":"Sem conexão com a internet. Verifique a rede e tente de novo.",
+  "auth/missing-email":"Digite o seu e-mail."
+};
+const msgAuth = e => ERROS_AUTH[e && e.code] || "Não foi possível concluir agora. Tente de novo em instantes.";
+function atualizarConta(){
+  const b = document.getElementById("conta"); if(!b) return;
+  if(BK.modo==="firebase" && BK.uid){ b.hidden = false; b.textContent = "Sair"; b.title = "Sair da conta " + (BK.email||""); b.onclick = async ()=>{ try{ await BK.auth.signOut(); }catch(e){} }; }
+  else if(BK.modo==="firebase" && BK.pronto){ b.hidden = false; b.textContent = "Entrar"; b.title = "Entrar na sua conta"; b.onclick = ()=>ir({tela:"entrar"}); }
+  else b.hidden = true;
+}
+function telaCarregando(){ $app.innerHTML = `<div class="vazio" style="margin-top:40px">Carregando sua conta…</div>`; }
+function telaConta(modo){
+  if(BK.modo!=="firebase"){ V.tela = "painel"; return render(); }
+  const titulo = {entrar:"Entrar", criar:"Criar sua conta", recuperar:"Recuperar a senha"}[modo];
+  const sub = {entrar:"Use o e-mail do Gmail e a senha que você cadastrou.", criar:"O acesso é feito só com e-mail do Gmail (@gmail.com). Depois de criar a conta, confirme o e-mail pelo link que enviaremos.", recuperar:"Digite o e-mail da sua conta. Se ele estiver cadastrado, você receberá um link para criar uma nova senha."}[modo];
+  $app.innerHTML = `
+  <section class="topico conta-box">
+    <button class="voltar" data-go="home">‹ Voltar</button>
+    <h2>${titulo}</h2>
+    <p class="meta">${sub}</p>
+    <form id="form-conta" class="form" novalidate>
+      <label for="c-email">E-mail do Gmail</label>
+      <input id="c-email" type="email" autocomplete="email" inputmode="email" placeholder="seunome@gmail.com" required>
+      ${modo!=="recuperar" ? `<label for="c-senha">Senha</label>
+      <input id="c-senha" type="password" autocomplete="${modo==="criar"?"new-password":"current-password"}" minlength="8" required>` : ""}
+      ${modo==="criar" ? `<label for="c-senha2">Repita a senha</label><input id="c-senha2" type="password" autocomplete="new-password" minlength="8" required>
+      <p class="dica">Mínimo de 8 caracteres.</p>` : ""}
+      <p class="erro-form" id="c-erro" role="alert" hidden></p>
+      <p class="ok-form" id="c-ok" role="status" hidden></p>
+      <button class="btn full" type="submit" id="c-enviar">${{entrar:"Entrar", criar:"Criar conta", recuperar:"Enviar link de recuperação"}[modo]}</button>
+    </form>
+    <div class="links-conta">
+      ${modo==="entrar" ? `<button class="link" data-go="recuperar">Esqueci minha senha</button><span>Não tem conta? <button class="link" data-go="criar">Criar conta</button></span>` : ""}
+      ${modo==="criar" ? `<span>Já tem conta? <button class="link" data-go="entrar">Entrar</button></span>` : ""}
+      ${modo==="recuperar" ? `<button class="link" data-go="entrar">Voltar para Entrar</button>` : ""}
+    </div>
+  </section>`;
+  bindGo();
+  const f = document.getElementById("form-conta"), err = document.getElementById("c-erro"), ok = document.getElementById("c-ok"), btn = document.getElementById("c-enviar");
+  const falha = m => { err.textContent = m; err.hidden = false; ok.hidden = true; };
+  f.onsubmit = async ev => {
+    ev.preventDefault(); err.hidden = true;
+    const email = document.getElementById("c-email").value.trim().toLowerCase();
+    if(!ehGmail(email)) return falha("Use um endereço do Gmail, terminado em @gmail.com.");
+    const senha = modo!=="recuperar" ? document.getElementById("c-senha").value : "";
+    if(modo==="criar"){
+      if(senha.length < 8) return falha("A senha precisa ter pelo menos 8 caracteres.");
+      if(senha !== document.getElementById("c-senha2").value) return falha("As duas senhas não são iguais.");
+    }
+    btn.disabled = true;
+    try{
+      if(modo==="entrar") await BK.auth.signInWithEmailAndPassword(email, senha);
+      else if(modo==="criar"){ const c = await BK.auth.createUserWithEmailAndPassword(email, senha); await c.user.sendEmailVerification(); }
+      else { await BK.auth.sendPasswordResetEmail(email); ok.textContent = "Se houver uma conta com este e-mail, o link para criar uma nova senha chegará em alguns minutos. Confira também a pasta Spam."; ok.hidden = false; }
+    }catch(e){ if(modo==="recuperar" && e.code==="auth/user-not-found"){ ok.textContent = "Se houver uma conta com este e-mail, o link para criar uma nova senha chegará em alguns minutos. Confira também a pasta Spam."; ok.hidden = false; } else falha(msgAuth(e)); }
+    btn.disabled = false;
+  };
+}
+function telaVerificar(){
+  const gm = ehGmail(BK.email);
+  $app.innerHTML = `
+  <section class="topico conta-box">
+    <h2>${gm ? "Confirme o seu e-mail" : "Esta conta não é do Gmail"}</h2>
+    ${gm ? `<p>Enviamos um link de confirmação para <strong>${BK.email}</strong>. Abra o e-mail, toque no link e depois volte aqui.</p>
+      <p class="meta">Não encontrou? Confira a pasta Spam ou Promoções.</p>
+      <div class="acoes"><button class="btn" id="v-ja">Já confirmei</button><button class="btn sec" id="v-reenviar">Reenviar o e-mail</button></div>`
+    : `<p>O acesso é feito só com e-mail do Gmail. Saia e crie uma conta com um endereço @gmail.com.</p>`}
+    <p class="ok-form" id="v-msg" role="status" hidden></p>
+    <p style="margin-top:18px"><button class="link" id="v-sair">Sair e usar outra conta</button></p>
+  </section>`;
+  const msg = t => { const m = document.getElementById("v-msg"); m.textContent = t; m.hidden = false; };
+  const ja = document.getElementById("v-ja");
+  if(ja) ja.onclick = async ()=>{ await BK.auth.currentUser.reload(); const u = BK.auth.currentUser; BK.verificado = !!u.emailVerified;
+    if(BK.verificado){ await carregarRemoto(); migrar(); render(); } else msg("Ainda não recebemos a confirmação. Toque no link do e-mail e tente de novo."); };
+  const re = document.getElementById("v-reenviar");
+  if(re) re.onclick = async ()=>{ try{ await BK.auth.currentUser.sendEmailVerification(); msg("Enviamos um novo link de confirmação."); }catch(e){ msg(msgAuth(e)); } };
+  document.getElementById("v-sair").onclick = async ()=>{ try{ await BK.auth.signOut(); }catch(e){} };
+}
+
+/* ---------- Ranking ---------- */
+const ABAS_RANK = {semana:"Esta semana", geral:"Geral", sequencia:"Sequência"};
+const APELIDO_OK = a => /^[\p{L}\p{N}][\p{L}\p{N} ._-]{1,18}[\p{L}\p{N}]$/u.test(a) && !/@/.test(a);
+function cartaoNivel(){
+  const p = calcPontos(S), nv = nivelDe(p);
+  const pct = nv.teto ? Math.round((p-nv.piso)/(nv.teto-nv.piso)*100) : 100;
+  return `<div class="nivel"><div class="nivel-top"><span class="nivel-nome">${nv.nome}</span><span class="num">${fmt(p)} pontos</span></div>
+    <span class="bar fina" aria-hidden="true"><i style="width:${pct}%;background:var(--amber)"></i></span>
+    <span class="meta">${nv.teto ? `Faltam ${fmt(nv.teto-p)} pontos para ${nv.proxNome}` : "Nível máximo"}</span></div>`;
+}
+async function buscarRanking(aba){
+  if(!BK.db) return null;
+  const campo = {semana:"xpSemana", geral:"pontos", sequencia:"sequencia"}[aba];
+  const snap = await BK.db.collection("ranking").orderBy(campo, "desc").limit(100).get();
+  const ontem = new Date(); ontem.setDate(ontem.getDate()-1);
+  const recentes = new Set([hojeStr(), hojeStr(ontem)]), sem = semanaId();
+  return snap.docs.map(d=>Object.assign({id:d.id}, d.data()))
+    .filter(r=> aba==="semana" ? r.semana===sem && r.xpSemana>0 : aba==="sequencia" ? recentes.has(r.ultimoDia) && r.sequencia>0 : r.pontos>0)
+    .map(r=>Object.assign(r, {valor: r[campo]}));
+}
+function telaRanking(){
+  const aba = V.abaRank || "semana";
+  const p = calcPontos(S), seq = sequencia(S), xs = S.semana.id===semanaId() ? S.semana.xp : 0;
+  const conectado = !!BK.db;
+  $app.innerHTML = `
+  <section class="topico">
+    <button class="voltar" data-go="painel">‹ Voltar ao painel</button>
+    <p class="eyebrow">Sem prêmios: só para ver quem está estudando mais</p>
+    <h2>Ranking</h2>
+    ${cartaoNivel()}
+    <div class="kpis" style="grid-template-columns:repeat(3,minmax(0,1fr))">
+      <div class="kpi"><b>${fmt(xs)}</b><span>pontos nesta semana</span></div>
+      <div class="kpi"><b>${seq}</b><span>${seq===1?"dia seguido":"dias seguidos"}</span></div>
+      <div class="kpi"><b>${Object.keys(S.aprovados).filter(k=>POSTO[k]).length}</b><span>postos concluídos</span></div>
+    </div>
+    <div class="caixa" style="margin-top:12px" id="apelido-box">
+      ${S.apelido && !S.noRanking ? `<p style="margin:0">Você aparece no ranking como <strong>${esc(S.apelido)}</strong>. <button class="link" id="ap-editar">Mudar apelido</button> · <button class="link" id="ap-sair">Sair do ranking</button></p>`
+        : `<label for="ap-in"><strong>Escolha um apelido para aparecer no ranking</strong></label>
+           <p style="margin:4px 0 8px">Os outros alunos veem só o apelido, os pontos e o nível. Seu e-mail nunca aparece.</p>
+           <div class="linha-form"><input id="ap-in" maxlength="20" placeholder="Ex.: Guarda Silva" value="${esc(S.apelido||"")}"><button class="btn peq" id="ap-salvar">Participar</button></div>
+           <p class="erro-form" id="ap-erro" role="alert" hidden></p>`}
+    </div>
+    <div class="abas" role="tablist">${Object.entries(ABAS_RANK).map(([k,n])=>`<button role="tab" aria-selected="${aba===k}" data-rk="${k}">${n}</button>`).join("")}</div>
+    <div id="lista-rank" class="painel">${conectado ? `<div class="vazio">Carregando o ranking…</div>` : `<div class="vazio">O ranking entre alunos aparece quando o site estiver conectado às contas. Seus pontos já estão sendo contados.</div>`}</div>
+    <details class="faq" style="margin-bottom:40px"><summary>Como os pontos funcionam</summary>
+      <ul style="color:var(--muted);margin:8px 0 0">
+        <li><strong>${PONTOS.questao} pontos</strong> por questão diferente que você acerta. Repetir a mesma questão não soma de novo.</li>
+        <li><strong>${PONTOS.posto} pontos</strong> por posto concluído (7 acertos ou mais).</li>
+        <li><strong>${PONTOS.revisao} pontos</strong> por revisão espaçada concluída (até 3 por posto).</li>
+        <li><strong>${PONTOS.corrigida} pontos</strong> por questão do caderno de erros que você passa a acertar.</li>
+        <li><strong>Esta semana</strong> soma o que você ganhou desde segunda-feira e zera toda semana. <strong>Sequência</strong> conta os dias seguidos com pelo menos uma bateria de questões.</li>
+      </ul></details>
+  </section>`;
+  bindGo();
+  $app.querySelectorAll("[data-rk]").forEach(b=>b.onclick=()=>{ V.abaRank = b.dataset.rk; telaRanking(); });
+  const sv = document.getElementById("ap-salvar");
+  if(sv) sv.onclick = async ()=>{ const a = document.getElementById("ap-in").value.trim().replace(/\s+/g," ");
+    if(!APELIDO_OK(a)){ const e = document.getElementById("ap-erro"); e.textContent = "Use de 3 a 20 letras ou números (pode ter espaço, ponto ou hífen no meio)."; e.hidden = false; return; }
+    S.apelido = a; S.noRanking = false; await salvar(); await publicarRanking(); telaRanking(); };
+  const ed = document.getElementById("ap-editar"); if(ed) ed.onclick = ()=>{ S.noRanking = true; telaRanking(); S.noRanking = false; document.getElementById("ap-in").focus(); };
+  const sa = document.getElementById("ap-sair"); if(sa) sa.onclick = async ()=>{ S.noRanking = true; await salvar(); await publicarRanking(); telaRanking(); };
+  if(conectado) carregarListaRank(aba);
+}
+async function carregarListaRank(aba){
+  const box = document.getElementById("lista-rank"); if(!box) return;
+  let lista;
+  try{ lista = await buscarRanking(aba); }catch(e){ box.innerHTML = `<div class="vazio">Não foi possível carregar o ranking agora. Tente de novo em instantes.</div>`; return; }
+  if(V.tela!=="ranking" || (V.abaRank||"semana")!==aba) return;
+  const un = {semana:"pts", geral:"pts", sequencia:"dias"}[aba];
+  if(!lista.length){ box.innerHTML = `<div class="vazio">${aba==="semana" ? "Ninguém pontuou nesta semana ainda. Faça uma bateria de questões e abra a lista." : "Ainda não há alunos nesta lista."}</div>`; return; }
+  const minha = lista.findIndex(r=>r.id===BK.uid);
+  box.innerHTML = `<ol class="rank">${lista.slice(0,50).map((r,i)=>`<li class="${r.id===BK.uid?"eu":""} ${i<3?"podio p"+(i+1):""}">
+      <span class="pos num">${i+1}</span><span class="quem"><strong>${esc(r.apelido)}</strong>${r.id===BK.uid?' <span class="pill amb">você</span>':""}<small>${esc(r.nivel||"")} · ${r.postos||0} postos</small></span><span class="val num">${fmt(r.valor)} ${un}</span></li>`).join("")}</ol>
+    ${S.apelido && !S.noRanking ? (minha<0 ? `<p class="meta">Você ainda não está entre os 100 primeiros desta lista.</p>` : (minha>=50 ? `<p class="meta">Sua posição: ${minha+1}º.</p>` : "")) : ""}`;
+}
+const esc = t => String(t||"").replace(/[&<>"']/g, c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+
+/* ---------- Desempenho por matéria ---------- */
+function telaDesempenho(){
+  const linhas = TRILHAS.map(t=>{
+    const st = S.stat[t.id] || {r:0,c:0}, ps = postosDe(t.id);
+    const total = ps.reduce((a,p)=>a+(BANCO[p.id]||[]).length,0), vistas = ps.reduce((a,p)=>a+(BANCO[p.id]||[]).filter(q=>S.certas[q.id]).length,0);
+    return {t, r:st.r, c:st.c, pct: st.r ? st.c/st.r : null, total, vistas, erros: Object.values(S.erros).filter(e=>POSTO[e.pid] && POSTO[e.pid].tr.id===t.id).length, feitos: feitos(t.id)};
+  });
+  const {r, c} = respondidas();
+  const fracas = linhas.filter(l=>l.r>=10).sort((a,b)=>a.pct-b.pct).slice(0,3).filter(l=>l.pct<0.8);
+  const naoIniciadas = linhas.filter(l=>l.r===0).length;
+  const cor = p => p===null ? "var(--line)" : p>=0.8 ? "var(--ok)" : p>=0.6 ? "var(--amber)" : "var(--bad)";
+  const ult = S.simulados.slice(-8);
+  $app.innerHTML = `
+  <section class="hero"><div><p class="eyebrow">Seus números</p><h1>Desempenho</h1><p>Percentual de acerto por matéria, contando todas as questões que você respondeu nos postos, nas revisões e nos simulados.</p></div></section>
+  <div class="kpis">
+    <div class="kpi"><b>${r ? Math.round(c/r*100)+"%" : "—"}</b><span>de acerto geral</span></div>
+    <div class="kpi"><b>${fmt(r)}</b><span>questões respondidas</span></div>
+    <div class="kpi"><b>${fmt(Object.keys(S.certas).filter(k=>QIDX[k]).length)}<small style="font-size:18px;color:var(--muted)">/${fmt(TOTAL_Q)}</small></b><span>questões diferentes acertadas</span></div>
+    <div class="kpi"><b>${S.simulados.length ? S.simulados[S.simulados.length-1].nota+"/50" : "—"}</b><span>último simulado</span></div>
+  </div>
+  <div class="grade">
+    <div>
+      <div class="bloco-cab"><h2>Por matéria</h2><span>verde: 80% ou mais · amarelo: 60 a 79% · vermelho: abaixo de 60%</span></div>
+      <div class="desemp">${linhas.map(l=>`<button class="dl" data-tr="${l.t.id}">
+        <span class="dn">${l.t.nome}<small>${l.feitos}/${l.t.postos.length} postos · ${l.r} respondidas${l.erros ? ` · ${l.erros} no caderno de erros` : ""}</small></span>
+        <span class="db"><i style="width:${l.pct===null?0:Math.max(3,l.pct*100)}%;background:${cor(l.pct)}"></i></span>
+        <span class="dp num">${l.pct===null ? "—" : Math.round(l.pct*100)+"%"}</span></button>`).join("")}</div>
+    </div>
+    <aside class="lado">
+      <div class="caixa"><h3>Onde focar</h3>
+        ${fracas.length ? `<p>Matérias com menor acerto (mínimo de 10 questões respondidas):</p><ul>${fracas.map(l=>`<li><button data-tr="${l.t.id}">${l.t.nome}</button><small>${Math.round(l.pct*100)}% de acerto em ${l.r} questões</small></li>`).join("")}</ul>` : `<p>${r>=10 ? "Nenhuma matéria abaixo de 80% entre as que você já estudou." : "Responda pelo menos 10 questões de uma matéria para ela entrar nesta análise."}</p>`}
+        ${naoIniciadas ? `<p>${naoIniciadas} ${naoIniciadas===1?"matéria ainda não foi iniciada":"matérias ainda não foram iniciadas"}.</p>` : ""}
+      </div>
+      <div class="caixa"><h3>Simulados</h3>
+        ${ult.length ? `<div class="spark" role="img" aria-label="Notas dos últimos simulados: ${ult.map(x=>x.nota).join(", ")}">${ult.map(x=>`<span><i style="height:${Math.max(4,x.nota/50*100)}%"></i><b>${x.nota}</b></span>`).join("")}</div>` : `<p>Faça um simulado para ver sua evolução aqui.</p>`}
+        <button class="btn peq ${ult.length?"sec":""}" data-go="simulado">${ult.length ? "Ver simulados" : "Fazer um simulado"}</button>
+      </div>
+      <div class="caixa"><p class="eyebrow" style="margin:0 0 8px">Peso na prova objetiva</p>${pesoProva()}</div>
+    </aside>
+  </div><div style="height:40px"></div>`;
+  bindGo();
+  $app.querySelectorAll("[data-tr]").forEach(b=>b.onclick=()=>ir({tela:"trilha", trilha:b.dataset.tr}));
+}
+
+/* ---------- Mapa do edital ---------- */
+function telaEdital(){
+  const ok = Object.keys(S.aprovados).filter(k=>POSTO[k]).length;
+  const linha = p => {
+    const a = S.aprovados[p.id], tent = (S.tentativas[p.id]||[]).length;
+    const st = a ? `<span class="pill ok">Concluído · ${a.nota}/10</span>` : (tent ? `<span class="pill amb">Em andamento</span>` : `<span class="pill">A estudar</span>`);
+    return `<tr><td><button data-abrir="${p.id}">${p.t}</button></td><td>${p.r}</td><td>${st}</td></tr>`;
+  };
+  $app.innerHTML = `
+  <section class="topico">
+    <button class="voltar" data-go="painel">‹ Voltar ao painel</button>
+    <p class="eyebrow">Anexo I do Edital 02/2026</p>
+    <h2>Mapa do edital</h2>
+    <p class="meta">Cada matéria do conteúdo programático, com os postos que cobrem seus itens. ${ok} de ${POSTOS.length} postos concluídos.</p>
+    <div class="legenda"><span class="pill ok">Concluído</span><span class="pill amb">Em andamento</span><span class="pill">A estudar</span></div>
+    <div class="mapa-ed">
+    ${BLOCOS.map(b=>`<h3 style="font-size:24px;margin:22px 0 6px">${b.nome} · ${b.q} questões</h3>` + TRILHAS.filter(t=>t.bloco===b.nome).map(t=>`
+      <details ${V.trilha===t.id?"open":""}><summary>${t.nome}<span>${feitos(t.id)}/${t.postos.length}${t.q ? " · " + t.q : ""}</span></summary>
+      <div class="tabela"><table><tr><th>Posto</th><th>Item do edital</th><th>Situação</th></tr>${postosDe(t.id).map(linha).join("")}</table></div></details>`).join("")).join("")}
+    </div>
+  </section>`;
+  bindGo(); bindPostos();
+}
+
+/* ---------- Trilha ---------- */
+function telaTrilha(){
+  const tr = TRILHA[V.trilha], ps = postosDe(tr.id), px = proximo(tr.id);
+  const itens = ps.map(p=>{
+    const ok = !!S.aprovados[p.id], lib = liberado(p.id), cur = px && px.id===p.id;
+    const cls = ok ? "ok" : (cur ? "atual" : (lib ? "" : "bloq"));
+    const sub = ok ? `Concluído com nota ${S.aprovados[p.id].nota}` : (lib ? p.r : "Libera com nota 7 no posto anterior");
+    return `<li class="posto ${cls}"><span class="pin" aria-hidden="true">${ok?"✓":p.n+1}</span>
+      <button class="card" data-p="${p.id}" ${lib?"":'aria-disabled="true"'}><span class="tit">${p.t}${VIDEOS[p.id] ? ' <span class="pill">vídeo</span>' : ""}</span><span class="sub">${sub}</span></button></li>`;
+  }).join("");
+  $app.innerHTML = `
+  <section class="topico">
+    <button class="voltar" data-go="painel">‹ Voltar ao painel</button>
+    <p class="meta">${tr.bloco}${tr.q ? " · " + tr.q : ""}</p>
+    <h2>${tr.nome}</h2>
+    <div class="bar" aria-hidden="true"><i style="width:${(feitos(tr.id)/ps.length*100).toFixed(0)}%"></i></div>
+    <p class="meta">${feitos(tr.id)} de ${ps.length} postos concluídos</p>
+    <ol class="rota">${itens}</ol>
+  </section>`;
+  bindGo();
+  $app.querySelectorAll("[data-p]").forEach(b=>b.onclick=()=>{ if(liberado(b.dataset.p)) ir({tela:"posto", posto:b.dataset.p, aba:"aula"}); });
+}
+
+/* ---------- Posto ---------- */
+function telaPosto(){
+  const p = POSTO[V.posto], temAula = !!AULAS[p.id], temQ = !!BANCO[p.id];
+  const tent = S.tentativas[p.id] || [], aprov = S.aprovados[p.id];
+  if(S.ultimo !== p.id){ S.ultimo = p.id; salvar(); }
+  const rv = S.revisoes[p.id], vid = VIDEOS[p.id];
+  if(V.aba==="video" && !vid) V.aba = "aula";
+  let corpo;
+  if(V.aba==="aula"){
+    corpo = temAula ? `<div class="ferr"><span>Tamanho do texto</span><button id="f-menos" aria-label="Diminuir o texto">A−</button><button id="f-mais" aria-label="Aumentar o texto">A+</button></div><article class="aula">${AULAS[p.id]}</article>` : `<div class="vazio"><strong>Aula em produção</strong><br>Este posto será liberado aqui assim que o conteúdo estiver revisado.</div>`;
+  } else if(V.aba==="video" && vid){
+    corpo = `<div class="video-box"><video id="vid" controls playsinline preload="metadata" poster="videos/${vid.capa}" src="videos/${vid.arquivo}"></video></div>
+      <p class="meta">${vid.titulo} · ${vid.duracao} · com legendas</p>
+      <div class="acoes" style="justify-content:flex-start"><button class="btn peq" data-aba2="questoes">Fazer as questões</button><button class="btn sec peq" data-aba2="resumo">Ver o resumo</button></div>`;
+  } else if(V.aba==="resumo"){
+    corpo = temAula ? `<div class="resumo-topo">Resumo de uma página: mapa do assunto, destaques da aula, armadilhas da banca e quadro-resumo. Use na revisão e na véspera da prova.</div><article class="aula" id="resumo"></article>` : `<div class="vazio">Resumo em produção.</div>`;
+  } else {
+    const revHoje = rv && rv.etapa < INTERVALOS.length && rv.prox <= Date.now();
+    corpo = `<div class="regra"><strong>Como funciona:</strong> ${N_QUESTOES} questões sorteadas entre as ${temQ?BANCO[p.id].length:0} do posto (fáceis, médias e difíceis). Com ${NOTA_MIN} acertos ou mais, o posto conta como concluído e entra na revisão espaçada. Cada nova tentativa prioriza questões que você ainda não viu.</div>
+      <div class="seg" role="radiogroup" aria-label="Quando corrigir"><button role="radio" aria-checked="${S.pref.modo!=="imediato"}" data-modo="final">Corrigir no final</button><button role="radio" aria-checked="${S.pref.modo==="imediato"}" data-modo="imediato">Corrigir a cada questão</button></div>
+      ${revHoje ? `<p class="historico" style="margin:0 0 10px"><span class="pill amb">Revisão ${rv.etapa+1} de ${INTERVALOS.length} pendente</span> Faça as questões para registrar a revisão.</p>` : ""}
+      ${temQ ? `<button class="btn full" id="iniciar">${aprov ? (revHoje ? "Fazer a revisão" : "Treinar de novo") : (tent.length ? "Tentar de novo com questões novas" : "Começar as questões")}</button>` : `<div class="vazio"><strong>Banco de questões em produção</strong></div>`}
+      ${tent.length ? `<p class="historico">Tentativas: ${tent.map(x=>x.nota).join(" · ")}${aprov ? " — posto concluído" : ""}</p>` : ""}
+      ${IS_OWNER && temQ ? `<p style="margin-top:14px"><button class="btn sec full" id="banco">Revisar banco de questões (${BANCO[p.id].length})</button></p>` : ""}`;
+  }
+  const idx = POSTOS.indexOf(p), ant = POSTOS[idx-1], seg = POSTOS[idx+1];
+  $app.innerHTML = `
+  <section class="topico">
+    <button class="voltar" id="voltar">‹ ${p.tr.nome}</button>
+    <p class="meta">Posto ${p.n+1} de ${p.tr.postos.length}${aprov ? ` · <span class="pill ok">Concluído · ${aprov.nota}/10</span>` : ""}</p>
+    <h2>${p.t}</h2>
+    <p class="meta">${p.r}</p>
+    <div class="abas" role="tablist">
+      <button role="tab" aria-selected="${V.aba==="aula"}" data-aba="aula">Aula</button>
+      ${vid ? `<button role="tab" aria-selected="${V.aba==="video"}" data-aba="video">Vídeo</button>` : ""}
+      <button role="tab" aria-selected="${V.aba==="resumo"}" data-aba="resumo">Resumo</button>
+      <button role="tab" aria-selected="${V.aba==="questoes"}" data-aba="questoes">Questões</button>
+    </div>
+    <div class="painel">${corpo}</div>
+    <div class="acoes" style="margin:0 0 40px">
+      ${ant && ant.tr===p.tr ? `<button class="btn sec peq" data-abrir="${ant.id}">‹ Posto anterior</button>` : "<span></span>"}
+      ${seg && seg.tr===p.tr ? `<button class="btn sec peq" data-abrir="${seg.id}">Próximo posto ›</button>` : ""}
+    </div>
+  </section>`;
+  if(V.aba==="aula" && temAula) montarAula($app.querySelector("article.aula"), p.id);
+  if(V.aba==="resumo" && temAula) montarResumo(document.getElementById("resumo"), p.id);
+  document.getElementById("voltar").onclick = ()=>ir({tela:"trilha", trilha:p.tr.id});
+  $app.querySelectorAll("[data-aba]").forEach(b=>{ if(b.getAttribute("role")==="tab") b.onclick=()=>ir({aba:b.dataset.aba}); });
+  bindPostos();
+  $app.querySelectorAll("[data-aba2]").forEach(b=>b.onclick=()=>ir({aba:b.dataset.aba2}));
+  $app.querySelectorAll("[data-modo]").forEach(b=>b.onclick=()=>{ S.pref.modo = b.dataset.modo; salvar(); telaPosto(); });
+  const fm = document.getElementById("f-mais"); if(fm){ const aj = d=>{ let n = 0; try{ n = +localStorage.getItem("rota-gm-fonte") || 0; }catch(e){} n = Math.max(-1, Math.min(3, n+d)); try{ localStorage.setItem("rota-gm-fonte", n); }catch(e){} aplicarFonte(); }; fm.onclick = ()=>aj(1); document.getElementById("f-menos").onclick = ()=>aj(-1); aplicarFonte(); }
+  const ini = document.getElementById("iniciar"); if(ini) ini.onclick = ()=>iniciarProva(p.id);
+  const bb = document.getElementById("banco"); if(bb) bb.onclick = ()=>ir({tela:"banco"});
+}
+
+/* ---------- Aula: formato apostila ---------- */
+function aplicarFonte(){ let n = 0; try{ n = +localStorage.getItem("rota-gm-fonte") || 0; }catch(e){} document.documentElement.style.setProperty("--aula-fs", (18.5 + 2*n) + "px"); }
+aplicarFonte();
+function txtDe(el){ return (el.textContent||"").replace(/\s+/g," ").trim(); }
+const TIPOS = [
+  [/^cuidado/i, "cuidado"], [/^cai muito/i, "caimuito"], [/^macete/i, "macete"],
+  [/^o que é, em uma frase/i, "conceito"], [/^regra principal/i, "regra-p"]
+];
+function tipoDe(el){ const s = el.querySelector(":scope > p:first-child > strong:first-child, :scope > strong:first-child"); if(!s) return null; const t = txtDe(s); for(const [re,k] of TIPOS) if(re.test(t)) return [k, s]; return null; }
+function rotulo(k){ const sp = document.createElement("span"); sp.className = "rot"; sp.innerHTML = ICONE[k] + ROTULO[k]; return sp; }
+function montarCaixas(art){
+  if(!art) return;
+  // caixas seguidas no Markdown viram um só blockquote: separa em um bloco por rótulo
+  art.querySelectorAll("blockquote:not(.lei)").forEach(bq=>{
+    const ps = [...bq.children]; let alvo = bq;
+    ps.forEach((el,i)=>{
+      if(i===0) return;
+      const s = el.tagName==="P" && el.querySelector(":scope > strong:first-child");
+      if(s && el.firstChild===s && TIPOS.slice(0,3).some(([re])=>re.test(txtDe(s)))){ const nb = document.createElement("blockquote"); alvo.after(nb); alvo = nb; }
+      if(alvo!==bq) alvo.appendChild(el);
+    });
+  });
+  art.querySelectorAll("blockquote:not(.lei)").forEach(bq=>{
+    const r = tipoDe(bq); if(!r) return; const [k, s] = r;
+    s.remove();
+    const p = bq.querySelector("p"); if(p) p.innerHTML = p.innerHTML.replace(/^\s*[:!]?\s*/,"");
+    bq.classList.add("callout", k); bq.prepend(rotulo(k));
+  });
+  art.querySelectorAll(":scope > p").forEach(p=>{
+    const s = p.querySelector(":scope > strong:first-child"); if(!s || p.firstChild!==s) return;
+    const t = txtDe(s);
+    for(const [re,k] of TIPOS.slice(3)) if(re.test(t)){
+      s.remove(); p.innerHTML = p.innerHTML.replace(/^\s*/,"");
+      const d = document.createElement("div"); d.className = "callout " + k; p.before(d); d.append(rotulo(k), p); break;
+    }
+  });
+}
+function montarAula(art, pid){
+  if(!art) return;
+  art.classList.add("apostila");
+  const hs = [...art.querySelectorAll(":scope > h3")];
+  if(hs.length > 2){
+    const nav = document.createElement("nav"); nav.className = "sumario"; nav.setAttribute("aria-label","Sumário da aula");
+    nav.innerHTML = '<p>Nesta aula</p><ul>' + hs.map((h,i)=>`<li><a href="#" data-i="${i}">${txtDe(h)}</a></li>`).join("") + '</ul>';
+    nav.querySelectorAll("a").forEach(a=>a.onclick = e=>{ e.preventDefault(); hs[+a.dataset.i].scrollIntoView({block:"start"}); });
+    hs[0].before(nav);
+  }
+  formatarTabelas(art);
+  montarCaixas(art);
+  art.querySelectorAll(".box").forEach(b=>{ const a = document.createElement("aside"); a.className = "nota"; a.innerHTML = b.innerHTML; b.replaceWith(a); });
+  art.querySelectorAll("ol.alts").forEach(ol=>{
+    let n = ol.nextElementSibling;
+    if(n && n.tagName==="P" && /^Resposta:/.test(txtDe(n))){ const d = document.createElement("details"); d.className = "gab"; d.innerHTML = "<summary>Ver resposta comentada</summary>"; n.before(d); d.appendChild(n); }
+  });
+  if(window.innerWidth <= 520) art.querySelectorAll(".fig").forEach(f=>{ const d = document.createElement("p"); d.className = "ref"; d.textContent = "Arraste o esquema para o lado para ver tudo."; f.insertBefore(d, f.firstChild); });
+  const nq = (BANCO[pid]||[]).length;
+  if(nq){ const fim = document.createElement("p"); fim.className = "fim-aula"; fim.innerHTML = `Terminou a leitura? <a href="#">Faça as questões deste posto</a>: são ${nq}, e cada tentativa sorteia ${N_QUESTOES}. Para revisar depois, use a aba <a href="#" data-r="1">Resumo</a>.`; fim.querySelector("a").onclick = e=>{ e.preventDefault(); ir({aba:"questoes"}); }; fim.querySelector("[data-r]").onclick = e=>{ e.preventDefault(); ir({aba:"resumo"}); }; art.appendChild(fim); }
+  art.appendChild(caixaReportar(pid));
+}
+function formatarTabelas(art){
+  art.querySelectorAll(".tabela > table").forEach(tb=>{
+    const rows = [...tb.rows].map(r=>[...r.cells]); if(rows.length < 2) return;
+    const head = rows[0].map(txtDe), box = tb.parentElement, corpo = rows.slice(1);
+    if(head.length !== 2) return;
+    const w = document.createElement("div");
+    if(/^armadilha/i.test(head[0])){
+      w.innerHTML = '<ul class="pegas">' + corpo.map(r=>`<li><span class="pg-t">${r[0].innerHTML}</span> — ${r[1].innerHTML}</li>`).join("") + '</ul>';
+    } else if(/fala corrente|errad|evite|não diga/i.test(head[0]) && /norma|cert|use|padrão/i.test(head[1])){
+      w.innerHTML = '<ol class="exs">' + corpo.map(r=>`<li><span class="rej">${r[0].innerHTML}</span>${r[1].innerHTML}</li>`).join("") + '</ol>' + (art.querySelector(".exs") ? "" : '<p class="exs-nota">O asterisco marca a forma que a norma-padrão não aceita.</p>');
+    } else {
+      w.innerHTML = '<dl class="pares">' + (head[0]||head[1] ? `<div class="pares-h"><dt>${head[0]}</dt><dd>${head[1]}</dd></div>` : "") + corpo.map(r=>`<div><dt>${r[0].innerHTML}</dt><dd>${r[1].innerHTML}</dd></div>`).join("") + '</dl>';
+    }
+    box.replaceWith(...w.childNodes);
+  });
+}
+function montarResumo(art, pid){
+  if(!art) return;
+  const tmp = document.createElement("div"); tmp.innerHTML = AULAS[pid];
+  const secoes = {}; let atual = null;
+  [...tmp.children].forEach(el=>{
+    if(el.tagName==="H3"){ atual = txtDe(el); secoes[atual] = [el]; } else if(atual) secoes[atual].push(el);
+  });
+  const pega = re => Object.keys(secoes).find(k=>re.test(k));
+  const partes = [];
+  const kMapa = pega(/mapa do assunto/i); if(kMapa) partes.push(...secoes[kMapa].filter(e=>e.tagName!=="P" || !/^Versão/.test(txtDe(e))));
+  const destaques = [...tmp.querySelectorAll("blockquote:not(.lei)")].filter(b=>tipoDe(b));
+  if(destaques.length){ const h = document.createElement("h3"); h.textContent = "Destaques da aula"; partes.push(h, ...destaques); }
+  const kArm = pega(/onde a vunesp|pegadinhas/i); if(kArm) partes.push(...secoes[kArm]);
+  const kRes = pega(/quadro-resumo/i); if(kRes) partes.push(...secoes[kRes]);
+  partes.forEach(e=>art.appendChild(e));
+  art.classList.add("apostila");
+  formatarTabelas(art); montarCaixas(art);
+  const fim = document.createElement("p"); fim.className = "fim-aula"; fim.innerHTML = `Revisou? <a href="#">Teste-se com as questões</a> ou volte para a <a href="#" data-a="1">aula completa</a>.`;
+  fim.querySelector("a").onclick = e=>{ e.preventDefault(); ir({aba:"questoes"}); };
+  fim.querySelector("[data-a]").onclick = e=>{ e.preventDefault(); ir({aba:"aula"}); };
+  art.appendChild(fim);
+}
+function caixaReportar(pid){
+  const d = document.createElement("div"); d.className = "reportar";
+  d.innerHTML = `<p><strong>Encontrou um erro ou uma lei desatualizada?</strong> <button class="link" type="button">Avise a equipe</button></p>`;
+  d.querySelector("button").onclick = ()=>{
+    d.innerHTML = `<label for="corr-${pid}"><strong>O que precisa ser corrigido nesta aula?</strong></label>
+      <textarea id="corr-${pid}" placeholder="Ex.: na seção 2, o prazo citado mudou com a Lei nº ..."></textarea>
+      <button class="btn peq" type="button" id="enviar-corr">Enviar</button>`;
+    d.querySelector("#enviar-corr").onclick = async ()=>{
+      const txt = d.querySelector("textarea").value.trim();
+      if(txt.length < 5){ d.querySelector("textarea").focus(); return; }
+      const item = {pid, texto: txt.slice(0,2000), data: Date.now()};
+      S.correcoes.push(item); await salvar();
+      if(BK.db && BK.uid){ try{
+        if(BK.modo==="firebase") await BK.db.collection("correcoes").doc().set(Object.assign({uid: BK.uid}, item));
+        else await BK.db.doc("correcoes/" + BK.uid + "/itens/" + item.data).set(item);
+      }catch(e){} }
+      d.innerHTML = `<p><strong>Recebido.</strong> O aviso foi registrado e será conferido na fonte oficial antes da próxima atualização do material.</p>`;
+    };
+  };
+  return d;
+}
+
+/* ---------- Sorteio: evita repetir a última tentativa e prioriza as menos vistas ---------- */
+const POR_NIVEL = {1:3, 2:4, 3:3}; // fáceis, médias, difíceis em cada tentativa
+function sortear(pid){
+  const tent = S.tentativas[pid] || [];
+  const ultima = new Set(tent.length ? tent[tent.length-1].ids : []);
+  const peso = q => (S.vistas[q.id]||0)*10 + (ultima.has(q.id) ? 100 : 0) + Math.random();
+  const banco = BANCO[pid].slice().sort((a,b)=>peso(a)-peso(b));
+  if(!banco.some(q=>q.n)) return banco.slice(0, N_QUESTOES);
+  let sel = [];
+  [1,2,3].forEach(n=>{ sel = sel.concat(banco.filter(q=>q.n===n).slice(0, POR_NIVEL[n])); });
+  if(sel.length < N_QUESTOES) sel = sel.concat(banco.filter(q=>!sel.includes(q)).slice(0, N_QUESTOES-sel.length));
+  return sel.sort((a,b)=>(a.n||0)-(b.n||0));
+}
+function montarItens(qs){ return qs.map(q=>({q, ordem: embaralhar(q.a.map((txt,i)=>({txt, certa:i===0}))), escolha:null})); }
+function iniciarProva(pid){
+  const rv = S.revisoes[pid];
+  const modo = (S.aprovados[pid] && rv && rv.etapa < INTERVALOS.length && rv.prox <= Date.now()) ? "revisao" : "posto";
+  Q = {pid, modo, i:0, imediato: S.pref.modo==="imediato", itens: montarItens(sortear(pid))};
+  ir({tela:"prova"});
+}
+function iniciarErros(){
+  const ids = [...new Set([...Object.keys(S.erros), ...Object.keys(S.marcadas)])].filter(k=>QIDX[k]);
+  const ord = ids.sort((a,b)=>((S.erros[b]||{}).vezes||0)-((S.erros[a]||{}).vezes||0) || Math.random()-.5).slice(0, N_QUESTOES);
+  Q = {pid:null, modo:"erros", i:0, imediato: S.pref.modo==="imediato", itens: montarItens(embaralhar(ord.map(k=>QIDX[k].q)))};
+  ir({tela:"prova"});
+}
+
+/* ---------- Simulado no formato da prova: 50 questões, 3 horas ---------- */
+const SIM_GRUPOS = [["pt","Língua Portuguesa",12],["mt","Matemática e Raciocínio Lógico",6],["lm","Legislação Municipal",2],["ce","Conhecimentos Específicos",30]];
+const SIM_TEMPO = 3*3600*1000;
+const grupoDe = pid => { const t = POSTO[pid].tr; return t.bloco==="Conhecimentos Específicos" ? "ce" : t.id; };
+function iniciarSimulado(){
+  const menosVistas = qs => embaralhar(qs).sort((a,b)=>(S.vistas[a.id]||0)-(S.vistas[b.id]||0));
+  let sel = [];
+  SIM_GRUPOS.forEach(([g,nome,n])=>{
+    if(g!=="ce"){ sel = sel.concat(menosVistas(postosDe(g).flatMap(p=>BANCO[p.id]||[])).slice(0,n)); return; }
+    // específicos: percorre as matérias em rodízio para que todas apareçam
+    const filas = embaralhar(TRILHAS.filter(t=>t.bloco==="Conhecimentos Específicos")).map(t=>menosVistas(postosDe(t.id).flatMap(p=>BANCO[p.id]||[])));
+    let k = 0, pegos = 0; while(pegos < n){ const f = filas[k % filas.length]; if(f.length){ sel.push(f.shift()); pegos++; } k++; if(k > 2000) break; }
+  });
+  Q = {pid:null, modo:"simulado", i:0, imediato:false, inicio:Date.now(), itens: montarItens(sel)};
+  ir({tela:"prova"});
+}
+let relogio = null;
+const fmtTempo = ms => { const s = Math.max(0, Math.round(ms/1000)); return String(Math.floor(s/3600)).padStart(2,"0") + ":" + String(Math.floor(s%3600/60)).padStart(2,"0") + ":" + String(s%60).padStart(2,"0"); };
+function pararRelogio(){ if(relogio){ clearInterval(relogio); relogio = null; } }
+function iniciarRelogio(){
+  if(relogio) return;
+  relogio = setInterval(()=>{
+    if(!Q || Q.modo!=="simulado" || V.tela!=="prova"){ pararRelogio(); return; }
+    const resta = SIM_TEMPO - (Date.now() - Q.inicio), el = document.getElementById("relogio");
+    if(el) el.textContent = fmtTempo(resta);
+    if(resta <= 0){ pararRelogio(); corrigir(); }
+  }, 1000);
+}
+function telaSimulado(){
+  const hist = S.simulados.slice().reverse();
+  $app.innerHTML = `
+  <section class="topico">
+    <p class="eyebrow">Formato da prova objetiva · Vunesp</p>
+    <h2>Simulado</h2>
+    <p class="meta">50 questões em até 3 horas, na mesma proporção do edital. As questões saem do banco dos postos, priorizando as que você ainda não viu.</p>
+    <div class="caixa" style="margin-top:16px">${pesoProva()}</div>
+    <ul class="regras">
+      <li>Você pode pular questões e voltar a elas pelo mapa de respostas.</li>
+      <li>A correção aparece só no final, com o resultado por matéria.</li>
+      <li>Se sair no meio, o simulado é descartado.</li>
+    </ul>
+    <button class="btn full" id="sim-ini">Começar o simulado</button>
+    <h3 style="font-size:24px;margin:30px 0 8px">Seus simulados</h3>
+    ${hist.length ? `<div class="tabela"><table><tr><th>Data</th><th>Nota</th><th>Port.</th><th>Mat.</th><th>Leg. Mun.</th><th>Específicos</th><th>Tempo</th></tr>${hist.map(h=>`<tr><td>${new Date(h.data).toLocaleDateString("pt-BR")}</td><td><strong>${h.nota}/50</strong></td><td>${h.g.pt}/12</td><td>${h.g.mt}/6</td><td>${h.g.lm}/2</td><td>${h.g.ce}/30</td><td class="num">${fmtTempo(h.tempo)}</td></tr>`).join("")}</table></div>` : `<div class="vazio">Você ainda não fez nenhum simulado. O resultado de cada um fica guardado aqui para você acompanhar a evolução.</div>`}
+    <div style="height:40px"></div>
+  </section>`;
+  document.getElementById("sim-ini").onclick = iniciarSimulado;
+}
+
+/* ---------- Prova ---------- */
+function telaProva(){
+  const it = Q.itens[Q.i], ultima = Q.i===Q.itens.length-1, marc = !!S.marcadas[it.q.id];
+  const sim = Q.modo==="simulado", imed = Q.imediato && !sim, resp = !!it.resp;
+  const origem = sim ? `Simulado · ${POSTO[QIDX[it.q.id].pid].tr.nome}` : Q.modo==="erros" ? `Caderno de erros · ${POSTO[QIDX[it.q.id].pid].t}` : (Q.modo==="revisao" ? `Revisão · ${POSTO[Q.pid].t}` : POSTO[Q.pid].t);
+  const certa = it.ordem.findIndex(o=>o.certa);
+  const rotulo = imed && !resp ? "Responder" : (ultima ? (sim ? "Entregar" : (imed ? "Ver o resultado" : "Corrigir")) : "Próxima");
+  $app.innerHTML = `
+  <section class="topico">
+    <button class="voltar" id="sair">‹ Sair ${sim ? "do simulado" : "das questões"}</button>
+    <div id="conf-sair"></div>
+    <p class="meta">${origem}</p>
+    <div class="qtopo"><span class="num">Questão ${Q.i+1} de ${Q.itens.length}${sim ? ` · <strong id="relogio">${fmtTempo(SIM_TEMPO-(Date.now()-Q.inicio))}</strong>` : ""}</span><button class="marcar" id="marcar" aria-pressed="${marc}">${marc ? "Marcada para revisar" : "Marcar para revisar"}</button></div>
+    <div class="bar" aria-hidden="true"><i style="width:${(sim ? Q.itens.filter(x=>x.escolha!==null).length : Q.i)/Q.itens.length*100}%"></i></div>
+    <div class="qcard">
+      ${it.q.tx ? `<blockquote class="txt">${TEXTOS[it.q.tx]}</blockquote>` : ""}<p class="enun">${it.q.e}</p>
+      ${it.ordem.map((o,k)=>`<button class="alt ${resp ? (o.certa ? "certa" : (k===it.escolha ? "errada" : "")) : ""}" data-k="${k}" aria-pressed="${it.escolha===k}" ${resp?"disabled":""}><span class="l">${LETRAS[k]}</span><span>${o.txt}</span></button>`).join("")}
+      ${resp ? `<div class="fb ${acertou(it)?"ok":"bad"}"><strong>${acertou(it) ? "Você acertou." : `Resposta correta: ${LETRAS[certa]}.`}</strong><p>${it.q.c}</p></div>` : ""}
+    </div>
+    <div class="acoes">
+      <button class="btn sec" id="ant" ${Q.i===0?"disabled":""}>Anterior</button>
+      <button class="btn" id="prox" ${!sim && it.escolha===null?"disabled":""}>${rotulo}</button>
+    </div>
+    <div id="conf-fim"></div>
+    ${sim ? `<p class="eyebrow" style="margin:22px 0 8px">Mapa de respostas</p><div class="qmapa">${Q.itens.map((x,k)=>`<button data-q="${k}" class="${x.escolha!==null?"feita":""} ${S.marcadas[x.q.id]?"marc":""}" aria-current="${k===Q.i}">${k+1}</button>`).join("")}</div>` : `<p class="dica-tecla">No computador: teclas A a E escolhem a alternativa e Enter avança.</p>`}
+    <div style="height:30px"></div>
+  </section>`;
+  if(sim) iniciarRelogio();
+  $app.querySelectorAll(".alt").forEach(b=>b.onclick=()=>{ if(resp) return; const k = +b.dataset.k; it.escolha = (sim && it.escolha===k) ? null : k; telaProva(); });
+  $app.querySelectorAll("[data-q]").forEach(b=>b.onclick=()=>{ Q.i = +b.dataset.q; telaProva(); window.scrollTo(0,0); });
+  document.getElementById("marcar").onclick = ()=>{ if(S.marcadas[it.q.id]) delete S.marcadas[it.q.id]; else S.marcadas[it.q.id] = {pid: QIDX[it.q.id].pid, data: Date.now()}; salvar(); telaProva(); };
+  document.getElementById("ant").onclick = ()=>{ Q.i--; telaProva(); };
+  document.getElementById("prox").onclick = ()=>{
+    if(imed && !resp){ it.resp = true; telaProva(); return; }
+    if(!ultima){ Q.i++; telaProva(); window.scrollTo(0,0); return; }
+    if(!sim) return corrigir();
+    const faltam = Q.itens.filter(x=>x.escolha===null).length, c = document.getElementById("conf-fim");
+    c.innerHTML = `<div class="confirma"><p>${faltam ? `Faltam ${faltam} ${faltam===1?"questão":"questões"} sem resposta. ` : ""}Entregar o simulado agora?</p><button class="btn peq" id="fim-sim">Entregar</button><button class="btn sec peq" id="fim-nao">Continuar</button></div>`;
+    document.getElementById("fim-nao").onclick = ()=>{ c.innerHTML = ""; };
+    document.getElementById("fim-sim").onclick = ()=>corrigir();
+  };
+  document.getElementById("sair").onclick = ()=>{
+    const c = document.getElementById("conf-sair");
+    c.innerHTML = `<div class="confirma"><p>Sair agora descarta ${sim ? "este simulado" : "esta tentativa"}.</p><button class="btn peq" id="sair-sim">Sair</button><button class="btn sec peq" id="sair-nao">Continuar respondendo</button></div>`;
+    document.getElementById("sair-nao").onclick = ()=>{ c.innerHTML = ""; };
+    document.getElementById("sair-sim").onclick = ()=>{ const pid=Q.pid, m=Q.modo; Q=null; if(m==="erros") ir({tela:"erros"}); else if(m==="simulado") ir({tela:"simulado"}); else ir({tela:"posto", posto:pid, aba:"questoes"}); };
+  };
+}
+document.addEventListener("keydown", ev=>{
+  if(V.tela!=="prova" || !Q || ev.ctrlKey || ev.metaKey || ev.altKey || /INPUT|TEXTAREA/.test((ev.target||{}).tagName||"")) return;
+  const k = ev.key.toLowerCase(), i = "abcde".indexOf(k)>=0 ? "abcde".indexOf(k) : "12345".indexOf(k);
+  if(k.length===1 && i>=0){ const b = $app.querySelectorAll(".alt")[i]; if(b && !b.disabled){ ev.preventDefault(); b.click(); } }
+  else if(k==="enter" || k==="arrowright"){ const b = document.getElementById("prox"); if(b && !b.disabled && !document.getElementById("fim-sim")){ ev.preventDefault(); b.click(); } }
+  else if(k==="arrowleft"){ const b = document.getElementById("ant"); if(b && !b.disabled){ ev.preventDefault(); b.click(); } }
+});
+async function corrigir(){
+  pararRelogio();
+  const nota = Q.itens.filter(acertou).length;
+  let respondidasAgora = 0;
+  Q.itens.forEach(it=>{
+    if(it.escolha===null) return;
+    respondidasAgora++;
+    const id = it.q.id, tid = POSTO[QIDX[id].pid].tr.id, st = S.stat[tid] = S.stat[tid] || {r:0,c:0};
+    S.vistas[id] = (S.vistas[id]||0)+1; st.r++;
+    if(acertou(it)){ st.c++; if(S.erros[id]) S.corrigidas[id] = 1; S.certas[id] = 1; delete S.erros[id]; if(Q.modo==="erros") delete S.marcadas[id]; }
+    else { const e = S.erros[id] || {pid: QIDX[id].pid, vezes:0}; e.vezes++; e.data = Date.now(); S.erros[id] = e; }
+  });
+  if(Q.modo==="simulado"){
+    const g = {pt:0, mt:0, lm:0, ce:0};
+    Q.itens.forEach(it=>{ if(acertou(it)) g[grupoDe(QIDX[it.q.id].pid)]++; });
+    Q.tempo = Math.min(SIM_TEMPO, Date.now() - Q.inicio); Q.g = g;
+    S.simulados.push({data: Date.now(), nota, g, tempo: Q.tempo}); if(S.simulados.length > 60) S.simulados.shift();
+  } else if(Q.modo!=="erros"){
+    (S.tentativas[Q.pid] = S.tentativas[Q.pid] || []).push({nota, data:Date.now(), ids:Q.itens.map(it=>it.q.id)});
+    if(nota>=NOTA_MIN && !S.aprovados[Q.pid]){ S.aprovados[Q.pid] = {nota, data:Date.now()}; S.revisoes[Q.pid] = {etapa:0, prox: Date.now() + INTERVALOS[0]*DIA}; }
+    else if(Q.modo==="revisao"){
+      const rv = S.revisoes[Q.pid];
+      if(nota>=NOTA_MIN){ rv.etapa++; rv.prox = rv.etapa < INTERVALOS.length ? Date.now() + INTERVALOS[rv.etapa]*DIA : Infinity; }
+      else rv.prox = Date.now() + DIA;
+      Q.revEtapa = rv.etapa;
+    }
+  }
+  Q.nota = nota;
+  Q.ganho = registrarPontos(respondidasAgora);
+  await salvar();
+  ir({tela:"resultado"});
+}
+
+/* ---------- Resultado ---------- */
+function telaResultado(){
+  const sim = Q.modo==="simulado";
+  const ok = sim ? true : Q.modo==="erros" ? Q.nota >= Math.ceil(Q.itens.length*NOTA_MIN/N_QUESTOES) : Q.nota>=NOTA_MIN;
+  const revisao = Q.itens.map((it,n)=>{
+    const ac = acertou(it), certa = it.ordem.findIndex(o=>o.certa), branco = it.escolha===null;
+    if(sim && ac) return "";
+    return `<div class="rev ${ac?"ok":"bad"}"><div class="st"><span>Questão ${n+1}: ${ac?"acertou":(branco?"sem resposta":"errou")}</span>${ac || branco ? "" : `<span class="pill bad">Foi para o caderno de erros</span>`}</div>
+      ${it.q.tx ? `<blockquote class="txt">${TEXTOS[it.q.tx]}</blockquote>` : ""}<p>${it.q.e}</p>${ac || branco ? "" : `<p>Sua resposta: ${LETRAS[it.escolha]}) ${it.ordem[it.escolha].txt}</p>`}
+      <p><strong>Correta: ${LETRAS[certa]}) ${it.ordem[certa].txt}</strong></p><p class="ref">${it.q.c}</p></div>`;
+  }).join("");
+  let titulo, texto, botoes = "", extra = "";
+  if(sim){
+    titulo = "Simulado entregue.";
+    texto = `Você acertou ${Q.nota} de 50 em ${fmtTempo(Q.tempo)}. Na prova, cada questão vale um ponto.`;
+    extra = `<div class="tabela"><table><tr><th>Matéria</th><th>Acertos</th><th></th></tr>${SIM_GRUPOS.map(([g,nome,n])=>`<tr><td>${nome}</td><td class="num"><strong>${Q.g[g]}/${n}</strong></td><td style="width:40%"><span class="bar fina" style="margin:8px 0"><i style="width:${Q.g[g]/n*100}%"></i></span></td></tr>`).join("")}</table></div>`;
+    botoes = `<button class="btn" data-go="desempenho">Ver meu desempenho</button><button class="btn sec" data-go="simulado">Voltar aos simulados</button>`;
+  } else if(Q.modo==="erros"){
+    const restam = nErros();
+    titulo = ok ? "Bom treino." : "Continue treinando.";
+    texto = `As questões que você acertou saíram do caderno. Restam ${restam} ${restam===1?"questão":"questões"} erradas.`;
+    botoes = `${nErros()||nMarcadas() ? `<button class="btn" id="mais-erros">Treinar mais 10</button>` : ""}<button class="btn sec" data-go="painel">Voltar ao painel</button>`;
+  } else {
+    const p = POSTO[Q.pid], prox = POSTO[p.tr.id+"-"+(p.n+2)];
+    if(Q.modo==="revisao"){
+      titulo = ok ? "Revisão registrada." : "Revise o resumo e tente amanhã.";
+      texto = ok ? (Q.revEtapa < INTERVALOS.length ? `A próxima revisão deste posto será em ${INTERVALOS[Q.revEtapa]} dias.` : "Você concluiu as três revisões deste posto.") : "O posto volta para a lista de revisões amanhã.";
+      botoes = `${ok ? "" : `<button class="btn" id="resumo">Ler o resumo</button>`}<button class="btn sec" data-go="painel">Voltar ao painel</button>`;
+    } else {
+      titulo = ok ? (prox ? "Posto concluído." : "Matéria concluída.") : "Ainda não foi desta vez.";
+      texto = ok ? `${prox ? `Próximo: ${prox.t}. ` : `Você terminou ${p.tr.nome}. `}Este posto volta para revisão amanhã.` : `Você precisa de ${NOTA_MIN} acertos. Revise a correção abaixo e tente de novo: as questões serão outras.`;
+      botoes = `${ok && prox ? `<button class="btn" id="seguir">Ir para o próximo posto</button>` : (ok ? "" : `<button class="btn" id="denovo">Tentar de novo</button>`)}<button class="btn sec" id="trilha">Ver a matéria</button>`;
+    }
+  }
+  $app.innerHTML = `
+  <section class="topico">
+    <div class="res ${sim ? "neutro" : (ok?"ok":"bad")}">
+      <div class="nota num">${Q.nota}/${Q.itens.length}</div>
+      <h2>${titulo}</h2>
+      <p>${texto}</p>
+      ${extra}
+      ${Q.ganho>0 ? `<p class="ganho"><strong>+${fmt(Q.ganho)} pontos</strong> · ${nivelDe(calcPontos(S)).nome} · <button class="link" data-go="ranking">ver o ranking</button></p>` : `<p class="ganho meta">Sem pontos novos: só contam questões que você ainda não tinha acertado.</p>`}
+      <div class="acoes">${botoes}</div>
+    </div>
+    <h2 style="font-size:24px;margin:8px 0">${sim ? "Questões para rever" : "Correção comentada"}</h2>
+    ${revisao}
+  </section>`;
+  bindGo();
+  const s = document.getElementById("seguir"); if(s){ const p = POSTO[Q.pid]; s.onclick = ()=>ir({tela:"posto", posto:POSTO[p.tr.id+"-"+(p.n+2)].id, aba:"aula"}); }
+  const d = document.getElementById("denovo"); if(d) d.onclick = ()=>iniciarProva(Q.pid);
+  const t = document.getElementById("trilha"); if(t) t.onclick = ()=>ir({tela:"trilha", trilha:POSTO[Q.pid].tr.id});
+  const r = document.getElementById("resumo"); if(r) r.onclick = ()=>ir({tela:"posto", posto:Q.pid, aba:"resumo"});
+  const m = document.getElementById("mais-erros"); if(m) m.onclick = iniciarErros;
+}
+
+/* ---------- Caderno de erros ---------- */
+function telaErros(){
+  const ids = [...new Set([...Object.keys(S.erros), ...Object.keys(S.marcadas)])].filter(k=>QIDX[k]);
+  const porPosto = {};
+  ids.forEach(k=>{ const pid = QIDX[k].pid; (porPosto[pid] = porPosto[pid] || []).push(k); });
+  const grupos = Object.keys(porPosto).sort((a,b)=>POSTOS.indexOf(POSTO[a])-POSTOS.indexOf(POSTO[b]));
+  $app.innerHTML = `
+  <section class="topico">
+    <button class="voltar" data-go="painel">‹ Voltar ao painel</button>
+    <h2>Caderno de erros</h2>
+    <p class="meta">${nErros()} ${nErros()===1?"questão errada":"questões erradas"} · ${nMarcadas()} ${nMarcadas()===1?"marcada":"marcadas"} para revisar</p>
+    ${ids.length ? `<p style="margin:14px 0"><button class="btn full" id="treinar">Treinar ${Math.min(N_QUESTOES, ids.length)} questões do caderno</button></p>
+      <p class="historico">Ao acertar uma questão no treino, ela sai do caderno. As que você errou mais vezes aparecem primeiro.</p>
+      ${grupos.map(pid=>`<h3 style="font-size:22px;margin:22px 0 4px">${POSTO[pid].t}</h3><p class="meta">${POSTO[pid].tr.nome} · <button class="link" data-abrir="${pid}" data-aba="resumo">ler o resumo</button></p>
+        ${porPosto[pid].map(k=>{ const q = QIDX[k].q, e = S.erros[k];
+          return `<details class="rev ${e?"bad":"ok"}"><summary class="st" style="cursor:pointer"><span>${e ? `Errou ${e.vezes} ${e.vezes===1?"vez":"vezes"}` : "Marcada"}</span><span style="color:var(--ink);font-weight:500;flex:1 1 100%">${q.e}</span></summary>
+            ${q.tx ? `<blockquote class="txt">${TEXTOS[q.tx]}</blockquote>` : ""}<p><strong>Correta: ${q.a[0]}</strong></p><p class="ref">${q.c}</p></details>`; }).join("")}`).join("")}`
+    : `<div class="vazio" style="margin-top:16px"><strong>Seu caderno está vazio.</strong><br>Toda questão que você errar entra aqui automaticamente. Durante as questões, use “Marcar para revisar” para guardar também as que acertou no chute.</div>`}
+  </section>`;
+  bindGo(); bindPostos();
+  const t = document.getElementById("treinar"); if(t) t.onclick = iniciarErros;
+}
+
+/* ---------- Revisão do banco (visível só para o dono) ---------- */
+function telaBanco(){
+  const p = POSTO[V.posto], qs = BANCO[p.id] || [];
+  const nome = {1:"Fácil",2:"Média",3:"Difícil"};
+  const cont = [1,2,3].map(n=>`${nome[n]}: ${qs.filter(q=>q.n===n).length}`).join(" · ");
+  $app.innerHTML = `<section class="topico"><button class="voltar" id="voltar">‹ ${p.t}</button><h2>Banco de questões</h2><p class="meta">${qs.length} questões · ${cont} · a alternativa correta aparece em negrito</p>${qs.map((q,i)=>`<div class="rev ok"><div class="st">${i+1}. ${nome[q.n]||""} · ${q.id}</div>${q.tx?`<blockquote class="txt">${TEXTOS[q.tx]}</blockquote>`:""}<p>${q.e}</p><ol class="alts" type="A">${q.a.map((x,k)=>`<li>${k===0?`<strong>${x}</strong>`:x}</li>`).join("")}</ol><p class="ref">${q.c}</p></div>`).join("")}</section>`;
+  document.getElementById("voltar").onclick = ()=>ir({tela:"posto", aba:"questoes"});
+}
+
+/* ---------- Guia do TAF (Anexo II do edital) ---------- */
+function telaTAF(){
+  $app.innerHTML = `
+  <section class="topico">
+    <button class="voltar" data-go="painel">‹ Voltar ao painel</button>
+    <h2>Guia do Teste de Aptidão Física</h2>
+    <p class="meta">Edital 02/2026, Capítulo XIII e Anexo II · previsto para 05 e 06/06/2027</p>
+    <article class="aula">
+      <h3>Por que o TAF pesa tanto</h3>
+      <p>A nota final é a soma da prova objetiva (até 50 pontos) com a nota do TAF (até 100 pontos), e a maior nota no TAF é o primeiro critério de desempate. <span class="ref">(itens 13.31, 15.1 e 15.2)</span></p>
+      <h3>Como a nota é calculada</h3>
+      <p>Cada uma das cinco provas vale de 20 a 100 pontos, e a nota do TAF é a média das cinco. Para seguir no concurso, é preciso média de pelo menos 50 e no mínimo 20 pontos em cada prova. Não há segunda tentativa. <span class="ref">(itens 13.27 a 13.30)</span></p>
+      <h3>Índices mínimo (20 pontos) e máximo (100 pontos)</h3>
+      <div class="tabela"><table>
+        <tr><th>Prova</th><th>Feminino</th><th>Masculino</th></tr>
+        <tr><td>Barra fixa (isometria F / flexão M)</td><td>5 s a 45 s</td><td>3 a 11 repetições</td></tr>
+        <tr><td>Abdominal com flexão dos joelhos, 1 min</td><td>22 a 38</td><td>30 a 46</td></tr>
+        <tr><td>Flexão de braço, 1 min</td><td>12 a 28 (joelhos apoiados)</td><td>14 a 30</td></tr>
+        <tr><td>Corrida de 50 m</td><td>9”50 a 7”50</td><td>8”25 a 6”25</td></tr>
+        <tr><td>Corrida de 12 minutos</td><td>1.800 m a 2.600 m</td><td>2.200 m a 3.000 m</td></tr>
+      </table></div>
+      <blockquote><p><strong>Cuidado!</strong> Sem luvas na barra; na flexão masculina na barra não valem impulso, balanço ou kipping; repetições fora do padrão do Anexo II não contam.</p></blockquote>
+      <p class="ref">Fonte: Edital 02/2026 da Guarda Municipal de Campinas, Anexo II. Confira sempre o texto oficial.</p>
+    </article>
+  </section>`;
+  montarCaixas($app.querySelector("article.aula"));
+  bindGo();
+}
+
+document.getElementById("brand").onclick = ()=>ir({tela: (logado() && S.acesso) ? "painel" : "home"});
+migrar();
+atualizarConta();
+if(BK.modo==="firebase") iniciarFirebase();
+else if(BK.modo==="claude") iniciarClaude();
+else BK.pronto = true;
+render();
+</script>
+</body>
+</html>
