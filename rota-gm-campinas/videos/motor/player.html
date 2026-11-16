@@ -47,7 +47,7 @@ b{font-weight:700}
 .caso .porque{font:500 40px/1.3 Barlow;color:var(--muted);margin-top:22px;max-width:1500px}
 /* alerta */
 .alerta{background:var(--c2);flex-direction:row;align-items:center;gap:60px}
-.alerta .c1{flex:1.35}.alerta .c2{flex:1;text-align:center}
+.alerta .c1{flex:0 0 56%;min-width:0}.alerta .c2{flex:0 0 40%;min-width:0;text-align:center}
 .alerta .eb{color:var(--c);font-size:36px}
 .alerta h2{font:800 88px/1.04 "Barlow Condensed";margin:14px 0 30px}
 .alerta .ls{display:grid;gap:16px}
@@ -90,7 +90,7 @@ const TIPOS = {
  lista:c=>(c.sobre ? A("0","sobe",esc(c.sobre),"eb") : "") + A("0","sobe",esc(c.titulo),"fit","h2") + `<div class="ls">${(c.itens||[]).map((x,i)=>A(i+1,"sobe",`<i>${i+1}</i><span>${rico(x)}</span>`,"ln")).join("")}</div>`,
  versus:c=>{ let n = 0; const pn = (p)=>`<div class="pn cor-${p.cor}">${A("0","sobe",esc(p.rotulo||""),"eb")}${A("0","sobe",esc(p.titulo),"fit","h3")}${(p.itens||[]).map(x=>A(++n,"pop",rico(x),"item")).join("")}</div>`; return pn(c.a) + pn(c.b) + (c.titulo ? `<div class="topo">${A("0","pop","<span>"+esc(c.titulo)+"</span>")}</div>` : ""); },
  caso:c=>A("0","sobe",esc(c.sobre||"Na prática"),"eb") + A("0","sobe",esc(c.titulo||""),"fit","h2") + A("00","sobe",rico(c.texto),"card") + `<div class="ver">${A("s","bate",esc(c.selo),"selo")}${A("r","sobe","→ "+esc(c.resposta),"resp")}</div>` + (c.porque ? A("q","sobe",rico(c.porque),"porque") : ""),
- alerta:c=>`<div class="c1">${A("0","sobe",esc(c.rotulo||"Cai em prova"),"eb")}${A("00","sobe",esc(c.titulo),"fit","h2")}<div class="ls">${itens(c)}</div></div>` + (c.grande ? `<div class="c2">${A("g","bate",esc(c.grande),"grande")}${c.sub ? A("g","sobe",esc(c.sub),"sub") : ""}</div>` : ""),
+ alerta:c=>`<div class="c1">${A("0","sobe",esc(c.rotulo||"Cai em prova"),"eb")}${A("00","sobe",esc(c.titulo),"fit","h2")}<div class="ls">${itens(c)}</div></div>` + (c.grande ? `<div class="c2">${A("g","bate",esc(c.grande),"grande fit")}${c.sub ? A("g","sobe",esc(c.sub),"sub") : ""}</div>` : ""),
  resumo:c=>A("0","sobe",esc(c.sobre||"Resumindo"),"eb") + (c.linhas||[]).map((l,i)=>`<div class="rw cor-${l[2]||"blue"}">${A(i+1,"sobe",esc(l[0]),"ra")}${A(i+1,"sobe","→","st")}<div class="rb">${A(i+1,"pop","<span>"+esc(l[1])+"</span>")}</div></div>`).join("") + (c.final ? A("f","sobe",esc(c.final).replace(/\*(.+?)\*/,"<em>$1</em>"),"final") : ""),
  fim:c=>ESCUDO(170) + `<div class="nm">Rota GM Campinas</div><div class="sb">${esc(c.texto||"Agora faça as questões deste posto")}</div>`
 };

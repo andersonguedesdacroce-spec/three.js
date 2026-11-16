@@ -7,8 +7,8 @@ A cota da conta é de 10.000 créditos por ciclo; em 15/11/2026 ela se esgotou.
 | Posto | Vídeo | Duração |
 | --- | --- | --- |
 | cp-14 | Concussão, corrupção passiva, prevaricação e condescendência (aula inteira) | 3min32 |
-| gm-1 | Estatuto das Guardas: natureza, princípios e competências | cerca de 3min50 |
-| ctn-1 | Taxas e poder de polícia | cerca de 2min20 |
+| gm-1 | Estatuto das Guardas: natureza, princípios e competências | 3min47 |
+| ctn-1 | Taxas e poder de polícia | 2min18 |
 
 ## Roteiro pronto, falta só a narração
 Basta gerar a voz com o texto de `fonte/<posto>/narracao.txt` e rodar `motor/produzir.sh <posto> "<url>"`.
